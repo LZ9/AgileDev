@@ -14,7 +14,7 @@ import com.snxun.component.widget.base.ErrorLayout;
 import com.snxun.component.widget.base.LoadingLayout;
 import com.snxun.component.widget.base.NoDataLayout;
 import com.snxun.component.widget.base.TitleBarLayout;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.List;
 

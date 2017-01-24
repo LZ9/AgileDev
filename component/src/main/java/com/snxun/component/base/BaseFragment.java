@@ -11,7 +11,7 @@ import com.snxun.component.R;
 import com.snxun.component.widget.base.ErrorLayout;
 import com.snxun.component.widget.base.LoadingLayout;
 import com.snxun.component.widget.base.NoDataLayout;
-import com.trello.rxlifecycle.components.support.RxFragment;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 
 /**
