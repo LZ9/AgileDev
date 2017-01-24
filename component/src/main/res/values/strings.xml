@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Component</string>
+
+    <string name="loading">加载中</string>
+    <string name="no_data">暂无数据</string>
+    <string name="load_fail">加载失败</string>
+    <string name="load_finish">已经全部加载完毕了哟~</string>
+</resources>

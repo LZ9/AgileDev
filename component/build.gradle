@@ -1,14 +1,16 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
-        applicationId "com.lodz.android.agiledev"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
+
+
     }
     buildTypes {
         release {
@@ -19,5 +21,11 @@ android {
 }
 
 dependencies {
-    compile project(':component')
+    // 引用的库
+//    compile project(':imageloader')
+    compile project(':core')
+
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-android:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
 }
