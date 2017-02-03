@@ -2,7 +2,7 @@ package com.lodz.android.agiledev;
 
 import android.os.Bundle;
 
-import com.snxun.component.base.BaseActivity;
+import com.lodz.android.component.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
