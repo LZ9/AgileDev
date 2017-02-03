@@ -22,7 +22,6 @@ android {
 
 dependencies {
     // 引用的库
-//    compile project(':imageloader')
     compile project(':core')
 
     // RxJava
