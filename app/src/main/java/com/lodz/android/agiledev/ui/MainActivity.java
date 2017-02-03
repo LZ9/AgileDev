@@ -1,9 +1,10 @@
-package com.lodz.android.agiledev;
+package com.lodz.android.agiledev.ui;
 
 import android.os.Bundle;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.BaseActivity;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.utils.UriUtils;
