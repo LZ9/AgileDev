@@ -1,4 +1,4 @@
-package com.snxun.imageloader.fresco.impl;
+package com.lodz.android.imageloader.fresco.impl;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -9,7 +9,7 @@ import android.support.annotation.DrawableRes;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.imagepipeline.image.ImageInfo;
-import com.snxun.imageloader.R;
+import com.lodz.android.imageloader.R;
 
 /**
  * Fresco构建类

@@ -1,4 +1,4 @@
-package com.snxun.imageloader.contract;
+package com.lodz.android.imageloader.contract;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;

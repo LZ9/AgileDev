@@ -1,4 +1,4 @@
-package com.snxun.imageloader.utils;
+package com.lodz.android.imageloader.utils;
 
 import android.net.Uri;
 import android.support.annotation.DrawableRes;

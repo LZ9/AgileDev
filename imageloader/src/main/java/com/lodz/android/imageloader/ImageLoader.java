@@ -1,7 +1,7 @@
-package com.snxun.imageloader;
+package com.lodz.android.imageloader;
 
-import com.snxun.imageloader.contract.ImageLoaderContract;
-import com.snxun.imageloader.fresco.impl.FrescoImageLoader;
+import com.lodz.android.imageloader.contract.ImageLoaderContract;
+import com.lodz.android.imageloader.fresco.impl.FrescoImageLoader;
 
 /**
  * 图片加载器

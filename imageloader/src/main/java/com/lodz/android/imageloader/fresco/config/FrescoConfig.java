@@ -1,4 +1,4 @@
-package com.snxun.imageloader.fresco.config;
+package com.lodz.android.imageloader.fresco.config;
 
 import android.app.ActivityManager;
 import android.content.Context;

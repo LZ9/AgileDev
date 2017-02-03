@@ -1,4 +1,4 @@
-package com.snxun.imageloader.fresco.impl;
+package com.lodz.android.imageloader.fresco.impl;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -20,9 +20,9 @@ import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.snxun.imageloader.contract.ImageLoaderContract;
-import com.snxun.imageloader.fresco.config.ImageloaderManager;
-import com.snxun.imageloader.utils.blur.FastBlur;
+import com.lodz.android.imageloader.contract.ImageLoaderContract;
+import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
+import com.lodz.android.imageloader.utils.blur.FastBlur;
 
 /**
  * Fresco图片加载库

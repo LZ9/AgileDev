@@ -1,4 +1,4 @@
-package com.snxun.imageloader.utils.blur;
+package com.lodz.android.imageloader.utils.blur;
 
 import android.graphics.Bitmap;
 

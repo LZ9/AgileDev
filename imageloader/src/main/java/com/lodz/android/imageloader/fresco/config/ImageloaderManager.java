@@ -1,4 +1,4 @@
-package com.snxun.imageloader.fresco.config;
+package com.lodz.android.imageloader.fresco.config;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
