@@ -1,4 +1,4 @@
-package com.lodz.android.core.bean;
+package com.lodz.android.core.album;
 
 /**
  * 图片文件夹实体

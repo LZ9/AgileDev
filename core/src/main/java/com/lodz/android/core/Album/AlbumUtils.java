@@ -1,12 +1,10 @@
-package com.lodz.android.core.utils;
+package com.lodz.android.core.album;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-
-import com.lodz.android.core.bean.ImageFolder;
 
 import java.io.File;
 import java.io.FilenameFilter;

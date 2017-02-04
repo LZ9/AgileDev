@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.utils.network;
+package com.lodz.android.core.network;
 
 import android.support.annotation.IntDef;
 

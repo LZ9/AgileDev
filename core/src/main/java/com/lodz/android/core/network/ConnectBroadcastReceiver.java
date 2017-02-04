@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.utils.network;
+package com.lodz.android.core.network;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
