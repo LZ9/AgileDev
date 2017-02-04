@@ -40,6 +40,8 @@ public class FrescoBuilderBean {
     /** 默认模糊率 */
     private final static int DEFAULT_BLUR_RADIUS = 5;
 
+    /** 使用图片自适应 */
+    private final static boolean DEFAULT_USE_WRAP_IMAGE = false;
 
     /** 加载路径 */
     public Uri uri = null;
@@ -123,4 +125,6 @@ public class FrescoBuilderBean {
     /** 控制监听器 */
     public ControllerListener<? super ImageInfo> controllerListener;
 
+    /** 使用图片自适应 */
+    public boolean useWrapImage = DEFAULT_USE_WRAP_IMAGE;
 }

@@ -51,8 +51,8 @@ public interface ImageLoaderContract {
 
     /**
      * 设置图片在内存的大小，类似分辨率
-     * @param resizeWidth 宽
-     * @param resizeHeight 高
+     * @param resizeWidth 宽（单位px）
+     * @param resizeHeight 高（单位px）
      */
     ImageLoaderContract setResizeOptions(int resizeWidth, int resizeHeight);
 
@@ -64,8 +64,8 @@ public interface ImageLoaderContract {
 
     /**
      * 设置图片宽高
-     * @param width 宽
-     * @param height 高
+     * @param width 宽（单位px）
+     * @param height 高（单位px）
      */
     ImageLoaderContract setImageSize(int width, int height);
 
@@ -132,6 +132,25 @@ public interface ImageLoaderContract {
      * @param controllerListener 控制监听器
      */
     ImageLoaderContract setControllerListener(ControllerListener controllerListener);
+
+    /**
+     * 指定宽度，高度自适应图片
+     * @param width 宽（单位px）
+     */
+    ImageLoaderContract wrapImageHeight(int width);
+
+    /**
+     * 指定高度，宽度自适应图片
+     * @param height 高（单位px）
+     */
+    ImageLoaderContract wrapImageWidth(int height);
+
+    /**
+     * 宽、高都自适应图片
+     * 宽 >= 高：图片宽超过屏幕时，以屏幕的宽作为宽度来换算高度
+     * 宽 < 高：图片高超过屏幕时，以屏幕的高作为高度来换算宽度
+     */
+    ImageLoaderContract wrapImage();
 
     /** 装载图片 */
     void into(final SimpleDraweeView simpleDraweeView);

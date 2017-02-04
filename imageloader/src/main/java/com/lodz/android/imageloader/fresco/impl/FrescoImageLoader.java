@@ -1,6 +1,7 @@
 package com.lodz.android.imageloader.fresco.impl;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.ColorInt;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
@@ -17,9 +19,11 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.common.RotationOptions;
+import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.lodz.android.core.utils.ScreenUtils;
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
 import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
 import com.lodz.android.imageloader.utils.blur.FastBlur;
@@ -180,6 +184,26 @@ public class FrescoImageLoader implements ImageLoaderContract {
     }
 
     @Override
+    public ImageLoaderContract wrapImageHeight(int width) {
+        mFrescoBuilderBean.useWrapImage = true;
+        mFrescoBuilderBean.width = width;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract wrapImageWidth(int height) {
+        mFrescoBuilderBean.useWrapImage = true;
+        mFrescoBuilderBean.height = height;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract wrapImage() {
+        mFrescoBuilderBean.useWrapImage = true;
+        return this;
+    }
+
+    @Override
     public void into(SimpleDraweeView simpleDraweeView) {
         if (mFrescoBuilderBean == null || mFrescoBuilderBean.uri == null || simpleDraweeView == null){
             return;
@@ -198,7 +222,7 @@ public class FrescoImageLoader implements ImageLoaderContract {
             simpleDraweeView.setAspectRatio(bean.aspectRatio);//设置固定宽高比
         }
 
-        if (bean.width > 0 || bean.height > 0){//设置图片宽高
+        if (!bean.useWrapImage && (bean.width > 0 || bean.height > 0)){//设置图片宽高
             ViewGroup.LayoutParams layoutParams = simpleDraweeView.getLayoutParams();
             if (layoutParams == null){
                 layoutParams = new ViewGroup.LayoutParams(bean.width, bean.height);
@@ -274,16 +298,16 @@ public class FrescoImageLoader implements ImageLoaderContract {
 
     /**
      * 获取DraweeController
-     * @param simpleDraweeView 控件
+     * @param draweeView 控件
      * @param bean 构建类
      */
-    private DraweeController getDraweeController(SimpleDraweeView simpleDraweeView, FrescoBuilderBean bean) {
+    private DraweeController getDraweeController(SimpleDraweeView draweeView, FrescoBuilderBean bean) {
         return Fresco.newDraweeControllerBuilder()
-                .setOldController(simpleDraweeView.getController())
+                .setOldController(draweeView.getController())
                 .setImageRequest(getImageRequest(bean))
                 .setTapToRetryEnabled(ImageloaderManager.get().getBuilder().isTapToRetryEnabled()) // 开启重试功能
                 .setAutoPlayAnimations(ImageloaderManager.get().getBuilder().isAutoPlayAnimations()) // 自动播放gif动画
-                .setControllerListener(bean.controllerListener)
+                .setControllerListener(configControllerListener(draweeView, bean))
                 .build();
     }
 
@@ -331,5 +355,99 @@ public class FrescoImageLoader implements ImageLoaderContract {
         public void process(Bitmap bitmap) {
             FastBlur.blur(bitmap, this.radius, true);
         }
+    }
+
+    /**
+     * 配置ControllerListener
+     * @param draweeView 控件
+     * @param bean 构建类
+     */
+    private ControllerListener<? super ImageInfo> configControllerListener(final SimpleDraweeView draweeView, final FrescoBuilderBean bean) {
+        if (!bean.useWrapImage){
+            return bean.controllerListener;
+        }
+
+        return new BaseControllerListener<ImageInfo>(){
+            @Override
+            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+
+                if (bean.width > 0 && bean.height > 0){// 已经指定宽高
+                    setLayoutParams(draweeView, bean.width, bean.height);
+                    return;
+                }
+
+                int imageWidth = imageInfo.getWidth();// 图片宽
+                int imageHeight = imageInfo.getHeight();// 图片高
+                float aspectRatio = imageWidth / (imageHeight * 1.0f);// 图片宽高比
+
+                if (bean.width > 0 && bean.height == 0){// 指定宽度自适应高度
+                    setLayoutParams(draweeView, bean.width, getHeight(bean.width, aspectRatio));
+                    return;
+                }
+
+                if (bean.height > 0 && bean.width == 0){// 指定高度自适应宽度
+                    setLayoutParams(draweeView, getWidth(bean.height, aspectRatio), bean.height);
+                    return;
+                }
+
+                int screenWidth = ScreenUtils.getScreenWidth(draweeView.getContext());// 屏幕宽
+                int screenHeight = ScreenUtils.getScreenHeight(draweeView.getContext());// 屏幕高
+
+                if (imageWidth >= imageHeight){// 横向长方形（矩形）
+                    if (imageWidth > screenWidth){
+                        imageWidth = screenWidth;
+                        imageHeight = getHeight(imageWidth, aspectRatio);
+                    }
+                }else {// 纵向长方形
+                    if (imageHeight > screenHeight){
+                        if (getWidth(screenHeight, aspectRatio) > screenWidth){// 用高度换算后的宽度仍然大于屏幕宽度，则改用宽度换算
+                            imageWidth = screenWidth;
+                            imageHeight = getHeight(imageWidth, aspectRatio);
+                        } else {
+                            imageHeight = screenHeight;
+                            imageWidth = getWidth(imageHeight, aspectRatio);
+                        }
+                    }
+                }
+                // 宽高都自适应
+                setLayoutParams(draweeView, imageWidth, imageHeight);
+            }
+        };
+    }
+
+    /**
+     * 根据宽高比换算宽度
+     * @param height 高度
+     * @param aspectRatio 宽高比
+     */
+    private int getWidth(int height, float aspectRatio){
+        return (int) (height * aspectRatio);
+    }
+
+    /**
+     * 根据宽高比换算高度
+     * @param width 宽度
+     * @param aspectRatio 宽高比
+     * @return
+     */
+    private int getHeight(int width, float aspectRatio){
+        return (int) (width / aspectRatio);
+    }
+
+    /**
+     * 设置图片宽高
+     * @param draweeView 控件
+     * @param width 宽度
+     * @param height 高度
+     */
+    private void setLayoutParams(SimpleDraweeView draweeView, int width, int height) {
+        ViewGroup.LayoutParams layoutParams = draweeView.getLayoutParams();
+        if (layoutParams == null) {
+            layoutParams = new ViewGroup.LayoutParams(width, height);
+        } else {
+            layoutParams.width = width;
+            layoutParams.height = height;
+        }
+        draweeView.setLayoutParams(layoutParams);
     }
 }

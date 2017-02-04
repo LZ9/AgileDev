@@ -19,12 +19,23 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.drawee_view);
+        final SimpleDraweeView draweeView = (SimpleDraweeView) findViewById(R.id.drawee_view);
+        final SimpleDraweeView draweeView2 = (SimpleDraweeView) findViewById(R.id.drawee_view_2);
+//        String url = "http://ww1.sinaimg.cn/large/610dc034jw1f8kmud15q1j20u011hdjg.jpg";// 纵向长方形
+//        String url = "http://ww2.sinaimg.cn/large/610dc034jw1f978bh1cerj20u00u0767.jpg";// 矩形
+        String url = "http://ww2.sinaimg.cn/large/610dc034jw1f91ypzqaivj20u00k0jui.jpg";// 横向长方形
         ImageLoader.create()
-                .load(UriUtils.parseUrl("http://ww2.sinaimg.cn/large/610dc034jw1f978bh1cerj20u00u0767.jpg"))
-                .setImageScaleType(ScalingUtils.ScaleType.CENTER_CROP)
-                .setImageSize(DensityUtils.dp2px(getContext(), 200), DensityUtils.dp2px(getContext(), 200))
+                .load(UriUtils.parseUrl(url))
+                .setImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE)
+                .wrapImageWidth(DensityUtils.dp2px(getContext(), 200))
+//                .wrapImage()
                 .into(draweeView);
+
+        ImageLoader.create()
+                .load(UriUtils.parseUrl(url))
+                .setImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE)
+                .wrapImageHeight(DensityUtils.dp2px(getContext(), 200))
+                .into(draweeView2);
     }
 
     @Override

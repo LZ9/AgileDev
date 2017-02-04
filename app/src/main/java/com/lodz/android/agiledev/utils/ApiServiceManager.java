@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.utils.network;
+package com.lodz.android.agiledev.utils;
 
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
