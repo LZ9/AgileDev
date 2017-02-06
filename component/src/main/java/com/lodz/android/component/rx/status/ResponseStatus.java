@@ -7,6 +7,6 @@ package com.lodz.android.component.rx.status;
 public interface ResponseStatus {
 
     /** 数据是否返回成功 */
-    void isSuccess();
+    boolean isSuccess();
 
 }

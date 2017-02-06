@@ -1,11 +1,16 @@
 package com.lodz.android.component.rx.subscribe.observer;
 
+import com.lodz.android.component.rx.exception.DataException;
+import com.lodz.android.component.rx.exception.RxException;
+import com.lodz.android.component.rx.exception.RxExceptionFactory;
+import com.lodz.android.component.rx.status.ResponseStatus;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 
 /**
- * 默认的RX订阅者，对数据异常进行基础校验
+ * 默认的RX订阅者（无背压）
  * Created by zhouL on 2017/2/4.
  */
 public abstract class RxObserver<T> implements Observer<T> {
@@ -21,23 +26,43 @@ public abstract class RxObserver<T> implements Observer<T> {
     }
 
     @Override
-    public void onError(Throwable e) {
-//        try {
-//            RxException exception = RxExceptionFactory.create(t);
-//            exception.printStackTrace();
-//            networkErrorToast(exception);
-//            onError(exception, mIndex);
-//            mIndex++;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }finally {
-//            onErrorfinally();
-//        }
+    public void onError(Throwable t) {
+        try {
+            RxException exception = RxExceptionFactory.create(t);
+            exception.printStackTrace();
+            onRxError(exception);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            onErrorEnd();
+        }
     }
 
     @Override
     public void onNext(T t) {
+        try {
+            checkError(t);
+            onRxNext(t);
+        } catch (Exception e) {
+            e.printStackTrace();
+            onError(e);
+        }
+    }
 
+    /** 核对数据 */
+    private void checkError(T t) throws NullPointerException, RxException {
+        if (t == null) {
+            throw new NullPointerException("数据是空的");
+        }
+
+        if (t instanceof ResponseStatus) {
+            ResponseStatus status = (ResponseStatus) t;
+            if (!status.isSuccess()) {//服务端返回接口失败
+                DataException exception = new DataException("response fail");
+                exception.setData(status);
+                throw exception;
+            }
+        }
     }
 
     public abstract void onRxSubscribe(Disposable d);
@@ -48,6 +73,7 @@ public abstract class RxObserver<T> implements Observer<T> {
 
     public abstract void onRxComplete();
 
-    protected void onErrorfinally() {
-    }
+    /** onError执行完后会调用该方法 */
+    protected void onErrorEnd() {}
+
 }
