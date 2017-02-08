@@ -1,5 +1,6 @@
 package com.lodz.android.imageloader.fresco.impl;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -7,7 +8,9 @@ import android.net.Uri;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -23,7 +26,6 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.lodz.android.core.utils.ScreenUtils;
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
 import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
 import com.lodz.android.imageloader.utils.blur.FastBlur;
@@ -390,8 +392,8 @@ public class FrescoImageLoader implements ImageLoaderContract {
                     return;
                 }
 
-                int screenWidth = ScreenUtils.getScreenWidth(draweeView.getContext());// 屏幕宽
-                int screenHeight = ScreenUtils.getScreenHeight(draweeView.getContext());// 屏幕高
+                int screenWidth = getScreenWidth(draweeView.getContext());// 屏幕宽
+                int screenHeight = getScreenHeight(draweeView.getContext());// 屏幕高
 
                 if (imageWidth >= imageHeight){// 横向长方形（矩形）
                     if (imageWidth > screenWidth){
@@ -449,5 +451,27 @@ public class FrescoImageLoader implements ImageLoaderContract {
             layoutParams.height = height;
         }
         draweeView.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * 获得屏幕宽度
+     * @param context 上下文
+     */
+    private int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
+
+    /**
+     * 获得屏幕高度
+     * @param context 上下文
+     */
+    private int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
     }
 }
