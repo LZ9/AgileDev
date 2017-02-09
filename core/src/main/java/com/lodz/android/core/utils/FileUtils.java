@@ -88,7 +88,7 @@ public class FileUtils {
         }
 
         File newFile = createFile(file.getParent() + File.separator + newName);
-        return isFileExists(newFile) && file.renameTo(newFile);
+        return file.renameTo(newFile);
     }
 
     /**
