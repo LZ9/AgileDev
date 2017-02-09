@@ -1,5 +1,13 @@
 <resources>
 
+    <!-- 接口加载框 -->
+    <style name="ProgressStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
     <style name="BaseDialog" parent="Theme.AppCompat.Light.Dialog">
         <!--无边框-->

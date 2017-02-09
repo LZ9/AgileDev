@@ -46,7 +46,7 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void findViews() {
-        LayoutInflater.from(getContext()).inflate(R.layout.layout_no_data_view, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_no_data_layout, this);
         mNoDataImageView = (ImageView) findViewById(R.id.no_data_imageview);
         mNoDataTextView = (TextView) findViewById(R.id.no_data_textview);
     }

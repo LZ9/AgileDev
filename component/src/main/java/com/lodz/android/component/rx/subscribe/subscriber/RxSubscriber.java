@@ -7,7 +7,6 @@ import org.reactivestreams.Subscription;
  * 默认的RX订阅者（带背压）
  * Created by zhouL on 2017/2/6.
  */
-
 public abstract class RxSubscriber<T> implements Subscriber<T> {
 
     private Subscription mSubscription;

@@ -1,5 +1,6 @@
 package com.lodz.android.agiledev;
 
+import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
@@ -17,6 +18,7 @@ public class AgileDevApplication extends BaseApplication{
         initImageLoader();
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
+        FileManager.init();// 初始化文件管理
     }
 
     /** 初始化图片加载库 */
