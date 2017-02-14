@@ -15,7 +15,7 @@ public class PriorityThread extends Thread{
     }
 
     /**
-     * 设置android下线程优先级，【-20， 19】，高优先级 -> 低优先级.
+     * 设置android下线程优先级，【-20， 19】，高优先级 到 低优先级.
      * @param priority 优先级
      */
     public void setOSPriority(int priority) {
