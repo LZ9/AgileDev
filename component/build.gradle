@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 2
-        versionName "1.0.2"
+        versionName "1.0.3"
 
 
     }
@@ -28,7 +28,7 @@ android {
 
 dependencies {
     // 引用的库
-    compile project(':core')
+    compile 'cn.lodz:core:1.0.2'
 
     // RxJava
     compile 'io.reactivex.rxjava2:rxjava:2.0.5'
@@ -47,7 +47,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.0.2'//版本号
+//    publishVersion = '1.0.3'//版本号
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}

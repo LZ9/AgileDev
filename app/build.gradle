@@ -60,7 +60,8 @@ android {
 
 dependencies {
     compile project(':component')
-    compile project(':imageloader')
+    compile 'cn.lodz:ImagerLoader:1.0.1'
+
 
     // 权限申请
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
