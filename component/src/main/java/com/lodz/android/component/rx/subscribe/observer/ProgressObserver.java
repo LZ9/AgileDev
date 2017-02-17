@@ -20,12 +20,9 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class ProgressObserver<T> extends RxObserver<T>{
 
-    private Disposable mDisposable;
-
     @Override
     public void onRxSubscribe(Disposable d) {
         showProgress();
-        mDisposable = d;
         onPgSubscribe(d);
     }
 
@@ -133,9 +130,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
 
     /** 取消加载框 */
     private void cancelDialog() {
-        if (mDisposable != null){
-            mDisposable.dispose();
-        }
+        dispose();
         onPgCancel();
         dismissProgress();
     }
@@ -180,6 +175,11 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
     @Override
     protected void onErrorEnd() {
         super.onErrorEnd();
+        dismissProgress();
+    }
+
+    @Override
+    protected void onDispose() {
         dismissProgress();
     }
 

@@ -5,7 +5,6 @@ import com.lodz.android.component.rx.exception.RxException;
 import com.lodz.android.component.rx.exception.RxExceptionFactory;
 import com.lodz.android.component.rx.status.ResponseStatus;
 
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 
@@ -13,20 +12,20 @@ import io.reactivex.disposables.Disposable;
  * 网络接口使用的订阅者（无背压），主要对接口进行判断处理
  * Created by zhouL on 2017/2/4.
  */
-public abstract class RxObserver<T> implements Observer<T> {
+public abstract class RxObserver<T> extends BaseObserver<T> {
 
     @Override
-    public void onComplete() {
+    public void onBaseComplete() {
         onRxComplete();
     }
 
     @Override
-    public void onSubscribe(Disposable d) {
+    public void onBaseSubscribe(Disposable d) {
         onRxSubscribe(d);
     }
 
     @Override
-    public void onError(Throwable t) {
+    public void onBaseError(Throwable t) {
         try {
             RxException exception = RxExceptionFactory.create(t);
             exception.printStackTrace();
@@ -39,7 +38,7 @@ public abstract class RxObserver<T> implements Observer<T> {
     }
 
     @Override
-    public void onNext(T t) {
+    public void onBaseNext(T t) {
         try {
             checkError(t);
             onRxNext(t);

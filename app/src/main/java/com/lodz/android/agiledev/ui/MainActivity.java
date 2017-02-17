@@ -6,9 +6,17 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.BaseActivity;
+import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
+import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.utils.UriUtils;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity {
 
@@ -36,6 +44,49 @@ public class MainActivity extends BaseActivity {
                 .setImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE)
                 .wrapImageHeight(DensityUtils.dp2px(getContext(), 200))
                 .into(draweeView2);
+
+
+        ProgressObserver<Integer> observer = new ProgressObserver<Integer>() {
+            @Override
+            public void onPgSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onPgNext(Integer integer) {
+                PrintLog.d("testtag", integer + "");
+            }
+
+            @Override
+            public void onPgError(Throwable e) {
+
+            }
+
+            @Override
+            public void onPgComplete() {
+                PrintLog.i("testtag", "onPgComplete");
+            }
+        }.create(this);
+
+
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(final ObservableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; i < 3; i++) {
+                    final int finalI = i;
+                    UiHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            emitter.onNext(finalI);
+                            if (finalI == 2){
+                                emitter.onComplete();
+                            }
+                        }
+                    }, 2000);
+
+                }
+            }
+        }).subscribe(observer);
     }
 
     @Override

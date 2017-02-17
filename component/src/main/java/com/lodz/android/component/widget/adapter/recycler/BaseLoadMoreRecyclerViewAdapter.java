@@ -1,4 +1,4 @@
-package com.lodz.android.component.widget.adapter;
+package com.lodz.android.component.widget.adapter.recycler;
 
 
 import android.content.Context;
@@ -37,9 +37,9 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     private boolean isShowLoadFail = false;
 
     /** 加载更多回调 */
-    private OnLoadMoreLitener mOnLoadMoreLitener;
+    private OnLoadMoreListener mOnLoadMoreListener;
     /** 加载失败回调 */
-    private OnLoadFailClickLitener mOnLoadFailClickLitener;
+    private OnLoadFailClickListener mOnLoadFailClickListener;
 
     public BaseLoadMoreRecyclerViewAdapter(Context context) {
         super(context);
@@ -110,8 +110,8 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mOnLoadFailClickLitener != null){
-                        mOnLoadFailClickLitener.onClickLoadFail(mPage + 1, mSize);
+                    if (mOnLoadFailClickListener != null){
+                        mOnLoadFailClickListener.onClickLoadFail(mPage + 1, mSize);
                     }
                 }
             });
@@ -143,8 +143,8 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
 
         int loadIndex = mSize - mLoadIndex > 0 ? mLoadIndex : 0;// 计算预加载item的偏移量
         if ((getListItemCount() - loadIndex) == (position + 1) && isLoadMore && !isShowLoadFail){
-            if (mOnLoadMoreLitener != null){
-                mOnLoadMoreLitener.onLoadMore(mPage, (mPage + 1), mSize, position);
+            if (mOnLoadMoreListener != null){
+                mOnLoadMoreListener.onLoadMore(mPage, (mPage + 1), mSize, position);
             }
         }
     }
@@ -209,18 +209,18 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
 
     /**
      * 设置加载更多监听器
-     * @param litener 监听器
+     * @param Listener 监听器
      */
-    public void setOnLoadMoreLitener(OnLoadMoreLitener litener){
-        this.mOnLoadMoreLitener = litener;
+    public void setOnLoadMoreListener(OnLoadMoreListener Listener){
+        this.mOnLoadMoreListener = Listener;
     }
 
     /**
      * 设置加载失败点击监听器
-     * @param litener 监听器
+     * @param Listener 监听器
      */
-    public void setOnLoadFailClickLitener(OnLoadFailClickLitener litener){
-        this.mOnLoadFailClickLitener = litener;
+    public void setOnLoadFailClickListener(OnLoadFailClickListener Listener){
+        this.mOnLoadFailClickListener = Listener;
     }
 
     /** 加载完毕布局的ViewHolder */
@@ -244,7 +244,7 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         }
     }
 
-    public interface OnLoadMoreLitener {
+    public interface OnLoadMoreListener {
         /**
          * 加载更多
          * @param currentPage 当前页码
@@ -255,7 +255,7 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         void onLoadMore(int currentPage, int nextPage, int size, int position);
     }
 
-    public interface OnLoadFailClickLitener {
+    public interface OnLoadFailClickListener {
         /**
          * 点击加载失败
          * @param reloadPage 需要重载的页码

@@ -1,4 +1,4 @@
-package com.lodz.android.component.widget.adapter;
+package com.lodz.android.component.widget.adapter.recycler;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
