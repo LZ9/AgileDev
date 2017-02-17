@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity {
                         public void run() {
                             emitter.onNext(finalI);
                             if (finalI == 2){
-                                emitter.onComplete();
+                                emitter.onError(new NullPointerException("test"));
                             }
                         }
                     }, 2000);

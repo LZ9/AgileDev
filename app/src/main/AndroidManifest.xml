@@ -28,6 +28,8 @@
         <activity android:name=".ui.PremissionsActivity">
 
         </activity>
+
+        <meta-data android:value="errortag" android:name="error_tag"/>
     </application>
 
 </manifest>
