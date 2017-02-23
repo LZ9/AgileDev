@@ -29,6 +29,7 @@ public abstract class BaseApplication extends Application {
 
     /** 关闭所有Activity */
     public void finishActivities() {
+
         // 发送关闭事件
         EventBus.getDefault().post(new ActivityFinishEvent());
     }
