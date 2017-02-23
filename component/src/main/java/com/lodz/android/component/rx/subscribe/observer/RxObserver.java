@@ -1,6 +1,8 @@
 package com.lodz.android.component.rx.subscribe.observer;
 
 import com.lodz.android.component.rx.exception.DataException;
+import com.lodz.android.component.rx.exception.NetworkNoConnException;
+import com.lodz.android.component.rx.exception.NetworkTimeOutException;
 import com.lodz.android.component.rx.exception.RxException;
 import com.lodz.android.component.rx.exception.RxExceptionFactory;
 import com.lodz.android.component.rx.status.ResponseStatus;
@@ -29,7 +31,7 @@ public abstract class RxObserver<T> extends BaseObserver<T> {
         try {
             RxException exception = RxExceptionFactory.create(t);
             exception.printStackTrace();
-            onRxError(exception);
+            onRxError(exception, exception instanceof NetworkNoConnException || exception instanceof NetworkTimeOutException);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -68,7 +70,7 @@ public abstract class RxObserver<T> extends BaseObserver<T> {
 
     public abstract void onRxNext(T t);
 
-    public abstract void onRxError(Throwable e);
+    public abstract void onRxError(Throwable e, boolean isNetwork);
 
     public abstract void onRxComplete();
 

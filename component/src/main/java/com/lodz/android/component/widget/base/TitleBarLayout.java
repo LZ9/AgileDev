@@ -1,18 +1,21 @@
 package com.lodz.android.component.widget.base;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+import com.lodz.android.core.utils.DensityUtils;
 
 
 /**
@@ -21,14 +24,16 @@ import com.lodz.android.component.R;
  */
 public class TitleBarLayout extends LinearLayout{
 
-    /** 标题跟布局 */
-    private RelativeLayout mTitleRootLayout;
+    /** 返回按钮布局 */
+    private LinearLayout mBackLayout;
     /** 返回按钮 */
     private TextView mBackBtn;
     /** 标题 */
     private TextView mTitleTextView;
     /** 扩展区布局 */
     private LinearLayout mExpandLinearLayout;
+    /** 分割线 */
+    private View mDivideLineView;
 
     public TitleBarLayout(Context context) {
         super(context);
@@ -45,32 +50,52 @@ public class TitleBarLayout extends LinearLayout{
         init();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
     private void init() {
         findViews();
-        setListeners();
         initData();
     }
 
     private void findViews() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_title_layout, this);
-        mTitleRootLayout = (RelativeLayout) findViewById(R.id.title_root_layout);
+        LayoutInflater.from(getContext()).inflate(R.layout.component_view_title_layout, this);
+        mBackLayout = (LinearLayout) findViewById(R.id.back_layout);
         mBackBtn = (TextView) findViewById(R.id.back_btn);
         mTitleTextView = (TextView) findViewById(R.id.title_textview);
         mExpandLinearLayout = (LinearLayout) findViewById(R.id.expand_layout);
-    }
-
-    private void setListeners() {
-
+        mDivideLineView = findViewById(R.id.divide_line);
     }
 
     private void initData() {
         needBackButton(true);// 默认显示返回按钮
         needExpandView(false);// 默认不需要右侧扩展区域
+        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+    }
+
+    /**
+     * 需要显示返回按钮
+     * @param isNeed 是否需要
+     */
+    public void needBackButton(boolean isNeed){
+        mBackLayout.setVisibility(isNeed ? View.VISIBLE : View.GONE);
     }
 
     /** 请重写实现返回按钮监听 */
     public void setOnBackBtnClickListener(OnClickListener listener) {
-        mBackBtn.setOnClickListener(listener);
+        mBackLayout.setOnClickListener(listener);
+    }
+
+    /**
+     * 替换默认的返回按钮
+     * @param view 返回按钮的View
+     */
+    public void replaceBackBtn(View view){
+        mBackLayout.removeAllViews();
+        mBackLayout.addView(view);
     }
 
     /**
@@ -90,11 +115,19 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     /**
-     * 需要显示返回按钮
-     * @param isNeed 是否需要
+     * 设置返回按钮文字颜色
+     * @param colorRes 颜色资源id
      */
-    public void needBackButton(boolean isNeed){
-        mBackBtn.setVisibility(isNeed ? View.VISIBLE : View.GONE);
+    public void setBackBtnTextColor(@ColorRes int colorRes){
+        mBackBtn.setTextColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    /**
+     * 设置返回按钮文字大小
+     * @param size 文字大小（单位sp）
+     */
+    public void setBackBtnTextSize(float size){
+        mBackBtn.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
     /**
@@ -114,6 +147,22 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     /**
+     * 设置标题文字颜色
+     * @param colorRes 颜色资源id
+     */
+    public void setTitleTextColor(@ColorRes int colorRes){
+        mTitleTextView.setTextColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    /**
+     * 设置标题文字大小
+     * @param size 文字大小（单位sp）
+     */
+    public void setTitleTextSize(float size){
+        mTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
+    }
+
+    /**
      * 需要右侧扩展区
      * @param isNeed 是否需要
      */
@@ -130,19 +179,23 @@ public class TitleBarLayout extends LinearLayout{
         needExpandView(true);
     }
 
-    /**
-     * 设置标题栏背景色
-     * @param backgroundColor 背景色
-     */
-    public void setTitleBackgroundColor(@ColorRes int backgroundColor){
-        mTitleRootLayout.setBackgroundColor(ContextCompat.getColor(getContext(), backgroundColor));
+    /** 隐藏分割线 */
+    public void goneDivideLine(){
+        mDivideLineView.setVisibility(View.GONE);
+    }
+
+    /** 设置分割线颜色 */
+    public void setDivideLineColor(@ColorRes int colorRes){
+        mDivideLineView.setBackgroundColor(ContextCompat.getColor(getContext(), colorRes));
     }
 
     /**
-     * 设置标题栏背景图片
-     * @param drawableResId 背景图片
+     * 设置分割线高度
+     * @param height 高度（单位dp）
      */
-    public void setTitleBackgroundResource(@DrawableRes int drawableResId){
-        mTitleRootLayout.setBackgroundResource(drawableResId);
+    public void setDivideLineHeight(int height){
+        ViewGroup.LayoutParams layoutParams = mDivideLineView.getLayoutParams();
+        layoutParams.height = DensityUtils.dp2px(getContext(), height);
+        mDivideLineView.setLayoutParams(layoutParams);
     }
 }

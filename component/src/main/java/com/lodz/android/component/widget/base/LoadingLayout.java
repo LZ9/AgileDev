@@ -1,8 +1,14 @@
 package com.lodz.android.component.widget.base;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,7 +22,6 @@ import com.lodz.android.component.R;
  * 加载控件
  * Created by zhouL on 2016/11/17.
  */
-
 public class LoadingLayout extends LinearLayout{
 
     /** 进度条 */
@@ -39,19 +44,35 @@ public class LoadingLayout extends LinearLayout{
         init();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public LoadingLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+
     private void init() {
         findViews();
         initData();
     }
 
     private void findViews() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_loading_layout, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.component_view_loading_layout, this);
         mLoadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         mLoadingTipsTextView = (TextView) findViewById(R.id.loading_tips_textview);
     }
 
     private void initData() {
         needTips(true);// 默认需要
+        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.white));
+    }
+
+    /**
+     * 需要提示文字
+     * @param isNeed 是否需要
+     */
+    public void needTips(boolean isNeed){
+        mLoadingTipsTextView.setVisibility(isNeed ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -71,12 +92,32 @@ public class LoadingLayout extends LinearLayout{
     }
 
     /**
-     * 需要提示文字
-     * @param isNeed 是否需要
+     * 设置文字颜色
+     * @param colorRes 颜色资源id
      */
-    public void needTips(boolean isNeed){
-        mLoadingTipsTextView.setVisibility(isNeed ? View.VISIBLE : View.GONE);
+    public void setTipsTextColor(@ColorRes int colorRes){
+        mLoadingTipsTextView.setTextColor(ContextCompat.getColor(getContext(), colorRes));
     }
 
+    /**
+     * 设置文字大小
+     * @param size 文字大小（单位sp）
+     */
+    public void setTipsTextSize(float size){
+        mLoadingTipsTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
+    }
+
+    /**
+     * 设置进度条控件
+     * @param progressBar 进度条
+     */
+    public void setProgressBar(@NonNull ProgressBar progressBar){
+        mLoadingProgressBar = progressBar;
+    }
+
+    /** 获取进度条控件 */
+    public ProgressBar getProgressBar(){
+        return mLoadingProgressBar;
+    }
 
 }

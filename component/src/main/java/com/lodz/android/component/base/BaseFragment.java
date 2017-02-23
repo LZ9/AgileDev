@@ -44,7 +44,7 @@ public abstract class BaseFragment extends RxFragment implements IFragmentBackPr
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_base_layout, container, false);
+        return inflater.inflate(R.layout.component_fragment_base_layout, container, false);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.lodz.android.component.base;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +11,12 @@ import com.lodz.android.component.widget.base.ErrorLayout;
 import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.component.widget.base.NoDataLayout;
 import com.lodz.android.component.widget.base.TitleBarLayout;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-
-import java.util.List;
 
 /**
- * 基类Activity
+ * 基类Activity（带基础状态控件）
  * Created by zhouL on 2016/11/17.
  */
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends AbsActivity {
 
     /** 顶部标题布局 */
     private TitleBarLayout mTitleBarLayout;
@@ -36,19 +30,15 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     private ErrorLayout mErrorLayout;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(BaseApplication.get() != null){
-            BaseApplication.get().registerActivity(this);
-        }
-        startCreate();
-        setContentView(R.layout.activity_base_layout);
+    protected int getAbsLayoutId() {
+        return R.layout.component_activity_base_layout;
+    }
+
+    @Override
+    protected void afterSetContentView() {
+        super.afterSetContentView();
         initViews();
         setContainerView();
-        findViews(savedInstanceState);
-        setListeners();
-        initData();
-        endCreate();
     }
 
     /** 初始化基类的view */
@@ -58,7 +48,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mLoadingLayout = (LoadingLayout) findViewById(R.id.loading_layout);
         mNoDataLayout = (NoDataLayout) findViewById(R.id.no_data_layout);
         mErrorLayout = (ErrorLayout) findViewById(R.id.error_layout);
-        showStatusLoading();
     }
 
     /** 把内容布局设置进来 */
@@ -73,13 +62,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mContentLayout.addView(view, layoutParams);
     }
 
-    protected void startCreate() {}
-
+    @LayoutRes
     protected abstract int getLayoutId();
 
-    protected abstract void findViews(Bundle savedInstanceState);
-
-    protected void setListeners(){
+    @Override
+    protected void setListeners() {
+        super.setListeners();
         mTitleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,25 +83,17 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         });
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        showStatusLoading();
+    }
+
+    /** 点击标题栏的返回按钮 */
     protected void clickBackBtn() {}
 
+    /** 点击错误页面的重试按钮 */
     protected void clickReload() {}
-
-    protected void initData() {}
-
-    protected void endCreate() {}
-
-    protected Context getContext(){
-        return this;
-    }
-
-    @Override
-    public void finish() {
-        if(BaseApplication.get() != null){
-            BaseApplication.get().removeActivity(this);
-        }
-        super.finish();
-    }
 
     /** 显示无数据页面 */
     protected void showStatusNoData() {
@@ -147,6 +127,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mNoDataLayout.setVisibility(View.GONE);
     }
 
+    /** 隐藏TitleBar */
     protected void goneTitleBar(){
         mTitleBarLayout.setVisibility(View.GONE);
     }
@@ -169,61 +150,5 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     /** 获取加载失败界面 */
     protected ErrorLayout getErrorLayout(){
         return mErrorLayout;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager() != null){
-            List<Fragment> list = getSupportFragmentManager().getFragments();// 获取activity下的fragment
-            if (list != null && list.size() > 0){
-                for (Fragment fragment : list) {
-                    if (isFragmentConsumeBackPressed(fragment)){
-                        return;
-                    }
-                }
-            }
-        }
-        if (!onPressBack()){
-            super.onBackPressed();
-        }
-    }
-
-    /**
-     * 该fragment是否消耗了返回按钮事件
-     * @param fragment fragment
-     */
-    private boolean isFragmentConsumeBackPressed(Fragment fragment){
-        if (fragment == null){
-            return false;
-        }
-
-        // fragment底下还有子fragment
-        if (fragment.getChildFragmentManager() != null && fragment.getChildFragmentManager().getFragments() != null
-                && fragment.getChildFragmentManager().getFragments().size() > 0){
-            List<Fragment> list = fragment.getChildFragmentManager().getFragments();
-            for (Fragment f : list) {
-                if (isFragmentConsumeBackPressed(f)){
-                    return true;
-                }
-            }
-        }
-
-        // fragment底下没有子fragment或子fragment没有消费事件 则判断自己
-        if (fragment.getUserVisibleHint() && fragment.isVisible() && fragment instanceof IFragmentBackPressed){
-            if (fragment.getParentFragment() != null){
-                // 如果子fragment的父fragment没有显示，则不询问该fragment的返回事件（避免受预先初始化却没有展示到前端的fragment的影响）
-                if (!fragment.getParentFragment().getUserVisibleHint()){
-                    return false;
-                }
-            }
-            IFragmentBackPressed itf = (IFragmentBackPressed) fragment;
-            return itf.onPressBack();// fragment是否消耗返回按钮事件
-        }
-        return false;
-    }
-
-    /** 用户点击返回按钮 */
-    protected boolean onPressBack(){
-        return false;
     }
 }

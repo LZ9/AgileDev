@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onPgError(Throwable e) {
+            public void onPgError(Throwable e, boolean isNetwork) {
 
             }
 

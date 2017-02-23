@@ -9,6 +9,7 @@
         android:id="@+id/no_data_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:padding="10dp"
         android:scaleType="center"
         android:src="@drawable/ic_no_data" />

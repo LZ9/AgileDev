@@ -32,8 +32,8 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
     }
 
     @Override
-    public void onRxError(Throwable e) {
-        onPgError(e);
+    public void onRxError(Throwable e, boolean isNetwork) {
+        onPgError(e, isNetwork);
     }
 
     @Override
@@ -108,7 +108,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
 
     /** 获取一个加载框 */
     private AlertDialog getProgressDialog(@NonNull Context context, String msg, boolean cancelable) {
-        View view = LayoutInflater.from(context).inflate(R.layout.view_progress_layout, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.component_view_progress_layout, null);
         AlertDialog progressDialog = new AlertDialog.Builder(context, R.style.ProgressStyle)
                 .setView(view)
                 .create();
@@ -187,7 +187,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
 
     public abstract void onPgNext(T t);
 
-    public abstract void onPgError(Throwable e);
+    public abstract void onPgError(Throwable e, boolean isNetwork);
 
     public abstract void onPgComplete();
 

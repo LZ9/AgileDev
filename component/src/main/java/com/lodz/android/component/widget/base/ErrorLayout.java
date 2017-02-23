@@ -1,9 +1,14 @@
 package com.lodz.android.component.widget.base;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,13 +47,20 @@ public class ErrorLayout extends LinearLayout{
         init();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public ErrorLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+
     private void init() {
         findViews();
         initData();
     }
 
     private void findViews() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_error_layout, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.component_view_error_layout, this);
         mErrorRootLayout = (LinearLayout) findViewById(R.id.error_root_layout);
         mErrorImageView = (ImageView) findViewById(R.id.error_imageview);
         mErrorTipsTextView = (TextView) findViewById(R.id.error_tips_textview);
@@ -57,14 +69,7 @@ public class ErrorLayout extends LinearLayout{
     private void initData() {
         needImg(true);
         needTips(false);
-    }
-
-    /**
-     * 设置无数据图片
-     * @param drawableResId 图片资源id
-     */
-    public void setImg(@DrawableRes int drawableResId){
-        mErrorImageView.setImageResource(drawableResId);
+        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.white));
     }
 
     /**
@@ -73,6 +78,22 @@ public class ErrorLayout extends LinearLayout{
      */
     public void needImg(boolean isNeed){
         mErrorImageView.setVisibility(isNeed ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 需要提示文字
+     * @param isNeed 是否需要
+     */
+    public void needTips(boolean isNeed){
+        mErrorTipsTextView.setVisibility(isNeed ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 设置界面错误图片
+     * @param drawableResId 图片资源id
+     */
+    public void setImg(@DrawableRes int drawableResId){
+        mErrorImageView.setImageResource(drawableResId);
     }
 
     /**
@@ -92,11 +113,19 @@ public class ErrorLayout extends LinearLayout{
     }
 
     /**
-     * 需要提示文字
-     * @param isNeed 是否需要
+     * 设置文字颜色
+     * @param colorRes 颜色资源id
      */
-    public void needTips(boolean isNeed){
-        mErrorTipsTextView.setVisibility(isNeed ? View.VISIBLE : View.GONE);
+    public void setTipsTextColor(@ColorRes int colorRes){
+        mErrorTipsTextView.setTextColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    /**
+     * 设置文字大小
+     * @param size 文字大小（单位sp）
+     */
+    public void setTipsTextSize(float size){
+        mErrorTipsTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
     /**
