@@ -41,6 +41,8 @@ dependencies {
     // RxJava生命周期
     compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+    // EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 
 //publish {

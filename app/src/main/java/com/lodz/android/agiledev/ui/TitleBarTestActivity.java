@@ -1,5 +1,6 @@
 package com.lodz.android.agiledev.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -25,6 +26,25 @@ public class TitleBarTestActivity extends BaseActivity{
     @Override
     protected void findViews(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    protected void setListeners() {
+        super.setListeners();
+        findViewById(R.id.btn_call).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.btn_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PremissionsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

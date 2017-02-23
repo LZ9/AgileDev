@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.lodz.android.agiledev.AgileDevApplication;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.BaseActivity;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
@@ -78,9 +79,9 @@ public class MainActivity extends BaseActivity {
                         @Override
                         public void run() {
                             emitter.onNext(finalI);
-                            if (finalI == 2){
-                                emitter.onError(new NullPointerException("test"));
-                            }
+//                            if (finalI == 2){
+//                                emitter.onError(new NullPointerException("test"));
+//                            }
                         }
                     }, 2000);
 
@@ -93,5 +94,11 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         showStatusCompleted();
+    }
+
+    @Override
+    protected boolean onPressBack() {
+        AgileDevApplication.get().exit();
+        return true;
     }
 }
