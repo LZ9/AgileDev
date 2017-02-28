@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.base.BaseActivity;
+import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.core.utils.ToastUtils;
 
 import permissions.dispatcher.NeedsPermission;

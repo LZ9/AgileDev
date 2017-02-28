@@ -15,7 +15,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.fragment.TestFragment;
-import com.lodz.android.component.base.BaseActivity;
+import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.rx.subscribe.observer.RxObserver;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ScreenUtils;

@@ -10,7 +10,10 @@
     <string name="loading">加载中…</string>
     <string name="no_data">暂无数据…</string>
     <string name="load_fail">加载失败…</string>
-    <string name="load_finish">已经全部加载完毕了哟~</string>
 
+    <!-- 加载更多 -->
+    <string name="load_finish_tips">已经全部加载完毕了哟~</string>
+    <string name="loading_more_tips">努力为您加载中~</string>
+    <string name="load_fail_tips">加载失败，请点击重试~</string>
 
 </resources>

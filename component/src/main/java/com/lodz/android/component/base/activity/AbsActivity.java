@@ -1,4 +1,4 @@
-package com.lodz.android.component.base;
+package com.lodz.android.component.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.lodz.android.component.base.IFragmentBackPressed;
 import com.lodz.android.component.event.ActivityFinishEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -16,7 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 /**
- * 底层抽象Activity
+ * 底层抽象Activity（已经订阅了EventBus）
  * Created by zhouL on 2017/2/23.
  */
 public abstract class AbsActivity extends RxAppCompatActivity {

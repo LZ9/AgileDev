@@ -1,4 +1,4 @@
-package com.lodz.android.component.base;
+package com.lodz.android.component.base.activity;
 
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;

@@ -6,7 +6,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lodz.android.agiledev.AgileDevApplication;
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.base.BaseActivity;
+import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.DensityUtils;

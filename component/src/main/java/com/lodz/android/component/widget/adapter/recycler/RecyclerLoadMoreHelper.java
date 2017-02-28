@@ -33,6 +33,7 @@ public class RecyclerLoadMoreHelper<T> {
         mAdapter.setLoadMoreParam(sumSize, size, isShowBottomLayout);
         mAdapter.setLoadIndex(index);
         mAdapter.setIsLoadMore(true);
+        mAdapter.setIsShowLoadFail(false);
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }
