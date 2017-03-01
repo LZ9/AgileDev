@@ -8,6 +8,7 @@ import com.lodz.android.agiledev.AgileDevApplication;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
+import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.UiHandler;
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity {
 
                 }
             }
-        }).subscribe(observer);
+        }).compose(RxUtils.<Integer>io_main()).subscribe(observer);
     }
 
     @Override
