@@ -1,4 +1,4 @@
-package com.lodz.android.component.base;
+package com.lodz.android.component.base.fragment;
 
 /**
  * 让Fragment实现返回按钮监听接口

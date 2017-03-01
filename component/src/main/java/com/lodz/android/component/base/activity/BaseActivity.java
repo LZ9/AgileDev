@@ -38,6 +38,7 @@ public abstract class BaseActivity extends AbsActivity {
     protected void afterSetContentView() {
         super.afterSetContentView();
         initViews();
+        showStatusLoading();
         setContainerView();
     }
 
@@ -81,12 +82,6 @@ public abstract class BaseActivity extends AbsActivity {
                 clickReload();
             }
         });
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-        showStatusLoading();
     }
 
     /** 点击标题栏的返回按钮 */

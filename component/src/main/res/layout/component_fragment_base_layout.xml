@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,7 +7,6 @@
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -17,7 +16,6 @@
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:visibility="gone">
 
     </com.lodz.android.component.widget.base.LoadingLayout>
@@ -26,7 +24,6 @@
         android:id="@+id/no_data_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:visibility="gone">
 
     </com.lodz.android.component.widget.base.NoDataLayout>
@@ -35,9 +32,8 @@
         android:id="@+id/error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:visibility="gone">
 
     </com.lodz.android.component.widget.base.ErrorLayout>
 
-</RelativeLayout>
+</FrameLayout>

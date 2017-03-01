@@ -6,7 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.lodz.android.component.base.IFragmentBackPressed;
+import com.lodz.android.component.base.fragment.IFragmentBackPressed;
 import com.lodz.android.component.event.ActivityFinishEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 

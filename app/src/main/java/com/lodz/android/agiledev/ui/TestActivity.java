@@ -15,7 +15,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.fragment.TestFragment;
-import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.rx.subscribe.observer.RxObserver;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ScreenUtils;
@@ -36,7 +36,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zhouL on 2017/2/22.
  */
 
-public class TestActivity extends BaseActivity{
+public class TestActivity extends AbsActivity{
 
 
     /** 详情页tab名称 */
@@ -52,8 +52,13 @@ public class TestActivity extends BaseActivity{
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     SimpleDraweeView mBgDraweeView;
 
+//    @Override
+//    protected int getLayoutId() {
+//        return R.layout.activity_test_layout;
+//    }
+
     @Override
-    protected int getLayoutId() {
+    protected int getAbsLayoutId() {
         return R.layout.activity_test_layout;
     }
 
@@ -91,18 +96,18 @@ public class TestActivity extends BaseActivity{
     @Override
     protected void initData() {
         super.initData();
-        goneTitleBar();
+//        goneTitleBar();
         initViewPager();
-        showStatusLoading();
+//        showStatusLoading();
         reuqestData();
     }
 
-    @Override
-    protected void clickReload() {
-        super.clickReload();
-        showStatusLoading();
-        reuqestData();
-    }
+//    @Override
+//    protected void clickReload() {
+//        super.clickReload();
+//        showStatusLoading();
+//        reuqestData();
+//    }
 
     /** 请求数据 */
     private void reuqestData() {
@@ -140,12 +145,12 @@ public class TestActivity extends BaseActivity{
                     public void onRxNext(String str) {
                         initCollapsingToolbarLayout(str);
                         showBgImg("http://p.jianke.net/article/201507/20150709164730105.jpg");
-                        showStatusCompleted();
+//                        showStatusCompleted();
                     }
 
                     @Override
                     public void onRxError(Throwable e, boolean isNetwork) {
-                        showStatusError();
+//                        showStatusError();
                     }
 
                     @Override
@@ -168,7 +173,7 @@ public class TestActivity extends BaseActivity{
 
     /** 初始化ViewPager */
     private void initViewPager() {
-        mViewPager.setOffscreenPageLimit(tabNameResId.length);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(new LessonTabAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
     }
