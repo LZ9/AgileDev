@@ -34,6 +34,7 @@ public abstract class RxObserver<T> extends BaseObserver<T> {
             onRxError(exception, exception instanceof NetworkNoConnException || exception instanceof NetworkTimeOutException);
         } catch (Exception e) {
             e.printStackTrace();
+            onRxError(e, false);
         }finally {
             onErrorEnd();
         }

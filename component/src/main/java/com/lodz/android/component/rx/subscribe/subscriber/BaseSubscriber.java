@@ -1,4 +1,4 @@
-package com.lodz.android.component.rx.subscribe.observer;
+package com.lodz.android.component.rx.subscribe.subscriber;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -7,23 +7,23 @@ import android.text.TextUtils;
 import com.lodz.android.component.base.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 /**
- * 基类订阅者（无背压）
- * Created by zhouL on 2017/2/17.
+ * 基类订阅者（带背压）
+ * Created by zhouL on 2017/3/1.
  */
-public abstract class BaseObserver<T> implements Observer<T> {
+public abstract class BaseSubscriber<T> implements Subscriber<T> {
 
     private String ERROR_TAG = "error_tag";
 
-    private Disposable mDisposable;
+    private Subscription mSubscription;
 
     @Override
-    public void onSubscribe(Disposable d) {
-        this.mDisposable = d;
-        onBaseSubscribe(d);
+    public void onSubscribe(Subscription s) {
+        mSubscription = s;
+        onBaseSubscribe(s);
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
         try {
             ApplicationInfo appInfo = BaseApplication.get().getPackageManager()
                     .getApplicationInfo(BaseApplication.get().getPackageName(), PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null && !TextUtils.isEmpty(appInfo.metaData.getString(ERROR_TAG))){
+            if (appInfo.metaData != null && !TextUtils.isEmpty(appInfo.metaData.getString(ERROR_TAG))) {
                 PrintLog.e(appInfo.metaData.getString(ERROR_TAG), t.toString());
             }
         } catch (Exception e) {
@@ -50,22 +50,28 @@ public abstract class BaseObserver<T> implements Observer<T> {
         onBaseComplete();
     }
 
-    public Disposable getDisposable(){
-        return mDisposable;
+    public Subscription getSubscription() {
+        return mSubscription;
     }
 
-    public void clearDisposable(){
-        mDisposable = null;
+    public void clearSubscription(){
+        mSubscription = null;
     }
 
-    public void dispose(){
-        if (mDisposable != null){
-            mDisposable.dispose();
-            onDispose();
+    public void cancel(){
+        if (mSubscription != null){
+            mSubscription.cancel();
+            onCancel();
         }
     }
 
-    public abstract void onBaseSubscribe(Disposable d);
+    public void request(long n){
+        if (mSubscription != null){
+            mSubscription.request(n);
+        }
+    }
+
+    public abstract void onBaseSubscribe(Subscription s);
 
     public abstract void onBaseNext(T t);
 
@@ -73,5 +79,5 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     public abstract void onBaseComplete();
     /** 取消订阅时回调 */
-    protected void onDispose(){}
+    protected void onCancel(){}
 }

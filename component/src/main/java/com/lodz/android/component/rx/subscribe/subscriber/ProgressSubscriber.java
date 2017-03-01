@@ -1,4 +1,4 @@
-package com.lodz.android.component.rx.subscribe.observer;
+package com.lodz.android.component.rx.subscribe.subscriber;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,18 +12,17 @@ import android.widget.TextView;
 import com.lodz.android.component.R;
 import com.lodz.android.core.utils.UiHandler;
 
-import io.reactivex.disposables.Disposable;
+import org.reactivestreams.Subscription;
 
 /**
- * 展示加载框的订阅者（无背压）
- * Created by zhouL on 2017/2/9.
+ * 展示加载框的订阅者（带背压）
+ * Created by zhouL on 2017/3/1.
  */
-public abstract class ProgressObserver<T> extends RxObserver<T>{
-
+public abstract class ProgressSubscriber<T> extends RxSubscriber<T>{
     @Override
-    public void onRxSubscribe(Disposable d) {
+    public void onRxSubscribe(Subscription s) {
         showProgress();
-        onPgSubscribe(d);
+        onPgSubscribe(s);
     }
 
     @Override
@@ -49,7 +48,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
      * 创建加载框
      * @param context 上下文
      */
-    public ProgressObserver<T> create(@NonNull Context context) {
+    public ProgressSubscriber<T> create(@NonNull Context context) {
         return create(context, "", true);
     }
 
@@ -58,7 +57,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
      * @param context 上下文
      * @param cancelable 是否可取消
      */
-    public ProgressObserver<T> create(@NonNull Context context, boolean cancelable) {
+    public ProgressSubscriber<T> create(@NonNull Context context, boolean cancelable) {
         return create(context, "", cancelable);
     }
 
@@ -68,7 +67,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
      * @param strResId 提示信息资源id
      * @param cancelable 是否可取消
      */
-    public ProgressObserver<T> create(@NonNull Context context, int strResId, boolean cancelable) {
+    public ProgressSubscriber<T> create(@NonNull Context context, int strResId, boolean cancelable) {
         return create(context, context.getString(strResId), cancelable);
     }
 
@@ -76,7 +75,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
      * 创建加载框
      * @param dialog 自定义加载框
      */
-    public ProgressObserver<T> create(@NonNull AlertDialog dialog){
+    public ProgressSubscriber<T> create(@NonNull AlertDialog dialog){
         try {
             mProgressDialog = dialog;
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -97,7 +96,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
      * @param msg 提示信息
      * @param cancelable 是否可取消
      */
-    public ProgressObserver<T> create(@NonNull Context context, String msg, boolean cancelable) {
+    public ProgressSubscriber<T> create(@NonNull Context context, String msg, boolean cancelable) {
         try {
             mProgressDialog = getProgressDialog(context, msg, cancelable);
         }catch (Exception e){
@@ -130,11 +129,10 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
 
     /** 取消加载框 */
     private void cancelDialog() {// 用户关闭
-        dispose();
+        cancel();
         onPgCancel();
         dismissProgress();
     }
-
 
     /** 显示加载框 */
     private void showProgress(){
@@ -179,11 +177,11 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
     }
 
     @Override
-    protected void onDispose() {// 开发者取消
+    protected void onCancel() {// 开发者关闭
         dismissProgress();
     }
 
-    public abstract void onPgSubscribe(Disposable d);
+    public abstract void onPgSubscribe(Subscription s);
 
     public abstract void onPgNext(T t);
 
