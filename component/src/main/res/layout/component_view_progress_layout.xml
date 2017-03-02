@@ -23,8 +23,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="asedasdasdasdsadsad"
         android:textColor="@android:color/white"
         android:textSize="12sp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </RelativeLayout>
