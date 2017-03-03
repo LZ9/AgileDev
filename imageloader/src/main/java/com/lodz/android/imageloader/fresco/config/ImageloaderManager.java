@@ -2,8 +2,11 @@ package com.lodz.android.imageloader.fresco.config;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+
+import java.io.File;
 
 /**
  * Fresco管理类
@@ -95,6 +98,10 @@ public class ImageloaderManager {
         private boolean tapToRetryEnabled = false;
         /** 自动播放gif动画 */
         private boolean autoPlayAnimations = true;
+        /** 图片缓存目录 */
+        private File directoryFile;
+        /** 缓存图片文件夹名称 */
+        private String directoryName;
 
         /**
          * 设置占位符图片
@@ -142,6 +149,24 @@ public class ImageloaderManager {
         }
 
         /**
+         * 设置图片缓存目录文件
+         * @param file 图片缓存目录文件
+         */
+        public Builder setDirectoryFile(@NonNull File file) {
+            this.directoryFile = file;
+            return this;
+        }
+
+        /**
+         * 设置缓存图片文件夹名称
+         * @param name 缓存图片文件夹名称
+         */
+        public Builder setDirectoryName(@NonNull String name) {
+            this.directoryName = name;
+            return this;
+        }
+
+        /**
          * 完成构建并初始化
          * @param context 上下文
          */
@@ -172,6 +197,16 @@ public class ImageloaderManager {
         /** 自动播放gif动画 */
         public boolean isAutoPlayAnimations() {
             return autoPlayAnimations;
+        }
+
+        /** 获取图片缓存目录文件 */
+        public File getDirectoryFile() {
+            return directoryFile;
+        }
+
+        /** 获取缓存图片文件夹名称 */
+        public String getDirectoryName() {
+            return directoryName;
         }
 
     }

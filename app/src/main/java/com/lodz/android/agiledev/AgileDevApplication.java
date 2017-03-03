@@ -15,10 +15,10 @@ import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
 public class AgileDevApplication extends BaseApplication{
     @Override
     protected void afterCreate() {
-        initImageLoader();
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
         FileManager.init();// 初始化文件管理
+        initImageLoader();
     }
 
     /** 初始化图片加载库 */
@@ -26,8 +26,11 @@ public class AgileDevApplication extends BaseApplication{
         ImageloaderManager.get().newBuilder()
                 .setPlaceholderResId(R.drawable.ic_launcher)//设置默认占位符
                 .setErrorResId(R.drawable.ic_launcher)// 设置加载失败图
+//                .setRetryResId(R.drawable.ic_launcher)// 设置默认重载图片
                 .setTapToRetryEnabled(false)// 开启加载失败重试
                 .setAutoPlayAnimations(true)// 开启GIF自动播放
+                .setDirectoryFile(this.getApplicationContext().getCacheDir())
+                .setDirectoryName("image_cache")
                 .build(this);
     }
 

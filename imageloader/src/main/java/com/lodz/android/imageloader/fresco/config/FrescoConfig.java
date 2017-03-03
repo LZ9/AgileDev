@@ -4,9 +4,11 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.cache.disk.DiskCacheConfig;
+import com.facebook.common.file.FileUtils;
 import com.facebook.common.internal.Supplier;
 import com.facebook.common.logging.FLog;
 import com.facebook.common.memory.MemoryTrimType;
@@ -61,9 +63,32 @@ public class FrescoConfig {
      * @param context 上下文
      */
     private DiskCacheConfig getDiskCacheConfig(Context context){
-        File fileCacheDir = context.getApplicationContext().getCacheDir();//使用应用路径作为缓存文件夹
+        // 获取配置缓存文件夹名称
+        String directoryName = ImageloaderManager.get().getBuilder().getDirectoryName();
+        if (TextUtils.isEmpty(directoryName)){
+            directoryName = IMAGE_PIPELINE_CACHE_DIR;
+        }
+
+        // 获取配置缓存文件路径文件
+        File fileCacheDir = ImageloaderManager.get().getBuilder().getDirectoryFile();
+
+        if (fileCacheDir == null){
+            fileCacheDir = context.getApplicationContext().getCacheDir();//使用应用路径作为缓存文件夹
+        }else {
+            if (!fileCacheDir.exists()){// 传入的文件路径未创建，则创建该文件
+                try {
+                    FileUtils.mkdirs(fileCacheDir);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (!fileCacheDir.exists()){// 创建失败则使用默认路径
+                fileCacheDir = context.getApplicationContext().getCacheDir();
+            }
+        }
+
         return DiskCacheConfig.newBuilder(context)
-                .setBaseDirectoryName(IMAGE_PIPELINE_CACHE_DIR)// 文件夹名称
+                .setBaseDirectoryName(directoryName)// 文件夹名称
                 .setBaseDirectoryPath(fileCacheDir)// 文件夹路径
                 .build();
     }

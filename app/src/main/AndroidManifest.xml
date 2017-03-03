@@ -21,7 +21,11 @@
         <meta-data android:value="errortag" android:name="error_tag"/>
 
         <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.PremissionsActivity">
@@ -29,11 +33,7 @@
         </activity>
 
         <activity android:name=".ui.TestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.Test2Activity">
