@@ -2,12 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lodz.android.agiledev">
 
+    <!-- 联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 拨打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 震动 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
+    <!-- 写存储 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 读存储 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
@@ -21,11 +29,7 @@
         <meta-data android:value="errortag" android:name="error_tag"/>
 
         <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.PremissionsActivity">
@@ -47,6 +51,14 @@
 
         <activity android:name=".ui.refresh.RefreshTestActivity">
 
+        </activity>
+
+        <activity android:name=".ui.drag.DragRecyclerViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>

@@ -50,24 +50,24 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     /** 设置点击事件 */
-    protected void setItemClick(RecyclerView.ViewHolder holder, final int position) {
+    protected void setItemClick(final RecyclerView.ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(position >= 0 && mOnItemClickLitener != null) {
-                    mOnItemClickLitener.onItemClick(v, getItem(position), position);
+                    mOnItemClickLitener.onItemClick(holder, getItem(position), position);
                 }
             }
         });
     }
 
     /** 设置长按事件 */
-    protected void setItemLongClick(RecyclerView.ViewHolder holder, final int position) {
+    protected void setItemLongClick(final RecyclerView.ViewHolder holder, final int position) {
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if (position >= 0 && mOnItemLongClickLitener != null){
-                    mOnItemLongClickLitener.onItemLongClick(v, getItem(position), position);
+                    mOnItemLongClickLitener.onItemLongClick(holder, getItem(position), position);
                 }
                 return false;
             }
@@ -118,10 +118,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     public interface OnItemClickLitener<T> {
-        void onItemClick(View view, T item, int position);
+        void onItemClick(RecyclerView.ViewHolder viewHolder, T item, int position);
     }
 
     public interface OnItemLongClickLitener<T> {
-        void onItemLongClick(View view, T item, int position);
+        void onItemLongClick(RecyclerView.ViewHolder viewHolder, T item, int position);
     }
 }

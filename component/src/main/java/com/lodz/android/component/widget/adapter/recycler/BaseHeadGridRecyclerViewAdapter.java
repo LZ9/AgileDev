@@ -65,24 +65,24 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
     }
 
     @Override
-    protected void setItemClick(RecyclerView.ViewHolder holder, final int position) {
+    protected void setItemClick(final RecyclerView.ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(position > 0 && mOnItemClickLitener != null) {
-                    mOnItemClickLitener.onItemClick(v, getItemUnderHead(position), position - 1);
+                    mOnItemClickLitener.onItemClick(holder, getItemUnderHead(position), position - 1);
                 }
             }
         });
     }
 
     @Override
-    protected void setItemLongClick(RecyclerView.ViewHolder holder, final int position) {
+    protected void setItemLongClick(final RecyclerView.ViewHolder holder, final int position) {
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if (position > 0 && mOnItemLongClickLitener != null){
-                    mOnItemLongClickLitener.onItemLongClick(v, getItemUnderHead(position), position - 1);
+                    mOnItemLongClickLitener.onItemLongClick(holder, getItemUnderHead(position), position - 1);
                 }
                 return false;
             }
