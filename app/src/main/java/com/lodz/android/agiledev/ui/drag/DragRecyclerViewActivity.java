@@ -62,7 +62,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
     @Override
     protected void setListeners() {
         super.setListeners();
-        mAdapter.setOnItemLongClickLitener(new BaseRecyclerViewAdapter.OnItemLongClickLitener<String>() {
+        mAdapter.setOnItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<String>() {
             @Override
             public void onItemLongClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
 //                if (viewHolder.getLayoutPosition() != mList.size() - 1){

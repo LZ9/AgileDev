@@ -69,8 +69,8 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(position > 0 && mOnItemClickLitener != null) {
-                    mOnItemClickLitener.onItemClick(holder, getItemUnderHead(position), position - 1);
+                if(position > 0 && mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(holder, getItemUnderHead(position), position - 1);
                 }
             }
         });
@@ -81,8 +81,8 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (position > 0 && mOnItemLongClickLitener != null){
-                    mOnItemLongClickLitener.onItemLongClick(holder, getItemUnderHead(position), position - 1);
+                if (position > 0 && mOnItemLongClickListener != null){
+                    mOnItemLongClickListener.onItemLongClick(holder, getItemUnderHead(position), position - 1);
                 }
                 return false;
             }

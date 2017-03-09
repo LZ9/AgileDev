@@ -17,9 +17,9 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     /** 数据列表 */
     private List<T> mData;
     /** item点击 */
-    protected OnItemClickLitener<T> mOnItemClickLitener;
+    protected OnItemClickListener<T> mOnItemClickListener;
     /** item长按 */
-    protected OnItemLongClickLitener<T> mOnItemLongClickLitener;
+    protected OnItemLongClickListener<T> mOnItemLongClickListener;
 
     private Context mContext;
 
@@ -54,8 +54,8 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(position >= 0 && mOnItemClickLitener != null) {
-                    mOnItemClickLitener.onItemClick(holder, getItem(position), position);
+                if(position >= 0 && mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(holder, getItem(position), position);
                 }
             }
         });
@@ -66,8 +66,8 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (position >= 0 && mOnItemLongClickLitener != null){
-                    mOnItemLongClickLitener.onItemLongClick(holder, getItem(position), position);
+                if (position >= 0 && mOnItemLongClickListener != null){
+                    mOnItemLongClickListener.onItemLongClick(holder, getItem(position), position);
                 }
                 return false;
             }
@@ -109,19 +109,19 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     /** 设置点击事件监听器 */
-    public void setOnItemClickLitener(OnItemClickLitener<T> litener){
-        mOnItemClickLitener = litener;
+    public void setOnItemClickListener(OnItemClickListener<T> listener){
+        mOnItemClickListener = listener;
     }
     /** 设置长按事件监听器 */
-    public void setOnItemLongClickLitener(OnItemLongClickLitener<T> litener){
-        mOnItemLongClickLitener = litener;
+    public void setOnItemLongClickListener(OnItemLongClickListener<T> listener){
+        mOnItemLongClickListener = listener;
     }
 
-    public interface OnItemClickLitener<T> {
+    public interface OnItemClickListener<T> {
         void onItemClick(RecyclerView.ViewHolder viewHolder, T item, int position);
     }
 
-    public interface OnItemLongClickLitener<T> {
+    public interface OnItemLongClickListener<T> {
         void onItemLongClick(RecyclerView.ViewHolder viewHolder, T item, int position);
     }
 }
