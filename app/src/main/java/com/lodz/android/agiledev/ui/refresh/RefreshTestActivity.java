@@ -55,12 +55,20 @@ public class RefreshTestActivity extends BaseRefreshActivity {
         mLoadMoreHelper.setListener(new RecyclerLoadMoreHelper.Listener() {
             @Override
             public void onLoadMore(int currentPage, int nextPage, int size, int position) {
+//                UiHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mLoadMoreHelper.loadMoreFail();
+//                    }
+//                }, 3000);
                 UiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mLoadMoreHelper.loadMoreFail();
+                        mList.addAll(getList());
+                        mLoadMoreHelper.loadMoreSuccess(mList);
+                        mAdapter.setLoadCompleted();
                     }
-                }, 3000);
+                }, 2000);
             }
 
             @Override

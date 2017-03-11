@@ -122,9 +122,9 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         handleLoadMore(position);
     }
 
-    /** 显示加载完毕界面 */
-    protected abstract void showLoadingMore(RecyclerView.ViewHolder holder);
     /** 显示正在加载界面 */
+    protected abstract void showLoadingMore(RecyclerView.ViewHolder holder);
+    /** 显示加载完毕界面 */
     protected abstract void showLoadFinish(RecyclerView.ViewHolder holder);
     /** 显示加载失败界面 */
     protected abstract void showLoadFail(RecyclerView.ViewHolder holder);
@@ -179,6 +179,11 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
      */
     public void setLoadIndex(int index){
         this.mLoadIndex = index;
+    }
+
+    /** 手动设置加载完成 */
+    public void setLoadCompleted(){
+        this.mSumSize = getListItemCount();
     }
 
     /** 是否开启加载更多 */
