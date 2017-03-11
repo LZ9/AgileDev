@@ -48,6 +48,13 @@ public class RecyclerLoadMoreHelper<T> {
         mAdapter.notifyDataSetChanged();
     }
 
+    /** 手动设置加载完成 */
+    public void loadComplete(){
+        mAdapter.setIsLoadMore(true);
+        mAdapter.setLoadCompleted();
+        mAdapter.notifyDataSetChanged();
+    }
+
     /** 加载更多数据获取失败 */
     public void loadMoreFail(){
         mAdapter.setIsLoadMore(true);

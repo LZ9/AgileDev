@@ -64,9 +64,9 @@ public class RefreshTestActivity extends BaseRefreshActivity {
                 UiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mList.addAll(getList());
-                        mLoadMoreHelper.loadMoreSuccess(mList);
-                        mAdapter.setLoadCompleted();
+//                        mList.addAll(getList());
+//                        mLoadMoreHelper.loadMoreSuccess(mList);
+                        mLoadMoreHelper.loadComplete();
                     }
                 }, 2000);
             }
