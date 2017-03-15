@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 9
-        versionName "1.1.4"// 上传成功
+        versionCode 10
+        versionName "1.1.5"// 上传成功
     }
 
     buildTypes {
@@ -28,13 +28,12 @@ android {
 dependencies {
     // 引用的库
     compile 'cn.lodz:core:1.0.5'
-
     // RxJava
-    compile 'io.reactivex.rxjava2:rxjava:2.0.6'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
     // RxJava生命周期

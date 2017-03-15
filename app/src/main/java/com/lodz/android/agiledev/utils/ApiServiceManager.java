@@ -1,7 +1,6 @@
 package com.lodz.android.agiledev.utils;
 
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.lodz.android.agiledev.config.UrlConfig;
 import com.lodz.android.core.log.PrintLog;
 
@@ -15,6 +14,7 @@ import okhttp3.Request;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 /**
