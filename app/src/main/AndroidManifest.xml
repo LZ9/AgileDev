@@ -50,15 +50,15 @@
         </activity>
 
         <activity android:name=".ui.refresh.RefreshTestActivity">
+
+        </activity>
+
+        <activity android:name=".ui.drag.DragRecyclerViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".ui.drag.DragRecyclerViewActivity">
-
         </activity>
 
     </application>

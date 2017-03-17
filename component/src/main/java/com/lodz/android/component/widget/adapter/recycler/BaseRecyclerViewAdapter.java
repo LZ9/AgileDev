@@ -108,6 +108,21 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         itemView.setLayoutParams(layoutParams);
     }
 
+    /**
+     * 带动画的删除item并刷新数据
+     * @param position 位置
+     */
+    public void notifyItemRemovedChanged(int position){
+        if (getItemCount() == 0){
+            return;
+        }
+        mData.remove(position);
+        notifyItemRemoved(position);
+        if (position != mData.size()) { // 如果移除的是最后一个，忽略
+            notifyItemRangeChanged(position, mData.size() - position);
+        }
+    }
+
     /** 设置点击事件监听器 */
     public void setOnItemClickListener(OnItemClickListener<T> listener){
         mOnItemClickListener = listener;
