@@ -38,6 +38,8 @@ public class MainActivity extends BaseActivity {
                 .load(UriUtils.parseUrl(url))
                 .setImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE)
                 .wrapImageWidth(DensityUtils.dp2px(getContext(), 200))
+                .useRoundCorner()
+                .setRoundCorner(20)
 //                .wrapImage()
                 .into(draweeView);
 
