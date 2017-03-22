@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <Button
+        android:id="@+id/imei_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="获取imei" />
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/drawee_view"
+    <Button
+        android:id="@+id/imsi_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:text="获取imsi" />
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/drawee_view_2"
+    <Button
+        android:id="@+id/ua_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_blue_light" />
+        android:text="获取ua" />
 </LinearLayout>

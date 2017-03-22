@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui;
+package com.lodz.android.agiledev.ui.premissions;
 
 import android.Manifest;
 import android.app.Activity;

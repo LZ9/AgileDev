@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.premissions.PremissionsActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ToastUtils;
