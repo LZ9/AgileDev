@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 11
-        versionName "1.1.6"// 未上传
+        versionName "1.1.6"// 成功上传
     }
 
     buildTypes {
@@ -27,7 +27,9 @@ android {
 
 dependencies {
     // 引用的库
-//    compile 'cn.lodz:core:1.0.6'
+//    compile 'cn.lodz:core:1.0.7'
+    compile project(':core')
+
     // RxJava
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -41,14 +43,13 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile project(':core')
 }
 
 //publish {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.1.5'//版本号
+//    publishVersion = '1.1.6'//版本号
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
