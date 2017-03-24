@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 11
-        versionName "1.1.6"// 成功上传
+        versionCode 12
+        versionName "1.1.7"// 未上传
     }
 
     buildTypes {
@@ -27,8 +27,8 @@ android {
 
 dependencies {
     // 引用的库
-//    compile 'cn.lodz:core:1.0.7'
-    compile project(':core')
+    compile 'cn.lodz:core:1.0.7'
+//    compile project(':core')
 
     // RxJava
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'

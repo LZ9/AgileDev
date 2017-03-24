@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.adapter.recycler.BaseSimpleLoadMoreRecyclerViewAdapter;
+import com.lodz.android.core.utils.ScreenUtils;
 
 /**
  * 刷新测试adapter
@@ -36,6 +37,7 @@ public class RefreshAdapter extends BaseSimpleLoadMoreRecyclerViewAdapter<String
     }
 
     private void showItem(DataViewHolder holder, String str) {
+        setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
         holder.dataTextView.setText(str);
     }
 

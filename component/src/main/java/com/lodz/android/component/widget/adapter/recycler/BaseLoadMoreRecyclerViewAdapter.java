@@ -2,6 +2,7 @@ package com.lodz.android.component.widget.adapter.recycler;
 
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,8 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     private int mSize = 0;
     /** 当前为第一页 */
     private int mPage = 1;
-    /** 预加载偏移量，默认滑动到倒数第5个item时就回调加载接口 */
-    private int mLoadIndex = 5;
+    /** 预加载偏移量，默认滑动到倒数第3个item时就回调加载接口 */
+    private int mLoadIndex = 3;
     /** 是否启动加载更多 */
     private boolean isLoadMore = false;
     /** 是否显示底部提示界面 */
@@ -174,7 +175,7 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     }
 
     /**
-     * 预加载偏移量，滑动到倒数第index个item时就回调加载接口（默认值为5）
+     * 预加载偏移量，滑动到倒数第index个item时就回调加载接口（默认值为3）
      * @param index 倒数个数
      */
     public void setLoadIndex(int index){
@@ -268,4 +269,25 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
          */
         void onClickLoadFail(int reloadPage, int size);
     }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if(manager instanceof GridLayoutManager) {// 网格布局时要优化加载排版
+            final GridLayoutManager layoutManager = ((GridLayoutManager) manager);
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    // 如果开启底部加载提示则需要减去一个item数量
+                    int size = isShowBottomLayout ?  layoutManager.getItemCount() - 1 : layoutManager.getItemCount();
+                    if ((position + 1) == size){// 滚到底部
+                        return layoutManager.getSpanCount() - position % layoutManager.getSpanCount();
+                    }
+                    return 1;
+                }
+            });
+        }
+    }
+
 }

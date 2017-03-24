@@ -1,12 +1,14 @@
 package com.lodz.android.agiledev.ui.refresh;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseRefreshActivity;
+import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.recycler.RecyclerLoadMoreHelper;
+import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
 
 import java.util.ArrayList;
@@ -39,10 +41,12 @@ public class RefreshTestActivity extends BaseRefreshActivity {
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         mAdapter = new RefreshAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mLoadMoreHelper = new RecyclerLoadMoreHelper<>();
@@ -64,9 +68,9 @@ public class RefreshTestActivity extends BaseRefreshActivity {
                 UiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        mList.addAll(getList());
-//                        mLoadMoreHelper.loadMoreSuccess(mList);
-                        mLoadMoreHelper.loadComplete();
+                        mList.addAll(getList());
+                        mLoadMoreHelper.loadMoreSuccess(mList);
+//                        mLoadMoreHelper.loadComplete();
                     }
                 }, 2000);
             }
@@ -81,6 +85,13 @@ public class RefreshTestActivity extends BaseRefreshActivity {
                         mLoadMoreHelper.loadMoreSuccess(mList);
                     }
                 }, 2000);
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<String>() {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
+                ToastUtils.showShort(getContext(), item);
             }
         });
     }
@@ -100,7 +111,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
     private void requestData() {
         mList.clear();
         mList.addAll(getList());
-        mLoadMoreHelper.config(mList, 40, 10, true, 3);
+        mLoadMoreHelper.config(mList, 40, 10, true, 1);
         showStatusCompleted();
     }
 
