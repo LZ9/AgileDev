@@ -74,6 +74,7 @@ public class FrescoConfig {
 
         if (fileCacheDir == null){
             fileCacheDir = context.getApplicationContext().getCacheDir();//使用应用路径作为缓存文件夹
+            ImageloaderManager.get().getBuilder().setDirectoryFile(fileCacheDir);
         }else {
             if (!fileCacheDir.exists()){// 传入的文件路径未创建，则创建该文件
                 try {
@@ -84,6 +85,7 @@ public class FrescoConfig {
             }
             if (!fileCacheDir.exists()){// 创建失败则使用默认路径
                 fileCacheDir = context.getApplicationContext().getCacheDir();
+                ImageloaderManager.get().getBuilder().setDirectoryFile(fileCacheDir);
             }
         }
 

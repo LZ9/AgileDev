@@ -12,16 +12,10 @@ import org.greenrobot.eventbus.EventBus;
  */
 public abstract class BaseApplication extends Application {
 
-    private static BaseApplication sInstance;
-
-    public static BaseApplication get() {
-        return sInstance;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance = this;
         afterCreate();
     }
 
