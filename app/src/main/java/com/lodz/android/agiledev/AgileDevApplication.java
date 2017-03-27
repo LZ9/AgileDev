@@ -14,15 +14,12 @@ import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
 
 public class AgileDevApplication extends BaseApplication{
 
-    private static AgileDevApplication sInstance;
-
-    public static AgileDevApplication get() {
-        return sInstance;
+    public static AgileDevApplication getInstance() {
+        return (AgileDevApplication) get();
     }
 
     @Override
     protected void afterCreate() {
-        sInstance = this;
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
         FileManager.init();// 初始化文件管理
