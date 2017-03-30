@@ -1,10 +1,17 @@
 # 敏捷开发架构
-这是一套基础敏捷开发架构，目前还只是使用lib的形式，之后会慢慢改为依赖，如果大家在使用的过程中发现BUG或者觉得不合理的地方欢迎留言告诉我~
+这是一套基础敏捷开发架构，文档会慢慢补齐，如果在使用时有发现BUG或者有建议的话欢迎邮箱联系~
 > 啦啦桑
 
 > E-mail：<lz.mms@foxmail.com>
 
 <(￣︶￣)>
+
+## 添加Gradle依赖：
+```
+core：compile 'cn.lodz:core:1.0.9'
+component：compile 'cn.lodz:Component:1.1.9'
+imageloader：compile 'cn.lodz:ImagerLoader:1.0.7'
+```
 
 ## 更新日志：
 ### 2017/01/24
