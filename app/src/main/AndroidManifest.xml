@@ -31,11 +31,7 @@
         <meta-data android:value="errortag" android:name="error_tag"/>
 
         <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.premissions.PremissionsActivity">
@@ -56,7 +52,6 @@
 
         <activity android:name=".ui.TitleBarTestActivity">
 
-
         </activity>
 
         <activity android:name=".ui.refresh.RefreshTestActivity">
@@ -65,6 +60,14 @@
 
         <activity android:name=".ui.drag.DragRecyclerViewActivity">
 
+        </activity>
+
+        <activity android:name=".ui.reflect.ReflectActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>
