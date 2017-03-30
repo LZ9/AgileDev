@@ -1,24 +1,26 @@
 # 敏捷开发架构
-这是一套基础敏捷开发架构，文档会慢慢补齐，如果在使用时有发现BUG或者有建议的话欢迎邮箱联系~
+这是一套基础敏捷开发架构，适用于快速开发一个中小型APP，可基于该架构再进行上层扩展
+目前还处于测试和补充阶段，可能随时会升级版本，感兴趣的小伙伴可以先下载源码查看，我会逐步补全说明文档。
 > 啦啦桑
-
-> E-mail：<lz.mms@foxmail.com>
 
 <(￣︶￣)>
 
-## 添加Gradle依赖：
+## 1、添加Gradle依赖：
 ```
-core：compile 'cn.lodz:core:1.0.9'
-component：compile 'cn.lodz:Component:1.1.9'
-imageloader：compile 'cn.lodz:ImagerLoader:1.0.7'
+compile 'cn.lodz:core:1.0.9'
 ```
+```
+compile 'cn.lodz:Component:1.1.9'
+```
+```
+compile 'cn.lodz:ImagerLoader:1.0.7'
+```
+## 2、详细了解
+- 了解[core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
+- 了解[component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
+- 了解[imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)
+## 3、关于Issues
+如果小伙伴发现BUG或者有任何的建议，都欢迎到[Github Issues](https://github.com/LZ9/AgileDev/issues)上留言，我会定期查看回复哒
 
-## 更新日志：
-### 2017/01/24
-上传基础工程
-### 2017/02/03
-1、core库是开发基础库（第一层），包括了android的support包引用、日志类、加密类和其他通用帮助类
 
-2、component库是基类库（第二层），包括了RxJava相关引用、Activity/Fragment/Application的基类、Adapter的基类等等
 
-3、imageloader库（第三层），目前该库只实现了Fresco，之后会支持Glide等更多加载库，改为配置切换。
