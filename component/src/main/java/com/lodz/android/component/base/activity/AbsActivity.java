@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.lodz.android.component.base.BaseApplication;
 import com.lodz.android.component.base.fragment.IFragmentBackPressed;
 import com.lodz.android.component.event.ActivityFinishEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -21,6 +22,8 @@ import java.util.List;
  * Created by zhouL on 2017/2/23.
  */
 public abstract class AbsActivity extends RxAppCompatActivity {
+
+    private static final String SAVE_INSTANCE_STATE_BUNDLE = "application_data_save";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,6 +123,25 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     public void onMessageEvent(ActivityFinishEvent event) {
         if (!isFinishing()){
             finish();
+        }
+    }
+
+    /** 当APP处于后台被系统回收时回调 */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Bundle bundle = BaseApplication.get().getSaveInstanceState();
+        if (outState != null && bundle != null){
+            outState.putBundle(SAVE_INSTANCE_STATE_BUNDLE, bundle);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    /** 被回收后从后台回到前台调用 */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null){
+            BaseApplication.get().getRestoreInstanceState(savedInstanceState.getBundle(SAVE_INSTANCE_STATE_BUNDLE));
         }
     }
 }

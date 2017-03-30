@@ -1,5 +1,7 @@
 package com.lodz.android.agiledev;
 
+import android.os.Bundle;
+
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
@@ -45,5 +47,24 @@ public class AgileDevApplication extends BaseApplication{
         UiHandler.destroy();
         NetworkManager.get().release(this);// 释放网络管理资源
         NetworkManager.get().clearNetworkListener();// 清除所有网络监听器
+    }
+
+    private int sessionId = 123213234;
+
+    @Override
+    public Bundle getSaveInstanceState() {
+        PrintLog.e("testtag", "getSaveInstanceState : " + sessionId);
+        Bundle bundle = new Bundle();
+        bundle.putInt("sessionid", sessionId);
+        return bundle;
+    }
+
+    @Override
+    public void getRestoreInstanceState(Bundle bundle) {
+        super.getRestoreInstanceState(bundle);
+        if (bundle != null){
+            sessionId = bundle.getInt("sessionid", 0);
+        }
+        PrintLog.e("testtag", "getRestoreInstanceState : " + sessionId);
     }
 }
