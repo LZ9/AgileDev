@@ -16,9 +16,9 @@
     compile 'cn.lodz:ImagerLoader:1.0.7'
 ```
 ## 2、详细了解
-- 了解 [core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
-- 了解 [component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
-- 了解 [imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)
+- [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
+- [了解 component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
+- [了解 imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)
 ## 3、关于Issues
 如果小伙伴发现BUG或者有任何的建议，都欢迎到 [Github Issues](https://github.com/LZ9/AgileDev/issues) 上留言，我会定期查看回复哒
 
