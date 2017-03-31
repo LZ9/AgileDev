@@ -85,10 +85,144 @@
 ```
 ## 3、Activity基类
 ### 1）AbsActivity
+a）AbsActivity是最底层的Activity，如果你不需要用到数据加载状态界面的话，可以选择继承这个Activity
 
+b）我在这个Activity里注册了EventBus，因此只要是继承它的Activity都不需要再重复注册和解注册，只需要订阅即可
+
+c）我将
+**onCreate(@Nullable Bundle savedInstanceState)**
+分为6个方法调用顺序分别如下
+```
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        .....
+        startCreate();
+        setContentView(getAbsLayoutId());
+        findViews(savedInstanceState);
+        setListeners();
+        initData();
+        endCreate();
+    }
+```
+- 重写
+**startCreate()**
+方法，可以在里面获取Intent的数据
+- 实现
+**getAbsLayoutId()**
+方法，返回layout的资源id
+- 实现
+**findViews(savedInstanceState)**
+方法，你可以在该方法里进行资源id获取对象的操作
+- 重写
+**setListeners()**
+方法，你可以在该方法里对需要的对象设置各类监听器回调
+- 重写
+**initData()**
+方法，你可以在该方法里初始化界面的业务数据
+- 重写
+**endCreate()**
+方法，你可以在该方法里处理不属于上述方法分类的数据
+
+d）你可以直接调用下面的方法来获取当前Activity的上下文
+```
+    getContext()
+```
+e）你可以重写下面的方法来拦截用户点击返回按钮的事件
+```
+    onPressBack()
+```
 ### 2）BaseActivity
+a）BaseActivity继承自AbsActivity，并在内部增加了数据加载状态界面，如果你需要用到界面级别的数据加载状态UI可以选择继承这个Activity
+
+b）
+**TitleBarLayout**
+为界面顶部的标题栏，如果你不希望显示TitleBarLayout，可以调用下方的方法隐藏
+```
+    goneTitleBar()
+```
+如果你希望对TitleBarLayout做一些定制，你可以调用下面的方法来获取TitleBarLayout的对象
+```
+    getTitleBarLayout()
+```
+你可以重写下面的方法，在方法内实现用户点击标题栏的返回按钮的操作
+```
+    clickBackBtn()
+```
+c）**LoadingLayout**
+为加载控件，如果你希望在异步获取数据时将界面显示为加载状态，可以调用下面的方法
+```
+    showStatusLoading()
+```
+如果你希望对LoadingLayout做一些轻量级的定制，你可以调用下面的方法获取LoadingLayout的对象
+```
+    getLoadingLayout()
+```
+d）**NoDataLayout**
+为无数据控件，如果你在获取数据后需要展示无数据界面，可以调用下面的方法
+```
+    showStatusNoData()
+```
+如果你希望对NoDataLayout做一些轻量级的定制，你可以调用下面的方法获取NoDataLayout的对象
+```
+    getNoDataLayout()
+```
+e）**ErrorLayout**
+为界面异常控件，如果你在获取数据后发现获取的数据不正确，可以调用下列方法显示
+```
+    showStatusError()
+```
+如果你希望对ErrorLayout做一些轻量级的定制，你可以调用下面的方法获取ErrorLayout的对象
+```
+    getErrorLayout()
+```
+如果你希望用户点击该界面可以重新加载数据的话，你可以重写下面的方法，并在方法里实现数据的加载
+```
+    clickReload()
+```
 
 ### 3）BaseRefreshActivity
+a）BaseRefreshActivity继承自AbsActivity，内部除了包含数据加载的状态界面外，还包括了一个下拉刷新控件，如果你的界面是需要下拉刷新数据的，可以选择继承这个Activity
+
+b）**SwipeRefreshLayout**
+为下拉刷新控件，你可以实现下面的方法，在方法里执行数据的刷新逻辑
+```
+    onDataRefresh()
+```
+如果你希望设置下拉进度的切换颜色，你可以调用下面的方法
+```
+    setSwipeRefreshColorScheme(@ColorRes int... colorResIds)
+```
+如果你希望设置下拉进度的背景颜色，你可以调用下面的方法
+```
+    setSwipeRefreshBackgroundColor(@ColorRes int colorResId)
+```
+**当你结束下拉刷新时（不论获取数据成功还是失败），切记要调用下面的方法，否则进度条不会隐藏**
+```
+    setSwipeRefreshFinish()
+```
+如果你希望在某些条件下禁用刷新控件，某些条件下启用的话，可以调用下面的方法
+```
+    setSwipeRefreshEnabled(boolean enabled)
+```
+c）加载状态界面的使用方式与BaseActivity一致
+## 3、Fragment基类
+### 1）LazyFragment
+
+
+
+
+### 2）BaseFragment
+
+
+
+
+
+### 3）BaseRefreshFragment
+
+
+
+
+
 
 
 ## 扩展
