@@ -1,9 +1,13 @@
 # core库
 这个是最底层的核心依赖库，主要用来放support库和通用的帮助类
-
-- [回到主页](https://github.com/LZ9/AgileDev)
-- [了解 component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
-- [了解 imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)
+## 目录
+- [1、涉及的support依赖](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#1涉及的support依赖)
+- [2、日志类PrintLog](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#2日志类printlog)
+- [3、网络状态类NetworkManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#3网络状态类networkmanager)
+- [4、加密相关](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#4加密相关)
+- [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager)
+- [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类)
+- [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展)
 ## 1、涉及的support依赖
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
@@ -79,8 +83,26 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
     ThreadPoolManager.get().executeLowest(Runnable);
 ```
 ## 6、各种通用工具类
-### 1. 系统相册工具类 AlbumUtils
+1. AlbumUtils 系统相册工具类，你可以通过里面的方法获取系统相册的图片和图片的文件夹信息
+2. AnimUtils 动画帮助类，可传入anim资源来对view进行动画控制
+3. AppUtils 应用帮助类，可获取应用的名称、版本号等信息
+4. DateUtils 时间格式化帮助类，可以将毫秒时间戳格式化为时间字符串，反之亦然
+5. DensityUtils 单位转换类，dp、px、sp之间的相互转换
+6. DeviceUtils 设备帮助类，可获取手机的IMEI、IMESI、UA信息，获取前请注意动态获取权限
+7. FileUtils 文件操作帮助类，封装了对文件操作相关的方法
+8. KeyBoardUtils 软键盘控制类，可帮助你显隐键盘
+9. NumberFormatUtils 数字格式化帮助类，可将数字格式化为你需要的小数样式
+10. ReflectUtils 反射帮助类，封装了反射相关的方法，已在内部进行trycatch，小伙伴对返回的参数记得判空
+11. ScreenUtils 屏幕信息帮助类，获取屏幕的宽高
+12. SnackbarUtils Snackbar帮助类，定制简单的Snackbar提示
+13. StorageUtils 存储帮助类，可获取存储路径和存储大小
+14. StringUtils 字符串帮助类，目前仅收录对字符串进行UTF-8编码
+15. ToastUtils Toast帮助类，显示简单的toast提示
+16. UiHandler 把runnable post到UI线程执行的工具类，在app退出时调用UiHandler.destroy()释放资源
+17. VibratorUtil 手机震动帮助类，手机震动帮助类
 
-### 2. 动画帮助类 AnimUtils
-
-
+## 扩展
+- [回到顶部](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#core库)
+- [AgileDev 主页](https://github.com/LZ9/AgileDev)
+- [了解 component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
+- [了解 imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)

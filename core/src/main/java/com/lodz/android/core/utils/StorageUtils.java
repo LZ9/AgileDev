@@ -24,7 +24,7 @@ public class StorageUtils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
                 return fs.getAvailableBlocksLong() * fs.getBlockSizeLong();
             }
-            return fs.getAvailableBlocks() * fs.getBlockSize();
+            return fs.getAvailableBlocksLong() * fs.getBlockSizeLong();
         } catch (Exception e) {
             e.printStackTrace();
         }
