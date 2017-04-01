@@ -1,6 +1,8 @@
 package com.lodz.android.agiledev.utils;
 
 
+import android.text.TextUtils;
+
 import com.lodz.android.agiledev.config.UrlConfig;
 import com.lodz.android.core.log.PrintLog;
 
@@ -138,7 +140,7 @@ public class ApiServiceManager {
             log = response.body().string();
             try {
                 List<String> list = response.request().url().pathSegments();
-                PrintLog.d(TAG, "[" + list.get(list.size() - 1) + "] <--- " + log);
+                logSegmentedLog(list.get(list.size() - 1), log);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -150,6 +152,32 @@ public class ApiServiceManager {
                 .body(ResponseBody.create(response.body().contentType(), log))
                 .build();
         return response;
+    }
+
+    /**
+     * 打印分段日志
+     * @param tag 标签
+     * @param log 原始日志
+     */
+    private void logSegmentedLog(String tag, String log) {
+        synchronized (ApiServiceManager.class){
+            if (TextUtils.isEmpty(log) || log.length() < 3000){
+                PrintLog.d(TAG, "[" + tag + "] <--- " + log);
+                return;
+            }
+            int index = (int) Math.ceil(log.length() / 3000.0);
+            for (int i = 0; i < index; i++){
+                int start = i * 3000;
+                int end = 3000 + i * 3000;
+                if (end >= log.length()){
+                    end = log.length();
+                }
+                PrintLog.d(TAG, "[" + tag + "] <--- " + log.substring(start, end));
+                if (end == log.length()){
+                    return;
+                }
+            }
+        }
     }
 
     /**
