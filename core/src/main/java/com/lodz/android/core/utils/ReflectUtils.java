@@ -74,7 +74,59 @@ public class ReflectUtils {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * 获取对象里变量的值
+	 * @param c 类
+	 * @param object 类的对象
+	 * @param typeName 变量名称
+	 */
+	public static Object getFieldValue(Class<?> c, Object object, String typeName) {
+		try {
+			Field field = c.getDeclaredField(typeName); // privategetField不能获取private
+			field.setAccessible(true);// 设置是否允许访问，因为变量是private的，所以要手动设置允许访问
+			return field.get(object);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 获取对象里的变量
+	 * @param c 类
+	 * @param typeName 变量名称
+	 */
+	public static Field getField(Class<?> c, String typeName) {
+		try {
+			Field field = c.getDeclaredField(typeName); // privategetField不能获取private
+			field.setAccessible(true);// 设置是否允许访问，因为变量是private的，所以要手动设置允许访问
+			return field;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 设置对象里变量的值
+	 * @param c 类
+	 * @param object 类的对象
+	 * @param typeName 变量名称
+	 * @param value 要设置的值
+	 */
+	public static boolean setFieldValue(Class<?> c, Object object, String typeName, Object value) {
+		try {
+			Field field = c.getDeclaredField(typeName); // privategetField不能获取private
+			field.setAccessible(true);// 设置是否允许访问，因为变量是private的，所以要手动设置允许访问
+			field.set(object, value);
+			return true;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	/**
 	 * 获取方法名
 	 * @param c 类
@@ -87,24 +139,7 @@ public class ReflectUtils {
 		}
 		return list;
 	}
-	
-	/**
-	 * 获取对象里变量的值
-	 * @param c 类
-	 * @param object 类的对象
-	 * @param typeName 变量名称
-	 */
-	public static Object getFieldValue(Class<?> c, Object object, String typeName) {
-		try {
-			Field field = c.getDeclaredField(typeName); // 因为msg变量是private的，所以不能用getField方法
-			field.setAccessible(true);// 设置是否允许访问，因为该变量是private的，所以要手动设置允许访问，如果msg是public的就不需要这行了。
-			return field.get(object);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+
 	/**
 	 * 获取对象里的变量名称
 	 * @param c 类

@@ -29,6 +29,8 @@ public class ReflectActivity extends AbsActivity{
     private Button mFieldValueButton;
     /** 执行函数 */
     private Button mExecuteFunctionButton;
+    /** 设置值并读取测试 */
+    private Button mSetValue;
 
     @Override
     protected int getAbsLayoutId() {
@@ -43,6 +45,7 @@ public class ReflectActivity extends AbsActivity{
         mMethodNameButton = (Button) findViewById(R.id.get_method_name);
         mFieldValueButton = (Button) findViewById(R.id.get_field_value);
         mExecuteFunctionButton = (Button) findViewById(R.id.execute_function);
+        mSetValue = (Button) findViewById(R.id.set_value);
     }
 
     @Override
@@ -81,6 +84,13 @@ public class ReflectActivity extends AbsActivity{
             public void onClick(View v) {
 //                executeFunction();
                 executeTest();
+            }
+        });
+
+        mSetValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setValue();
             }
         });
     }
@@ -191,6 +201,32 @@ public class ReflectActivity extends AbsActivity{
         Object o = ReflectUtils.executeFunction(c, object, "test", new Class[]{int.class}, new Object[]{5});
         if (o != null){
             str += o.toString() + "\n";
+        }
+        mMsgTextView.setText(str);
+    }
+
+
+    private void setValue() {
+        Class<?> c =  ReflectUtils.getClassForName("com.lodz.android.agiledev.ui.reflect.ReflectBean");
+        if (c == null){
+            mMsgTextView.setText("找不到该类");
+            return;
+        }
+        String str = c.getSimpleName() + "\n";
+        Object o = ReflectUtils.getObject(c);
+        if (o == null){
+            mMsgTextView.setText("没有无参构造函数");
+            return;
+        }
+        Object valueOld = ReflectUtils.getFieldValue(c, o, "nationality");
+        if (valueOld != null){
+            str += valueOld.toString() + "\n";
+        }
+        boolean isSuccess = ReflectUtils.setFieldValue(c, o, "nationality", "Japan");
+        str += "设置 " + isSuccess + "\n";
+        Object valueNew = ReflectUtils.getFieldValue(c, o, "nationality");
+        if (valueNew != null){
+            str += valueNew.toString() + "\n";
         }
         mMsgTextView.setText(str);
     }

@@ -55,6 +55,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="执行函数" />
+
+            <Button
+                android:id="@+id/set_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置值并读取测试" />
         </com.google.android.flexbox.FlexboxLayout>
 
     </LinearLayout>
