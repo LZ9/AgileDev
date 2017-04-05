@@ -20,19 +20,19 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        compile 'cn.lodz:core:1.0.9'
+        compile 'cn.lodz:core:1.0.10'
       
-        compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+        compile 'io.reactivex.rxjava2:rxjava:2.0.8'
         compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    
+
         compile 'com.squareup.retrofit2:retrofit:2.2.0'
         compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
         compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
         compile 'com.alibaba:fastjson:1.1.56.android'
-   
+
         compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
         compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
-    
+
         compile 'org.greenrobot:eventbus:3.0.0'
     }
 ```
@@ -127,7 +127,7 @@ d）你可以直接调用下面的方法来获取当前Activity的上下文
 ```
     getContext()
 ```
-e）你可以重写下面的方法来拦截用户点击返回按钮的事件
+e）你可以重写下面的方法来拦截用户点击返回按钮的事件，返回true表示消耗掉，返回false表示继续传递事件
 ```
     onPressBack()
 ```
@@ -207,17 +207,59 @@ b）**SwipeRefreshLayout**
 c）加载状态界面的使用方式与BaseActivity一致
 ## 3、Fragment基类
 ### 1）LazyFragment
+a）LazyFragment是最底层的Fragment，如果你不需要用到数据加载状态界面的话，可以选择继承这个Fragment。
 
+b）这个Fragment实现了懒加载，即当这个Fragment显示的时候再加载数据。LazyFragment默认进行懒加载，如果你不希望懒加载可以重写下面的方法，取消懒加载设置
+```
+    @Override
+    protected boolean configIsLazyLoad() {
+        return false;
+    }
+```
 
+b）同AbsActivity一样，我也将
+**onViewCreated(View view, @Nullable Bundle savedInstanceState)**
+分为6个方法，具体调用顺序和使用方法与AbsActivity一致，这里就不再赘述，顺序和方法名如下
+```
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        .....
+        startCreate();
+        findViews(view, savedInstanceState);
+        setListeners(view);
+        initData(view);
+        endCreate();
+    }
 
+    .....
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(getAbsLayoutId(), container, false);
+    }
+
+    @LayoutRes
+    protected abstract int getAbsLayoutId();
+```
+
+c）你可以重写下面的方法来拦截用户点击返回按钮的事件，返回true表示在当前的fragment里消耗掉返回事件，返回false则向上传递给父类
+```
+    onPressBack()
+```
+d）如果你需要在fragment里实现Activity里的OnResume的生命周期，你可以重写下面的方法，该方法的回调时机与Activity里的OnResume保持一致
+```
+    onFragmentResume()
+```
 
 ### 2）BaseFragment
-
-
-
-
+BaseFragment继承自LazyFragment，同样在内部增加了数据加载状态界面，用法与BaseActivity保持一致，这里不再赘述。
 
 ### 3）BaseRefreshFragment
+BaseRefreshFragment继承自LazyFragment，和BaseRefreshActivity一样，包含了加载状态界面和下拉刷新，使用方法和BaseRefreshActivity里的一样。
+
+## 3、加载状态控件
+### 1）加载控件LoadingLayout
+
 
 
 
