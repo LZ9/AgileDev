@@ -131,6 +131,10 @@ e）你可以重写下面的方法来拦截用户点击返回按钮的事件，�
 ```
     onPressBack()
 ```
+f）你可以直接通过下面的方法将订阅绑定生命周期，避免内存泄漏
+```
+    .compose(this.<T>bindUntilEvent(ActivityEvent.DESTROY))
+```
 ### 2）BaseActivity
 a）BaseActivity继承自AbsActivity，并在内部增加了数据加载状态界面，如果你需要用到界面级别的数据加载状态UI可以选择继承这个Activity
 
@@ -205,7 +209,7 @@ b）**SwipeRefreshLayout**
     setSwipeRefreshEnabled(boolean enabled)
 ```
 c）加载状态界面的使用方式与BaseActivity一致
-## 3、Fragment基类
+## 4、Fragment基类
 ### 1）LazyFragment
 a）LazyFragment是最底层的Fragment，如果你不需要用到数据加载状态界面的话，可以选择继承这个Fragment。
 
@@ -217,7 +221,7 @@ b）这个Fragment实现了懒加载，即当这个Fragment显示的时候再加
     }
 ```
 
-b）同AbsActivity一样，我也将
+c）同AbsActivity一样，我也将
 **onViewCreated(View view, @Nullable Bundle savedInstanceState)**
 分为6个方法，具体调用顺序和使用方法与AbsActivity一致，这里就不再赘述，顺序和方法名如下
 ```
@@ -242,27 +246,107 @@ b）同AbsActivity一样，我也将
     protected abstract int getAbsLayoutId();
 ```
 
-c）你可以重写下面的方法来拦截用户点击返回按钮的事件，返回true表示在当前的fragment里消耗掉返回事件，返回false则向上传递给父类
+d）你可以重写下面的方法来拦截用户点击返回按钮的事件，返回true表示在当前的fragment里消耗掉返回事件，返回false则向上传递给父类
 ```
     onPressBack()
 ```
-d）如果你需要在fragment里实现Activity里的OnResume的生命周期，你可以重写下面的方法，该方法的回调时机与Activity里的OnResume保持一致
+e）如果你需要在fragment里实现Activity里的OnResume的生命周期，你可以重写下面的方法，该方法的回调时机与Activity里的OnResume保持一致
 ```
     onFragmentResume()
 ```
-
+f）你可以直接通过下面的方法将订阅绑定生命周期，避免内存泄漏
+```
+    .compose(this.<T>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+```
 ### 2）BaseFragment
 BaseFragment继承自LazyFragment，同样在内部增加了数据加载状态界面，用法与BaseActivity保持一致，这里不再赘述。
 
 ### 3）BaseRefreshFragment
 BaseRefreshFragment继承自LazyFragment，和BaseRefreshActivity一样，包含了加载状态界面和下拉刷新，使用方法和BaseRefreshActivity里的一样。
 
-## 3、加载状态控件
-### 1）加载控件LoadingLayout
+## 5、Rx相关
+RxJava2.0区分了背压概念，将订阅者分为Observer和Subscriber，我这边以Observer为例来讲解我对订阅者做的基础封装。（Subscriber与Observer的封装基本一致，不再赘述）
+### 1）BaseObserver
+a）BaseObserver实现Observer，主要是对Disposable做了基础封装，如果你需要获取这个订阅者的Disposable，你可以调用下面的方法
+```
+    getDisposable()
+```
+b）如果你希望取消订阅，你可以调用下面的方法来取消
+```
+    dispose()
+```
+c）如果你希望清除内部封装的Disposable对象，可以调用下面的方法
+```
+    clearDisposable()
+```
+d）如果你希望能在指定的标签下打印onError()里出来的错误信息，可以在app里的AndroidManifest.xml里的application标签内配置meta-data信息
 
+```
+    <application
+        .....
+        android:icon="@mipmap/ic_launcher" >
 
+        .....
 
+        <meta-data android:value="yourTag" android:name="error_tag"/>
 
+        .....
+
+    </application>
+```
+### 2）RxObserver
+a）RxObserver继承BaseObserver，主要是对接口数据校验进行封装，适用于对接口数据的订阅。
+只需要在你所封装的最外层的Bean里实现ResponseStatus接口里的isSuccess()方法，RxObserver在获取数据时会根据isSuccess()方法的返回值来进行数据校验，如果isSuccess()返回的是false则会抛出DataException，你可以从DataException里获取实现了ResponseStatus的Bean对象，对数据进行相应的展示。
+
+b）RxObserver会抛出的异常包括4类：
+- 基础异常RxException：RxException是这4类异常的父类，它包裹着Exception的所有信息
+- 网络未连接NetworkNoConnException：当用户未连接网络调用接口时，会抛出这个异常
+- 网络超时NetworkTimeOutException：当用户请求的数据超时时会抛出这个异常
+- 数据异常DataException：对象的isSuccess()返回false时，会抛出该异常
+
+### 3）ProgressObserver
+ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如果小伙伴在跑接口时需要一个加载框，那可以利用这个类来订阅。
+简单的调用如下所示，create方法有多个，可以根据实际需要选择一个创建
+**（如果不调用create()是不会显示加载框的）**
+。用户取消订阅时会回调onPgCancel()方法
+```
+    Observable.just(1)
+        .subscribe(new ProgressObserver<Integer>() {
+
+            @Override
+            public void onPgSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onPgNext(Integer integer) {
+
+            }
+
+            @Override
+            public void onPgError(Throwable e, boolean isNetwork) {
+
+            }
+
+            @Override
+            public void onPgComplete() {
+
+            }
+
+            @Override
+            protected void onPgCancel() {
+                super.onPgCancel();
+
+            }
+
+    }.create(getContext()));
+```
+### 4）RxUtils
+目前RxUtils只收录了异步线程发起主线程订阅的方法，即
+```
+    .compose(RxUtils.<T>io_main())
+```
+## 6、RecyclerView相关
 
 
 
