@@ -1,7 +1,7 @@
 package com.lodz.android.agiledev.ui.head;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.lodz.android.agiledev.R;
@@ -42,13 +42,13 @@ public class HeadRecyclerViewActivity extends AbsActivity{
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-//        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mAdapter = new HeadRecyclerViewAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
-//        mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
+        mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
