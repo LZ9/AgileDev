@@ -13,9 +13,9 @@ import com.lodz.android.core.utils.ScreenUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
 /**
+ * 拖拽适配器
  * Created by zhouL on 2017/3/6.
  */
-
 public class DragAdapter extends BaseRecyclerViewAdapter<String>{
 
     public DragAdapter(Context context) {

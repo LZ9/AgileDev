@@ -7,20 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * 带Head的GridRecyclerView
+ * 带Head的RecyclerView
  * Created by zhouL on 2016/12/29.
  */
-public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecyclerViewAdapter<T>{
+public abstract class BaseHeadRecyclerViewAdapter<H, T> extends BaseRecyclerViewAdapter<T>{
 
     /** 头部 */
     private static final int VIEW_TYPE_HEAD = 0;
-    /** 网格列表 */
-    private static final int VIEW_TYPE_GRID = 1;
+    /** 数据列表 */
+    private static final int VIEW_TYPE_ITEM = 1;
 
     /** 头信息数据 */
-    protected K mHeadData;
+    private H mHeadData;
 
-    public BaseHeadGridRecyclerViewAdapter(Context context) {
+    public BaseHeadRecyclerViewAdapter(Context context) {
         super(context);
     }
 
@@ -29,7 +29,7 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
         if (position == 0){
             return VIEW_TYPE_HEAD;
         }
-        return VIEW_TYPE_GRID;
+        return VIEW_TYPE_ITEM;
     }
 
     @Override
@@ -49,8 +49,13 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
      * 设置头信息数据
      * @param headData 头信息数据
      */
-    public void setHeadData(K headData){
+    public void setHeadData(H headData){
         mHeadData = headData;
+    }
+
+    /** 获取头信息数据 */
+    public H getHeadData(){
+        return mHeadData;
     }
 
     /**
@@ -58,9 +63,6 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
      * @param position 0开始的位置
      */
     protected T getItemUnderHead(int position) {
-        if (getItem(position - 1) == null){
-            return null;
-        }
         return getItem(position - 1);
     }
 
@@ -89,21 +91,22 @@ public abstract class BaseHeadGridRecyclerViewAdapter<K, T> extends BaseRecycler
         });
     }
 
-    /**
-     * 获取网格布局管理器
-     * @param context 上下文
-     * @param spanCount 列数
-     */
-    public static GridLayoutManager getGridLayoutManager(Context context, int spanCount) {
-        final GridLayoutManager layoutManager = new GridLayoutManager(context, spanCount);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return position == 0 ? layoutManager.getSpanCount() : 1;
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if(manager instanceof GridLayoutManager) {// 网格布局时要优化加载排版
+            final GridLayoutManager layoutManager = ((GridLayoutManager) manager);
+            if (layoutManager.getOrientation() == GridLayoutManager.HORIZONTAL){//横向排版不处理
+                return;
             }
-        });
-        return layoutManager;
+            layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return position == 0 ? layoutManager.getSpanCount() : 1;
+                }
+            });
+        }
     }
 
 }

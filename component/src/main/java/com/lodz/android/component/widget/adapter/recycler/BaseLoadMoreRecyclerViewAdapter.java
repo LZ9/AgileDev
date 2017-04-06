@@ -276,6 +276,9 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
         if(manager instanceof GridLayoutManager) {// 网格布局时要优化加载排版
             final GridLayoutManager layoutManager = ((GridLayoutManager) manager);
+            if (layoutManager.getOrientation() == GridLayoutManager.HORIZONTAL){//横向排版不处理
+                return;
+            }
             layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {

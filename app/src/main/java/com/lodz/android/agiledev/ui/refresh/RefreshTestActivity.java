@@ -44,6 +44,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mAdapter = new RefreshAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
