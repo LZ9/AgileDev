@@ -6,12 +6,11 @@
     android:orientation="vertical">
 
     <!-- 顶部菜单栏 -->
-    <com.lodz.android.component.widget.base.TitleBarLayout
-        android:id="@+id/title_bar_layout"
+    <ViewStub
+        android:id="@+id/view_stub_title_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </com.lodz.android.component.widget.base.TitleBarLayout>
+        android:layout_height="wrap_content"
+        android:layout="@layout/component_viewstub_title_layout" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -31,33 +30,26 @@
 
             </LinearLayout>
 
-            <com.lodz.android.component.widget.base.NoDataLayout
-                android:id="@+id/no_data_layout"
+            <ViewStub
+                android:id="@+id/view_stub_no_data_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
-
-            </com.lodz.android.component.widget.base.NoDataLayout>
+                android:layout="@layout/component_viewstub_no_data_layout" />
 
         </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.lodz.android.component.widget.base.LoadingLayout
-        android:id="@+id/loading_layout"
+    <ViewStub
+        android:id="@+id/view_stub_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout="@layout/component_viewstub_loading_layout" />
 
-    </com.lodz.android.component.widget.base.LoadingLayout>
-
-    <com.lodz.android.component.widget.base.ErrorLayout
-        android:id="@+id/error_layout"
+    <ViewStub
+        android:id="@+id/view_stub_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
-
-    </com.lodz.android.component.widget.base.ErrorLayout>
-
+        android:layout="@layout/component_viewstub_error_layout" />
 
 </LinearLayout>

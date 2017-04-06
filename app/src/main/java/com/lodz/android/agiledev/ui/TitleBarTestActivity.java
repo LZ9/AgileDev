@@ -26,7 +26,7 @@ public class TitleBarTestActivity extends BaseActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-
+        initTitleBar(getTitleBarLayout());
     }
 
     @Override
@@ -52,7 +52,6 @@ public class TitleBarTestActivity extends BaseActivity{
     protected void initData() {
         super.initData();
         showStatusCompleted();
-        initTitleBar(getTitleBarLayout());
     }
 
     private void initTitleBar(TitleBarLayout titleBarLayout) {

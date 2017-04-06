@@ -6,12 +6,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.widget.base.ErrorLayout;
 import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.component.widget.base.NoDataLayout;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 
 /**
  * 基类Fragment（带基础状态控件和下来刷新控件）
@@ -19,6 +21,13 @@ import com.lodz.android.component.widget.base.NoDataLayout;
  */
 public abstract class BaseRefreshFragment extends LazyFragment{
 
+    private ViewStub mTitleBarViewStub;
+    private ViewStub mLoadingViewStub;
+    private ViewStub mNoDataViewStub;
+    private ViewStub mErrorViewStub;
+
+    /** 顶部标题布局 */
+    private TitleBarLayout mTitleBarLayout;
     /** 内容布局 */
     private LinearLayout mContentLayout;
     /** 加载布局 */
@@ -29,7 +38,6 @@ public abstract class BaseRefreshFragment extends LazyFragment{
     private ErrorLayout mErrorLayout;
     /** 下拉刷新 */
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
 
     @Override
     protected int getAbsLayoutId() {
@@ -60,10 +68,11 @@ public abstract class BaseRefreshFragment extends LazyFragment{
     /** 初始化基础控件 */
     private void initViews(View view) {
         mContentLayout = (LinearLayout) view.findViewById(R.id.content_layout);
-        mLoadingLayout = (LoadingLayout) view.findViewById(R.id.loading_layout);
-        mNoDataLayout = (NoDataLayout) view.findViewById(R.id.no_data_layout);
-        mErrorLayout = (ErrorLayout) view.findViewById(R.id.error_layout);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mTitleBarViewStub = (ViewStub) view.findViewById(R.id.view_stub_title_bar_layout);
+        mLoadingViewStub = (ViewStub) view.findViewById(R.id.view_stub_loading_layout);
+        mNoDataViewStub = (ViewStub) view.findViewById(R.id.view_stub_no_data_layout);
+        mErrorViewStub = (ViewStub) view.findViewById(R.id.view_stub_error_layout);
     }
 
     /** 把内容布局设置进来 */
@@ -83,13 +92,6 @@ public abstract class BaseRefreshFragment extends LazyFragment{
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
-        mErrorLayout.setReloadListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickReload();
-            }
-        });
-
         // 下拉刷新
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -101,6 +103,9 @@ public abstract class BaseRefreshFragment extends LazyFragment{
 
     /** 下拉刷新 */
     protected abstract void onDataRefresh();
+
+    /** 点击标题栏的返回按钮 */
+    protected void clickBackBtn() {}
 
     /** 点击重载 */
     protected void clickReload() {}
@@ -137,51 +142,107 @@ public abstract class BaseRefreshFragment extends LazyFragment{
     /** 显示无数据页面 */
     protected void showStatusNoData() {
         mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-        mNoDataLayout.setVisibility(View.VISIBLE);
+        getNoDataLayout().setVisibility(View.VISIBLE);
         mContentLayout.setVisibility(View.GONE);
-        mLoadingLayout.setVisibility(View.GONE);
-        mErrorLayout.setVisibility(View.GONE);
+        if (mLoadingLayout != null){
+            mLoadingLayout.setVisibility(View.GONE);
+        }
+        if (mErrorLayout != null){
+            mErrorLayout.setVisibility(View.GONE);
+        }
     }
 
     /** 显示错误页面 */
     protected void showStatusError() {
         mSwipeRefreshLayout.setVisibility(View.GONE);
         mContentLayout.setVisibility(View.GONE);
-        mNoDataLayout.setVisibility(View.GONE);
-        mLoadingLayout.setVisibility(View.GONE);
-        mErrorLayout.setVisibility(View.VISIBLE);
+        if (mNoDataLayout != null){
+            mNoDataLayout.setVisibility(View.GONE);
+        }
+        if (mLoadingLayout != null){
+            mLoadingLayout.setVisibility(View.GONE);
+        }
+        getErrorLayout().setVisibility(View.VISIBLE);
     }
 
     /** 显示加载页面 */
     protected void showStatusLoading() {
         mSwipeRefreshLayout.setVisibility(View.GONE);
         mContentLayout.setVisibility(View.GONE);
-        mNoDataLayout.setVisibility(View.GONE);
-        mLoadingLayout.setVisibility(View.VISIBLE);
-        mErrorLayout.setVisibility(View.GONE);
+        if (mNoDataLayout != null){
+            mNoDataLayout.setVisibility(View.GONE);
+        }
+        getLoadingLayout().setVisibility(View.VISIBLE);
+        if (mErrorLayout != null){
+            mErrorLayout.setVisibility(View.GONE);
+        }
     }
 
     /** 显示内容页面 */
     protected void showStatusCompleted() {
         mSwipeRefreshLayout.setVisibility(View.VISIBLE);
         mContentLayout.setVisibility(View.VISIBLE);
-        mNoDataLayout.setVisibility(View.GONE);
-        mLoadingLayout.setVisibility(View.GONE);
-        mErrorLayout.setVisibility(View.GONE);
+        if (mNoDataLayout != null){
+            mNoDataLayout.setVisibility(View.GONE);
+        }
+        if (mLoadingLayout != null){
+            mLoadingLayout.setVisibility(View.GONE);
+        }
+        if (mErrorLayout != null){
+            mErrorLayout.setVisibility(View.GONE);
+        }
+    }
+
+    /** 显示TitleBar */
+    protected void showTitleBar(){
+        getTitleBarLayout().setVisibility(View.VISIBLE);
+    }
+
+    /** 获取顶部标题栏控件 */
+    protected TitleBarLayout getTitleBarLayout(){
+        if (mTitleBarLayout == null){
+            mTitleBarLayout = (TitleBarLayout) mTitleBarViewStub.inflate();
+            mTitleBarLayout.setVisibility(View.GONE);
+            mTitleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickBackBtn();
+                }
+            });
+        }
+        return mTitleBarLayout;
     }
 
     /** 获取加载控件 */
     protected LoadingLayout getLoadingLayout(){
+        if (mLoadingLayout == null){
+            mLoadingLayout = (LoadingLayout) mLoadingViewStub.inflate();
+            mLoadingLayout.setVisibility(View.GONE);
+        }
         return mLoadingLayout;
     }
 
     /** 获取无数据控件 */
     protected NoDataLayout getNoDataLayout(){
+        if (mNoDataLayout == null){
+            mNoDataLayout = (NoDataLayout) mNoDataViewStub.inflate();
+            mNoDataLayout.setVisibility(View.GONE);
+        }
         return mNoDataLayout;
     }
 
     /** 获取加载失败界面 */
     protected ErrorLayout getErrorLayout(){
+        if (mErrorLayout == null){
+            mErrorLayout = (ErrorLayout) mErrorViewStub.inflate();
+            mErrorLayout.setVisibility(View.GONE);
+            mErrorLayout.setReloadListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickReload();
+                }
+            });
+        }
         return mErrorLayout;
     }
 
