@@ -23,7 +23,8 @@
 2. 发布1.0.2版本
 
 ## 扩展
-- [回到顶部](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#core库)
+- [回到顶部](https://github.com/LZ9/AgileDev/blob/master/core/readme_core_update.md#core库更新记录)
 - [AgileDev 主页](https://github.com/LZ9/AgileDev)
+- [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
 - [了解 component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
 - [了解 imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)

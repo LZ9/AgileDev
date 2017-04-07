@@ -102,6 +102,8 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 17. VibratorUtil 手机震动帮助类，手机震动帮助类
 
 ## 扩展
+
+- [更新记录](https://github.com/LZ9/AgileDev/blob/master/core/readme_core_update.md)
 - [回到顶部](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#core库)
 - [AgileDev 主页](https://github.com/LZ9/AgileDev)
 - [了解 component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
