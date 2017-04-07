@@ -4,8 +4,6 @@ import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
-import com.facebook.common.util.UriUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class UriUtils {
             return null;
         }
         return new Uri.Builder()
-                .scheme(UriUtil.LOCAL_FILE_SCHEME)
+                .scheme("file")
                 .path(filePath)
                 .build();
     }
@@ -47,7 +45,7 @@ public class UriUtils {
      */
     public static Uri parseResId(@DrawableRes int resId){
         return new Uri.Builder()
-                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .scheme("res")
                 .path(String.valueOf(resId))
                 .build();
     }

@@ -22,6 +22,7 @@ import com.facebook.imagepipeline.cache.MemoryCacheParams;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.listener.RequestListener;
 import com.facebook.imagepipeline.listener.RequestLoggingListener;
+import com.lodz.android.imageloader.ImageloaderManager;
 
 import java.io.File;
 import java.util.HashSet;
@@ -47,9 +48,12 @@ public class FrescoConfig {
     }
 
     public ImagePipelineConfig getImagePipelineConfig(Context context){
-        return OkHttpImagePipelineConfigFactory
-                .newBuilder(context, getOkHttpClient())
-                .setMainDiskCacheConfig(getDiskCacheConfig(context))
+        ImagePipelineConfig.Builder builder = ImagePipelineConfig.newBuilder(context);
+        if (isClassExists("com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory")
+                && isClassExists("okhttp3.OkHttpClient")){
+            builder = OkHttpImagePipelineConfigFactory.newBuilder(context, getOkHttpClient());
+        }
+        return builder.setMainDiskCacheConfig(getDiskCacheConfig(context))
                 .setRequestListeners(getRequestLogConfig())
                 .setMemoryTrimmableRegistry(getMemoryTrimmableRegistryConfig())
                 .setBitmapsConfig(Bitmap.Config.RGB_565) // 若不是要求忒高清显示应用，就用使用RGB_565吧（默认是ARGB_8888)
@@ -98,9 +102,9 @@ public class FrescoConfig {
     /** 获取OkHttpClient */
     private OkHttpClient getOkHttpClient(){
         return new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -138,7 +142,7 @@ public class FrescoConfig {
      * @param context 上下文
      */
     private Supplier<MemoryCacheParams> getBitmapMemoryCacheParamsSupplier(final Context context){
-        Supplier<MemoryCacheParams> supplier = new Supplier<MemoryCacheParams>() {
+        return new Supplier<MemoryCacheParams>() {
             @Override
             public MemoryCacheParams get() {
                 ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -159,7 +163,6 @@ public class FrescoConfig {
                 }
             }
         };
-        return supplier;
     }
 
     /** 获取最大缓存大小 */
@@ -173,11 +176,23 @@ public class FrescoConfig {
         } else {
             // We don't want to use more ashmem on Gingerbread for now, since it doesn't respond well to
             // native memory pressure (doesn't throw exceptions, crashes app, crashes phone)
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-                return 8 * ByteConstants.MB;
-            } else {
-                return maxMemory / 4;
-            }
+            return maxMemory / 4;
         }
+    }
+
+    /**
+     * 指定的类是否存在
+     * @param classFullName 类的完整包名
+     */
+    private boolean isClassExists(String classFullName) {
+        try {
+            Class c = Class.forName(classFullName);
+            if (c != null){
+                return true;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

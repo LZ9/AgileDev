@@ -27,14 +27,14 @@ import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
-import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
+import com.lodz.android.imageloader.ImageloaderManager;
 import com.lodz.android.imageloader.utils.blur.FastBlur;
 
 /**
  * Fresco图片加载库
  * Created by zhouL on 2016/11/21.
  */
-public class FrescoImageLoader implements ImageLoaderContract {
+public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContract.FrescoContract {
 
     /** Fresco构建类 */
     private FrescoBuilderBean mFrescoBuilderBean;
@@ -42,18 +42,26 @@ public class FrescoImageLoader implements ImageLoaderContract {
     /** 创建FrescoImageLoader */
     public static FrescoImageLoader create(){
         FrescoImageLoader fresco = new FrescoImageLoader();
-        fresco.mFrescoBuilderBean = new FrescoBuilderBean();
-        if (ImageloaderManager.get().getBuilder().getPlaceholderResId() != 0){// 获取配置参数
-            fresco.mFrescoBuilderBean.placeholderResId = ImageloaderManager.get().getBuilder().getPlaceholderResId();
-        }
-        if (ImageloaderManager.get().getBuilder().getErrorResId() != 0){
-            fresco.mFrescoBuilderBean.errorResId = ImageloaderManager.get().getBuilder().getErrorResId();
-        }
-        if (ImageloaderManager.get().getBuilder().getRetryResId() != 0){
-            fresco.mFrescoBuilderBean.retryResId = ImageloaderManager.get().getBuilder().getRetryResId();
-        }
-
+        fresco.mFrescoBuilderBean = getFrescoBuilderBean(ImageloaderManager.get().getBuilder());
         return fresco;
+    }
+
+    /**
+     * 根据用户配置的参数获取构造bean
+     * @param builder 配置参数
+     */
+    private static FrescoBuilderBean getFrescoBuilderBean(ImageloaderManager.Builder builder) {
+        FrescoBuilderBean bean = new FrescoBuilderBean();
+        if (builder.getPlaceholderResId() != 0){// 获取配置参数
+            bean.placeholderResId = builder.getPlaceholderResId();
+        }
+        if (builder.getErrorResId() != 0){
+            bean.errorResId = builder.getErrorResId();
+        }
+        if (builder.getRetryResId() != 0){
+            bean.retryResId = builder.getRetryResId();
+        }
+        return bean;
     }
 
     @Override
@@ -63,42 +71,14 @@ public class FrescoImageLoader implements ImageLoaderContract {
     }
 
     @Override
-    public ImageLoaderContract setPlaceholder(@DrawableRes int placeholderResId, ScalingUtils.ScaleType scaleType) {
+    public ImageLoaderContract setPlaceholder(@DrawableRes int placeholderResId) {
         mFrescoBuilderBean.placeholderResId = placeholderResId;
-        mFrescoBuilderBean.placeholderScaleType = scaleType;
         return this;
     }
 
     @Override
-    public ImageLoaderContract setError(@DrawableRes int errorResId, ScalingUtils.ScaleType scaleType) {
+    public ImageLoaderContract setError(@DrawableRes int errorResId) {
         mFrescoBuilderBean.errorResId = errorResId;
-        mFrescoBuilderBean.errorScaleType = scaleType;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract serRetry(@DrawableRes int retryResId, ScalingUtils.ScaleType scaleType) {
-        mFrescoBuilderBean.retryResId = retryResId;
-        mFrescoBuilderBean.retryScaleType = scaleType;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setImageScaleType(ScalingUtils.ScaleType scaleType) {
-        mFrescoBuilderBean.imageScaleType = scaleType;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setResizeOptions(int resizeWidth, int resizeHeight) {
-        mFrescoBuilderBean.resizeWidth = resizeWidth;
-        mFrescoBuilderBean.resizeHeight = resizeHeight;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setAspectRatio(float aspectRatio) {
-        mFrescoBuilderBean.aspectRatio = aspectRatio;
         return this;
     }
 
@@ -109,30 +89,6 @@ public class FrescoImageLoader implements ImageLoaderContract {
         if (width > 0 && height > 0){
             setResizeOptions(width, height);
         }
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setProgressBarImage(@Nullable Drawable drawable) {
-        mFrescoBuilderBean.progressBarDrawable = drawable;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setBackgroundImage(@Nullable Drawable drawable) {
-        mFrescoBuilderBean.backgroundDrawable = drawable;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setOverlayImage(@Nullable Drawable drawable) {
-        mFrescoBuilderBean.overlayDrawable = drawable;
-        return this;
-    }
-
-    @Override
-    public ImageLoaderContract setFadeDuration(int durationMs) {
-        mFrescoBuilderBean.fadeDuration = durationMs;
         return this;
     }
 
@@ -155,13 +111,6 @@ public class FrescoImageLoader implements ImageLoaderContract {
     }
 
     @Override
-    public ImageLoaderContract setBorder(@ColorInt int borderColor, float borderWidth) {
-        mFrescoBuilderBean.roundCornerBorderColor = borderColor;
-        mFrescoBuilderBean.roundCornerBorderWidth = borderWidth;
-        return this;
-    }
-
-    @Override
     public ImageLoaderContract useBlur() {
         mFrescoBuilderBean.useBlur = true;
         return this;
@@ -174,33 +123,117 @@ public class FrescoImageLoader implements ImageLoaderContract {
     }
 
     @Override
-    public ImageLoaderContract setLocalThumbnailPreviews(boolean isEnable) {
+    public FrescoContract joinFresco() {
+        return this;
+    }
+
+    @Override
+    public GlideContract joinGlide() {
+        return null;
+    }
+
+    @Override
+    public FrescoContract setPlaceholderScaleType(ScalingUtils.ScaleType scaleType) {
+        mFrescoBuilderBean.placeholderScaleType = scaleType;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setErrorScaleType(ScalingUtils.ScaleType scaleType) {
+        mFrescoBuilderBean.errorScaleType = scaleType;
+        return this;
+    }
+
+    @Override
+    public FrescoContract serRetry(@DrawableRes int retryResId) {
+        mFrescoBuilderBean.retryResId = retryResId;
+        return this;
+    }
+
+    @Override
+    public FrescoContract serRetryScaleType(ScalingUtils.ScaleType scaleType) {
+        mFrescoBuilderBean.retryScaleType = scaleType;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setImageScaleType(ScalingUtils.ScaleType scaleType) {
+        mFrescoBuilderBean.imageScaleType = scaleType;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setResizeOptions(int resizeWidth, int resizeHeight) {
+        mFrescoBuilderBean.resizeWidth = resizeWidth;
+        mFrescoBuilderBean.resizeHeight = resizeHeight;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setAspectRatio(float aspectRatio) {
+        mFrescoBuilderBean.aspectRatio = aspectRatio;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setProgressBarImage(@Nullable Drawable drawable) {
+        mFrescoBuilderBean.progressBarDrawable = drawable;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setBackgroundImage(@Nullable Drawable drawable) {
+        mFrescoBuilderBean.backgroundDrawable = drawable;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setOverlayImage(@Nullable Drawable drawable) {
+        mFrescoBuilderBean.overlayDrawable = drawable;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setFadeDuration(int durationMs) {
+        mFrescoBuilderBean.fadeDuration = durationMs;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setBorder(@ColorInt int borderColor, float borderWidth) {
+        mFrescoBuilderBean.roundCornerBorderColor = borderColor;
+        mFrescoBuilderBean.roundCornerBorderWidth = borderWidth;
+        return this;
+    }
+
+    @Override
+    public FrescoContract setLocalThumbnailPreviews(boolean isEnable) {
         mFrescoBuilderBean.localThumbnailPreviews = isEnable;
         return this;
     }
 
     @Override
-    public ImageLoaderContract setControllerListener(ControllerListener controllerListener) {
+    public FrescoContract setControllerListener(ControllerListener controllerListener) {
         mFrescoBuilderBean.controllerListener = controllerListener;
         return this;
     }
 
     @Override
-    public ImageLoaderContract wrapImageHeight(int width) {
+    public FrescoContract wrapImageHeight(int width) {
         mFrescoBuilderBean.useWrapImage = true;
         mFrescoBuilderBean.width = width;
         return this;
     }
 
     @Override
-    public ImageLoaderContract wrapImageWidth(int height) {
+    public FrescoContract wrapImageWidth(int height) {
         mFrescoBuilderBean.useWrapImage = true;
         mFrescoBuilderBean.height = height;
         return this;
     }
 
     @Override
-    public ImageLoaderContract wrapImage() {
+    public FrescoContract wrapImage() {
         mFrescoBuilderBean.useWrapImage = true;
         return this;
     }

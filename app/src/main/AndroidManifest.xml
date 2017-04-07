@@ -30,8 +30,16 @@
 
         <meta-data android:value="errortag" android:name="error_tag"/>
 
-        <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
+        <meta-data
+            android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
+            android:value="GlideModule" />
 
+        <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.premissions.PremissionsActivity">
@@ -67,11 +75,11 @@
         </activity>
 
         <activity android:name=".ui.head.HeadRecyclerViewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.image.GlideActivity">
+
         </activity>
 
     </application>

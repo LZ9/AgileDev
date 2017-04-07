@@ -7,7 +7,7 @@ import com.lodz.android.component.base.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
 import com.lodz.android.core.utils.UiHandler;
-import com.lodz.android.imageloader.fresco.config.ImageloaderManager;
+import com.lodz.android.imageloader.ImageloaderManager;
 
 /**
  *

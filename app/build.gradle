@@ -68,4 +68,16 @@ dependencies {
     // butterknife
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    // fresco
+//    compile 'com.facebook.fresco:fresco:1.2.0'
+//    compile 'com.facebook.fresco:animated-gif:1.2.0'// 支持 GIF 动图，需要添加
+//    compile 'com.facebook.fresco:animated-webp:1.2.0'// 在 API < 14 上的机器支持 WebP 时，需要添加
+//    compile 'com.facebook.fresco:animated-base-support:1.2.0'// 支持 WebP 动图，需要添加
+//    compile 'com.facebook.fresco:webpsupport:1.2.0'// 支持 WebP 静态图，需要添加
+//    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.2.0'// 支持 OkHttp3，需要添加
+
+    // glide
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 }

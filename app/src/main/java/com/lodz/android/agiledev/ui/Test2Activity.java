@@ -14,18 +14,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.facebook.drawee.drawable.ScalingUtils;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.fragment.TestFragment;
 import com.lodz.android.component.rx.subscribe.observer.RxObserver;
 import com.lodz.android.component.widget.base.LoadingLayout;
-import com.lodz.android.core.utils.DensityUtils;
-import com.lodz.android.core.utils.ScreenUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
-import com.lodz.android.imageloader.ImageLoader;
-import com.lodz.android.imageloader.utils.UriUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -65,7 +59,7 @@ public class Test2Activity extends AppCompatActivity{
     /** 收藏按钮 */
     ImageView mCollectionImageView;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
-    SimpleDraweeView mBgDraweeView;
+//    SimpleDraweeView mBgDraweeView;
 
     protected void findViews(Bundle savedInstanceState) {
         mContentLayout = (LinearLayout) findViewById(R.id.content_layout);
@@ -76,7 +70,7 @@ public class Test2Activity extends AppCompatActivity{
         mBackImageView = (ImageView) findViewById(R.id.detail_back_imageview);
         mCollectionImageView = (ImageView) findViewById(R.id.detail_collection_imageview);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
-        mBgDraweeView = (SimpleDraweeView) findViewById(R.id.drawee_view);
+//        mBgDraweeView = (SimpleDraweeView) findViewById(R.id.drawee_view);
     }
 
 
@@ -154,14 +148,17 @@ public class Test2Activity extends AppCompatActivity{
     }
 
     private void showBgImg(String imgUrl) {
-        ImageLoader.create()
-                .load(UriUtils.parseUrl(imgUrl))
-                .setPlaceholder(R.drawable.ic_default, ScalingUtils.ScaleType.CENTER_CROP)
-                .setError(R.drawable.ic_default, ScalingUtils.ScaleType.CENTER_CROP)
-                .setImageScaleType(ScalingUtils.ScaleType.CENTER_CROP)
-                .setFadeDuration(1000)
-                .setImageSize(ScreenUtils.getScreenWidth(this), DensityUtils.dp2px(this, 200))
-                .into(mBgDraweeView);
+//        ImageLoader.create(this)
+//                .load(UriUtils.parseUrl(imgUrl))
+//                .setPlaceholder(R.drawable.ic_default)
+//                .setError(R.drawable.ic_default)
+//                .setImageSize(ScreenUtils.getScreenWidth(this), DensityUtils.dp2px(this, 200))
+//                .useFresco()
+//                .setPlaceholderScaleType(ScalingUtils.ScaleType.CENTER_CROP)
+//                .setErrorScaleType(ScalingUtils.ScaleType.CENTER_CROP)
+//                .setImageScaleType(ScalingUtils.ScaleType.CENTER_CROP)
+//                .setFadeDuration(1000)
+//                .into(mBgDraweeView);
     }
 
     /** 初始化ViewPager */
