@@ -1,47 +1,57 @@
-# component库
-这个是基类的组件库，里面包含了Rxjava2、Retrofit2、Eventbus3、和对core库的依赖，小伙伴可以依赖这个库来进行敏捷开发
+# component库更新记录
 
-- 思考再三我还是没有使用MVP等架构来构建代码，我想将这个库定位为小型APP的开发组件。
-- 如果小伙伴打算开发的app功能不太复杂，我建议可以尝试依赖这个库，直观的代码和常用方法的便捷封装有助于你快速完成功能开发。
-- 如果小伙伴的app属于中大型，需要经常迭代或者维护人员更替较快的话，可能就不太适合这个库，可以寻求高解耦的组件库来满足你的需求。
-- 当然如果你有兴趣基于这个库在上层继续扩展，我会非常开心，欢迎小伙伴们一起学习交流
+##### 2017/04/06
+1. 将Activity和Fragment基类里的加载状态控件全部改为ViewStub
+2. 增加带Head的RecyclerView适配器
+3. 发布1.2.0版本
 
-## 目录
-<!-- - [1、涉及的support依赖](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#1涉及的support依赖) -->
-<!-- - [2、日志类PrintLog](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#2日志类printlog) -->
-<!-- - [3、网络状态类NetworkManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#3网络状态类networkmanager) -->
-<!-- - [4、加密相关](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#4加密相关) -->
-<!-- - [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager) -->
-<!-- - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类) -->
-<!-- - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展) -->
+##### 2017/03/30
+1. BaseApplication增加应用进入后台时保存数据和从后台返回恢复数据的方法
+2. 发布1.1.9版本
 
+##### 2017/03/24
+1. 增加RecyclerView的拖拽帮助类RecyclerViewDragHelper
+2. 加载更多Adapter增加对网格布局的支持
+3. 发布1.1.7版本
 
-## 1、涉及的依赖
-该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
-```
-    dependencies {
-        compile 'cn.lodz:core:1.0.10'
-      
-        compile 'io.reactivex.rxjava2:rxjava:2.0.8'
-        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+##### 2017/03/15
+1. 加载更多Adapter增加手动设置加载完成
+2. 更新RxJava和Retrofit的依赖版本
+3. 发布1.1.5版本
 
-        compile 'com.squareup.retrofit2:retrofit:2.2.0'
-        compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-        compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
-        compile 'com.alibaba:fastjson:1.1.56.android'
+##### 2017/03/02
+1. 在基类的Activity里注册和解注册EventBus，通过EventBus来关闭所有Activity
+2. 增加带下来刷新控件的BaseRefreshActivity
+3. 增加对加载更多Adapter的简单实现BaseSimpleLoadMoreRecyclerViewAdapter
+4. 修复加载更多帮助类的BUG
+5. Fragment抽象出不带加载控件的LazyFragment
+6. 增加带下拉刷新的BaseRefreshFragment
+7. 增加背压订阅者的封装
+8. 添加Rx帮助类
+9. 发布1.1.1版本
 
-        compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
-        compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+##### 2017/02/23
+1. 增加异常打印标签设置
+2. 抽象出不带状态控件的基类AbsActivity
+3. 扩展加载状态控件的定制方法
+4. 订阅者在内部多增加一个网络异常判断
+5. 发布1.1.0版本
 
-        compile 'org.greenrobot:eventbus:3.0.0'
-    }
-```
+##### 2017/02/17
+1. 修复封装订阅者BUG
+2. 添加加载更多帮助类，整合加载更多操作
+3. 发布1.0.4版本
 
-
-
+##### 2017/02/14
+1. 提交初始版本
+2. 增加RxJava和Retrofit相关依赖
+3. 封装背压和无背压订阅者
+4. 添加加载状态控件
+5. 发布1.0.2版本
 
 ## 扩展
-- [回到顶部](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#core库)
+- [回到顶部](https://github.com/LZ9/AgileDev/blob/master/component/readme_component_update.md#component库更新记录)
 - [AgileDev 主页](https://github.com/LZ9/AgileDev)
+- [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
 - [了解 component](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md)
 - [了解 imageloader](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md)
