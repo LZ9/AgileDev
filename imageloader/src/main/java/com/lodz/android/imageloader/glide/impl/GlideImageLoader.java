@@ -148,7 +148,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
 
     @Override
     public FrescoContract joinFresco() {
-        return null;
+        throw new RuntimeException("您已选择依赖Glide，请勿调用joinFresco()");
     }
 
     @Override

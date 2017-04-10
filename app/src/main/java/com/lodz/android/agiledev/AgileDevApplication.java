@@ -33,9 +33,9 @@ public class AgileDevApplication extends BaseApplication{
         ImageloaderManager.get().newBuilder()
                 .setPlaceholderResId(R.drawable.ic_launcher)//设置默认占位符
                 .setErrorResId(R.drawable.ic_launcher)// 设置加载失败图
-//                .setRetryResId(R.drawable.ic_launcher)// 设置默认重载图片
-                .setTapToRetryEnabled(false)// 开启加载失败重试
-                .setAutoPlayAnimations(true)// 开启GIF自动播放
+//                .setFrescoRetryResId(R.drawable.ic_launcher)// 设置默认重载图片
+//                .setFrescoTapToRetryEnabled(false)// 开启加载失败重试
+//                .setFrescoAutoPlayAnimations(true)// 开启GIF自动播放
                 .setDirectoryFile(this.getApplicationContext().getCacheDir())
                 .setDirectoryName("image_cache")
                 .build(this);

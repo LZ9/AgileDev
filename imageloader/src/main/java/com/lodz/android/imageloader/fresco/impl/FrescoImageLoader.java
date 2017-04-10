@@ -129,7 +129,7 @@ public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContra
 
     @Override
     public GlideContract joinGlide() {
-        return null;
+        throw new RuntimeException("您已选择依赖Fresco，请勿调用joinGlide()");
     }
 
     @Override

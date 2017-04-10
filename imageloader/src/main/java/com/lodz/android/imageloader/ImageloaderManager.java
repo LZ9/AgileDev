@@ -171,7 +171,7 @@ public class ImageloaderManager {
          * 设置默认重载图片
          * @param retryResId 重载图片Id
          */
-        public Builder setRetryResId(int retryResId) {
+        public Builder setFrescoRetryResId(int retryResId) {
             this.retryResId = retryResId;
             return this;
         }
@@ -180,7 +180,7 @@ public class ImageloaderManager {
          * 开启重试功能
          * @param tapToRetryEnabled 开启重试
          */
-        public Builder setTapToRetryEnabled(boolean tapToRetryEnabled) {
+        public Builder setFrescoTapToRetryEnabled(boolean tapToRetryEnabled) {
             this.tapToRetryEnabled = tapToRetryEnabled;
             return this;
         }
@@ -189,7 +189,7 @@ public class ImageloaderManager {
          * 自动播放gif动画
          * @param autoPlayAnimations 自动播放
          */
-        public Builder setAutoPlayAnimations(boolean autoPlayAnimations) {
+        public Builder setFrescoAutoPlayAnimations(boolean autoPlayAnimations) {
             this.autoPlayAnimations = autoPlayAnimations;
             return this;
         }
