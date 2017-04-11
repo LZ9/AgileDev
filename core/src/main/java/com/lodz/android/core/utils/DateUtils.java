@@ -14,23 +14,23 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    public static final String Type_1 = "HH:mm";
-    public static final String Type_2 = "yyyy-MM-dd HH:mm:ss";
-    public static final String Type_3 = "yyyyMMddHHmmssSSS";
-    public static final String Type_4 = "yyyyMMddHHmmss";
-    public static final String Type_5 = "yyyyMMdd";
-    public static final String Type_6 = "yyyy-MM-dd";
-
-    @StringDef({Type_1, Type_2, Type_3, Type_4, Type_5, Type_6})
+    @StringDef({FormatType.Type_1, FormatType.Type_2, FormatType.Type_3, FormatType.Type_4, FormatType.Type_5, FormatType.Type_6, FormatType.Type_7})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface FormatType {}
-
+    public @interface FormatType {
+        String Type_1 = "HH:mm";
+        String Type_2 = "yyyy-MM-dd HH:mm:ss";
+        String Type_3 = "yyyyMMddHHmmssSSS";
+        String Type_4 = "yyyyMMddHHmmss";
+        String Type_5 = "yyyyMMdd";
+        String Type_6 = "yyyy-MM-dd";
+        String Type_7 = "yyyy-MM-dd-HH-mm-ss";
+    }
 
     /**
      * 格式化当前时间
      * @param formatType 格式化类型
      */
-    public static String getCurrentFormatString(@FormatType String formatType) {
+    public static String getCurrentFormatString(String formatType) {
         return getFormatString(formatType, new Date(System.currentTimeMillis()));
     }
 
@@ -39,7 +39,7 @@ public class DateUtils {
      * @param formatType 格式化类型
      * @param date 日期
      */
-    public static String getFormatString(@FormatType String formatType, Date date) {
+    public static String getFormatString(String formatType, Date date) {
         SimpleDateFormat format = new SimpleDateFormat(formatType, Locale.CHINA);
         return format.format(date);
     }
@@ -49,7 +49,7 @@ public class DateUtils {
      * @param formatType source对应的格式化类型
      * @param source 时间数据
      */
-    public static Date parseFormatDate(@FormatType String formatType, String source) {
+    public static Date parseFormatDate(String formatType, String source) {
         SimpleDateFormat format = new SimpleDateFormat(formatType, Locale.CHINA);
         try {
             return format.parse(source);
@@ -65,7 +65,7 @@ public class DateUtils {
      * @param newFormatType 新格式
      * @param source 时间数据
      */
-    public static String changeFormatString(@FormatType String oldFormatType, @FormatType String newFormatType, String source) {
+    public static String changeFormatString(String oldFormatType, String newFormatType, String source) {
         Date date = parseFormatDate(oldFormatType, source);
         if (date == null){
             return "";
