@@ -67,5 +67,14 @@ public class PrintLog {
         }
     }
 
+    public static void e(String tag, String msg, Throwable t) {
+        if (sIsPrint) {
+            if (TextUtils.isEmpty(msg)) {
+                Log.e(tag, "NULL");
+            } else {
+                Log.e(tag, msg, t);
+            }
+        }
+    }
 
 }

@@ -19,6 +19,9 @@ public class SpManager {
         return mInstance;
     }
 
+    private SpManager() {
+    }
+
     /**
      * 设置用户账号
      * @param account 账号

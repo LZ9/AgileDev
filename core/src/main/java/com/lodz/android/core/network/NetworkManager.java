@@ -30,6 +30,9 @@ public class NetworkManager {
         return mInstance;
     }
 
+    private NetworkManager() {
+    }
+
     /** 网络广播 */
     private ConnectBroadcastReceiver mReceiver;
     /** 网络信息 */

@@ -32,7 +32,7 @@ public class AppUtils {
     }
 
     /**
-     * 获取客户端版本号
+     * 获取客户端版本名称
      * @param context 上下文
      */
     public static String getVersionName(Context context) {
@@ -44,6 +44,21 @@ public class AppUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 获取客户端版本号
+     * @param context 上下文
+     */
+    public static int getVersionCode(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**

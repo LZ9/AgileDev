@@ -24,6 +24,8 @@ public class FileManager {
     private static String mDownloadFolderPath = null;
     /** 内容路径 */
     private static String mContentFolderPath = null;
+    /** 崩溃日志路径 */
+    private static String mCrashFolderPath = null;
 
     public static void init(){
         initPath();
@@ -51,6 +53,7 @@ public class FileManager {
         mCacheFolderPath = mAppFolderPath + "Cache" + File.separator;// 缓存路径
         mDownloadFolderPath = mAppFolderPath + "Download" + File.separator;// 下载路径
         mContentFolderPath = mAppFolderPath + "Content" + File.separator;// 内容路径
+        mCrashFolderPath = mAppFolderPath + "Crash" + File.separator;// 崩溃日志路径
     }
 
     /** 初始化文件夹 */
@@ -60,6 +63,7 @@ public class FileManager {
             FileUtils.createFolder(mCacheFolderPath);// 缓存路径
             FileUtils.createFolder(mDownloadFolderPath);// 下载路径
             FileUtils.createFolder(mContentFolderPath);// 内容路径
+            FileUtils.createFolder(mCrashFolderPath);// 崩溃日志路径
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -90,4 +94,8 @@ public class FileManager {
         return mContentFolderPath;
     }
 
+    /** 获取崩溃日志路径 */
+    public static String getCrashFolderPath() {
+        return mCrashFolderPath;
+    }
 }

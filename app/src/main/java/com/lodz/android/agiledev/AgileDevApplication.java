@@ -2,6 +2,7 @@ package com.lodz.android.agiledev;
 
 import android.os.Bundle;
 
+import com.lodz.android.agiledev.utils.CrashHandler;
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
@@ -26,6 +27,7 @@ public class AgileDevApplication extends BaseApplication{
         NetworkManager.get().init(this);// 初始化网络管理
         FileManager.init();// 初始化文件管理
         initImageLoader();
+        CrashHandler.get().init();
     }
 
     /** 初始化图片加载库 */

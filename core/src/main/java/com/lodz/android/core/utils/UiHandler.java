@@ -21,6 +21,9 @@ public class UiHandler {
         }
     }
 
+    private UiHandler() {
+    }
+
     /**
      * 在UI线程执行Runnable
      * @param r 线程体

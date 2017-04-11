@@ -22,6 +22,9 @@ public class ThreadPoolManager {
         return mInstance;
     }
 
+    private ThreadPoolManager() {
+    }
+
     /** 最高优先级线程池（界面数据加载） */
     public ExecutorService mHighestExecutor;
 

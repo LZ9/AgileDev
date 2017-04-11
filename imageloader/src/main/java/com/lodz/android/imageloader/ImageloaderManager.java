@@ -33,6 +33,9 @@ public class ImageloaderManager {
         return mInstance;
     }
 
+    private ImageloaderManager() {
+    }
+
     @IntDef({LoaderType.TYPE_NONE, LoaderType.TYPE_GLIDE, LoaderType.TYPE_FRESCO})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LoaderType {
