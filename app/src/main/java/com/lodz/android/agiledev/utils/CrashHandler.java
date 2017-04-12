@@ -3,6 +3,8 @@ package com.lodz.android.agiledev.utils;
 import android.content.Context;
 import android.os.Build;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.lodz.android.component.base.BaseApplication;
@@ -10,6 +12,7 @@ import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.DateUtils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -47,27 +50,60 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     /** 是否拦截 */
     private boolean isInterceptor = true;
+    /** 提示语 */
+    private String mToastTips = "";
+    /** 保存的文件夹路径 */
+    private String mSaveFolderPath = "";
+    /** 日志文件名及后缀 */
+    private String mLogFileName = "";
 
     /** 初始化代码 */
-     public CrashHandler init(){
+     public void init(){
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);
-         return this;
     }
 
     /**
      * 设置是否对异常进行拦截
      * @param interceptor 是否拦截
      */
-    public void setInterceptor(boolean interceptor) {
+    public CrashHandler setInterceptor(boolean interceptor) {
         isInterceptor = interceptor;
+        return this;
+    }
+
+    /**
+     * 设置异常提示语（不设置使用默认提示语）
+     * @param tips 提示语
+     */
+    public CrashHandler setToastTips(@NonNull String tips) {
+        this.mToastTips = tips;
+        return this;
+    }
+
+    /**
+     * 设置保存的文件夹路径
+     * @param saveFolderPath 文件夹路径
+     */
+    public CrashHandler setSaveFolderPath(String saveFolderPath) {
+        this.mSaveFolderPath = saveFolderPath;
+        return this;
+    }
+
+    /**
+     * 设置日志文件名及后缀（不设置使用默认文件名）
+     * @param logFileName 日志文件名
+     */
+    public CrashHandler setLogFileName(@NonNull String logFileName) {
+        this.mLogFileName = logFileName;
+        return this;
     }
 
     @Override
     public void uncaughtException(Thread thread, Throwable t) {
         if (isInterceptor){// 用户处理
             PrintLog.d(TAG, "user handle");
-            handleException(t);
+            handleException(t);// 具体处理类
             try {
                 Thread.sleep(3000);
             } catch (Exception e) {
@@ -99,20 +135,25 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param t 异常
      */
     private void handleException(Throwable t) {
-        showToast();
-        Map<String, String> deviceInfos = getDeviceInfo(BaseApplication.get().getApplicationContext());
-        String content = getLogContent(deviceInfos, t);
-        boolean isSaveSuccess = saveCrashLogInFile(FileManager.getCrashFolderPath(), content);
+        showToast();// 显示提示
+        Map<String, String> deviceInfos = getDeviceInfo(BaseApplication.get().getApplicationContext());// 获取设备信息
+        String content = getLogContent(deviceInfos, t);// 获取日志内容
+        boolean isSaveSuccess = saveCrashLogInFile(content);// 将日志内容保存到内存卡
         PrintLog.d(TAG, "保存崩溃日志 ： " + isSaveSuccess);
+        // 自定义操作
+
     }
 
     /** 显示提示语 */
     private void showToast() {
+        if (TextUtils.isEmpty(mToastTips)){
+            mToastTips = "很抱歉，程序出现异常即将退出";
+        }
         new Thread() {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(BaseApplication.get().getApplicationContext(), "很抱歉，程序出现异常即将退出", Toast.LENGTH_LONG).show();
+                Toast.makeText(BaseApplication.get().getApplicationContext(), mToastTips, Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
         }.start();
@@ -120,15 +161,24 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 保存崩溃信息到本地文件
-     * @param folderPath 保存路径
      * @param content 保存信息
      */
-    private boolean saveCrashLogInFile(String folderPath, String content) {
+    private boolean saveCrashLogInFile(String content) {
         try {
-            long timestamp = System.currentTimeMillis();
-            String time = DateUtils.getFormatString(DateUtils.FormatType.Type_7, new Date(timestamp));
-            String fileName = "crash-" + time + "-" + timestamp + ".log";
-            FileOutputStream fos = new FileOutputStream(folderPath + fileName);
+            if (TextUtils.isEmpty(mSaveFolderPath)){
+                mSaveFolderPath = FileManager.getCrashFolderPath();
+            }else {
+                if (!mSaveFolderPath.endsWith(File.separator)) {// 判断路径结尾符
+                    mSaveFolderPath += File.separator;
+                }
+            }
+
+            if (TextUtils.isEmpty(mLogFileName)){
+                long timestamp = System.currentTimeMillis();
+                String time = DateUtils.getFormatString(DateUtils.FormatType.Type_7, new Date(timestamp));
+                mLogFileName = "crash-" + time + "-" + timestamp + ".log";
+            }
+            FileOutputStream fos = new FileOutputStream(mSaveFolderPath + mLogFileName);
             fos.write(content.getBytes());
             fos.close();
             return true;
@@ -186,4 +236,5 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         stringBuilder.append(result);
         return stringBuilder.toString();
     }
+
 }

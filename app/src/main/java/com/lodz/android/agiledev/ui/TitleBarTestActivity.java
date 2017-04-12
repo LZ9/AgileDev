@@ -35,8 +35,9 @@ public class TitleBarTestActivity extends BaseActivity{
         findViewById(R.id.btn_call).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = null;
-                a.toString();
+                // 测试异常拦截
+//                String a = null;
+//                a.toString();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }

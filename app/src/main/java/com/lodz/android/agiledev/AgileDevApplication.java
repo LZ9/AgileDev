@@ -27,7 +27,7 @@ public class AgileDevApplication extends BaseApplication{
         NetworkManager.get().init(this);// 初始化网络管理
         FileManager.init();// 初始化文件管理
         initImageLoader();
-        CrashHandler.get().init();
+        initCrashHandler();
     }
 
     /** 初始化图片加载库 */
@@ -41,6 +41,16 @@ public class AgileDevApplication extends BaseApplication{
                 .setDirectoryFile(this.getApplicationContext().getCacheDir())
                 .setDirectoryName("image_cache")
                 .build(this);
+    }
+
+    /** 初始化异常处理 */
+    private void initCrashHandler() {
+        CrashHandler.get()
+//                .setInterceptor(true)
+//                .setToastTips("嗝屁啦")
+//                .setSaveFolderPath(FileManager.getCacheFolderPath())
+//                .setLogFileName("heheda.log")
+                .init();
     }
 
     @Override
