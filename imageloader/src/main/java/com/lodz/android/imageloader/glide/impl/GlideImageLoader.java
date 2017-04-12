@@ -28,6 +28,7 @@ import com.lodz.android.imageloader.glide.transformations.GrayscaleTransformatio
 import com.lodz.android.imageloader.glide.transformations.MaskTransformation;
 import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,9 +93,12 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     }
 
     @Override
-    public ImageLoaderContract load(Uri uri) {
-        mGlideBuilderBean.uri = uri;
-        return this;
+    public ImageLoaderContract load(Object o) {
+        if (o instanceof String || o instanceof Uri || o instanceof File || o instanceof Integer || o instanceof byte[]){
+            mGlideBuilderBean.path = o;
+            return this;
+        }
+        throw new RuntimeException("Glide不支持String/Uri/File/Integer/byte[]以外的图片路径参数");
     }
 
     @Override
@@ -289,7 +293,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
      * @param bean 构建实体
      */
     private DrawableTypeRequest getDrawableTypeRequest(Context context, RequestManager manager, GlideBuilderBean bean){
-        DrawableTypeRequest request = manager.load(bean.uri);
+        DrawableTypeRequest request = manager.load(bean.path);
         request.placeholder(bean.placeholderResId);// 设置加载图
         request.error(bean.errorResId);// 设置加载失败图
         if (!bean.saveToMemoryCache){
@@ -328,7 +332,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
      * @param bean 构建实体
      */
     private DrawableTypeRequest configDiskCacheStrategy(DrawableTypeRequest request, GlideBuilderBean bean) {
-        if (bean.uri.getScheme().equals("file") || bean.uri.getScheme().equals("res")){// 资源文件和本地手机存储的文件不需要进行磁盘缓存
+        if (bean.path instanceof File || bean.path instanceof Integer){// 资源文件和本地手机存储的文件不需要进行磁盘缓存
             request.diskCacheStrategy(DiskCacheStrategy.NONE);
         }else {// 其他情况根据自定义缓存策略设置
             request.diskCacheStrategy(getGlideDiskCacheStrategy(bean.diskCacheStrategy));

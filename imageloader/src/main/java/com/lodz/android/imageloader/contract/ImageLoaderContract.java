@@ -2,7 +2,6 @@ package com.lodz.android.imageloader.contract;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -25,9 +24,9 @@ public interface ImageLoaderContract {
 
     /**
      * 设置加载路径
-     * @param uri 加载路径
+     * @param o 加载路径（Fresco采用Uri，Glide包括String/Uri/File/Integer/byte[]）
      */
-    ImageLoaderContract load(Uri uri);
+    ImageLoaderContract load(Object o);
 
     /**
      * 设置加载图

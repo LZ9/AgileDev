@@ -1,6 +1,5 @@
 package com.lodz.android.imageloader;
 
-import android.net.Uri;
 import android.support.annotation.DrawableRes;
 
 /**
@@ -11,7 +10,7 @@ import android.support.annotation.DrawableRes;
 public class BuilderBean {
 
     /** 加载路径 */
-    public Uri uri = null;
+    public Object path = null;
 
     /** 加载图的资源id */
     @DrawableRes

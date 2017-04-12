@@ -65,9 +65,12 @@ public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContra
     }
 
     @Override
-    public ImageLoaderContract load(Uri uri) {
-        mFrescoBuilderBean.uri = uri;
-        return this;
+    public ImageLoaderContract load(Object o) {
+        if (o instanceof Uri){
+            mFrescoBuilderBean.path = o;
+            return this;
+        }
+        throw new RuntimeException("Fresco不支持Uri以外的图片路径参数");
     }
 
     @Override
@@ -240,7 +243,7 @@ public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContra
 
     @Override
     public void into(SimpleDraweeView simpleDraweeView) {
-        if (mFrescoBuilderBean == null || mFrescoBuilderBean.uri == null || simpleDraweeView == null){
+        if (mFrescoBuilderBean == null || mFrescoBuilderBean.path == null || simpleDraweeView == null){
             return;
         }
         simpleDraweeView = getConfig(simpleDraweeView, mFrescoBuilderBean);
@@ -361,14 +364,13 @@ public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContra
             blurPostprocessor = new BlurPostprocessor(bean.blurRadius);
         }
 
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(bean.uri)
+        return ImageRequestBuilder.newBuilderWithSource((Uri) bean.path)
                 .setLocalThumbnailPreviewsEnabled(bean.localThumbnailPreviews)
                 .setResizeOptions(resizeOptions)//设置图片在内存的大小，类似分辨率
                 .setRotationOptions(RotationOptions.autoRotate())//设置自动旋转
                 .setProgressiveRenderingEnabled(true)//开启渐进式加载
                 .setPostprocessor(blurPostprocessor)//进行高斯模糊，配合setResizeOptions使用可以减少运算时间
                 .build();
-        return request;
     }
 
     /** 高斯模糊 */
