@@ -8,8 +8,8 @@ import android.support.annotation.DrawableRes;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.lodz.android.imageloader.BuilderBean;
 import com.lodz.android.imageloader.R;
+import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Glide构建类

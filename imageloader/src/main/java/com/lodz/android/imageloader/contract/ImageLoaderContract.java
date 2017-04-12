@@ -14,8 +14,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * 图片加载库接口

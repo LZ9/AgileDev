@@ -20,17 +20,17 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.lodz.android.imageloader.ImageloaderManager;
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
+import com.lodz.android.imageloader.glide.transformations.BlurTransformation;
+import com.lodz.android.imageloader.glide.transformations.ColorFilterTransformation;
+import com.lodz.android.imageloader.glide.transformations.CropCircleTransformation;
+import com.lodz.android.imageloader.glide.transformations.CropSquareTransformation;
+import com.lodz.android.imageloader.glide.transformations.GrayscaleTransformation;
+import com.lodz.android.imageloader.glide.transformations.MaskTransformation;
+import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.ColorFilterTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.CropSquareTransformation;
-import jp.wasabeef.glide.transformations.GrayscaleTransformation;
-import jp.wasabeef.glide.transformations.MaskTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Glide图片加载库

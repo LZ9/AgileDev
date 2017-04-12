@@ -35,7 +35,11 @@
             android:value="GlideModule" />
 
         <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.premissions.PremissionsActivity">
@@ -55,11 +59,7 @@
         </activity>
 
         <activity android:name=".ui.TitleBarTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.refresh.RefreshTestActivity">
