@@ -576,7 +576,29 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下图所示：
     }
 ```
 ## 7、Dialog相关
+### 1）BaseDialog
+a）BaseDialog继承自Dialog，小伙伴继承BaseDialog后可以实现下面两个方法，分别传入布局layout和获取控件id
+```
+    @Override
+    protected int getLayoutId() {
+        return dialog_view_layout;
+    }
 
+    @Override
+    protected void findViews() {
+        .....
+    }
+```
+b）重写设置监听器和设置数据方法，可以在里面设置控件的监听器和初始化数据
+```
+    protected void setListeners() {}
+    
+    protected void initData() {}
+```
+### 2）BaseRightDialog
+从右侧滑出的Dialog，使用方法和BaseDialog一致
+### 3）BaseBottomDialog
+从底部滑出的Dialog，使用方法和BaseDialog一致
 
 ## 扩展
 
