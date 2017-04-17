@@ -23,6 +23,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.listener.RequestListener;
 import com.facebook.imagepipeline.listener.RequestLoggingListener;
 import com.lodz.android.imageloader.ImageloaderManager;
+import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -49,8 +50,8 @@ public class FrescoConfig {
 
     public ImagePipelineConfig getImagePipelineConfig(Context context){
         ImagePipelineConfig.Builder builder = ImagePipelineConfig.newBuilder(context);
-        if (isClassExists("com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory")
-                && isClassExists("okhttp3.OkHttpClient")){
+        if (CompileUtils.isClassExists("com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory")
+                && CompileUtils.isClassExists("okhttp3.OkHttpClient")){
             builder = OkHttpImagePipelineConfigFactory.newBuilder(context, getOkHttpClient());
         }
         return builder.setMainDiskCacheConfig(getDiskCacheConfig(context))
@@ -180,19 +181,4 @@ public class FrescoConfig {
         }
     }
 
-    /**
-     * 指定的类是否存在
-     * @param classFullName 类的完整包名
-     */
-    private boolean isClassExists(String classFullName) {
-        try {
-            Class c = Class.forName(classFullName);
-            if (c != null){
-                return true;
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 }

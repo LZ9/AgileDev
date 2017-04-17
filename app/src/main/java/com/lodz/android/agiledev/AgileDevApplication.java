@@ -55,7 +55,7 @@ public class AgileDevApplication extends BaseApplication{
 
     @Override
     protected void beforeExit() {
-        ImageloaderManager.get().clearMemoryCachesWithGC();// 退出时清除图片缓存
+        ImageloaderManager.get().clearMemoryCachesWithGC(this);// 退出时清除图片缓存
         UiHandler.destroy();
         NetworkManager.get().release(this);// 释放网络管理资源
         NetworkManager.get().clearNetworkListener();// 清除所有网络监听器

@@ -11,6 +11,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.GlideModule;
 import com.facebook.common.file.FileUtils;
 import com.lodz.android.imageloader.ImageloaderManager;
+import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -60,24 +61,8 @@ public class CacheGlideModule implements GlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide) {
-        if (isClassExists("com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader")){
+        if (CompileUtils.isClassExists("com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader")){
             glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
         }
-    }
-
-    /**
-     * 指定的类是否存在
-     * @param classFullName 类的完整包名
-     */
-    private boolean isClassExists(String classFullName) {
-        try {
-            Class c = Class.forName(classFullName);
-            if (c != null){
-                return true;
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 }

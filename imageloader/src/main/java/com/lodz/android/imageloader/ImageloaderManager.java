@@ -5,8 +5,10 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lodz.android.imageloader.fresco.config.FrescoConfig;
+import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
 import java.lang.annotation.Retention;
@@ -63,56 +65,75 @@ public class ImageloaderManager {
     }
 
     /** 清除内存缓存 */
-    public void clearMemoryCaches(){
+    public void clearMemoryCaches(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().clearMemoryCaches();
+        }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            Glide.get(context).clearMemory();
         }
     }
 
     /** 清除内存缓存（包括手动GC内存） */
-    public void clearMemoryCachesWithGC(){
+    public void clearMemoryCachesWithGC(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().clearMemoryCaches();
-            System.gc();
         }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            Glide.get(context).clearMemory();
+        }
+        System.gc();
     }
 
     /** 清楚磁盘缓存 */
-    public void clearDiskCaches(){
+    public void clearDiskCaches(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().clearDiskCaches();
+        }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            Glide.get(context).clearDiskCache();
         }
     }
 
     /** 清除所有缓存（内存+磁盘） */
-    public void clearCaches(){
+    public void clearCaches(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().clearCaches();
-            System.gc();
         }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            Glide.get(context).clearMemory();
+            Glide.get(context).clearDiskCache();
+        }
+        System.gc();
     }
 
     /** 暂停加载 */
-    public void pauseLoad(){
+    public void pauseLoad(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().pause();
+        }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            Glide.with(context).pauseRequests();
         }
     }
 
     /** 恢复加载 */
-    public void resumeLoad(){
+    public void resumeLoad(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().resume();
+        }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            Glide.with(context).resumeRequests();
         }
     }
 
     /** 是否暂停加载 */
-    public boolean isPaused(){
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
-            return false;
-        }
+    public boolean isPaused(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             return Fresco.getImagePipeline().isPaused();
+        }
+        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            return Glide.with(context).isPaused();
         }
         return false;
     }
@@ -141,11 +162,11 @@ public class ImageloaderManager {
         private String directoryName;
 
         private Builder() {
-            if (isClassExists("com.facebook.drawee.backends.pipeline.Fresco")) {
+            if (CompileUtils.isClassExists("com.facebook.drawee.backends.pipeline.Fresco")) {
                 this.loaderType = LoaderType.TYPE_FRESCO;
                 return;
             }
-            if (isClassExists("com.bumptech.glide.Glide")) {
+            if (CompileUtils.isClassExists("com.bumptech.glide.Glide")) {
                 this.loaderType = LoaderType.TYPE_GLIDE;
                 return;
             }
@@ -220,11 +241,11 @@ public class ImageloaderManager {
          * @param context 上下文
          */
         public void build(Context context){
-            if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
-                return;
-            }
             if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
                 Fresco.initialize(context, FrescoConfig.create().getImagePipelineConfig(context));
+            }
+            if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+                return;
             }
         }
 
@@ -267,24 +288,6 @@ public class ImageloaderManager {
         public int getLoaderType() {
             return loaderType;
         }
-
-        /**
-         * 指定的类是否存在
-         * @param classFullName 类的完整包名
-         */
-        private boolean isClassExists(String classFullName) {
-            try {
-                Class c = Class.forName(classFullName);
-                if (c != null){
-                    return true;
-                }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return false;
-        }
     }
-
-
 
 }
