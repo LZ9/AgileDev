@@ -27,7 +27,7 @@ public class RecyclerLoadMoreHelper<T> {
      * @param sumSize 总条数
      * @param size 每页条数
      * @param isShowBottomLayout 是否显示底部提示界面
-     * @param index 预加载偏移量，滑动到倒数第index个item时就回调加载接口（默认值为5）
+     * @param index 预加载偏移量，滑动到倒数第index个item时就回调加载接口（默认值为3）
      */
     public void config(List<T> list, int sumSize, int size, boolean isShowBottomLayout, int index){
         mAdapter.setLoadMoreParam(sumSize, size, isShowBottomLayout);

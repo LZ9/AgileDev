@@ -296,7 +296,9 @@ d）如果你希望能在指定的标签下打印onError()里出来的错误信�
 ```
 ### 2）RxObserver
 a）RxObserver继承BaseObserver，主要是对接口数据校验进行封装，适用于对接口数据的订阅。
-只需要在你所封装的最外层的Bean里实现ResponseStatus接口里的isSuccess()方法，RxObserver在获取数据时会根据isSuccess()方法的返回值来进行数据校验，如果isSuccess()返回的是false则会抛出DataException，你可以从DataException里获取实现了ResponseStatus的Bean对象，对数据进行相应的展示。
+只需要在你所封装的最外层的Bean里实现ResponseStatus接口里的isSuccess()方法，
+RxObserver在获取数据时会根据isSuccess()方法的返回值来进行数据校验，如果isSuccess()返回的是false则会抛出DataException，
+你可以从DataException里获取实现了ResponseStatus的Bean对象，对数据进行相应的展示。
 
 b）RxObserver会抛出的异常包括4类：
 - 基础异常RxException：RxException是这4类异常的父类，它包裹着Exception的所有信息
@@ -347,8 +349,233 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
     .compose(RxUtils.<T>io_main())
 ```
 ## 6、RecyclerView相关
+### 1）BaseRecyclerViewAdapter
+这个是RecyclerView适配器的基类adapter，继承这个基类，
+实现onCreateViewHolder(ViewGroup parent, int viewType)和onBind(RecyclerView.ViewHolder holder, int position)两个抽象方法，
+来实现适配器逻辑
+```
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ItemHolder(getLayoutView(parent, R.layout.item_view_layout));
+    }
 
+    @Override
+    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+        ....
+    }
+```
+### 2）BaseHeadRecyclerViewAdapter
+带头布局的RecyclerView适配器基类，接触这个基类，
+实现getHeadViewHolder(ViewGroup parent)、getGridListViewHolder(ViewGroup parent)和onBind(RecyclerView.ViewHolder holder, int position)方法，
+实现头布局和item列表逻辑
+```
+ @Override
+    protected RecyclerView.ViewHolder getHeadViewHolder(ViewGroup parent) {
+        return new HeadViewHolder(getLayoutView(parent, R.layout.item_head_layout));
+    }
 
+    @Override
+    protected RecyclerView.ViewHolder getGridListViewHolder(ViewGroup parent) {
+        return new ItemViewHolder(getLayoutView(parent, R.layout.item_view_layout));
+    }
+
+    @Override
+    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+        ....
+    }
+```
+### 3）BaseLoadMoreRecyclerViewAdapter
+a）加载更多适配器基类，如果你希望深度定制（定制加载更多/失败/完成的界面）可以直接继承改类，实现下面的方法
+```
+  @Override
+    protected int getLoadFinishLayoutId() {
+        return R.layout.item_load_finish_layout;
+    }
+
+    @Override
+    protected int getLoadingMoreLayoutId() {
+        return R.layout.item_loading_more_layout;
+    }
+
+    @Override
+    protected int getLoadFailLayoutId() {
+        return R.layout.item_load_fail_layout;
+    }
+
+    @Override
+    protected void showLoadFinish(RecyclerView.ViewHolder holder) {
+        .....
+    }
+
+    @Override
+    protected void showLoadFail(RecyclerView.ViewHolder holder) {
+        .....
+    }
+
+    @Override
+    protected void showLoadingMore(RecyclerView.ViewHolder holder) {
+        .....
+    }
+    
+    @Override
+    protected RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
+        return new ItemViewHolder(getLayoutView(parent, R.layout.item_view_layout));
+    }
+    
+    @Override
+    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+        .....
+    }
+```
+b）我已经为小伙伴提供了一个简单界面实现BaseSimpleLoadMoreRecyclerViewAdapter，如果你觉得这些简单的界面已经满足你的基本需求，你可以选择直接继承这个类。
+如果你希望替换这个界面的字体颜色或大小可以在继承类的构造函数中调用配置方法，我为小伙伴提供了以下几个简单的配置方法：
+- 设置完成加载时的提示语：setFinishText(String text)
+- 设置完成加载提示语大小：setFinishTextSizeSp(int sizeSp)
+- 设置完成加载提示语颜色：setFinishTextColor(int textColor)
+- 设置加载完成背景色：setFinishBackgroundColor(int backgroundColor)
+- 设置正在加载提示语：setLoadingMoreText(String text)
+- 设置正在加载文字大小：setLoadingMoreTextSizeSp(int sizeSp)
+- 设置正在加载文字颜色：setLoadingMoreTextColor(int textColor)
+- 设置正在加载背景色：setLoadingMoreBackgroundColor(int backgroundColor)
+- 设置加载失败提示语：setLoadFailText(String text)
+- 设置加载失败提示语大小：setLoadFailTextSizeSp(int sizeSp)
+- 设置加载失败提示语文字颜色：setLoadFailTextColor(int textColor)
+- 设置加载失败提示语背景大小：setLoadFailBackgroundColor(int backgroundColor)
+
+c）加载更多适配器的使用方法很简单，结合RecyclerLoadMoreHelper帮助类来使用即可
+
+- 初始化RecyclerView及加载帮助类，init传入的适配器必须继承BaseLoadMoreRecyclerViewAdapter。
+如果要用网格布局加载更多，一定需要设置onAttachedToRecyclerView方法，线性布局则不需要
+```
+    private void initRecyclerView() {
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        mAdapter = new RefreshAdapter(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+        mLoadMoreHelper = new RecyclerLoadMoreHelper<>();
+        mLoadMoreHelper.init(mAdapter);
+    }
+```
+- 设置监听器，onLoadMore(int currentPage, int nextPage, int size, int position)方法在到达加载位置时回调，
+onClickLoadFail(int reloadPage, int size)方法在用户点击底部失败提示时回调
+```
+    loadMoreHelper.setListener(new RecyclerLoadMoreHelper.Listener() {
+        @Override
+        public void onLoadMore(int currentPage, int nextPage, int size, int position) {
+            
+        }
+
+        @Override
+        public void onClickLoadFail(int reloadPage, int size) {
+            
+        }
+    });
+```
+- 获取首次数据时请调用以下方法对帮助类进行设置
+```
+    /**
+     * 配置加载更多适配器（请在获得数据后进行初始化）
+     * @param list 数据
+     * @param sumSize 总条数
+     * @param size 每页条数
+     * @param isShowBottomLayout 是否显示底部提示界面
+     * @param index 预加载偏移量，滑动到倒数第index个item时就回调加载接口（默认值为3）
+     */
+    loadMoreHelper.config(List<T> list, int sumSize, int size, boolean isShowBottomLayout, int index);
+```
+- 加载失败时请调用下面的方法，会显示加载失败页面
+```
+    loadMoreHelper.loadMoreFail();
+```
+- 加载成功获得下一页数据时可以调用下面的方法，将数据放入适配器中
+```
+    loadMoreHelper.loadMoreSuccess(List<T> list);
+```
+- 需要手动设置加载完成界面时，可以调用下面的方法
+```
+    loadMoreHelper.loadComplete();
+```
+### 4）RecyclerViewDragHelper
+该帮助类实现了RecyclerView的拖拽功能，如果小伙伴需要使用拖拽功能，可以用这个帮助来实现
+- 初始化拖拽帮助类，根据自己的需要配置拖拽或侧滑
+```
+    RecyclerViewDragHelper<String> recyclerViewDragHelper = new RecyclerViewDragHelper<>();
+    recyclerViewDragHelper
+        .setUseDrag(false)// 设置是否允许拖拽
+        .setUseLeftToRightSwipe(true)// 设置允许从左往右滑动
+        .setUseRightToLeftSwipe(false)// 设置允许从右往左滑动
+        .setEnabled(true)// 是否启用
+        .setDragingColor(Color.GRAY)// 设置拖拽时的背景颜色
+        .setDraggedColor(Color.RED)// 设置拖拽完成的背景颜色
+        .build(mRecyclerView, mAdapter);
+```
+- 设置拖拽列表数据
+```
+    recyclerViewDragHelper.setList(mList);
+```
+- 设置监听器，列表在拖拽后会将当前的list顺序通过这个接口回调出来
+```
+    recyclerViewDragHelper.setListener(new RecyclerViewDragHelper.Listener<String>() {
+        @Override
+        public void onListChanged(List<String> list) {
+            .....
+        }
+    });
+```
+### 5）RecyclerBinder
+RecyclerBinder适用于不同类型的长页面，或者需要根据数据展示部分模块的滚动页面。
+通过用Binder解耦不同模块，使复杂的逻辑分块处理而不是杂糅在一起
+a）使用BaseRecyclerViewBinderAdapter适配器来存放Binder，BaseRecyclerViewBinderAdapter提供了下面几个方法来对Binder进行控制
+- 添加一个RecyclerBinder
+```
+    addBinder(RecyclerBinder binder)
+```
+- 根据Binder的type来删除对应的Binder
+```
+    removeBinder(int viewType)
+```
+- 清除所有的Binder
+```
+    clearBinder()
+```
+b）使用自定义的TestBinder继承RecyclerBinder，如下图所示：
+- 构造函数传入的binderType在同一个BaseRecyclerViewBinderAdapter里要保证唯一性，否则会出现冲突。
+- 重写getItemCount()方法可以指明这个Binder占多少个item，如果只占1个item则直接返回1，如果数据进来的是一个列表则可以返回列表的长度。
+- 其他使用方法与适配器保持一致
+```
+    public class TestBinder extends RecyclerBinder<String>{
+        
+        public TestBinder(Context context, int binderType) {
+            super(context, binderType);
+        }
+    
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
+            return null;
+        }
+    
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    
+        }
+    
+        @Override
+        public String getData(int position) {
+            return null;
+        }
+    
+        @Override
+        public int getItemCount() {
+            return 0;
+        }
+    }
+```
+## 7、Dialog相关
 
 
 ## 扩展
