@@ -2,13 +2,18 @@
 图片加载库目前支持两个主流的图片加载框架Glide和Fresco，小伙伴可以根据自己的需要在自己的工程加入对应的引用来使用
 
 ## 目录
-<!-- - [1、涉及的support依赖](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#1涉及的support依赖) -->
-<!-- - [2、日志类PrintLog](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#2日志类printlog) -->
-<!-- - [3、网络状态类NetworkManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#3网络状态类networkmanager) -->
-<!-- - [4、加密相关](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#4加密相关) -->
-<!-- - [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager) -->
-<!-- - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类) -->
-<!-- - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展) -->
+ - [1、使用Glide](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#1使用glide)
+ - [1.1、外部引用](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#11外部引用)
+ - [1.2、AndroidManifest.xml配置](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#12androidmanifestxml配置)
+ - [1.3、初始化](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#13初始化)
+ - [1.4、缓存操作](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#14缓存操作)
+ - [1.5、使用方法](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#15使用方法)
+ - [2、使用Fresco](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#2使用fresco)
+ - [2.1、外部引用](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#21外部引用)
+ - [2.2、初始化](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#22初始化)
+ - [2.3、缓存操作](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#23缓存操作)
+ - [2.4、使用操作](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#24使用操作)
+ - [扩展](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#扩展)
 
 ## 1、使用Glide
 ### 1.1、外部引用

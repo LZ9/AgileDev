@@ -1,5 +1,6 @@
 # core库
 这个是最底层的核心依赖库，主要用来放support库和通用的帮助类
+
 ## 目录
 - [1、涉及的support依赖](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#1涉及的support依赖)
 - [2、日志类PrintLog](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#2日志类printlog)
@@ -8,6 +9,7 @@
 - [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager)
 - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类)
 - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展)
+
 ## 1、涉及的support依赖
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
@@ -20,6 +22,7 @@
         compile 'com.google.android:flexbox:0.2.6'
     }
 ```
+
 ## 2、日志类PrintLog
 PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.gradle文件里添加日志开关的变量，如下所示：
 ```
@@ -46,6 +49,7 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 ```
     PrintLog.setPrint(BuildConfig.LOG_DEBUG)
 ```
+
 ## 3、网络状态类NetworkManager
 网络管理采用单例模式，需要在application里初始化该类，如下所示
 ```
@@ -70,11 +74,13 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
     NetworkManager.get().isWifi()
     NetworkManager.get().getNetType()
 ```
+
 ## 4、加密相关
 目前只收入了3个加密相关类，后续如果有用到其他的或者小伙伴们有需要会再陆续补充
 - AES
 - MD5
 - SHA1
+
 ## 5、线程池ThreadPoolManager
 我为大家准备了3个优先级的线程池（高、中、低），当执行该线程池时才会创建对应的线程池对象，调用方法分别如下：
 ```
@@ -82,6 +88,7 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
     ThreadPoolManager.get().executeNormal(Runnable);
     ThreadPoolManager.get().executeLowest(Runnable);
 ```
+
 ## 6、各种通用工具类
 1. AlbumUtils 系统相册工具类，你可以通过里面的方法获取系统相册的图片和图片的文件夹信息
 2. AnimUtils 动画帮助类，可传入anim资源来对view进行动画控制

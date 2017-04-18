@@ -16,7 +16,6 @@
  - [6、Dialog相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7dialog相关)
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
-
 ## 1、涉及的依赖
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
@@ -37,6 +36,7 @@
         compile 'org.greenrobot:eventbus:3.0.0'
     }
 ```
+
 ## 2、Application基类BaseApplication
 1）BaseApplication内部已经实现了单例模式，可以用下面的方法来获取application单例
 ```
@@ -84,6 +84,7 @@
         }
     }
 ```
+
 ## 3、Activity基类
 ### 1）AbsActivity
 a）AbsActivity是最底层的Activity，如果你不需要用到数据加载状态界面的话，可以选择继承这个Activity
@@ -136,6 +137,7 @@ f）你可以直接通过下面的方法将订阅绑定生命周期，避免内�
 ```
     .compose(this.<T>bindUntilEvent(ActivityEvent.DESTROY))
 ```
+
 ### 2）BaseActivity
 a）BaseActivity继承自AbsActivity，并在内部增加了数据加载状态界面，如果你需要用到界面级别的数据加载状态UI可以选择继承这个Activity
 
@@ -210,6 +212,7 @@ b）**SwipeRefreshLayout**
     setSwipeRefreshEnabled(boolean enabled)
 ```
 c）加载状态界面的使用方式与BaseActivity一致
+
 ## 4、Fragment基类
 ### 1）LazyFragment
 a）LazyFragment是最底层的Fragment，如果你不需要用到数据加载状态界面的话，可以选择继承这个Fragment。
@@ -259,6 +262,7 @@ f）你可以直接通过下面的方法将订阅绑定生命周期，避免内�
 ```
     .compose(this.<T>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
 ```
+
 ### 2）BaseFragment
 BaseFragment继承自LazyFragment，同样在内部增加了数据加载状态界面，用法与BaseActivity保持一致，这里不再赘述。
 
@@ -295,6 +299,7 @@ d）如果你希望能在指定的标签下打印onError()里出来的错误信�
 
     </application>
 ```
+
 ### 2）RxObserver
 a）RxObserver继承BaseObserver，主要是对接口数据校验进行封装，适用于对接口数据的订阅。
 只需要在你所封装的最外层的Bean里实现ResponseStatus接口里的isSuccess()方法，
@@ -344,11 +349,13 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
 
     }.create(getContext()));
 ```
+
 ### 4）RxUtils
 目前RxUtils只收录了异步线程发起主线程订阅的方法，即
 ```
     .compose(RxUtils.<T>io_main())
 ```
+
 ## 6、RecyclerView相关
 ### 1）BaseRecyclerViewAdapter
 这个是RecyclerView适配器的基类adapter，继承这个基类，
@@ -365,6 +372,7 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
         ....
     }
 ```
+
 ### 2）BaseHeadRecyclerViewAdapter
 带头布局的RecyclerView适配器基类，接触这个基类，
 实现getHeadViewHolder(ViewGroup parent)、getGridListViewHolder(ViewGroup parent)和onBind(RecyclerView.ViewHolder holder, int position)方法，
@@ -385,6 +393,7 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
         ....
     }
 ```
+
 ### 3）BaseLoadMoreRecyclerViewAdapter
 a）加载更多适配器基类，如果你希望深度定制（定制加载更多/失败/完成的界面）可以直接继承改类，实现下面的方法
 ```
@@ -501,6 +510,7 @@ onClickLoadFail(int reloadPage, int size)方法在用户点击底部失败提示
 ```
     loadMoreHelper.loadComplete();
 ```
+
 ### 4）RecyclerViewDragHelper
 该帮助类实现了RecyclerView的拖拽功能，如果小伙伴需要使用拖拽功能，可以用这个帮助来实现
 - 初始化拖拽帮助类，根据自己的需要配置拖拽或侧滑
@@ -528,6 +538,7 @@ onClickLoadFail(int reloadPage, int size)方法在用户点击底部失败提示
         }
     });
 ```
+
 ### 5）RecyclerBinder
 RecyclerBinder适用于不同类型的长页面，或者需要根据数据展示部分模块的滚动页面。
 通过用Binder解耦不同模块，使复杂的逻辑分块处理而不是杂糅在一起
@@ -576,6 +587,7 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下图所示：
         }
     }
 ```
+
 ## 7、Dialog相关
 ### 1）BaseDialog
 a）BaseDialog继承自Dialog，小伙伴继承BaseDialog后可以实现下面两个方法，分别传入布局layout和获取控件id
@@ -596,8 +608,10 @@ b）重写设置监听器和设置数据方法，可以在里面设置控件的�
     
     protected void initData() {}
 ```
+
 ### 2）BaseRightDialog
 从右侧滑出的Dialog，使用方法和BaseDialog一致
+
 ### 3）BaseBottomDialog
 从底部滑出的Dialog，使用方法和BaseDialog一致
 
