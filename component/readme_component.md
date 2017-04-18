@@ -7,20 +7,21 @@
 - 当然如果你有兴趣基于这个库在上层继续扩展，我会非常开心，欢迎小伙伴们一起学习交流
 
 ## 目录
-<!-- - [1、涉及的support依赖](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#1涉及的support依赖) -->
-<!-- - [2、日志类PrintLog](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#2日志类printlog) -->
-<!-- - [3、网络状态类NetworkManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#3网络状态类networkmanager) -->
-<!-- - [4、加密相关](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#4加密相关) -->
-<!-- - [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager) -->
-<!-- - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类) -->
-<!-- - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展) -->
+ - [1、涉及的依赖](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#1涉及的依赖)
+ - [2、Application基类BaseApplication](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#2application基类baseapplication)
+ - [3、Activity基类](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3activity基类)
+ - [4、Fragment基类](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#4fragment基类)
+ - [5、Rx相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#5rx相关)
+ - [6、RecyclerView相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#6recyclerview相关)
+ - [6、Dialog相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7dialog相关)
+ - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
 
 ## 1、涉及的依赖
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        compile 'cn.lodz:core:1.0.10'
+        compile 'cn.lodz:core:1.0.12'
       
         compile 'io.reactivex.rxjava2:rxjava:2.0.8'
         compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
