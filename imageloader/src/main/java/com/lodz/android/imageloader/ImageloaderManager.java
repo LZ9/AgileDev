@@ -85,7 +85,7 @@ public class ImageloaderManager {
         System.gc();
     }
 
-    /** 清楚磁盘缓存 */
+    /** 清除磁盘缓存 */
     public void clearDiskCaches(Context context){
         if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
             Fresco.getImagePipeline().clearDiskCaches();
@@ -192,7 +192,7 @@ public class ImageloaderManager {
         }
 
         /**
-         * 设置默认重载图片
+         * 设置默认重载图片（Glide无效）
          * @param retryResId 重载图片Id
          */
         public Builder setFrescoRetryResId(int retryResId) {
@@ -201,7 +201,7 @@ public class ImageloaderManager {
         }
 
         /**
-         * 开启重试功能
+         * 开启重试功能（Glide无效）
          * @param tapToRetryEnabled 开启重试
          */
         public Builder setFrescoTapToRetryEnabled(boolean tapToRetryEnabled) {
@@ -210,7 +210,7 @@ public class ImageloaderManager {
         }
 
         /**
-         * 自动播放gif动画
+         * 自动播放gif动画（Glide无效）
          * @param autoPlayAnimations 自动播放
          */
         public Builder setFrescoAutoPlayAnimations(boolean autoPlayAnimations) {

@@ -191,7 +191,7 @@ public interface ImageLoaderContract {
         /** 跳过图片缓存入内存 */
         GlideContract skipMemoryCache();
 
-        /** 跳过图片缓存入磁盘 */
+        /** 设置磁盘缓存方式 */
         GlideContract diskCacheStrategy(int diskCacheStrategy);
 
 
@@ -204,8 +204,7 @@ public interface ImageLoaderContract {
         /** 设置使用动画 */
         GlideContract useAnimate();
 
-        /** 使用默认渐变效果（可能会拉伸图片，不建议使用） */
-        @Deprecated
+        /** 使用默认渐变效果 */
         GlideContract userCrossFade();
 
         /**

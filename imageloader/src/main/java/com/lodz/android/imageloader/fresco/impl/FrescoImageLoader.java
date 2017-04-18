@@ -109,6 +109,7 @@ public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContra
 
     @Override
     public ImageLoaderContract setRoundCorner(float radius) {
+        useRoundCorner();
         mFrescoBuilderBean.roundCornerRadius = radius;
         return this;
     }
@@ -121,6 +122,7 @@ public class FrescoImageLoader implements ImageLoaderContract, ImageLoaderContra
 
     @Override
     public ImageLoaderContract setBlurRadius(int radius) {
+        useBlur();
         mFrescoBuilderBean.blurRadius = radius;
         return this;
     }

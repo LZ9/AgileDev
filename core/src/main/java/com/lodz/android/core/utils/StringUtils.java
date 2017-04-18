@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 字符串帮助类
@@ -39,5 +41,25 @@ public class StringUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 根据分隔符将字符串转为列表
+     * @param source 字符串
+     * @param Separator 分隔符
+     */
+    public static List<String> getListBySeparator(String source, String Separator) {
+        List<String> list = new ArrayList<>();
+        while (source.contains(Separator)){
+            String value = source.substring(0, source.indexOf(Separator));
+            if (!TextUtils.isEmpty(value)){
+                list.add(value);
+            }
+            source = source.substring(source.indexOf(Separator)+1, source.length());
+        }
+        if (!TextUtils.isEmpty(source)){
+            list.add(source);
+        }
+        return list;
     }
 }

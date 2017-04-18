@@ -128,6 +128,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
 
     @Override
     public ImageLoaderContract setBlurRadius(int radius) {
+        useBlur();
         mGlideBuilderBean.blurRadius = radius;
         return this;
     }
@@ -140,6 +141,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
 
     @Override
     public ImageLoaderContract setRoundCorner(float radius) {
+        useRoundCorner();
         mGlideBuilderBean.roundCornerRadius = radius;
         return this;
     }
@@ -219,6 +221,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
 
     @Override
     public GlideContract setFilterColor(@ColorInt int color) {
+        useFilterColor();
         mGlideBuilderBean.filterColor = color;
         return this;
     }
@@ -255,6 +258,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
 
     @Override
     public GlideContract setMaskResId(@DrawableRes int maskResId) {
+        useMask();
         mGlideBuilderBean.maskResId = maskResId;
         return this;
     }
