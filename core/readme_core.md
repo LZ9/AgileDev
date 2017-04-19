@@ -108,6 +108,43 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 16. UiHandler 把runnable post到UI线程执行的工具类，在app退出时调用UiHandler.destroy()释放资源
 17. VibratorUtil 手机震动帮助类，手机震动帮助类
 
+## 7、缓存Cache
+缓存这块引用了ACache来做，我封装了ACacheUtils方便小伙伴进行缓存的配置和使用。
+
+- 在你APP启动的位置对ACacheUtils进行配置，如下代码：
+```
+    ACacheUtils.get().newBuilder()
+        .setCacheDir(dirPath)// 设置缓存路径，不设置则使用默认路径
+        .setMaxSize(maxSize)// 自定义缓存大小，不设置则使用默认大小
+        .setMaxCount(maxCount)// 自定义缓存数量，不设置则使用默认数量
+        .build(this);// 完成构建
+```
+```
+    // 如果你均使用默认配置，那么请这么写
+    ACacheUtils.get().newBuilder().build(this);
+```
+- 如果你要保存一个String数据，你可以这么使用
+```
+    ACacheUtils.get().create().put("data", "萌萌哒");
+```
+- 当然，你可以为你的数据设置缓存时间，类似下面这样
+```
+    ACacheUtils.get().create().put("data", "萌萌哒", 10);//保存10秒，如果超过10秒去获取这个key，将为null
+    ACacheUtils.get().create().put("data", "萌萌哒", 2 * ACache.TIME_DAY);//保存两天，如果超过两天去获取这个key，将为null
+```
+- 如果你想获取一个String数据你可以这么使用
+```
+    ACacheUtils.get().create().getAsString("data")
+```
+- 如果你想清空缓存数据，可以调用下面的方法
+```
+    ACacheUtils.get().create().clear();
+```
+- 如果你想删除某个key对应的缓存，你可以这么干
+```
+    ACacheUtils.get().create().remove("data");
+```
+
 ## 扩展
 
 - [更新记录](https://github.com/LZ9/AgileDev/blob/master/core/readme_core_update.md)
