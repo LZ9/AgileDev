@@ -8,7 +8,7 @@
 
 ## 1、添加Gradle依赖：
 ```
-    compile 'cn.lodz:core:1.0.13'
+    compile 'cn.lodz:core:1.0.14'
 ```
 ```
     compile 'cn.lodz:Component:1.2.2'
