@@ -6,7 +6,10 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lodz.android.agiledev.AgileDevApplication;
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.bean.PersonBean;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.core.cache.ACacheUtils;
+import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.utils.UriUtils;
@@ -110,7 +113,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        testCache();
         showStatusCompleted();
+    }
+
+    private void testCache() {
+        ACacheUtils.get().create().put("a", "8");
+        PersonBean personBean = new PersonBean();
+        personBean.name = "Jack";
+        personBean.age = 55;
+        personBean.isMan = true;
+        ACacheUtils.get().create().put("personBean", personBean);
     }
 
     @Override
@@ -122,6 +135,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void clickBackBtn() {
         super.clickBackBtn();
-        AgileDevApplication.get().exit();
+        PrintLog.d("testtag", ACacheUtils.get().create().getAsString("a"));
+        PersonBean personBean = (PersonBean) ACacheUtils.get().create().getAsObject("personBean");
+        PrintLog.e("testtag", personBean.toString());
+//        AgileDevApplication.get().exit();
     }
 }

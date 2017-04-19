@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.lodz.android.agiledev.utils.CrashHandler;
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.BaseApplication;
+import com.lodz.android.core.cache.ACacheUtils;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
 import com.lodz.android.core.utils.UiHandler;
@@ -28,6 +29,7 @@ public class AgileDevApplication extends BaseApplication{
         FileManager.init();// 初始化文件管理
         initImageLoader();
         initCrashHandler();
+        initACache();
     }
 
     /** 初始化图片加载库 */
@@ -51,6 +53,15 @@ public class AgileDevApplication extends BaseApplication{
 //                .setSaveFolderPath(FileManager.getCacheFolderPath())
 //                .setLogFileName("heheda.log")
                 .init();
+    }
+
+    /** 初始化缓存类 */
+    private void initACache() {
+        ACacheUtils.get().newBuilder()
+                .setCacheDir(FileManager.getCacheFolderPath())
+//                .setMaxSize(1024 * 1024 * 50)
+//                .setMaxCount(Integer.MAX_VALUE)
+                .build(this);
     }
 
     @Override
