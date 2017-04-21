@@ -9,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 10
-        versionName "1.1.2"// 未上传
+        versionName "1.1.2"// 成功上传
     }
     buildTypes {
         release {
@@ -42,7 +42,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'ImagerLoader'//项目名称
-//    publishVersion = '1.1.1'//版本号
+//    publishVersion = '1.1.2'//版本号
 //    desc = 'Hi, this is a image loader'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
