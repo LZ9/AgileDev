@@ -105,7 +105,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             PrintLog.d(TAG, "user handle");
             handleException(t);// 具体处理类
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2500);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -125,8 +125,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     /** 异常退出 */
-    private void exceptionExit(){
-       android.os.Process.killProcess(android.os.Process.myPid());
+    private void exceptionExit() {
+        android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);  // 非0表示异常退出
     }
 

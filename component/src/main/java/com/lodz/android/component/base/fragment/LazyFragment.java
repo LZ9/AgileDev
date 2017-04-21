@@ -89,7 +89,7 @@ public abstract class LazyFragment extends RxFragment implements IFragmentBackPr
 
     protected void setListeners(View view){}
 
-    /** 配置是否实用懒加载（默认使用，可重写） */
+    /** 配置是否使用懒加载（默认使用，可重写） */
     protected boolean configIsLazyLoad(){
         return true;
     }
