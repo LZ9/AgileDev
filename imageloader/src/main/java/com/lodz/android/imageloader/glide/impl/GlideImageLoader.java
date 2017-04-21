@@ -48,7 +48,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     /** 创建Glide加载库 */
     public static GlideImageLoader with(Context context) {
         GlideImageLoader imageLoader = new GlideImageLoader();
-        imageLoader.mGlideBuilderBean = new GlideBuilderBean();
+        imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
         imageLoader.mRequestManager = Glide.with(context);
         imageLoader.mContext = context;
         return imageLoader;
@@ -57,7 +57,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     /** 创建Glide加载库 */
     public static GlideImageLoader with(Activity activity) {
         GlideImageLoader imageLoader = new GlideImageLoader();
-        imageLoader.mGlideBuilderBean = new GlideBuilderBean();
+        imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
         imageLoader.mRequestManager = Glide.with(activity);
         imageLoader.mContext = activity;
         return imageLoader;
@@ -66,7 +66,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     /** 创建Glide加载库 */
     public static GlideImageLoader with(FragmentActivity fragmentActivity) {
         GlideImageLoader imageLoader = new GlideImageLoader();
-        imageLoader.mGlideBuilderBean = new GlideBuilderBean();
+        imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
         imageLoader.mRequestManager = Glide.with(fragmentActivity);
         imageLoader.mContext = fragmentActivity;
         return imageLoader;
