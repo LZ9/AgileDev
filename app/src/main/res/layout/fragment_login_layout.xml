@@ -4,28 +4,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/account_edit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="account" />
+        android:layout_height="250dp"
+        android:background="@color/color_ebece7"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/password_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="password"
-        android:inputType="numberPassword" />
+        <EditText
+            android:id="@+id/account_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="account" />
 
-    <Button
-        android:id="@+id/login_btn"
-        android:text="登录"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:inputType="numberPassword" />
 
-    <Button
-        android:id="@+id/cancel_btn"
-        android:text="取消"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消" />
+    </LinearLayout>
+
+
 </LinearLayout>

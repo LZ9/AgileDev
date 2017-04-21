@@ -2,6 +2,7 @@ package com.lodz.android.component.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -144,4 +145,70 @@ public abstract class AbsActivity extends RxAppCompatActivity {
             BaseApplication.get().getRestoreInstanceState(savedInstanceState.getBundle(SAVE_INSTANCE_STATE_BUNDLE));
         }
     }
+
+    /**
+     * 添加fragment
+     * @param containerViewId 父控件id
+     * @param fragment fragment
+     * @param tag fragment的标签
+     */
+    protected void addFragment(@IdRes int containerViewId, Fragment fragment, @Nullable String tag){
+        getSupportFragmentManager().beginTransaction().add(containerViewId, fragment, tag).commit();
+    }
+
+    /**
+     * 替换fragment
+     * @param containerViewId 父控件id
+     * @param fragment fragment
+     * @param tag fragment的标签
+     */
+    protected void replaceFragment(@IdRes int containerViewId, Fragment fragment, @Nullable String tag){
+        getSupportFragmentManager().beginTransaction().replace(containerViewId, fragment, tag).commit();
+    }
+
+    /**
+     * 显示fragment
+     * @param fragment fragment
+     */
+    protected void showFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().show(fragment).commit();
+    }
+
+    /**
+     * 隐藏fragment
+     * @param fragment fragment
+     */
+    protected void hideFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().hide(fragment).commit();
+    }
+
+    /** 获取所有的fragment */
+    protected List<Fragment> getFragments(){
+        return getSupportFragmentManager().getFragments();
+    }
+
+    /**
+     * 根据标签找到对应的fragment
+     * @param tag fragment的标签
+     */
+    protected Fragment findFragmentByTag(String tag){
+        return getSupportFragmentManager().findFragmentByTag(tag);
+    }
+
+    /**
+     * 根据id找到对应的fragment
+     * @param id id
+     */
+    protected Fragment findFragmentById(@IdRes int id){
+        return getSupportFragmentManager().findFragmentById(id);
+    }
+
+    /**
+     * 添加到回退堆栈
+     * @param name 回退堆栈的名称，可为null
+     */
+    protected void addToBackStack(String name){
+        getSupportFragmentManager().beginTransaction().addToBackStack(name).commit();
+    }
+
 }

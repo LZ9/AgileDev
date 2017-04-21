@@ -2,8 +2,6 @@ package com.lodz.android.agiledev.ui.fragmentactivity;
 
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.AbsActivity;
@@ -36,11 +34,8 @@ public class LoginActivity extends AbsActivity {
     private void initFragment() {
         mLoginMainFragment = LoginMainFragment.newInstance();
         mLoginFragment = LoginFragment.newInstance();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.root_layout, mLoginMainFragment);
-        fragmentTransaction.add(R.id.root_layout, mLoginFragment);
-        fragmentTransaction.commit();
+        addFragment(R.id.root_up_layout, mLoginMainFragment, "LoginMainFragment");
+        addFragment(R.id.root_down_layout, mLoginFragment, "LoginFragment");
     }
 
     @Override
@@ -78,18 +73,12 @@ public class LoginActivity extends AbsActivity {
     }
 
     private void showLoginMain() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.show(mLoginMainFragment);
-        fragmentTransaction.hide(mLoginFragment);
-        fragmentTransaction.commit();
+        showFragment(mLoginMainFragment);
+        hideFragment(mLoginFragment);
     }
 
     private void showLogin() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.show(mLoginFragment);
-        fragmentTransaction.hide(mLoginMainFragment);
-        fragmentTransaction.commit();
+        showFragment(mLoginFragment);
+        hideFragment(mLoginMainFragment);
     }
 }

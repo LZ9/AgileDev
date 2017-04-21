@@ -4,16 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/color_ea5e5e"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/regist_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注册" />
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录" />
+
+        <Button
+            android:id="@+id/regist_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册" />
+    </LinearLayout>
+
 
 </LinearLayout>
