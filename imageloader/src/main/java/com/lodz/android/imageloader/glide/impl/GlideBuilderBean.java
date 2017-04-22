@@ -65,4 +65,6 @@ public class GlideBuilderBean extends BuilderBean {
     /** 默认蒙板图片资源id */
     @DrawableRes
     public int maskResId = R.drawable.mask_starfish;
+    /** 是否显示视频第一帧 */
+    public boolean isVideo = false;
 }

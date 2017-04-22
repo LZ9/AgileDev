@@ -264,6 +264,12 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     }
 
     @Override
+    public GlideContract setVideo() {
+        mGlideBuilderBean.isVideo = true;
+        return this;
+    }
+
+    @Override
     public void into(ImageView imageView) {
         if (mRequestManager == null){
             return;
@@ -336,7 +342,9 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
      * @param bean 构建实体
      */
     private DrawableTypeRequest configDiskCacheStrategy(DrawableTypeRequest request, GlideBuilderBean bean) {
-        if (bean.path instanceof File || bean.path instanceof Integer){// 资源文件和本地手机存储的文件不需要进行磁盘缓存
+        if (bean.isVideo){//显示视频的第一帧需要设置为NONE
+            request.diskCacheStrategy(DiskCacheStrategy.NONE);
+        } else if (bean.path instanceof File || bean.path instanceof Integer){// 资源文件和本地手机存储的文件不需要进行磁盘缓存
             request.diskCacheStrategy(DiskCacheStrategy.NONE);
         }else {// 其他情况根据自定义缓存策略设置
             request.diskCacheStrategy(getGlideDiskCacheStrategy(bean.diskCacheStrategy));

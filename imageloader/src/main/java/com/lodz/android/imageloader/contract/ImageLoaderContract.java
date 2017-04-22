@@ -255,6 +255,9 @@ public interface ImageLoaderContract {
          */
         GlideContract setMaskResId(@DrawableRes int maskResId);
 
+        /** 显示视频第一帧 */
+        GlideContract setVideo();
+
         /** 装载图片 */
         void into(final ImageView imageView);
 

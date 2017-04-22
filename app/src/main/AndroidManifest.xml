@@ -75,15 +75,15 @@
         </activity>
 
         <activity android:name=".ui.image.GlideActivity">
-
-        </activity>
-
-        <activity android:name=".ui.fragmentactivity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.fragmentactivity.LoginActivity">
+
         </activity>
 
     </application>

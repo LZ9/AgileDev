@@ -10,21 +10,21 @@
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/drawee_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+    <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/drawee_view"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center" />-->
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/drawee_view_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_blue_light" />
+    <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/drawee_view_2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@android:color/holo_blue_light" />-->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/img_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp" />-->
+    <ImageView
+        android:id="@+id/img_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 </LinearLayout>
