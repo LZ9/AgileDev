@@ -118,6 +118,7 @@
         .useGrayscale()// 使用灰度化
         .useCropSquare()// 切正方形图
         .useMask()// 使用蒙板图片
+        .setVideo()// 展示本地视频第一帧
         .setMaskResId(R.drawable.mask_starfish)// 设置蒙板图片资源id
         .into(imageView);
 ```
@@ -127,13 +128,13 @@
 使用Fresco的小伙伴可以加入下面这些依赖，其中第2个为使用okhttp3的依赖，3-6个为可选依赖，小伙伴根据自己的实际情况选择
 ```
     dependencies {
-        compile 'com.facebook.fresco:fresco:1.2.0'
-        compile 'com.facebook.fresco:imagepipeline-okhttp3:1.2.0'// 支持 OkHttp3，需要添加
+        compile 'com.facebook.fresco:fresco:1.3.0'
+        compile 'com.facebook.fresco:imagepipeline-okhttp3:1.3.0'// 支持 OkHttp3，需要添加
         
-        compile 'com.facebook.fresco:animated-gif:1.2.0'// 支持 GIF 动图，需要添加
-        compile 'com.facebook.fresco:animated-webp:1.2.0'// 在 API < 14 上的机器支持 WebP 时，需要添加
-        compile 'com.facebook.fresco:animated-base-support:1.2.0'// 支持 WebP 动图，需要添加
-        compile 'com.facebook.fresco:webpsupport:1.2.0'// 支持 WebP 静态图，需要添加
+        compile 'com.facebook.fresco:animated-gif:1.3.0'// 支持 GIF 动图，需要添加
+        compile 'com.facebook.fresco:animated-webp:1.3.0'// 在 API < 14 上的机器支持 WebP 时，需要添加
+        compile 'com.facebook.fresco:animated-base-support:1.3.0'// 支持 WebP 动图，需要添加
+        compile 'com.facebook.fresco:webpsupport:1.3.0'// 支持 WebP 静态图，需要添加
     }
 ```
 
