@@ -9,7 +9,6 @@ import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.GlideModule;
-import com.facebook.common.file.FileUtils;
 import com.lodz.android.imageloader.ImageloaderManager;
 import com.lodz.android.imageloader.utils.CompileUtils;
 
@@ -43,7 +42,7 @@ public class CacheGlideModule implements GlideModule {
         }else {
             if (!fileCacheDir.exists()){// 传入的文件路径未创建，则创建该文件
                 try {
-                    FileUtils.mkdirs(fileCacheDir);
+                    fileCacheDir.mkdirs();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
