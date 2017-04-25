@@ -97,6 +97,28 @@ public class AppUtils {
         return null;
     }
 
+    /**
+     * 判断对应包名的app是否安装
+     * @param context 上下文
+     * @param pkgName 包名
+     */
+    public static boolean isPkgInstalled(Context context, String pkgName) {
+        if (TextUtils.isEmpty(pkgName)) {
+            return false;
+        }
 
+        List<PackageInfo> pinfo = context.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo == null) {
+            return false;
+        }
+
+        for (int i = 0; i < pinfo.size(); i++) {
+            String pn = pinfo.get(i).packageName;
+            if (pn.equals(pkgName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
