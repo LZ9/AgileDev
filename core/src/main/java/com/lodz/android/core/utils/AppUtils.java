@@ -121,4 +121,19 @@ public class AppUtils {
         return false;
     }
 
+    /**
+     * 获取对应包名的PackageInfo
+     * @param context 上下文
+     * @param pkgName 包名
+     */
+    public static PackageInfo getPackageInfo(Context context, String pkgName) {
+        PackageManager manager = context.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = manager.getPackageInfo(pkgName, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
 }
