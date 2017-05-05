@@ -22,7 +22,7 @@ public class UriUtils {
      */
     public static Uri parseUrl(String url){
         if (TextUtils.isEmpty(url)){
-            return null;
+            return Uri.parse("");
         }
         return Uri.parse(url);
     }
@@ -33,7 +33,7 @@ public class UriUtils {
      */
     public static Uri parseFilePath(String filePath){
         if (TextUtils.isEmpty(filePath)){
-            return null;
+            return Uri.parse("");
         }
         return new Uri.Builder()
                 .scheme(UriUtil.LOCAL_FILE_SCHEME)
