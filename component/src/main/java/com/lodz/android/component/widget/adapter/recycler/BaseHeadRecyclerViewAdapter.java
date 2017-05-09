@@ -37,13 +37,13 @@ public abstract class BaseHeadRecyclerViewAdapter<H, T> extends BaseRecyclerView
         if (viewType == VIEW_TYPE_HEAD){
             return getHeadViewHolder(parent);
         }
-        return getGridListViewHolder(parent);
+        return getItemViewHolder(parent);
     }
 
     /** 获取头布局的ViewHolder */
     protected abstract RecyclerView.ViewHolder getHeadViewHolder(ViewGroup parent);
-    /** 获取网格布局的ViewHolder */
-    protected abstract RecyclerView.ViewHolder getGridListViewHolder(ViewGroup parent);
+    /** 获取列表布局的ViewHolder */
+    protected abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
 
     /**
      * 设置头信息数据

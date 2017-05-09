@@ -25,7 +25,7 @@ public class HeadRecyclerViewAdapter extends BaseHeadRecyclerViewAdapter<String,
     }
 
     @Override
-    protected RecyclerView.ViewHolder getGridListViewHolder(ViewGroup parent) {
+    protected RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
         return new ItemViewHolder(getLayoutView(parent, R.layout.item_drag_recycler_view_layout));
     }
 
