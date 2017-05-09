@@ -53,6 +53,11 @@ public abstract class BaseHeadRecyclerViewAdapter<H, T> extends BaseRecyclerView
         mHeadData = headData;
     }
 
+    @Override
+    public int getItemCount() {
+        return mHeadData != null ? super.getItemCount() + 1 : super.getItemCount();
+    }
+
     /** 获取头信息数据 */
     public H getHeadData(){
         return mHeadData;
