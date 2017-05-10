@@ -19,13 +19,14 @@
 
             <TextView
                 android:id="@+id/back_btn"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/selector_btn_back"
                 android:drawableStart="@drawable/selector_btn_back"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:maxWidth="90dp"
                 android:padding="10dp"
                 android:textColor="@android:color/white" />
 
@@ -40,7 +41,7 @@
 
             <TextView
                 android:id="@+id/title_textview"
-                android:layout_width="160dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="center"
