@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
 import java.util.List;
@@ -135,5 +136,19 @@ public class AppUtils {
             e.printStackTrace();
         }
         return info;
+    }
+
+    /**
+     * 权限是否被授予
+     * @param context 上下文
+     * @param permission 权限
+     */
+    public static boolean isPermissionGranted(Context context, String permission){
+        try {
+            return ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }
