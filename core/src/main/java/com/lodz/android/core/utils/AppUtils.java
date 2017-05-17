@@ -2,9 +2,12 @@ package com.lodz.android.core.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Looper;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
@@ -150,5 +153,15 @@ public class AppUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 根据包名打开对应的设置界面
+     * @param context 上下文
+     */
+    public static void startSetting(Context context){
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        context.startActivity(intent);
     }
 }
