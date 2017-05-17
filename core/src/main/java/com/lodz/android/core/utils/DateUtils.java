@@ -40,8 +40,13 @@ public class DateUtils {
      * @param date 日期
      */
     public static String getFormatString(String formatType, Date date) {
-        SimpleDateFormat format = new SimpleDateFormat(formatType, Locale.CHINA);
-        return format.format(date);
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(formatType, Locale.CHINA);
+            return format.format(date);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**
