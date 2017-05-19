@@ -3,6 +3,7 @@ package com.lodz.android.component.rx.subscribe.observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -68,7 +69,7 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
      * @param strResId 提示信息资源id
      * @param cancelable 是否可取消
      */
-    public ProgressObserver<T> create(@NonNull Context context, int strResId, boolean cancelable) {
+    public ProgressObserver<T> create(@NonNull Context context, @StringRes int strResId, boolean cancelable) {
         return create(context, context.getString(strResId), cancelable);
     }
 
