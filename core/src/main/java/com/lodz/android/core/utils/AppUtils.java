@@ -159,9 +159,18 @@ public class AppUtils {
      * 根据包名打开对应的设置界面
      * @param context 上下文
      */
-    public static void startSetting(Context context){
+    public static void jumpAppDetailSetting(Context context){
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + context.getPackageName()));
+        context.startActivity(intent);
+    }
+
+    /**
+     * 跳转到日期设置页面
+     * @param context 上下文
+     */
+    public static void jumpDateSetting(Context context){
+        Intent intent = new Intent(Settings.ACTION_DATE_SETTINGS);
         context.startActivity(intent);
     }
 }
