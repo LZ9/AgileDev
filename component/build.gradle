@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 24
-        versionName "1.2.11"// 未上传
+        versionCode 25
+        versionName "1.2.12"// 成功上传
     }
 
     buildTypes {
@@ -27,7 +27,7 @@ android {
 
 dependencies {
     // 引用的库
-    compile 'cn.lodz:core:1.0.17'
+    compile 'cn.lodz:core:1.0.18'
 //    compile project(':core')
 
     // RxJava
@@ -48,7 +48,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.2.10'//版本号
+//    publishVersion = '1.2.12'//版本号
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}

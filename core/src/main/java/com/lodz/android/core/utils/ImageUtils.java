@@ -18,14 +18,22 @@ public class ImageUtils {
      * bitmap转为base64
      * @param bitmap 图片
      */
-    public static String bitmapToBase64(Bitmap bitmap) {
+    public static String bitmapToBase64Default(Bitmap bitmap) {
+        return bitmapToBase64(bitmap, 70);
+    }
 
+    /**
+     * bitmap转为base64
+     * @param bitmap 图片
+     * @param quality 质量
+     */
+    public static String bitmapToBase64(Bitmap bitmap, int quality) {
         String result = null;
         ByteArrayOutputStream baos = null;
         try {
             if (bitmap != null) {
                 baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
 
                 baos.flush();
                 baos.close();
