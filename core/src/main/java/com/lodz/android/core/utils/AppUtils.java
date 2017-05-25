@@ -108,7 +108,7 @@ public class AppUtils {
      * @param context 上下文
      * @param apkPath apk路径
      */
-    public void installApk(Context context, @NonNull String apkPath) {
+    public static void installApk(Context context, @NonNull String apkPath) {
         try {
             File file = FileUtils.createFile(apkPath);
             if (!FileUtils.isFileExists(file)){
