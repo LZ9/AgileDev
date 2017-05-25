@@ -1,8 +1,5 @@
 package com.lodz.android.core.utils;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -125,26 +122,6 @@ public class FileUtils {
             subffix = fileName.substring(startCharindex);
         }
         return subffix;
-    }
-
-    /**
-     * 安装akp文件
-     * @param context 上下文
-     * @param apkPath apk路径
-     */
-    public void installApk(Context context, @NonNull String apkPath) {
-        try {
-            File file = createFile(apkPath);
-            if (!isFileExists(file)){
-                return;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -8,9 +8,11 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Looper;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -99,6 +101,26 @@ public class AppUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * 安装akp文件
+     * @param context 上下文
+     * @param apkPath apk路径
+     */
+    public void installApk(Context context, @NonNull String apkPath) {
+        try {
+            File file = FileUtils.createFile(apkPath);
+            if (!FileUtils.isFileExists(file)){
+                return;
+            }
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
