@@ -1,10 +1,12 @@
 package com.lodz.android.core.utils;
 
 import android.support.annotation.StringDef;
+import android.text.format.DateFormat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -76,5 +78,19 @@ public class DateUtils {
             return "";
         }
         return getFormatString(newFormatType, date);
+    }
+
+    /**
+     * 根据日历获取对应格式的时间
+     * @param formatType 时间格式
+     * @param calendar 日历
+     */
+    public static String parseFormatCalendar(String formatType, Calendar calendar){
+        try {
+            return DateFormat.format(formatType, calendar).toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 }

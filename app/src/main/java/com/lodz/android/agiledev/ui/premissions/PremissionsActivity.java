@@ -94,8 +94,6 @@ public class PremissionsActivity extends BaseActivity {
         }
     }
 
-
-
     @NeedsPermission(Manifest.permission.CALL_PHONE)//权限申请成功
     protected void callPhone() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -121,10 +119,6 @@ public class PremissionsActivity extends BaseActivity {
     protected void onCallPhoneNeverAskAgain() {
         AskForPermission();
     }
-
-
-
-
 
     @NeedsPermission(Manifest.permission.CAMERA)//权限申请成功
     protected void callCamera() {
