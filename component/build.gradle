@@ -6,10 +6,10 @@ android {
     buildToolsVersion "25.0.3"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 25
-        versionCode 26
-        versionName "1.2.13"// 成功上传
+        versionCode 27
+        versionName "1.2.14"// 未上传
     }
 
     buildTypes {
@@ -34,8 +34,8 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'org.ligboy.retrofit2:converter-fastjson:2.1.0'
     // RxJava生命周期
     compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
