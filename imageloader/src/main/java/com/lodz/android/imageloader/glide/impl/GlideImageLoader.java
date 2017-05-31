@@ -306,9 +306,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
         DrawableTypeRequest request = manager.load(bean.path);
         request.placeholder(bean.placeholderResId);// 设置加载图
         request.error(bean.errorResId);// 设置加载失败图
-        if (!bean.saveToMemoryCache){
-            request.skipMemoryCache(false);// 设置跳过内存缓存
-        }
+        request.skipMemoryCache(!bean.saveToMemoryCache);// 设置跳过内存缓存
         request = configDiskCacheStrategy(request, bean);// 配置磁盘缓存策略
         if (bean.width > 0 && bean.height > 0) {
             request.override(bean.width, bean.height);// 设置图片宽高
