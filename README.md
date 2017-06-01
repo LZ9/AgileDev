@@ -8,13 +8,13 @@
 
 ## 1、添加Gradle依赖：
 ```
-    compile 'cn.lodz:core:1.0.16'
+    compile 'cn.lodz:core:1.0.19'
 ```
 ```
-    compile 'cn.lodz:Component:1.2.10'
+    compile 'cn.lodz:Component:1.2.13'
 ```
 ```
-    compile 'cn.lodz:ImagerLoader:1.1.4'
+    compile 'cn.lodz:ImagerLoader:1.1.5'
 ```
 ## 2、详细了解
 - [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
