@@ -77,6 +77,14 @@
         </activity>
 
         <activity android:name=".ui.image.GlideActivity">
+
+        </activity>
+
+        <activity android:name=".ui.fragmentactivity.LoginActivity">
+
+        </activity>
+
+        <activity android:name=".ui.dialog.DialogTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,9 +92,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.fragmentactivity.LoginActivity">
-
-        </activity>
 
     </application>
 
