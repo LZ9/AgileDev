@@ -3,10 +3,8 @@ package com.lodz.android.component.widget.dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.lodz.android.component.R;
-import com.lodz.android.core.utils.ScreenUtils;
 
 
 /**
@@ -31,15 +29,13 @@ public abstract class BaseBottomDialog extends BaseDialog{
         }
     }
 
-
     @Override
-    protected void initWindowParam(Window window) {
-        if (window != null){
+    public void show() {
+        Window window = getWindow();
+        if (window != null) {
             window.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.width = ScreenUtils.getScreenWidth(getContext());
-            window.setAttributes(layoutParams);
         }
+        super.show();
     }
 
 }

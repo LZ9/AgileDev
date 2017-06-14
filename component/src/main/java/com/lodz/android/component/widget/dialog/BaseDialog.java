@@ -2,11 +2,8 @@ package com.lodz.android.component.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.support.annotation.StyleRes;
 
 import com.lodz.android.component.R;
 
@@ -17,38 +14,17 @@ import com.lodz.android.component.R;
  */
 public abstract class BaseDialog extends Dialog{
 
-    public BaseDialog(Context context) {
+    public BaseDialog(@NonNull Context context) {
         super(context, R.style.BaseDialog);
+        initDialog();
     }
 
-    public BaseDialog(Context context, int themeResId) {
+    public BaseDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
+        initDialog();
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        initWindowParam(getWindow());
-    }
-
-    @Override
-    public void setContentView(@NonNull View view) {
-        super.setContentView(view);
-        initWindowParam(getWindow());
-    }
-
-    @Override
-    public void setContentView(@NonNull View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
-        initWindowParam(getWindow());
-    }
-
-    /** 初始化弹框布局 */
-    protected void initWindowParam(Window window){};
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void initDialog() {
         setContentView(getLayoutId());
         findViews();
         setListeners();
@@ -62,6 +38,5 @@ public abstract class BaseDialog extends Dialog{
     protected void setListeners() {}
 
     protected void initData() {}
-
 
 }

@@ -3,10 +3,8 @@ package com.lodz.android.component.widget.dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.lodz.android.component.R;
-import com.lodz.android.core.utils.ScreenUtils;
 
 /**
  * 右侧弹框基类
@@ -25,19 +23,19 @@ public abstract class BaseRightDialog extends BaseDialog {
     }
 
     private void setWindowAnimations() {
-        if (getWindow() != null) {
-            getWindow().setWindowAnimations(R.style.animation_right_in_right_out); //设置窗口弹出动画
+        Window window = getWindow();
+        if (window != null) {
+            window.setWindowAnimations(R.style.animation_right_in_right_out); //设置窗口弹出动画
         }
     }
-
 
     @Override
-    protected void initWindowParam(Window window) {
+    public void show() {
+        Window window = getWindow();
         if (window != null) {
             window.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.height = ScreenUtils.getScreenHeight(getContext());
-            window.setAttributes(layoutParams);
         }
+        super.show();
     }
+
 }
