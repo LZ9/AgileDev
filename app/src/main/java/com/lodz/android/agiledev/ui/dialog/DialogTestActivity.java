@@ -49,14 +49,16 @@ public class DialogTestActivity extends AbsActivity{
         mRightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TestRightDialog dialog = new TestRightDialog(getContext());
+                dialog.show();
             }
         });
 
         mBottomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TestBottomDialog dialog = new TestBottomDialog(getContext());
+                dialog.show();
             }
         });
     }

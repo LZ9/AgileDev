@@ -3,6 +3,7 @@ package com.lodz.android.component.widget.dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.lodz.android.component.R;
 
@@ -34,8 +35,18 @@ public abstract class BaseBottomDialog extends BaseDialog{
         Window window = getWindow();
         if (window != null) {
             window.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+            if (isMatchWidth()){
+                WindowManager.LayoutParams layoutParams = window.getAttributes();
+                layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+                window.setAttributes(layoutParams);
+            }
         }
         super.show();
+    }
+
+    /** 是否需要填满宽度 */
+    protected boolean isMatchWidth(){
+        return true;
     }
 
 }

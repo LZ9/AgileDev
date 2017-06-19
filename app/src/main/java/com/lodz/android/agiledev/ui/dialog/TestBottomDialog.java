@@ -4,14 +4,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.widget.dialog.BaseDialog;
+import com.lodz.android.component.widget.dialog.BaseBottomDialog;
 
 /**
  * 测试底部弹框
  * Created by zhouL on 2017/6/14.
  */
 
-public class TestBottomDialog extends BaseDialog{
+public class TestBottomDialog extends BaseBottomDialog{
 
     public TestBottomDialog(@NonNull Context context) {
         super(context);
