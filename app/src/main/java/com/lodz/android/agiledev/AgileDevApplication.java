@@ -2,6 +2,7 @@ package com.lodz.android.agiledev;
 
 import android.os.Bundle;
 
+import com.lodz.android.agiledev.ui.MainActivity;
 import com.lodz.android.agiledev.utils.CrashHandler;
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.BaseApplication;
@@ -48,6 +49,7 @@ public class AgileDevApplication extends BaseApplication{
     /** 初始化异常处理 */
     private void initCrashHandler() {
         CrashHandler.get()
+                .setLauncherClass(MainActivity.class)
 //                .setInterceptor(true)
 //                .setToastTips("嗝屁啦")
 //                .setSaveFolderPath(FileManager.getCacheFolderPath())

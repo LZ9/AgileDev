@@ -1,6 +1,7 @@
 package com.lodz.android.agiledev.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -56,6 +57,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private String mSaveFolderPath = "";
     /** 日志文件名及后缀 */
     private String mLogFileName = "";
+    /** 启动页的Class */
+    private Class<?> mClass = null;
 
     /** 初始化代码 */
      public void init(){
@@ -99,6 +102,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return this;
     }
 
+    /** 设置启动页的class，app崩溃后会重启该类 */
+    public CrashHandler setLauncherClass(@NonNull Class<?> c) {
+        this.mClass = c;
+        return this;
+    }
+
     @Override
     public void uncaughtException(Thread thread, Throwable t) {
         if (isInterceptor){// 用户处理
@@ -126,6 +135,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /** 异常退出 */
     private void exceptionExit() {
+        if (mClass != null){
+            // 闪退后重新打开启动页而不是当前页
+            Intent intent = new Intent(BaseApplication.get(), mClass);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            BaseApplication.get().getApplicationContext().startActivity(intent);
+        }
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);  // 非0表示异常退出
     }
@@ -141,7 +156,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         boolean isSaveSuccess = saveCrashLogInFile(content);// 将日志内容保存到内存卡
         PrintLog.d(TAG, "保存崩溃日志 ： " + isSaveSuccess);
         // 自定义操作
-
+        customHandle(deviceInfos, content, t);
     }
 
     /** 显示提示语 */
@@ -237,4 +252,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return stringBuilder.toString();
     }
 
+    /**
+     * 自定义操作
+     * @param deviceInfos 设备信息
+     * @param content 日志内容
+     * @param t 异常
+     */
+    private void customHandle(Map<String, String> deviceInfos, String content, Throwable t) {
+
+    }
 }
