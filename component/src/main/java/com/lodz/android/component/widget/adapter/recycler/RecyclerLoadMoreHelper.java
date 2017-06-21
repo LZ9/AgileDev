@@ -63,6 +63,15 @@ public class RecyclerLoadMoreHelper<T> {
     }
 
     /**
+     * 隐藏某个位置的Item
+     * @param position 位置
+     */
+    public void hideItem(int position){
+        mAdapter.hideItem(position);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
      * 设置监听器
      * @param listener 监听器
      */

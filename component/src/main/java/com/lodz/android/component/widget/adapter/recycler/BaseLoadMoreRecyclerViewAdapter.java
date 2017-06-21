@@ -6,6 +6,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * RecyclerView加载更多基类适配器
@@ -21,6 +25,9 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     private static final int VIEW_TYPE_LOAD_FINISH = 2;
     /** 加载失败 */
     private static final int VIEW_TYPE_LOAD_FAIL = 3;
+    /** 隐藏数据 */
+    private static final int VIEW_TYPE_HIDE_ITEM = 4;
+
 
     /** 总条数 */
     private int mSumSize = 0;
@@ -36,11 +43,15 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     private boolean isShowBottomLayout = false;
     /** 是否显示加载失败页面 */
     private boolean isShowLoadFail = false;
+    /** 存放需要隐藏位置的position */
+    private List<Integer> mHidePositionList;
 
     /** 加载更多回调 */
     private OnLoadMoreListener mOnLoadMoreListener;
     /** 加载失败回调 */
     private OnLoadFailClickListener mOnLoadFailClickListener;
+    /** 所有item都隐藏回调 */
+    private OnAllItemHideListener mOnAllItemHideListener;
 
     public BaseLoadMoreRecyclerViewAdapter(Context context) {
         super(context);
@@ -57,7 +68,26 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
             }
             return VIEW_TYPE_LOAD_FINISH;
         }
+        if (isHidePosition(position)){// 需要隐藏的数据
+            return VIEW_TYPE_HIDE_ITEM;
+        }
         return VIEW_TYPE_ITEM;
+    }
+
+    /**
+     * 当前的position是否是需要隐藏的position
+     * @param position 位置
+     */
+    private boolean isHidePosition(int position){
+        if (mHidePositionList == null || mHidePositionList.size() == 0){
+            return false;
+        }
+        for (int p: mHidePositionList) {
+            if (p == position){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -70,6 +100,9 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         }
         if (viewType == VIEW_TYPE_LOAD_FINISH){
             return getLoadFinishViewHolder(parent);
+        }
+        if (viewType == VIEW_TYPE_HIDE_ITEM){
+            return getBlankViewHolder(parent);
         }
         return getItemViewHolder(parent);
     }
@@ -87,6 +120,11 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     /** 获取加载失败的ViewHolder */
     private RecyclerView.ViewHolder getLoadFailViewHolder(ViewGroup parent){
         return new LoadFailViewHolder(getLayoutView(parent, getLoadFailLayoutId()));
+    }
+
+    /** 获取空白占位的ViewHolder */
+    private RecyclerView.ViewHolder getBlankViewHolder(ViewGroup parent) {
+        return new BlankViewHolder(new LinearLayout(parent.getContext()));
     }
 
     /** 获取加载完毕的LayoutId */
@@ -117,6 +155,8 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
                 }
             });
             showLoadFail(holder);
+        } else if (holder instanceof BaseLoadMoreRecyclerViewAdapter.BlankViewHolder){
+            // 空白占位不需要操作
         } else {
             super.onBindViewHolder(holder, position);
         }
@@ -172,6 +212,11 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         this.mSize = size;
         this.isShowBottomLayout = isShowBottomLayout;
         this.mPage = 1;
+        if (mHidePositionList != null){
+            mHidePositionList.clear();
+            mHidePositionList = null;
+        }
+        this.mHidePositionList = new ArrayList<>();
     }
 
     /**
@@ -214,6 +259,19 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     }
 
     /**
+     * 隐藏某个位置的Item
+     * @param position 位置
+     */
+    public void hideItem(int position){
+        if (mHidePositionList != null){
+            mHidePositionList.add(position);
+            if (mHidePositionList.size() == mSumSize && mOnAllItemHideListener != null){// 隐藏的item数等于总数
+                mOnAllItemHideListener.onAllItemHide();
+            }
+        }
+    }
+
+    /**
      * 设置加载更多监听器
      * @param Listener 监听器
      */
@@ -227,6 +285,14 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
      */
     public void setOnLoadFailClickListener(OnLoadFailClickListener Listener){
         this.mOnLoadFailClickListener = Listener;
+    }
+
+    /**
+     * 设置所有item隐藏后的回调监听器
+     * @param listener 监听器
+     */
+    public void setOnAllItemHideListener(OnAllItemHideListener listener){
+        this.mOnAllItemHideListener = listener;
     }
 
     /** 加载完毕布局的ViewHolder */
@@ -250,6 +316,13 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
         }
     }
 
+    /** 空白的ViewHolder */
+    private class BlankViewHolder extends RecyclerView.ViewHolder{
+        private BlankViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
     public interface OnLoadMoreListener {
         /**
          * 加载更多
@@ -268,6 +341,11 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
          * @param size 每页大小
          */
         void onClickLoadFail(int reloadPage, int size);
+    }
+
+    public interface OnAllItemHideListener {
+        /** 所有item都隐藏了 */
+        void onAllItemHide();
     }
 
     @Override

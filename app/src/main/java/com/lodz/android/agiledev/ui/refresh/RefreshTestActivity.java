@@ -1,11 +1,12 @@
 package com.lodz.android.agiledev.ui.refresh;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseRefreshActivity;
+import com.lodz.android.component.widget.adapter.recycler.BaseLoadMoreRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.recycler.RecyclerLoadMoreHelper;
 import com.lodz.android.core.utils.ToastUtils;
@@ -41,10 +42,10 @@ public class RefreshTestActivity extends BaseRefreshActivity {
     }
 
     private void initRecyclerView() {
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+//        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mAdapter = new RefreshAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
@@ -92,7 +93,23 @@ public class RefreshTestActivity extends BaseRefreshActivity {
         mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<String>() {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
-                ToastUtils.showShort(getContext(), item);
+                ToastUtils.showShort(getContext(), position+" : " + item);
+            }
+        });
+
+        mAdapter.setListener(new RefreshAdapter.Listener() {
+            @Override
+            public void onClickDelete(int position) {
+//                ToastUtils.showShort(getContext(), "delete : " + position);
+                mLoadMoreHelper.hideItem(position);
+//                mAdapter.notifyItemRemovedChanged(position);
+            }
+        });
+
+        mAdapter.setOnAllItemHideListener(new BaseLoadMoreRecyclerViewAdapter.OnAllItemHideListener() {
+            @Override
+            public void onAllItemHide() {
+                showStatusNoData();
             }
         });
     }
@@ -106,13 +123,13 @@ public class RefreshTestActivity extends BaseRefreshActivity {
             public void run() {
                 requestData();
             }
-        }, 3000);
+        }, 1000);
     }
 
     private void requestData() {
         mList.clear();
         mList.addAll(getList());
-        mLoadMoreHelper.config(mList, 40, 10, true, 1);
+        mLoadMoreHelper.config(mList, 30, 10, true, 0);
         showStatusCompleted();
     }
 

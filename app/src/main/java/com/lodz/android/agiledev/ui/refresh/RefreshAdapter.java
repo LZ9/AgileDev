@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
@@ -17,6 +18,8 @@ import com.lodz.android.core.utils.ScreenUtils;
  */
 
 public class RefreshAdapter extends BaseSimpleLoadMoreRecyclerViewAdapter<String> {
+
+    private Listener mListener;
 
     public RefreshAdapter(Context context) {
         super(context);
@@ -33,19 +36,37 @@ public class RefreshAdapter extends BaseSimpleLoadMoreRecyclerViewAdapter<String
         if (TextUtils.isEmpty(str)){
             return;
         }
-        showItem((DataViewHolder) holder, str);
+        showItem((DataViewHolder) holder, str, position);
     }
 
-    private void showItem(DataViewHolder holder, String str) {
-        setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
+    private void showItem(DataViewHolder holder, String str, final int position) {
+        setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()));
         holder.dataTextView.setText(str);
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null){
+                    mListener.onClickDelete(position);
+                }
+            }
+        });
     }
 
     private class DataViewHolder extends RecyclerView.ViewHolder{
         private TextView dataTextView;
+        private Button deleteBtn;
         public DataViewHolder(View itemView) {
             super(itemView);
             dataTextView = (TextView) itemView.findViewById(R.id.data_text);
+            deleteBtn = (Button) itemView.findViewById(R.id.delete_btn);
         }
+    }
+
+    public void setListener(Listener listener){
+        mListener = listener;
+    }
+
+    public interface Listener{
+        void onClickDelete(int position);
     }
 }
