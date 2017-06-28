@@ -81,6 +81,42 @@ public class DateUtils {
     }
 
     /**
+     * 获取之后n天的日期
+     * @param formatType 日期格式
+     * @param source 原日期
+     * @param n 之后的天数
+     */
+     private String getAfterDay(String formatType, String source, int n){
+        try {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(parseFormatDate(formatType, source));
+            cal.set(Calendar.DATE, cal.get(Calendar.DATE) + n);
+            return parseFormatCalendar(formatType, cal);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获取之前n天的日期
+     * @param formatType 日期格式
+     * @param source 原日期
+     * @param n 之后的天数
+     */
+    private String getBeforeDay(String formatType, String source, int n){
+        try {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(parseFormatDate(formatType, source));
+            cal.set(Calendar.DATE, cal.get(Calendar.DATE) - n);
+            return parseFormatCalendar(formatType, cal);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
      * 根据日历获取对应格式的时间
      * @param formatType 时间格式
      * @param calendar 日历
