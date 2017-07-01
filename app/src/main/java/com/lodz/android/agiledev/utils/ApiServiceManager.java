@@ -4,6 +4,7 @@ package com.lodz.android.agiledev.utils;
 import android.text.TextUtils;
 
 import com.lodz.android.agiledev.config.UrlConfig;
+import com.lodz.android.component.rx.converter.FastJsonConverterFactory;
 import com.lodz.android.core.log.PrintLog;
 
 import java.io.IOException;
@@ -17,7 +18,6 @@ import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 /**
  * 接口管理器

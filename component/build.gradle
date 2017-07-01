@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 28
-        versionName "1.2.15"// 成功上传
+        versionCode 29
+        versionName "1.2.16"// 成功上传
     }
 
     buildTypes {
@@ -27,7 +27,7 @@ android {
 
 dependencies {
     // 引用的库
-    compile 'cn.lodz:core:1.0.21'
+    compile 'cn.lodz:core:1.0.22'
 //    compile project(':core')
 
     // RxJava
@@ -36,7 +36,7 @@ dependencies {
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'org.ligboy.retrofit2:converter-fastjson:2.1.0'
+    compile 'com.alibaba:fastjson:1.2.33'
     // RxJava生命周期
     compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
@@ -48,7 +48,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.2.15'//版本号
+//    publishVersion = '1.2.16'//版本号
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
