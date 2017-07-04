@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.lodz.android.component.base.BaseApplication;
+import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.DateUtils;

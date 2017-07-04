@@ -7,6 +7,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.component.base.application.config.NoDataLayoutConfig;
 
 
 /**
@@ -23,6 +26,9 @@ import com.lodz.android.component.R;
  * Created by zhouL on 2016/11/17.
  */
 public class NoDataLayout extends LinearLayout{
+
+    /** 无数据页面配置 */
+    private NoDataLayoutConfig mConfig;
 
     /** 无数据图片 */
     private ImageView mNoDataImageView;
@@ -51,6 +57,7 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void init() {
+        mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
         findViews();
         initData();
     }
@@ -62,9 +69,21 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void initData() {
-        needImg(true);// 默认需要图片
-        needTips(false);// 默认不需要提示语
-        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.white));
+        config();
+    }
+
+    private void config() {
+        needImg(mConfig.getIsNeedImg());
+        needTips(mConfig.getIsNeedTips());// 默认不需要提示语
+        setImg(mConfig.getImg() == 0 ? R.drawable.ic_no_data : mConfig.getImg());
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.no_data) : mConfig.getTips());
+        if (mConfig.getTextColor() != 0){
+            setTipsTextColor(mConfig.getTextColor());
+        }
+        if (mConfig.getTextSize() != 0f){
+            setTipsTextSize(mConfig.getTextSize());
+        }
+        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
     }
 
     /**

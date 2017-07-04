@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.component.base.application.config.LoadingLayoutConfig;
 
 
 /**
@@ -23,6 +26,9 @@ import com.lodz.android.component.R;
  * Created by zhouL on 2016/11/17.
  */
 public class LoadingLayout extends LinearLayout{
+
+    /** 加载页配置 */
+    private LoadingLayoutConfig mConfig;
 
     /** 进度条 */
     private ProgressBar mLoadingProgressBar;
@@ -52,6 +58,7 @@ public class LoadingLayout extends LinearLayout{
 
 
     private void init() {
+        mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
         findViews();
         initData();
     }
@@ -63,8 +70,24 @@ public class LoadingLayout extends LinearLayout{
     }
 
     private void initData() {
-        needTips(true);// 默认需要
-        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.white));
+        configLayout();
+    }
+
+    /** 配置加载页面 */
+    private void configLayout() {
+        needTips(mConfig.getIsNeedTips());
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.loading) : mConfig.getTips());
+        if (mConfig.getTextColor() != 0){
+            setTipsTextColor(mConfig.getTextColor());
+        }
+        if (mConfig.getTextSize() != 0f){
+            setTipsTextSize(mConfig.getTextSize());
+        }
+        getProgressBar().setIndeterminate(mConfig.getIsIndeterminate());
+        if (mConfig.getIndeterminateDrawable() != 0){
+            getProgressBar().setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), mConfig.getIndeterminateDrawable()));
+        }
+        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
     }
 
     /**

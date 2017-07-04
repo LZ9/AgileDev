@@ -1,8 +1,9 @@
-package com.lodz.android.component.base;
+package com.lodz.android.component.base.application;
 
 import android.app.Application;
 import android.os.Bundle;
 
+import com.lodz.android.component.base.application.config.BaseLayoutConfig;
 import com.lodz.android.component.event.ActivityFinishEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,10 +20,13 @@ public abstract class BaseApplication extends Application {
         return sInstance;
     }
 
+    private BaseLayoutConfig mBaseLayoutConfig;
+
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        mBaseLayoutConfig = new BaseLayoutConfig();
         afterCreate();
     }
     protected abstract void afterCreate();
@@ -50,4 +54,8 @@ public abstract class BaseApplication extends Application {
 
     /** 当APP被回收后从后台回到前台时调用该方法获取保存的关键数据 */
     public void getRestoreInstanceState(Bundle bundle){}
+
+    public BaseLayoutConfig getBaseLayoutConfig() {
+        return mBaseLayoutConfig;
+    }
 }

@@ -7,6 +7,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.component.base.application.config.ErrorLayoutConfig;
 
 
 /**
@@ -24,6 +27,9 @@ import com.lodz.android.component.R;
  */
 
 public class ErrorLayout extends LinearLayout{
+
+    /** 异常界面配置 */
+    private ErrorLayoutConfig mConfig;
 
     /** 加载失败布局 */
     private LinearLayout mErrorRootLayout;
@@ -55,6 +61,7 @@ public class ErrorLayout extends LinearLayout{
 
 
     private void init() {
+        mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
         findViews();
         initData();
     }
@@ -67,9 +74,22 @@ public class ErrorLayout extends LinearLayout{
     }
 
     private void initData() {
-        needImg(true);
-        needTips(false);
-        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.white));
+        configLayout();
+    }
+
+    /** 配置加载失败页面 */
+    private void configLayout() {
+        needImg(mConfig.getIsNeedImg());
+        needTips(mConfig.getIsNeedTips());
+        setImg(mConfig.getImg() == 0 ? R.drawable.ic_data_fail : mConfig.getImg());
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.load_fail) : mConfig.getTips());
+        if (mConfig.getTextColor() != 0){
+            setTipsTextColor(mConfig.getTextColor());
+        }
+        if (mConfig.getTextSize() != 0f){
+            setTipsTextSize(mConfig.getTextSize());
+        }
+        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
     }
 
     /**

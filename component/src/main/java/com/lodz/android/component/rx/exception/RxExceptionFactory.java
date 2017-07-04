@@ -1,7 +1,7 @@
 package com.lodz.android.component.rx.exception;
 
 import com.lodz.android.component.R;
-import com.lodz.android.component.base.BaseApplication;
+import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.network.NetworkManager;
 
 import java.net.ConnectException;

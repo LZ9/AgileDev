@@ -4,7 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
-import com.lodz.android.component.base.BaseApplication;
+import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 
 import org.reactivestreams.Subscriber;

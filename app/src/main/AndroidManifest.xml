@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:value="errortag" android:name="error_tag"/>
+        <meta-data
+            android:name="error_tag"
+            android:value="errortag" />
 
         <meta-data
             android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
@@ -61,11 +63,7 @@
         </activity>
 
         <activity android:name=".ui.refresh.RefreshTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.drag.DragRecyclerViewActivity">
@@ -92,6 +90,13 @@
 
         </activity>
 
+        <activity android:name=".ui.config.ConfigLayoutActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

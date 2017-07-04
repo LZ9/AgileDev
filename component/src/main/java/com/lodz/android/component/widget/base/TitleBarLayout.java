@@ -6,6 +6,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.component.base.application.config.TitleBarLayoutConfig;
 import com.lodz.android.core.utils.DensityUtils;
 
 
@@ -23,6 +26,9 @@ import com.lodz.android.core.utils.DensityUtils;
  * Created by zhouL on 2016/11/17.
  */
 public class TitleBarLayout extends LinearLayout{
+
+    /** 标题栏配置 */
+    private TitleBarLayoutConfig mConfig;
 
     /** 返回按钮布局 */
     private LinearLayout mBackLayout;
@@ -57,6 +63,7 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     private void init() {
+        mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
         findViews();
         initData();
     }
@@ -71,9 +78,41 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     private void initData() {
-        needBackButton(true);// 默认显示返回按钮
+        config();
+    }
+
+    private void config() {
+        needBackButton(mConfig.getIsNeedBackBtn());// 默认显示返回按钮
         needExpandView(false);// 默认不需要右侧扩展区域
-        setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+        if (mConfig.getBackBtnResId() != 0){
+            mBackBtn.setCompoundDrawablesWithIntrinsicBounds(mConfig.getBackBtnResId(), 0, 0, 0);
+        }
+        if (!TextUtils.isEmpty(mConfig.getBackBtnText())){
+            setBackBtnName(mConfig.getBackBtnText());
+        }
+        if (mConfig.getBackBtnTextColor() != 0){
+            setBackBtnTextColor(mConfig.getBackBtnTextColor());
+        }
+        if (mConfig.getBackBtnTextSize() != 0f){
+            setBackBtnTextSize(mConfig.getBackBtnTextSize());
+        }
+        if (mConfig.getTitleTextColor() != 0){
+            setTitleTextColor(mConfig.getTitleTextColor());
+        }
+        if (mConfig.getTitleTextSize() != 0f){
+            setTitleTextSize(mConfig.getTitleTextSize());
+        }
+        mDivideLineView.setVisibility(mConfig.getIsShowDivideLine() ? View.VISIBLE : View.GONE);
+        if (mConfig.getDivideLineColor() != 0){
+            setDivideLineColor(mConfig.getDivideLineColor());
+        }
+        if (mConfig.getDivideLineHeight() > 0){
+            setDivideLineHeight(mConfig.getDivideLineHeight());
+        }
+        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.holo_blue_light : mConfig.getBackgroundColor()));
+        if (mConfig.getBackgroundResId() != 0){
+            setBackgroundResource(mConfig.getBackgroundResId());
+        }
     }
 
     /**
