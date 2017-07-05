@@ -13,7 +13,7 @@ import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageloaderManager;
 
 /**
- *
+ * application
  * Created by zhouL on 2017/2/3.
  */
 
