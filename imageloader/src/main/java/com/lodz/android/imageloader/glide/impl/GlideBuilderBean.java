@@ -5,6 +5,8 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.lodz.android.imageloader.BuilderBean;
 import com.lodz.android.imageloader.R;
@@ -67,4 +69,7 @@ public class GlideBuilderBean extends BuilderBean {
     public int maskResId = R.drawable.mask_starfish;
     /** 是否显示视频第一帧 */
     public boolean isVideo = false;
+    /** 图片请求监听器 */
+    public RequestListener<Object, GlideDrawable> requestListener = null;
+
 }

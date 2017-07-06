@@ -13,8 +13,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.NotificationTarget;
+import com.bumptech.glide.request.target.Target;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.activity.AbsActivity;
@@ -126,6 +129,19 @@ public class GlideActivity extends AbsActivity{
                         .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
                         .joinGlide()
                         .setFitCenter()
+                        .setRequestListener(new RequestListener<Object, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, Object model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                ToastUtils.showShort(getContext(), model.toString());
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, Object model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                ToastUtils.showShort(getContext(), model.toString());
+                                return false;
+                            }
+                        })
                         .into(mImageView);
             }
         });

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.lodz.android.imageloader.ImageloaderManager;
@@ -270,6 +271,12 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     }
 
     @Override
+    public GlideContract setRequestListener(RequestListener listener) {
+        mGlideBuilderBean.requestListener = listener;
+        return this;
+    }
+
+    @Override
     public void into(ImageView imageView) {
         if (mRequestManager == null){
             return;
@@ -302,6 +309,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
      * @param manager 请求管理类
      * @param bean 构建实体
      */
+    @SuppressWarnings("unchecked")
     private DrawableTypeRequest getDrawableTypeRequest(Context context, RequestManager manager, GlideBuilderBean bean){
         DrawableTypeRequest request = manager.load(bean.path);
         request.placeholder(bean.placeholderResId);// 设置加载图
@@ -328,6 +336,9 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
         }
         if (bean.animator != null){
             request.animate(bean.animator);
+        }
+        if (bean.requestListener != null){// 设置请求监听器
+            request.listener(bean.requestListener);
         }
 
         setTransformation(context, request, bean);

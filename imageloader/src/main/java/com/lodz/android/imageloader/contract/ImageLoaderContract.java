@@ -8,6 +8,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.drawee.controller.ControllerListener;
@@ -257,6 +259,9 @@ public interface ImageLoaderContract {
 
         /** 显示视频第一帧 */
         GlideContract setVideo();
+
+        /** 添加图片请求监听器 */
+        GlideContract setRequestListener(RequestListener<Object, GlideDrawable> listener);
 
         /** 装载图片 */
         void into(final ImageView imageView);
