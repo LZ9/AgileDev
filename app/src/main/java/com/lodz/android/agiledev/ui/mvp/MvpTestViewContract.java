@@ -11,4 +11,6 @@ public interface MvpTestViewContract extends ViewContract{
 
     void showResult();
 
+    void setResult(String result);
+
 }
