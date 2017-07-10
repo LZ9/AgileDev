@@ -31,7 +31,7 @@ public class AgileDevApplication extends BaseApplication{
         initImageLoader();
         initCrashHandler();
         initACache();
-        configBaseLayout();
+//        configBaseLayout();
     }
 
     /** 配置基类 */

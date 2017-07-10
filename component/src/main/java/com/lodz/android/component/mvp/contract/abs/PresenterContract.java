@@ -1,4 +1,4 @@
-package com.lodz.android.component.mvp.contract;
+package com.lodz.android.component.mvp.contract.abs;
 
 import android.content.Context;
 

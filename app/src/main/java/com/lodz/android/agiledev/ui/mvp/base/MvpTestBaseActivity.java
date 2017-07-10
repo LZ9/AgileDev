@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.mvp;
+package com.lodz.android.agiledev.ui.mvp.base;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,17 +6,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.mvp.base.activity.MvpAbsActivity;
+import com.lodz.android.component.mvp.base.activity.MvpBaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * MVP测试Activity
- * Created by zhouL on 2017/7/7.
+ * 带基础控件的MVP测试类
+ * Created by zhouL on 2017/7/10.
  */
 
-public class MvpTestActivity extends MvpAbsActivity<MvpTestPresenter, MvpTestViewContract> implements MvpTestViewContract {
+public class MvpTestBaseActivity extends MvpBaseActivity<MvpTestBasePresenter, MvpTestBaseViewContract> implements MvpTestBaseViewContract {
 
     @BindView(R.id.result)
     TextView mResult;
@@ -28,12 +28,12 @@ public class MvpTestActivity extends MvpAbsActivity<MvpTestPresenter, MvpTestVie
     Button mGetResultBtn;
 
     @Override
-    protected MvpTestPresenter createMainPresenter() {
-        return new MvpTestPresenter();
+    protected MvpTestBasePresenter createMainPresenter() {
+        return new MvpTestBasePresenter();
     }
 
     @Override
-    protected int getAbsLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_mvp_test_layout;
     }
 
@@ -45,19 +45,25 @@ public class MvpTestActivity extends MvpAbsActivity<MvpTestPresenter, MvpTestVie
     @Override
     protected void setListeners() {
         super.setListeners();
-        mShowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mResult.setVisibility(mResult.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-            }
-        });
-
         mGetResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showStatusLoading();
                 getPresenterContract().getResult();
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        showStatusLoading();
+        getPresenterContract().getResult();
+    }
+
+    @Override
+    public void setResult(String result) {
+        mResult.setText(result);
     }
 
     @Override
@@ -66,7 +72,9 @@ public class MvpTestActivity extends MvpAbsActivity<MvpTestPresenter, MvpTestVie
     }
 
     @Override
-    public void setResult(String result) {
-        mResult.setText(result);
+    protected void clickReload() {
+        super.clickReload();
+        showStatusLoading();
+        getPresenterContract().getResult();
     }
 }

@@ -1,16 +1,16 @@
-package com.lodz.android.component.mvp.base;
+package com.lodz.android.component.mvp.presenter;
 
 import android.content.Context;
 
-import com.lodz.android.component.mvp.contract.PresenterContract;
-import com.lodz.android.component.mvp.contract.ViewContract;
+import com.lodz.android.component.mvp.contract.abs.PresenterContract;
+import com.lodz.android.component.mvp.contract.abs.ViewContract;
 
 /**
  * 基类Presenter
  * Created by zhouL on 2017/7/7.
  */
 
-public class BasePresenter<VC extends ViewContract> implements PresenterContract<VC>{
+public class AbsPresenter<VC extends ViewContract> implements PresenterContract<VC>{
 
     /** View接口 */
     private VC mViewContract;

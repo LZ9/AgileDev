@@ -3,8 +3,8 @@ package com.lodz.android.component.mvp.base.activity;
 import android.support.annotation.NonNull;
 
 import com.lodz.android.component.base.activity.AbsActivity;
-import com.lodz.android.component.mvp.contract.PresenterContract;
-import com.lodz.android.component.mvp.contract.ViewContract;
+import com.lodz.android.component.mvp.contract.abs.PresenterContract;
+import com.lodz.android.component.mvp.contract.abs.ViewContract;
 
 /**
  * MVP基础Activity
@@ -31,11 +31,6 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
         return mPresenterContract;
     }
 
-//    @SuppressWarnings("unchecked")
-//    protected VC getViewContract(){
-//        return (VC) this;
-//    }
-
     @Override
     protected void onDestroy() {
         mPresenterContract.onDestroy();
@@ -53,5 +48,4 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
         mPresenterContract.onResume();
         super.onResume();
     }
-
 }

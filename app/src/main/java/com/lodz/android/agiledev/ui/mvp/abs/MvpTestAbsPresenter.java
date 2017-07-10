@@ -1,8 +1,9 @@
-package com.lodz.android.agiledev.ui.mvp;
+package com.lodz.android.agiledev.ui.mvp.abs;
 
 import android.support.v7.app.AlertDialog;
 
-import com.lodz.android.component.mvp.base.BasePresenter;
+import com.lodz.android.agiledev.ui.mvp.ApiModule;
+import com.lodz.android.component.mvp.presenter.AbsPresenter;
 import com.lodz.android.component.utils.ProgressDialogHelper;
 
 /**
@@ -10,12 +11,12 @@ import com.lodz.android.component.utils.ProgressDialogHelper;
  * Created by zhouL on 2017/7/7.
  */
 
-public class MvpTestPresenter extends BasePresenter<MvpTestViewContract>{
+public class MvpTestAbsPresenter extends AbsPresenter<MvpTestAbsViewContract> {
 
     /** 数据来源 */
     private ApiModule mApiModule;
 
-    public MvpTestPresenter() {
+    public MvpTestAbsPresenter() {
         this.mApiModule = new ApiModule();
     }
 
