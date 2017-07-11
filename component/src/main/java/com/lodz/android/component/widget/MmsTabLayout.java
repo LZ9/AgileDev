@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 
 import com.lodz.android.core.utils.ReflectUtils;
 
-import java.lang.reflect.Field;
-
 /**
  * 可设置底线宽度的TabLayout
  * Created by zhouL on 2017/5/11.
@@ -35,12 +33,7 @@ public class MmsTabLayout extends TabLayout{
      * @param rightDp 右边Margin
      */
     public void setTabIndicatorMargin(int leftDp, int rightDp) {
-        Class<?> cl = getClass();
-        Field tabStrip = ReflectUtils.getField(cl, "mTabStrip");
-        if (tabStrip == null){
-            return;
-        }
-
+        Class<?> cl =  ReflectUtils.getClassForName("android.support.design.widget.TabLayout");
         LinearLayout layout = null;
         try {
             layout = (LinearLayout) ReflectUtils.getFieldValue(cl, this, "mTabStrip");
