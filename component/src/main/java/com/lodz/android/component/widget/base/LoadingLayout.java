@@ -58,7 +58,9 @@ public class LoadingLayout extends LinearLayout{
 
 
     private void init() {
-        mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
+        if (!isInEditMode()){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
+        }
         findViews();
         initData();
     }
@@ -70,7 +72,9 @@ public class LoadingLayout extends LinearLayout{
     }
 
     private void initData() {
-        configLayout();
+        if (!isInEditMode()){
+            configLayout();
+        }
     }
 
     /** 配置加载页面 */

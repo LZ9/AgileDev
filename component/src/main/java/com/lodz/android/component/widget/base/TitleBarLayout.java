@@ -63,7 +63,9 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     private void init() {
-        mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
+        if (!isInEditMode()){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
+        }
         findViews();
         initData();
     }
@@ -78,7 +80,9 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     private void initData() {
-        config();
+        if (!isInEditMode()){
+            config();
+        }
     }
 
     private void config() {

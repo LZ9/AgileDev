@@ -61,7 +61,9 @@ public class ErrorLayout extends LinearLayout{
 
 
     private void init() {
-        mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
+        if (!isInEditMode()){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
+        }
         findViews();
         initData();
     }
@@ -74,7 +76,9 @@ public class ErrorLayout extends LinearLayout{
     }
 
     private void initData() {
-        configLayout();
+        if (!isInEditMode()){
+            configLayout();
+        }
     }
 
     /** 配置加载失败页面 */

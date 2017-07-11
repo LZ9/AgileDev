@@ -57,7 +57,9 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void init() {
-        mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
+        if (!isInEditMode()){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
+        }
         findViews();
         initData();
     }
@@ -69,7 +71,9 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void initData() {
-        config();
+        if (!isInEditMode()){
+            config();
+        }
     }
 
     private void config() {
