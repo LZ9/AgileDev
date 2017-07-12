@@ -87,6 +87,10 @@
         </activity>
 
         <activity android:name=".ui.tab.TabActivity">
+
+        </activity>
+
+        <activity android:name=".ui.fragmentlife.FragmentLifeTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
