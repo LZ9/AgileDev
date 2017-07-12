@@ -47,6 +47,9 @@ public abstract class LazyFragment extends RxFragment implements IFragmentBackPr
         if (isVisibleToUser && isLoadComplete){
             onFragmentResume();
         }
+        if (!isVisibleToUser && isLoadComplete){
+            onFragmentPause();
+        }
     }
 
     @Override
@@ -108,6 +111,17 @@ public abstract class LazyFragment extends RxFragment implements IFragmentBackPr
 
     /** FragmentResume时调用，与activity生命周期保持一致 */
     protected void onFragmentResume(){}
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getUserVisibleHint() && isLoadComplete){
+            onFragmentPause();
+        }
+    }
+
+    /** FragmentPause时调用，与activity生命周期保持一致 */
+    protected void onFragmentPause(){}
 
     @Override
     public boolean onPressBack() {
