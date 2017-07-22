@@ -5,4 +5,9 @@ package com.lodz.android.agiledev.ui.mvp.refresh;
  */
 
 public class MvpTestRefreshActivity {
+
+
+
+
+
 }

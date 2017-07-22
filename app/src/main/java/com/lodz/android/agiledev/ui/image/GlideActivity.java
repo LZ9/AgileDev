@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
@@ -22,6 +23,7 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.ScreenUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.utils.UriUtils;
@@ -114,9 +116,28 @@ public class GlideActivity extends AbsActivity{
             @Override
             public void onClick(View v) {
                 ImageLoader.create(getContext())
-                        .load(R.drawable.ic_default)
+                        .load(R.drawable.ic_large_img)
                         .joinGlide()
-                        .setFitCenter()
+                        .setRequestListener(new RequestListener<Object, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, Object model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, Object model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                int imgW = resource.getIntrinsicWidth();
+                                int imgH = resource.getIntrinsicHeight();
+                                ViewGroup.LayoutParams layoutParams = mImageView.getLayoutParams();
+                                layoutParams.width = ScreenUtils.getScreenWidth(getContext());
+                                layoutParams.height = imgH;
+                                mImageView.setLayoutParams(layoutParams);
+
+
+
+                                return false;
+                            }
+                        })
                         .into(mImageView);
             }
         });

@@ -5,21 +5,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <ImageView
-            android:id="@+id/img_view"
+        android:layout_height="300dp">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:contentDescription="@string/app_name"
-            android:scaleType="center" />
+            android:layout_height="300dp"
+            android:orientation="vertical" >
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/app_name"  />
+
+        </LinearLayout>
+    </ScrollView>
 
 
     <com.google.android.flexbox.FlexboxLayout

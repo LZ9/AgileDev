@@ -79,7 +79,11 @@
         </activity>
 
         <activity android:name=".ui.image.GlideActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.fragmentactivity.LoginActivity">
@@ -107,11 +111,7 @@
         </activity>
 
         <activity android:name=".ui.mvp.base.MvpTestBaseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>

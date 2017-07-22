@@ -94,8 +94,8 @@ public class BitmapUtils {
             return BitmapFactory.decodeStream(inputStream, null, opts);
         }catch (Exception e){
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     /** 设置图片的缩放比例 */
