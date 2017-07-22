@@ -63,7 +63,7 @@ public class BitmapUtils {
      * @param base64Data base64字符串
      */
     public static Bitmap base64ToBitmap(String base64Data) {
-        byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
+        byte[] bytes = base64ToByte(base64Data);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
@@ -76,12 +76,12 @@ public class BitmapUtils {
     }
 
     /**
-     * 创建bitmap
+     * 缩放bitmap
      * @param path 图片路径
      * @param zoneWidthPx 展示区域宽度（单位PX）
      * @param zoneHeightPx 展示区域高度（单位PX）
      */
-    public static Bitmap decodeBitMap(String path, int zoneWidthPx, int zoneHeightPx){
+    public static Bitmap decodeBitmap(String path, int zoneWidthPx, int zoneHeightPx){
         try {
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
