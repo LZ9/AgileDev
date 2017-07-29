@@ -20,10 +20,10 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2017/7/12.
  */
 
-public class TabLifeTestFragment extends LazyFragment{
+public class TabLifeTest2Fragment extends LazyFragment{
 
-    public static TabLifeTestFragment newInstance(String fragmentName) {
-        TabLifeTestFragment fragment = new TabLifeTestFragment();
+    public static TabLifeTest2Fragment newInstance(String fragmentName) {
+        TabLifeTest2Fragment fragment = new TabLifeTest2Fragment();
         Bundle bundle = new Bundle();
         bundle.putString("fragmentName", fragmentName);
         fragment.setArguments(bundle);
@@ -31,7 +31,7 @@ public class TabLifeTestFragment extends LazyFragment{
     }
 
     /** 主页tab名称 */
-    private String[] tabNameResId = {"俱乐部1", "俱乐部2"};
+    private String[] tabNameResId = {"球员A", "球员B"};
 
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
@@ -75,11 +75,11 @@ public class TabLifeTestFragment extends LazyFragment{
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return TabLifeTest2Fragment.newInstance(mFragmentName + tabNameResId[position]);
+                    return LifeTestFragment.newInstance(mFragmentName + tabNameResId[position]);
                 case 1:
-                    return TabLifeTest2Fragment.newInstance(mFragmentName + tabNameResId[position]);
+                    return LifeTestFragment.newInstance(mFragmentName + tabNameResId[position]);
                 default:
-                    return TabLifeTest2Fragment.newInstance("test");
+                    return LifeTestFragment.newInstance("test");
             }
         }
 
