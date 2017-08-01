@@ -9,7 +9,9 @@ import android.support.v4.app.Fragment;
 
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.component.base.fragment.IFragmentBackPressed;
+import com.lodz.android.component.base.fragment.LazyFragment;
 import com.lodz.android.component.event.ActivityFinishEvent;
+import com.lodz.android.core.utils.ReflectUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -107,6 +109,19 @@ public abstract class AbsActivity extends RxAppCompatActivity {
                 // 如果子fragment的父fragment没有显示，则不询问该fragment的返回事件（避免受预先初始化却没有展示到前端的fragment的影响）
                 if (!fragment.getParentFragment().getUserVisibleHint()){
                     return false;
+                }
+            }
+            if (fragment instanceof LazyFragment){
+                LazyFragment lazyFragment = (LazyFragment) fragment;
+                Class<?> c = ReflectUtils.getClassForName("com.lodz.android.component.base.fragment.LazyFragment");
+                if (c != null){
+                    Object o = ReflectUtils.getFieldValue(c, lazyFragment, "isAlreadyPause");// 通过反射取到该fragment是否已经进入暂停状态
+                    if (o != null && o instanceof Boolean){
+                        Boolean isAlreadyPause = (Boolean) o;
+                        if (isAlreadyPause){
+                            return false;
+                        }
+                    }
                 }
             }
             IFragmentBackPressed itf = (IFragmentBackPressed) fragment;
