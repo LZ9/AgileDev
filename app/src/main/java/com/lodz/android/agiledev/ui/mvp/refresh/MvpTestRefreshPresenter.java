@@ -33,9 +33,9 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
             @Override
             public void onCallback(String response) {
                 getViewContract().setSwipeRefreshFinish();
-                getViewContract().refreshFail("刷新数据失败");
-//                getViewContract().showResult();
-//                getViewContract().setResult(response);
+//                getViewContract().refreshFail("刷新数据失败");
+                getViewContract().showResult();
+                getViewContract().setResult(response);
 
 
             }

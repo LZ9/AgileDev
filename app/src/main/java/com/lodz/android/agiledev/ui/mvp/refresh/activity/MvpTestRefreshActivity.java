@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.mvp.refresh;
+package com.lodz.android.agiledev.ui.mvp.refresh.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshPresenter;
+import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshViewContract;
 import com.lodz.android.component.mvp.base.activity.MvpBaseRefreshActivity;
 import com.lodz.android.core.utils.ToastUtils;
 

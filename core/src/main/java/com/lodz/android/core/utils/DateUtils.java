@@ -16,7 +16,8 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    @StringDef({FormatType.Type_1, FormatType.Type_2, FormatType.Type_3, FormatType.Type_4, FormatType.Type_5, FormatType.Type_6, FormatType.Type_7})
+    @StringDef({FormatType.Type_1, FormatType.Type_2, FormatType.Type_3, FormatType.Type_4, FormatType.Type_5, FormatType.Type_6,
+            FormatType.Type_7, FormatType.Type_8, FormatType.Type_9})
     @Retention(RetentionPolicy.SOURCE)
     public @interface FormatType {
         String Type_1 = "HH:mm";
@@ -26,6 +27,8 @@ public class DateUtils {
         String Type_5 = "yyyyMMdd";
         String Type_6 = "yyyy-MM-dd";
         String Type_7 = "yyyy-MM-dd-HH-mm-ss";
+        String Type_8 = "HH:mm:ss";
+        String Type_9 = "yyyy-MM-dd HH-mm-ss";
     }
 
     /**

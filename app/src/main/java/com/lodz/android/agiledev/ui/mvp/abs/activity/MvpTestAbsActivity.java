@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.mvp.abs;
+package com.lodz.android.agiledev.ui.mvp.abs.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.mvp.abs.MvpTestAbsPresenter;
+import com.lodz.android.agiledev.ui.mvp.abs.MvpTestAbsViewContract;
 import com.lodz.android.component.mvp.base.activity.MvpAbsActivity;
 
 import butterknife.BindView;

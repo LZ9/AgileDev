@@ -91,11 +91,7 @@
         </activity>
 
         <activity android:name=".ui.fragmentlife.FragmentLifeTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.dialog.DialogTestActivity">
@@ -106,16 +102,24 @@
 
         </activity>
 
-        <activity android:name=".ui.mvp.abs.MvpTestAbsActivity">
+        <activity android:name=".ui.mvp.abs.activity.MvpTestAbsActivity">
 
         </activity>
 
-        <activity android:name=".ui.mvp.base.MvpTestBaseActivity">
+        <activity android:name=".ui.mvp.base.activity.MvpTestBaseActivity">
 
         </activity>
         
-        <activity android:name=".ui.mvp.refresh.MvpTestRefreshActivity">
+        <activity android:name=".ui.mvp.refresh.activity.MvpTestRefreshActivity">
 
+        </activity>
+
+        <activity android:name=".ui.mvp.MvpFragmentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>

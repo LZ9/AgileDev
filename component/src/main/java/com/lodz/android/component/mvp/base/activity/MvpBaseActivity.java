@@ -33,20 +33,20 @@ public abstract class MvpBaseActivity<PC extends BasePresenterContract<VC>, VC e
 
     @Override
     protected void onDestroy() {
-        mPresenterContract.onDestroy();
         super.onDestroy();
+        mPresenterContract.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        mPresenterContract.onPause();
         super.onPause();
+        mPresenterContract.onPause();
     }
 
     @Override
     protected void onResume() {
-        mPresenterContract.onResume();
         super.onResume();
+        mPresenterContract.onResume();
     }
 
     @Override
@@ -84,5 +84,10 @@ public abstract class MvpBaseActivity<PC extends BasePresenterContract<VC>, VC e
     @Override
     public void goneTitleBar() {
         super.goneTitleBar();
+    }
+
+    @Override
+    public void showTitleBar() {
+        super.showTitleBar();
     }
 }

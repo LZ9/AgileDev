@@ -7,6 +7,7 @@ import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.abs.ViewContract;
 
 /**
+ * MVP懒加载的fragment
  * Created by zhouL on 2017/7/29.
  */
 
@@ -32,8 +33,8 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
 
     @Override
     public void onDestroyView() {
-        mPresenterContract.onDestroy();
         super.onDestroyView();
+        mPresenterContract.onDestroy();
     }
 
     @Override

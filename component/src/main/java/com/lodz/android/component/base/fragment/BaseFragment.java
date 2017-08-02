@@ -126,6 +126,11 @@ public abstract class BaseFragment extends LazyFragment{
         }
     }
 
+    /** 隐藏TitleBar */
+    protected void goneTitleBar(){
+        getTitleBarLayout().setVisibility(View.GONE);
+    }
+
     /** 显示TitleBar */
     protected void showTitleBar(){
         getTitleBarLayout().setVisibility(View.VISIBLE);

@@ -33,19 +33,19 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
 
     @Override
     protected void onDestroy() {
-        mPresenterContract.onDestroy();
         super.onDestroy();
+        mPresenterContract.onDestroy();
     }
 
     @Override
     protected void onPause() {
-        mPresenterContract.onPause();
         super.onPause();
+        mPresenterContract.onPause();
     }
 
     @Override
     protected void onResume() {
-        mPresenterContract.onResume();
         super.onResume();
+        mPresenterContract.onResume();
     }
 }

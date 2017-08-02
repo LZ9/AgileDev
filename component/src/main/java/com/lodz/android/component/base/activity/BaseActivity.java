@@ -144,6 +144,11 @@ public abstract class BaseActivity extends AbsActivity {
         getTitleBarLayout().setVisibility(View.GONE);
     }
 
+    /** 显示TitleBar */
+    protected void showTitleBar(){
+        getTitleBarLayout().setVisibility(View.VISIBLE);
+    }
+
     /** 获取顶部标题栏控件 */
     protected TitleBarLayout getTitleBarLayout(){
         if (mTitleBarLayout == null){

@@ -19,4 +19,6 @@ public interface BaseViewContract extends ViewContract{
 
     void goneTitleBar();
 
+    void showTitleBar();
+
 }
