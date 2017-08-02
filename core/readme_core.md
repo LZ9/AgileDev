@@ -18,9 +18,10 @@
         compile 'com.android.support:appcompat-v7:25.3.1'
         compile 'com.android.support:design:25.3.1'
         compile 'com.android.support:recyclerview-v7:25.3.1'
+        compile 'com.android.support:cardview-v7:25.3.1'
         compile 'com.android.support:support-annotations:25.3.1'
         compile 'com.android.support.constraint:constraint-layout:1.0.2'
-        compile 'com.google.android:flexbox:0.2.6'
+        compile 'com.google.android:flexbox:0.3.0'
     }
 ```
 
@@ -107,7 +108,9 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 14. StringUtils 字符串帮助类，可以对字符串进行UTF-8编码，根据分隔符把字符串转为list
 15. ToastUtils Toast帮助类，显示简单的toast提示
 16. UiHandler 把runnable post到UI线程执行的工具类，在app退出时调用UiHandler.destroy()释放资源
-17. VibratorUtil 手机震动帮助类，手机震动帮助类
+17. VibratorUtil 手机震动帮助类
+18. BitmapUtils 图片处理帮助类，压缩转码等等
+19. IdCardUtils 身份证校验类
 
 ## 7、缓存Cache
 缓存这块引用了ACache来做，我封装了ACacheUtils方便小伙伴进行缓存的配置和使用。

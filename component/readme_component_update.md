@@ -1,5 +1,18 @@
 # component库更新记录
 
+##### 2017/08/02
+1. AbsActivity添加对Fragment的添加、隐藏操作
+2. 修复带Head的RecyclerView适配器总数回调异常的BUG
+3. 增加可修改底线宽度的TabLayout
+4. 重构BaseDialog的实现
+5. 加载更多适配器增加数据隐藏
+6. 在Application里增加对基类样式的统一配置
+7. 增加MVP模式的Activity基类和Fragment基类，支持MVP模式开发
+8. 增加禁止左右滑动的ViewPager
+9. 基类Fragment添加onFragmentResume和onFragmentPause，回调周期与Activity一致
+10. 修复基类Activity对Fragment返回键拦截判断错误的BUG
+11. 发布1.3.0版本
+
 ##### 2017/04/06
 1. 将Activity和Fragment基类里的加载状态控件全部改为ViewStub
 2. 增加带Head的RecyclerView适配器

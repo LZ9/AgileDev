@@ -1,7 +1,7 @@
 # component库
-这个是基类的组件库，里面包含了Rxjava2、Retrofit2、Eventbus3、和对core库的依赖，小伙伴可以依赖这个库来进行敏捷开发
+这个是基类的组件库，里面包含了Rxjava2、Retrofit2、Eventbus3、Fastjson和对core库的依赖，小伙伴可以依赖这个库来进行敏捷开发
 
-- 思考再三我还是没有使用MVP等架构来构建代码，我想将这个库定位为小型APP的开发组件。
+- 我想将这个库定位为中小型APP的开发组件，支持简单的基类继承和简单MVP模式开发。
 - 如果小伙伴打算开发的app功能不太复杂，我建议可以尝试依赖这个库，直观的代码和常用方法的便捷封装有助于你快速完成功能开发。
 - 如果小伙伴的app属于中大型，需要经常迭代或者维护人员更替较快的话，可能就不太适合这个库，可以寻求高解耦的组件库来满足你的需求。
 - 当然如果你有兴趣基于这个库在上层继续扩展，我会非常开心，欢迎小伙伴们一起学习交流
@@ -13,26 +13,27 @@
  - [4、Fragment基类](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#4fragment基类)
  - [5、Rx相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#5rx相关)
  - [6、RecyclerView相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#6recyclerview相关)
- - [6、Dialog相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7dialog相关)
+ - [7、Dialog相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7dialog相关)
+ - [8、自定义widget](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#8自定义widget)
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
 ## 1、涉及的依赖
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        compile 'cn.lodz:core:1.0.15'
-      
-        compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+        compile 'cn.lodz:core:1.0.24'
+    
+        compile 'io.reactivex.rxjava2:rxjava:2.1.2'
         compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
-        compile 'com.squareup.retrofit2:retrofit:2.2.0'
-        compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-        compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
-        compile 'com.alibaba:fastjson:1.1.56.android'
-
-        compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
-        compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
-
+        
+        compile 'com.squareup.retrofit2:retrofit:2.3.0'
+        compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+        
+        compile 'com.alibaba:fastjson:1.2.35'
+        
+        compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.1.0'
+        compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+        
         compile 'org.greenrobot:eventbus:3.0.0'
     }
 ```
@@ -53,14 +54,10 @@
     }
 ```
 
-2）BaseApplication目前有两个抽象方法，分别是在onCreate()里回调的
-**afterCreate()**
-以及在退出应用时回调的
-**beforeExit()**
+2）BaseApplication目前有两个抽象方法，分别是在onCreate()里回调的 **afterCreate()** 以及在退出应用时回调的 **beforeExit()** ，
 你可以在顶层app包里自定义一个Application继承BaseApplication，并实现这两个方法（例如初始化某些资源以及退出时释放某些资源）
 
-3）如果你希望退出整个应用，可以调用下方的方法，它会关闭你所有的Activity（前提是这些Activity继承自基类库），调用该方法后会回调
-**beforeExit()**
+3）如果你希望退出整个应用，可以调用下方的方法，它会关闭你所有的Activity（前提是这些Activity继承自基类库），调用该方法后会回调 **beforeExit()**
 ```
     BaseApplication.get().exit();
 ```
@@ -84,6 +81,7 @@
         }
     }
 ```
+5）你可以在通过 **getBaseLayoutConfig()** 获取到基类的配置对象，自由的对基类的状态控件进行统一配置
 
 ## 3、Activity基类
 ### 1）AbsActivity
@@ -91,9 +89,7 @@ a）AbsActivity是最底层的Activity，如果你不需要用到数据加载状
 
 b）我在这个Activity里注册了EventBus，因此只要是继承它的Activity都不需要再重复注册和解注册，只需要订阅即可
 
-c）我将
-**onCreate(@Nullable Bundle savedInstanceState)**
-分为6个方法调用顺序分别如下
+c）我将 **onCreate(@Nullable Bundle savedInstanceState)** 分为6个方法调用顺序分别如下
 ```
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,24 +102,12 @@ c）我将
         endCreate();
     }
 ```
-- 重写
-**startCreate()**
-方法，可以在里面获取Intent的数据
-- 实现
-**getAbsLayoutId()**
-方法，返回layout的资源id
-- 实现
-**findViews(savedInstanceState)**
-方法，你可以在该方法里进行资源id获取对象的操作
-- 重写
-**setListeners()**
-方法，你可以在该方法里对需要的对象设置各类监听器回调
-- 重写
-**initData()**
-方法，你可以在该方法里初始化界面的业务数据
-- 重写
-**endCreate()**
-方法，你可以在该方法里处理不属于上述方法分类的数据
+- 重写 **startCreate()** 方法，可以在里面获取Intent的数据
+- 实现 **getAbsLayoutId()** 方法，返回layout的资源id
+- 实现 **findViews(savedInstanceState)** 方法，你可以在该方法里进行资源id获取对象的操作
+- 重写 **setListeners()** 方法，你可以在该方法里对需要的对象设置各类监听器回调
+- 重写 **initData()** 方法，你可以在该方法里初始化界面的业务数据
+- 重写 **endCreate()** 方法，你可以在该方法里处理不属于上述方法分类的数据
 
 d）你可以直接调用下面的方法来获取当前Activity的上下文
 ```
@@ -137,13 +121,27 @@ f）你可以直接通过下面的方法将订阅绑定生命周期，避免内�
 ```
     .compose(this.<T>bindUntilEvent(ActivityEvent.DESTROY))
 ```
+g）如果你需要再Activity里直接添加Fragment，你可以直接调用下面封装好的方法，帮助你简单快速的使用
+```
+    /** 添加fragment */
+    addFragment(@IdRes int containerViewId, Fragment fragment, @Nullable String tag)
+    
+    /** 替换fragment */
+    replaceFragment(@IdRes int containerViewId, Fragment fragment, @Nullable String tag)
+    
+    /** 显示fragment */
+    showFragment(Fragment fragment)
+    
+    /** 隐藏fragment */
+    hideFragment(Fragment fragment)
+    
+    等等....（详见代码）
+```
 
 ### 2）BaseActivity
 a）BaseActivity继承自AbsActivity，并在内部增加了数据加载状态界面，如果你需要用到界面级别的数据加载状态UI可以选择继承这个Activity
 
-b）
-**TitleBarLayout**
-为界面顶部的标题栏，如果你不希望显示TitleBarLayout，可以调用下方的方法隐藏
+b） **TitleBarLayout** 为界面顶部的标题栏，如果你不希望显示TitleBarLayout，可以调用下方的方法隐藏
 ```
     goneTitleBar()
 ```
@@ -155,8 +153,7 @@ b）
 ```
     clickBackBtn()
 ```
-c）**LoadingLayout**
-为加载控件，如果你希望在异步获取数据时将界面显示为加载状态，可以调用下面的方法
+c） **LoadingLayout** 为加载控件，如果你希望在异步获取数据时将界面显示为加载状态，可以调用下面的方法
 ```
     showStatusLoading()
 ```
@@ -164,8 +161,7 @@ c）**LoadingLayout**
 ```
     getLoadingLayout()
 ```
-d）**NoDataLayout**
-为无数据控件，如果你在获取数据后需要展示无数据界面，可以调用下面的方法
+d） **NoDataLayout** 为无数据控件，如果你在获取数据后需要展示无数据界面，可以调用下面的方法
 ```
     showStatusNoData()
 ```
@@ -173,8 +169,7 @@ d）**NoDataLayout**
 ```
     getNoDataLayout()
 ```
-e）**ErrorLayout**
-为界面异常控件，如果你在获取数据后发现获取的数据不正确，可以调用下列方法显示
+e） **ErrorLayout** 为界面异常控件，如果你在获取数据后发现获取的数据不正确，可以调用下列方法显示
 ```
     showStatusError()
 ```
@@ -190,8 +185,7 @@ e）**ErrorLayout**
 ### 3）BaseRefreshActivity
 a）BaseRefreshActivity继承自AbsActivity，内部除了包含数据加载的状态界面外，还包括了一个下拉刷新控件，如果你的界面是需要下拉刷新数据的，可以选择继承这个Activity
 
-b）**SwipeRefreshLayout**
-为下拉刷新控件，你可以实现下面的方法，在方法里执行数据的刷新逻辑
+b） **SwipeRefreshLayout** 为下拉刷新控件，你可以实现下面的方法，在方法里执行数据的刷新逻辑
 ```
     onDataRefresh()
 ```
@@ -225,9 +219,7 @@ b）这个Fragment实现了懒加载，即当这个Fragment显示的时候再加
     }
 ```
 
-c）同AbsActivity一样，我也将
-**onViewCreated(View view, @Nullable Bundle savedInstanceState)**
-分为6个方法，具体调用顺序和使用方法与AbsActivity一致，这里就不再赘述，顺序和方法名如下
+c）同AbsActivity一样，我也将 **onViewCreated(View view, @Nullable Bundle savedInstanceState)** 分为6个方法，具体调用顺序和使用方法与AbsActivity一致，这里就不再赘述，顺序和方法名如下
 ```
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         .....
@@ -258,7 +250,11 @@ e）如果你需要在fragment里实现Activity里的OnResume的生命周期，�
 ```
     onFragmentResume()
 ```
-f）你可以直接通过下面的方法将订阅绑定生命周期，避免内存泄漏
+f）如果你需要在fragment里实现Activity里的onPause的生命周期，你可以重写下面的方法，该方法的回调时机与Activity里的onPause保持一致
+```
+    onFragmentPause()
+```
+g）你可以直接通过下面的方法将订阅绑定生命周期，避免内存泄漏
 ```
     .compose(this.<T>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
 ```
@@ -314,9 +310,7 @@ b）RxObserver会抛出的异常包括4类：
 
 ### 3）ProgressObserver
 ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如果小伙伴在跑接口时需要一个加载框，那可以利用这个类来订阅。
-简单的调用如下所示，create方法有多个，可以根据实际需要选择一个创建
-**（如果不调用create()是不会显示加载框的）**
-。用户取消订阅时会回调onPgCancel()方法
+简单的调用如下所示，create方法有多个，可以根据实际需要选择一个创建 **（如果不调用create()是不会显示加载框的）** 。用户取消订阅时会回调onPgCancel()方法
 ```
     Observable.just(1)
         .subscribe(new ProgressObserver<Integer>() {
@@ -511,6 +505,11 @@ onClickLoadFail(int reloadPage, int size)方法在用户点击底部失败提示
     loadMoreHelper.loadComplete();
 ```
 
+- 需要隐藏某个item时，可以调用下面的方法，可以设置适配器的 **setOnAllItemHideListener(OnAllItemHideListener listener)** 方法来监听item全隐藏的回调
+```
+    loadMoreHelper.hideItem(position);
+```
+
 ### 4）RecyclerViewDragHelper
 该帮助类实现了RecyclerView的拖拽功能，如果小伙伴需要使用拖拽功能，可以用这个帮助来实现
 - 初始化拖拽帮助类，根据自己的需要配置拖拽或侧滑
@@ -614,6 +613,19 @@ b）重写设置监听器和设置数据方法，可以在里面设置控件的�
 
 ### 3）BaseBottomDialog
 从底部滑出的Dialog，使用方法和BaseDialog一致
+
+## 8、自定义widget
+### 1）MmsTabLayout
+自定义的TabLayout，可以通过设置下面的方法来控制底线的宽度
+```
+    setTabIndicatorMargin(int leftDp, int rightDp)
+```
+
+### 2）NoScrollViewPager
+自定义的ViewPager，默认用户通过滑动来切换，如果需要动态设置滑动拦截，可以调用下面的方法
+```
+    setScroll(boolean isScroll)
+```
 
 ## 扩展
 
