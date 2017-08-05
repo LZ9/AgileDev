@@ -28,7 +28,7 @@ import com.lodz.android.core.utils.DensityUtils;
 public class TitleBarLayout extends LinearLayout{
 
     /** 标题栏配置 */
-    private TitleBarLayoutConfig mConfig;
+    private TitleBarLayoutConfig mConfig = new TitleBarLayoutConfig();
 
     /** 返回按钮布局 */
     private LinearLayout mBackLayout;
@@ -64,7 +64,9 @@ public class TitleBarLayout extends LinearLayout{
 
     private void init() {
         if (!isInEditMode()){
-            mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
+            if (BaseApplication.get() != null){
+                mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
+            }
         }
         findViews();
         initData();

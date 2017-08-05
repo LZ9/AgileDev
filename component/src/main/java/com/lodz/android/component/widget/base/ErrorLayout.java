@@ -29,7 +29,7 @@ import com.lodz.android.component.base.application.config.ErrorLayoutConfig;
 public class ErrorLayout extends LinearLayout{
 
     /** 异常界面配置 */
-    private ErrorLayoutConfig mConfig;
+    private ErrorLayoutConfig mConfig = new ErrorLayoutConfig();;
 
     /** 加载失败布局 */
     private LinearLayout mErrorRootLayout;
@@ -62,7 +62,9 @@ public class ErrorLayout extends LinearLayout{
 
     private void init() {
         if (!isInEditMode()){
-            mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
+            if (BaseApplication.get() != null){
+                mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
+            }
         }
         findViews();
         initData();

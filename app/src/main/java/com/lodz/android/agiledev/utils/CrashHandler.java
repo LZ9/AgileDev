@@ -135,7 +135,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /** 异常退出 */
     private void exceptionExit() {
-        if (mClass != null){
+        if (mClass != null && BaseApplication.get() != null){
             // 闪退后重新打开启动页而不是当前页
             Intent intent = new Intent(BaseApplication.get(), mClass);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -168,7 +168,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(BaseApplication.get().getApplicationContext(), mToastTips, Toast.LENGTH_LONG).show();
+                if (BaseApplication.get() != null){
+                    Toast.makeText(BaseApplication.get().getApplicationContext(), mToastTips, Toast.LENGTH_LONG).show();
+                }
                 Looper.loop();
             }
         }.start();

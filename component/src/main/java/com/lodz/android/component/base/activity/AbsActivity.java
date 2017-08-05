@@ -145,6 +145,9 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     /** 当APP处于后台被系统回收时回调 */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        if (BaseApplication.get() == null){
+            return;
+        }
         Bundle bundle = BaseApplication.get().getSaveInstanceState();
         if (outState != null && bundle != null){
             outState.putBundle(SAVE_INSTANCE_STATE_BUNDLE, bundle);
@@ -156,6 +159,9 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        if (BaseApplication.get() == null){
+            return;
+        }
         if (savedInstanceState != null){
             BaseApplication.get().getRestoreInstanceState(savedInstanceState.getBundle(SAVE_INSTANCE_STATE_BUNDLE));
         }

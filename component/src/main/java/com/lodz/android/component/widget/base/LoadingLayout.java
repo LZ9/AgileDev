@@ -28,7 +28,7 @@ import com.lodz.android.component.base.application.config.LoadingLayoutConfig;
 public class LoadingLayout extends LinearLayout{
 
     /** 加载页配置 */
-    private LoadingLayoutConfig mConfig;
+    private LoadingLayoutConfig mConfig = new LoadingLayoutConfig();;
 
     /** 进度条 */
     private ProgressBar mLoadingProgressBar;
@@ -59,7 +59,9 @@ public class LoadingLayout extends LinearLayout{
 
     private void init() {
         if (!isInEditMode()){
-            mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
+            if (BaseApplication.get() != null){
+                mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
+            }
         }
         findViews();
         initData();

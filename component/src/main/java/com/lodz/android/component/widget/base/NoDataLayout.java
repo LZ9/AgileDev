@@ -28,7 +28,7 @@ import com.lodz.android.component.base.application.config.NoDataLayoutConfig;
 public class NoDataLayout extends LinearLayout{
 
     /** 无数据页面配置 */
-    private NoDataLayoutConfig mConfig;
+    private NoDataLayoutConfig mConfig = new NoDataLayoutConfig();
 
     /** 无数据图片 */
     private ImageView mNoDataImageView;
@@ -58,7 +58,9 @@ public class NoDataLayout extends LinearLayout{
 
     private void init() {
         if (!isInEditMode()){
-            mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
+            if (BaseApplication.get() != null){
+                mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
+            }
         }
         findViews();
         initData();
