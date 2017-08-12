@@ -1,5 +1,7 @@
 package com.lodz.android.core.utils;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -542,9 +544,8 @@ public class IdCardUtils {
 
     /**
      * 根据身份编号获取性别
-     *
      * @param idCard 身份编号
-     * @return 性别(M-男，F-女，N-未知)
+     * @return 性别(1男 2女)
      */
     public static String getGenderByIdCard(String idCard) {
         String sGender;
@@ -558,6 +559,22 @@ public class IdCardUtils {
             sGender = "2";
         }
         return sGender;
+    }
+
+    /**
+     * 根据身份编号获取性别
+     * @param idCard 身份编号
+     * @return 性别（男、女）
+     */
+    public static String getSexByIdCard(String idCard) {
+        if (idCard.length() == CHINA_ID_MIN_LENGTH) {
+            idCard = conver15CardTo18(idCard);
+        }
+        if (TextUtils.isEmpty(idCard)) {
+            return "";
+        }
+        String sCardNum = idCard.substring(16, 17);
+        return (Integer.parseInt(sCardNum) % 2 != 0) ? "男" : "女";
     }
 
     /**
