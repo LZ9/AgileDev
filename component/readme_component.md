@@ -15,7 +15,7 @@
  - [6、RecyclerView相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#6recyclerview相关)
  - [7、Dialog相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7dialog相关)
  - [8、自定义widget](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#8自定义widget)
- - [9、MVP相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#9MVP相关)
+ - [9、MVP相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#9mvp相关)
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
 ## 1、涉及的依赖
@@ -647,7 +647,7 @@ public class TestActivity extends MvpAbsActivity<PC, VC> implements VC
 ```
 public class TestFragment extends MvpLazyFragment<PC, VC> implements VC
 ```
-- 其余使用方式同：[基础的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#1基础的Activity实现)
+- 其余使用方式同：[基础的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#1基础的activity实现)
 
 ### 3）带基础控件的Activity实现
 - 定义一个接口 **VC** 继承 **BaseViewContract** ，在 **VC** 中定义你的UI更新接口
@@ -658,14 +658,14 @@ public class TestActivity extends MvpBaseActivity<PC, VC> implements VC
 ```
 - **BaseViewContract** 里面已经定义了基础控件的调用方法，小伙伴们可以直接使用
 - **BasePresenter** 继承自 **AbsPresenter** ，里面实现了 **clickBackBtn()、clickReload()** 方法，有需要在这两个方法内处理业务逻辑的小伙伴直接重写就OK了
-- 其余使用方式同：[基础的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#1基础的Activity实现)
+- 其余使用方式同：[基础的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#1基础的activity实现)
 
 ### 4）带基础控件的Fragment实现
 - 定义一个 **Fragment** 继承 **MvpBaseFragment<PC, VC>** ，实现 **VC** 接口，如下
 ```
 public class TestFragment extends MvpBaseFragment<PC, VC> implements VC
 ```
-- 其余使用方式同：[带基础控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3带基础控件的Activity实现)
+- 其余使用方式同：[带基础控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3带基础控件的activity实现)
 
 ### 5）带基础控件和刷新控件的Activity实现
 - 定义一个接口 **VC** 继承 **BaseRefreshViewContract** ，在 **VC** 中定义你的UI更新接口
@@ -676,14 +676,14 @@ public class TestActivity extends MvpBaseRefreshActivity<PC, VC> implements VC
 ```
 - **BaseRefreshViewContract** 继承自 **BaseViewContract** ，除了基础控件的调用方法外，还多了 **setSwipeRefreshFinish()** 和 **setSwipeRefreshEnabled()** 这两个控制刷新控件的方法，一样可以直接调用
 - **BaseRefreshPresenter** 继承自 **BasePresenter** ，里面多了 **onDataRefresh()** 方法，小伙伴可以重写该方法，然后实现下拉刷新的业务逻辑
-- 其余使用方式同：[带基础控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3带基础控件的Activity实现)
+- 其余使用方式同：[带基础控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3带基础控件的activity实现)
 
 ### 6）带基础控件和刷新控件的Fragment实现
 - 定义一个 **Fragment** 继承 **MvpBaseRefreshFragment<PC, VC>** ，实现 **VC** 接口，如下
 ```
 public class TestFragment extends MvpBaseRefreshFragment<PC, VC> implements VC
 ```
-- 其余使用方式同：[带基础控件和刷新控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#5带基础控件和刷新控件的Activity实现)
+- 其余使用方式同：[带基础控件和刷新控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#5带基础控件和刷新控件的activity实现)
 
 ## 扩展
 
