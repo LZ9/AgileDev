@@ -26,4 +26,9 @@ public class TestCenterDialog extends BaseDialog{
     protected void findViews() {
 
     }
+
+    @Override
+    protected void onStartInit(Context context) {
+        super.onStartInit(context);
+    }
 }

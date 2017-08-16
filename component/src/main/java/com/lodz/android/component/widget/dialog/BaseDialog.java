@@ -16,20 +16,23 @@ public abstract class BaseDialog extends Dialog{
 
     public BaseDialog(@NonNull Context context) {
         super(context, R.style.BaseDialog);
-        initDialog();
+        initDialog(context);
     }
 
     public BaseDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
-        initDialog();
+        initDialog(context);
     }
 
-    private void initDialog() {
+    private void initDialog(Context context) {
+        onStartInit(context);
         setContentView(getLayoutId());
         findViews();
         setListeners();
         initData();
     }
+
+    protected void onStartInit(Context context) {}
 
     protected abstract int getLayoutId();
 
