@@ -85,6 +85,7 @@ public class ErrorLayout extends LinearLayout{
 
     /** 配置加载失败页面 */
     private void configLayout() {
+        setLayoutOrientation(mConfig.getOrientation());
         needImg(mConfig.getIsNeedImg());
         needTips(mConfig.getIsNeedTips());
         setImg(mConfig.getImg() == 0 ? R.drawable.ic_data_fail : mConfig.getImg());
@@ -162,4 +163,13 @@ public class ErrorLayout extends LinearLayout{
         mErrorRootLayout.setOnClickListener(listener);
     }
 
+    /**
+     * 设置错误页面的布局方向
+     * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
+     */
+    public void setLayoutOrientation(int orientation){
+        if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
+            mErrorRootLayout.setOrientation(orientation);
+        }
+    }
 }

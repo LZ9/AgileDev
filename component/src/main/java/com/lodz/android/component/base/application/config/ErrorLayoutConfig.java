@@ -2,6 +2,7 @@ package com.lodz.android.component.base.application.config;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.widget.LinearLayout;
 
 /**
  * 错误页面配置
@@ -27,6 +28,8 @@ public class ErrorLayoutConfig{
     /** 背景色 */
     @ColorRes
     private int backgroundColor = 0;
+    /** 页面方向布局 */
+    private int orientation = LinearLayout.VERTICAL;
 
     /**
      * 需要提示图片
@@ -84,6 +87,16 @@ public class ErrorLayoutConfig{
         this.backgroundColor = colorRes;
     }
 
+    /**
+     * 设置错误页面的布局方向
+     * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
+     */
+    public void setOrientation(int orientation) {
+        if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
+            this.orientation = orientation;
+        }
+    }
+
 
     /** 获取是否需要图片 */
     public boolean getIsNeedImg() {
@@ -121,5 +134,10 @@ public class ErrorLayoutConfig{
     @ColorRes
     public int getBackgroundColor() {
         return backgroundColor;
+    }
+
+    /** 获取错误页面的布局方向 */
+    public int getOrientation() {
+        return orientation;
     }
 }

@@ -82,9 +82,8 @@ public class LoadingLayout extends LinearLayout{
     }
 
     /** 配置加载页面 */
-    @SuppressWarnings("WrongConstant")
     private void configLayout() {
-        mRootView.setOrientation(mConfig.getOrientation());
+        setLayoutOrientation(mConfig.getOrientation());
         needTips(mConfig.getIsNeedTips());
         setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.loading) : mConfig.getTips());
         if (mConfig.getTextColor() != 0){
@@ -153,4 +152,13 @@ public class LoadingLayout extends LinearLayout{
         return mLoadingProgressBar;
     }
 
+    /**
+     * 设置加载页面的布局方向
+     * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
+     */
+    public void setLayoutOrientation(int orientation){
+        if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
+            mRootView.setOrientation(orientation);
+        }
+    }
 }

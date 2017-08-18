@@ -38,9 +38,9 @@ public class AgileDevApplication extends BaseApplication{
     /** 配置基类 */
     private void configBaseLayout() {
 //        configTitleBarLayout();
-        configErrorLayout();
+//        configErrorLayout();
 //        configLoadingLayout();
-//        configNoDataLayout();
+        configNoDataLayout();
     }
 
     /** 配置无数据 */
@@ -83,6 +83,7 @@ public class AgileDevApplication extends BaseApplication{
 
     /** 配置错误页 */
     private void configErrorLayout() {
+        getBaseLayoutConfig().getErrorLayoutConfig().setOrientation(LinearLayout.HORIZONTAL);
         getBaseLayoutConfig().getErrorLayoutConfig().setImg(R.drawable.ic_launcher);
         getBaseLayoutConfig().getErrorLayoutConfig().setBackgroundColor(R.color.color_ffa630);
         getBaseLayoutConfig().getErrorLayoutConfig().setNeedTips(true);
