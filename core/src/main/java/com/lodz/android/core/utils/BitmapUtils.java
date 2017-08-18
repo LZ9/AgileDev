@@ -21,15 +21,16 @@ public class BitmapUtils {
      * @param bitmap 图片
      */
     public static String bitmapToBase64Default(Bitmap bitmap) {
-        return bitmapToBase64(bitmap, 70);
+        return bitmapToBase64(bitmap, 70, Base64.NO_WRAP);
     }
 
     /**
      * bitmap转为base64
      * @param bitmap 图片
      * @param quality 质量
+     * @param flags 转码类型 例如Base64.DEFAULT、Base64.NO_WRAP等
      */
-    public static String bitmapToBase64(Bitmap bitmap, int quality) {
+    public static String bitmapToBase64(Bitmap bitmap, int quality, int flags) {
         String result = null;
         ByteArrayOutputStream baos = null;
         try {
@@ -41,7 +42,7 @@ public class BitmapUtils {
                 baos.close();
 
                 byte[] bitmapBytes = baos.toByteArray();
-                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+                result = Base64.encodeToString(bitmapBytes, flags);
             }
         } catch (IOException e) {
             e.printStackTrace();
