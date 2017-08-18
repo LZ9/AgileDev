@@ -35,6 +35,8 @@ public class NoDataLayout extends LinearLayout{
     /** 无数据提示语 */
     private TextView mNoDataTextView;
 
+    private LinearLayout mRootView;
+
     public NoDataLayout(Context context) {
         super(context);
         init();
@@ -70,6 +72,7 @@ public class NoDataLayout extends LinearLayout{
         LayoutInflater.from(getContext()).inflate(R.layout.component_view_no_data_layout, this);
         mNoDataImageView = (ImageView) findViewById(R.id.no_data_imageview);
         mNoDataTextView = (TextView) findViewById(R.id.no_data_textview);
+        mRootView = (LinearLayout) findViewById(R.id.root_view);
     }
 
     private void initData() {
@@ -79,6 +82,7 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void config() {
+        setLayoutOrientation(mConfig.getOrientation());
         needImg(mConfig.getIsNeedImg());
         needTips(mConfig.getIsNeedTips());// 默认不需要提示语
         setImg(mConfig.getImg() == 0 ? R.drawable.ic_no_data : mConfig.getImg());
@@ -148,4 +152,13 @@ public class NoDataLayout extends LinearLayout{
         mNoDataTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
+    /**
+     * 设置无数据页面的布局方向
+     * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
+     */
+    public void setLayoutOrientation(int orientation){
+        if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
+            mRootView.setOrientation(orientation);
+        }
+    }
 }

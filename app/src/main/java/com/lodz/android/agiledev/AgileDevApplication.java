@@ -32,19 +32,20 @@ public class AgileDevApplication extends BaseApplication{
         initImageLoader();
         initCrashHandler();
         initACache();
-        configBaseLayout();
+//        configBaseLayout();
     }
 
     /** 配置基类 */
     private void configBaseLayout() {
-//        configTitleBarLayout();
-//        configErrorLayout();
-//        configLoadingLayout();
+        configTitleBarLayout();
+        configErrorLayout();
+        configLoadingLayout();
         configNoDataLayout();
     }
 
     /** 配置无数据 */
     private void configNoDataLayout() {
+        getBaseLayoutConfig().getNoDataLayoutConfig().setOrientation(LinearLayout.HORIZONTAL);
         getBaseLayoutConfig().getNoDataLayoutConfig().setNeedImg(true);
         getBaseLayoutConfig().getNoDataLayoutConfig().setNeedTips(true);
         getBaseLayoutConfig().getNoDataLayoutConfig().setImg(R.drawable.ic_launcher);
