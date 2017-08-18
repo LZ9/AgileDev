@@ -99,7 +99,11 @@
         </activity>
 
         <activity android:name=".ui.config.ConfigLayoutActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.mvp.abs.activity.MvpTestAbsActivity">
@@ -115,11 +119,7 @@
         </activity>
 
         <activity android:name=".ui.mvp.MvpFragmentActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>

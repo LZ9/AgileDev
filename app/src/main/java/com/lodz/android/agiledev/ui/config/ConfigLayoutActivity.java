@@ -25,7 +25,7 @@ public class ConfigLayoutActivity extends BaseActivity{
     @Override
     protected void initData() {
         super.initData();
-        showStatusNoData();
+        showStatusError();
     }
 }
 

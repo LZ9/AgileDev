@@ -1,6 +1,7 @@
 package com.lodz.android.agiledev;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.lodz.android.agiledev.ui.MainActivity;
 import com.lodz.android.agiledev.utils.CrashHandler;
@@ -31,15 +32,15 @@ public class AgileDevApplication extends BaseApplication{
         initImageLoader();
         initCrashHandler();
         initACache();
-//        configBaseLayout();
+        configBaseLayout();
     }
 
     /** 配置基类 */
     private void configBaseLayout() {
-        configTitleBarLayout();
+//        configTitleBarLayout();
         configErrorLayout();
-        configLoadingLayout();
-        configNoDataLayout();
+//        configLoadingLayout();
+//        configNoDataLayout();
     }
 
     /** 配置无数据 */
@@ -55,13 +56,14 @@ public class AgileDevApplication extends BaseApplication{
 
     /** 配置加载页 */
     private void configLoadingLayout() {
+        getBaseLayoutConfig().getLoadingLayoutConfig().setOrientation(LinearLayout.HORIZONTAL);
         getBaseLayoutConfig().getLoadingLayoutConfig().setNeedTips(true);
         getBaseLayoutConfig().getLoadingLayoutConfig().setTips("测试啊啊啊啊啊");
         getBaseLayoutConfig().getLoadingLayoutConfig().setTipsTextColor(R.color.color_ff4081);
         getBaseLayoutConfig().getLoadingLayoutConfig().setTipsTextSize(15);
         getBaseLayoutConfig().getLoadingLayoutConfig().setBackgroundColor(R.color.color_3981ef);
         getBaseLayoutConfig().getLoadingLayoutConfig().setIsIndeterminate(true);
-        getBaseLayoutConfig().getLoadingLayoutConfig().setIndeterminateDrawable(R.drawable.anims_progress);
+        getBaseLayoutConfig().getLoadingLayoutConfig().setIndeterminateDrawable(R.drawable.anims_custom_progress);
     }
 
     /** 配置标题栏 */

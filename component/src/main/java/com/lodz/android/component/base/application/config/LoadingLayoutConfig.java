@@ -2,6 +2,7 @@ package com.lodz.android.component.base.application.config;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.widget.LinearLayout;
 
 
 /**
@@ -28,6 +29,8 @@ public class LoadingLayoutConfig {
     /** 不确定模式下的资源 */
     @DrawableRes
     private int indeterminateDrawable = 0;
+    /** 页面方向布局 */
+    private int orientation = LinearLayout.VERTICAL;
 
     /**
      * 需要提示文字
@@ -85,6 +88,15 @@ public class LoadingLayoutConfig {
         this.backgroundColor = colorRes;
     }
 
+    /**
+     * 设置加载页面的布局方向
+     * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
+     */
+    public void setOrientation(int orientation) {
+        if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
+            this.orientation = orientation;
+        }
+    }
 
     /** 获取是否需要提示文字 */
     public boolean getIsNeedTips() {
@@ -122,4 +134,10 @@ public class LoadingLayoutConfig {
     public int getIndeterminateDrawable() {
         return indeterminateDrawable;
     }
+
+    /** 获取加载页面的布局方向 */
+    public int getOrientation() {
+        return orientation;
+    }
+
 }

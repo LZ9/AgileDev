@@ -28,8 +28,9 @@ import com.lodz.android.component.base.application.config.LoadingLayoutConfig;
 public class LoadingLayout extends LinearLayout{
 
     /** 加载页配置 */
-    private LoadingLayoutConfig mConfig = new LoadingLayoutConfig();;
+    private LoadingLayoutConfig mConfig = new LoadingLayoutConfig();
 
+    private LinearLayout mRootView;
     /** 进度条 */
     private ProgressBar mLoadingProgressBar;
     /** 提示语 */
@@ -71,6 +72,7 @@ public class LoadingLayout extends LinearLayout{
         LayoutInflater.from(getContext()).inflate(R.layout.component_view_loading_layout, this);
         mLoadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
         mLoadingTipsTextView = (TextView) findViewById(R.id.loading_tips_textview);
+        mRootView = (LinearLayout) findViewById(R.id.root_view);
     }
 
     private void initData() {
@@ -80,7 +82,9 @@ public class LoadingLayout extends LinearLayout{
     }
 
     /** 配置加载页面 */
+    @SuppressWarnings("WrongConstant")
     private void configLayout() {
+        mRootView.setOrientation(mConfig.getOrientation());
         needTips(mConfig.getIsNeedTips());
         setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.loading) : mConfig.getTips());
         if (mConfig.getTextColor() != 0){
