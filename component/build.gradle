@@ -27,7 +27,7 @@ android {
 
 dependencies {
     // 引用的库
-    compile 'cn.lodz:core:1.0.24'
+    compile 'cn.lodz:core:1.1.1'
 //    compile project(':core')
 
     // RxJava

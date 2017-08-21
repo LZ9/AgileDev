@@ -20,6 +20,7 @@ public abstract class BaseApplication extends Application {
         return sInstance;
     }
 
+    /** 基础控件配置 */
     private BaseLayoutConfig mBaseLayoutConfig;
 
     @Override
@@ -55,6 +56,7 @@ public abstract class BaseApplication extends Application {
     /** 当APP被回收后从后台回到前台时调用该方法获取保存的关键数据 */
     public void getRestoreInstanceState(Bundle bundle){}
 
+    /** 获取基础控件配置 */
     public BaseLayoutConfig getBaseLayoutConfig() {
         return mBaseLayoutConfig;
     }
