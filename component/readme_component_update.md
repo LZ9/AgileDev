@@ -1,5 +1,10 @@
 # component库更新记录
 
+##### 2017/08/21
+1. 对组件库里引用到BaseApplication的地方做判空处理
+2. 基础控件增加布局方向配置
+3. 发布1.3.1版本
+
 ##### 2017/08/02
 1. AbsActivity添加对Fragment的添加、隐藏操作
 2. 修复带Head的RecyclerView适配器总数回调异常的BUG
