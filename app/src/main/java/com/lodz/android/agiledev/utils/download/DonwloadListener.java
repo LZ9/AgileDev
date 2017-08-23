@@ -11,13 +11,16 @@ import java.lang.annotation.RetentionPolicy;
  */
 public interface DonwloadListener {
 
-    @IntDef({ErrorType.URL_EMPTY, ErrorType.NETWORK_ERROR, ErrorType.DOWNLOADING_ERROR})
+    /** 下载地址为空 */
+    public static final int URL_EMPTY = 0;
+    /** 网络错误 */
+    public static final int NETWORK_ERROR = 1;
+    /** 下在过程错误 */
+    public static final int DOWNLOADING_ERROR = 2;
+
+    @IntDef({URL_EMPTY, NETWORK_ERROR, DOWNLOADING_ERROR})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ErrorType {
-        int URL_EMPTY = 0;// 下载地址为空
-        int NETWORK_ERROR = 1;// 网络错误
-        int DOWNLOADING_ERROR = 2;// 下在过程错误
-    }
+    public @interface ErrorType {}
 
     /** 开始下载 */
     void onStart();
@@ -31,7 +34,7 @@ public interface DonwloadListener {
 
     /**
      * 异常回调
-     * @param errorType 异常类型
+     * @param errorType 异常类型，包括：{@link #URL_EMPTY}、{@link #NETWORK_ERROR}、{@link #DOWNLOADING_ERROR}
      * @param t 错误信息
      */
     void onError(@ErrorType int errorType, Throwable t);

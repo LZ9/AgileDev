@@ -23,12 +23,17 @@ public class NumberFormatUtils {
 
     /**
      * 格式化数字
-     * @param formatType 格式化类型
+     * @param formatType 格式化类型，例如：{@link #Type_One_Decimal}、{@link #Type_Two_Decimal}
      * @param data 数据
      */
-    public static String format(@FormatType String formatType, double data){
-        DecimalFormat format = new DecimalFormat(formatType);
-        return format.format(data);
+    public static String format(String formatType, double data){
+        try {
+            DecimalFormat format = new DecimalFormat(formatType);
+            return format.format(data);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

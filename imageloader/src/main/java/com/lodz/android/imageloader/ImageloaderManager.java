@@ -38,13 +38,16 @@ public class ImageloaderManager {
     private ImageloaderManager() {
     }
 
-    @IntDef({LoaderType.TYPE_NONE, LoaderType.TYPE_GLIDE, LoaderType.TYPE_FRESCO})
+    /** 未选择加载框 */
+    protected static final int TYPE_NONE = 0;
+    /** Glide */
+    protected static final int TYPE_GLIDE = 1;
+    /** Fresco */
+    protected static final int TYPE_FRESCO = 2;
+
+    @IntDef({TYPE_NONE, TYPE_GLIDE, TYPE_FRESCO})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface LoaderType {
-        int TYPE_NONE = 0;
-        int TYPE_GLIDE = 1;
-        int TYPE_FRESCO = 2;
-    }
+    public @interface LoaderType {}
 
     /** 构建对象 */
     private Builder mBuilder;
@@ -66,20 +69,20 @@ public class ImageloaderManager {
 
     /** 清除内存缓存 */
     public void clearMemoryCaches(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             Fresco.getImagePipeline().clearMemoryCaches();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             Glide.get(context).clearMemory();
         }
     }
 
     /** 清除内存缓存（包括手动GC内存） */
     public void clearMemoryCachesWithGC(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             Fresco.getImagePipeline().clearMemoryCaches();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             Glide.get(context).clearMemory();
         }
         System.gc();
@@ -87,20 +90,20 @@ public class ImageloaderManager {
 
     /** 清除磁盘缓存 */
     public void clearDiskCaches(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             Fresco.getImagePipeline().clearDiskCaches();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             Glide.get(context).clearDiskCache();
         }
     }
 
     /** 清除所有缓存（内存+磁盘） */
     public void clearCaches(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             Fresco.getImagePipeline().clearCaches();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             Glide.get(context).clearMemory();
             Glide.get(context).clearDiskCache();
         }
@@ -109,30 +112,30 @@ public class ImageloaderManager {
 
     /** 暂停加载 */
     public void pauseLoad(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             Fresco.getImagePipeline().pause();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             Glide.with(context).pauseRequests();
         }
     }
 
     /** 恢复加载 */
     public void resumeLoad(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             Fresco.getImagePipeline().resume();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             Glide.with(context).resumeRequests();
         }
     }
 
     /** 是否暂停加载 */
     public boolean isPaused(Context context){
-        if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
             return Fresco.getImagePipeline().isPaused();
         }
-        if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+        if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
             return Glide.with(context).isPaused();
         }
         return false;
@@ -142,7 +145,7 @@ public class ImageloaderManager {
 
         /** 图片加载库类型 */
         @LoaderType
-        private int loaderType = LoaderType.TYPE_NONE;
+        private int loaderType = ImageloaderManager.TYPE_NONE;
         /** 占位符图片资源id */
         @DrawableRes
         private int placeholderResId = 0;
@@ -163,11 +166,11 @@ public class ImageloaderManager {
 
         private Builder() {
             if (CompileUtils.isClassExists("com.facebook.drawee.backends.pipeline.Fresco")) {
-                this.loaderType = LoaderType.TYPE_FRESCO;
+                this.loaderType = ImageloaderManager.TYPE_FRESCO;
                 return;
             }
             if (CompileUtils.isClassExists("com.bumptech.glide.Glide")) {
-                this.loaderType = LoaderType.TYPE_GLIDE;
+                this.loaderType = ImageloaderManager.TYPE_GLIDE;
                 return;
             }
             throw new RuntimeException("请在你的build.gradle文件中配置Glide或Fresco的依赖");
@@ -241,10 +244,10 @@ public class ImageloaderManager {
          * @param context 上下文
          */
         public void build(Context context){
-            if (getBuilder().loaderType == LoaderType.TYPE_FRESCO){
+            if (getBuilder().loaderType == ImageloaderManager.TYPE_FRESCO){
                 Fresco.initialize(context, FrescoConfig.create().getImagePipelineConfig(context));
             }
-            if (getBuilder().loaderType == LoaderType.TYPE_GLIDE){
+            if (getBuilder().loaderType == ImageloaderManager.TYPE_GLIDE){
                 return;
             }
         }
@@ -285,6 +288,7 @@ public class ImageloaderManager {
         }
 
         /** 获取加载库类型 */
+        @LoaderType
         public int getLoaderType() {
             return loaderType;
         }

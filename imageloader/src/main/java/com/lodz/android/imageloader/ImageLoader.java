@@ -21,11 +21,12 @@ public class ImageLoader {
      * @param o 参数必须是Context、FragmentActivity、Activity、Fragment中的一种
      */
     public static ImageLoaderContract create(Object o){
+
         int loaderType = ImageloaderManager.get().getBuilder().getLoaderType();// 获取加载库类型
-        if (loaderType == ImageloaderManager.LoaderType.TYPE_FRESCO){
+        if (loaderType == ImageloaderManager.TYPE_FRESCO){
             return FrescoImageLoader.create();
         }
-        if (loaderType == ImageloaderManager.LoaderType.TYPE_GLIDE){
+        if (loaderType == ImageloaderManager.TYPE_GLIDE){
             if (o instanceof FragmentActivity){
                 return GlideImageLoader.with((FragmentActivity) o);
             }
@@ -39,7 +40,7 @@ public class ImageLoader {
                 return GlideImageLoader.with((Fragment) o);
             }
         }
-        if (loaderType == ImageloaderManager.LoaderType.TYPE_NONE){
+        if (loaderType == ImageloaderManager.TYPE_NONE){
             throw new RuntimeException("请在你的build.gradle文件中配置Glide或Fresco的依赖");
         }
         throw new RuntimeException("你传入的Object对象不属于Context、FragmentActivity、Activity、Fragment中的一种");

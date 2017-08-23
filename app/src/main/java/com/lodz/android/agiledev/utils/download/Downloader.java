@@ -124,7 +124,7 @@ public class Downloader {
     public BaseObserver<DownloadStatus> download(Context context, String url, final DonwloadListener listener){
         if (TextUtils.isEmpty(url)){
             if (listener != null){
-                listener.onError(DonwloadListener.ErrorType.URL_EMPTY, new NullPointerException("url is null"));
+                listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
             }
             PrintLog.e(TAG, "url is null");
             return null;
@@ -158,9 +158,9 @@ public class Downloader {
             public void onBaseError(Throwable e) {
                 e.printStackTrace();
                 PrintLog.e(TAG, e.toString());
-                int errorType = DonwloadListener.ErrorType.DOWNLOADING_ERROR;
+                int errorType = DonwloadListener.DOWNLOADING_ERROR;
                 if (!NetworkManager.get().isNetworkAvailable()){
-                    errorType = DonwloadListener.ErrorType.NETWORK_ERROR;
+                    errorType = DonwloadListener.NETWORK_ERROR;
                 }
                 if (listener != null) {
                     listener.onError(errorType, e);
