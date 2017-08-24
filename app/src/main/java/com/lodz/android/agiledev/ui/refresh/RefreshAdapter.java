@@ -40,6 +40,11 @@ public class RefreshAdapter extends BaseSimpleLoadMoreRecyclerViewAdapter<String
     }
 
     private void showItem(DataViewHolder holder, String str, final int position) {
+//        if (position % 2 == 0){
+//            setItemViewHeight(holder.itemView, DensityUtils.dp2px(getContext(), 200));
+//        }else {
+//            setItemViewHeight(holder.itemView, DensityUtils.dp2px(getContext(), 400));
+//        }
         setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()));
         holder.dataTextView.setText(str);
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {

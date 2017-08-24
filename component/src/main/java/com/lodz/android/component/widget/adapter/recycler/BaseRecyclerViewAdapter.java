@@ -1,10 +1,17 @@
 package com.lodz.android.component.widget.adapter.recycler;
 
+import android.animation.Animator;
 import android.content.Context;
+import android.support.annotation.IntRange;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
+
+import com.lodz.android.component.widget.adapter.animation.AlphaInAnimation;
+import com.lodz.android.component.widget.adapter.animation.BaseAnimation;
 
 import java.util.List;
 
@@ -21,7 +28,17 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     /** item长按 */
     protected OnItemLongClickListener<T> mOnItemLongClickListener;
 
+    /** 上下文 */
     private Context mContext;
+
+    /** 动画相关 */
+    private Interpolator mInterpolator = new LinearInterpolator();
+    /** item加载动画的最后位置 */
+    private int mLastPosition = 0;
+    /** 用户定义的item加载动画的开始位置 */
+    private int mCustomStarPosition = 0;
+    /** 是否需要item加载动画 */
+    private boolean isOpenItemAnim = false;
 
     public BaseRecyclerViewAdapter(Context context) {
         this.mContext = context;
@@ -47,6 +64,61 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         setItemClick(holder, position);
         setItemLongClick(holder, position);
         onBind(holder, position);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        addAnimation(holder);
+    }
+
+    /** 添加item加载动画 */
+    private void addAnimation(RecyclerView.ViewHolder holder) {
+        if (mData != null && mData.size() > 0 && mData.size() < mLastPosition){//重新设置了数据
+            mLastPosition = mCustomStarPosition;
+        }
+        if (!isOpenItemAnim || holder.getLayoutPosition() <= mLastPosition){//不打开item动画 || 已经加载过了
+            return;
+        }
+
+        BaseAnimation animation = new AlphaInAnimation();
+        for (Animator anim : animation.getAnimators(holder.itemView)) {
+            beginAnim(anim, animation);
+        }
+        mLastPosition = holder.getLayoutPosition();
+    }
+
+    /** 获取是否打开item加载动画 */
+    public boolean isOpenItemAnim() {
+        return isOpenItemAnim;
+    }
+
+    /**
+     * 设置是否打开item加载动画
+     * @param isOpen 是否打开
+     */
+    public void setOpenItemAnim(boolean isOpen) {
+        isOpenItemAnim = isOpen;
+    }
+
+    /** 开始item加载动画 */
+    private void beginAnim(Animator animator, BaseAnimation baseAnimation) {
+        animator.setDuration(baseAnimation.getDuration()).start();
+        animator.setInterpolator(mInterpolator);
+    }
+
+    /**
+     * 设置item动画开始的位置
+     * @param position 位置
+     */
+    public void setItemAnimStartPosition(@IntRange(from = 0) int position){
+        mCustomStarPosition = position;
+        mLastPosition = position;
+    }
+
+    /** 重置item动画 */
+    public void resetItemAnimPosition(){
+        setItemAnimStartPosition(mCustomStarPosition);
     }
 
     /** 设置点击事件 */
@@ -105,6 +177,17 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected void setItemViewWidth(View itemView, int width){
         ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
         layoutParams.width = width;
+        itemView.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * 设置itemview的高度
+     * @param itemView holder的itemview
+     * @param height 高度
+     */
+    protected void setItemViewHeight(View itemView, int height){
+        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+        layoutParams.height = height;
         itemView.setLayoutParams(layoutParams);
     }
 

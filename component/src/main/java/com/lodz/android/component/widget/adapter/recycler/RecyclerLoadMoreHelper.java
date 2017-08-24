@@ -30,6 +30,9 @@ public class RecyclerLoadMoreHelper<T> {
      * @param index 预加载偏移量，滑动到倒数第index个item时就回调加载接口（默认值为3）
      */
     public void config(List<T> list, int sumSize, int size, boolean isShowBottomLayout, int index){
+        if (mAdapter.isOpenItemAnim()){
+            mAdapter.resetItemAnimPosition();
+        }
         mAdapter.setLoadMoreParam(sumSize, size, isShowBottomLayout);
         mAdapter.setLoadIndex(index);
         mAdapter.setIsLoadMore(true);

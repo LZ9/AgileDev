@@ -46,7 +46,9 @@ public class RefreshTestActivity extends BaseRefreshActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 //        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
 //        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         mAdapter = new RefreshAdapter(getContext());
+        mAdapter.setOpenItemAnim(true);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
         mRecyclerView.setHasFixedSize(true);
@@ -129,7 +131,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
     private void requestData() {
         mList.clear();
         mList.addAll(getList());
-        mLoadMoreHelper.config(mList, 30, 10, true, 0);
+        mLoadMoreHelper.config(mList, 120, 40, true, 0);
         showStatusCompleted();
     }
 
@@ -147,7 +149,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
 
     private List<String> getList(){
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 40; i++) {
             String str = System.currentTimeMillis() + "_" + i;
             list.add(str);
         }
