@@ -542,6 +542,7 @@ onClickLoadFail(int reloadPage, int size)方法在用户点击底部失败提示
 ### 5）RecyclerBinder
 RecyclerBinder适用于不同类型的长页面，或者需要根据数据展示部分模块的滚动页面。
 通过用Binder解耦不同模块，使复杂的逻辑分块处理而不是杂糅在一起
+
 a）使用BaseRecyclerViewBinderAdapter适配器来存放Binder，BaseRecyclerViewBinderAdapter提供了下面几个方法来对Binder进行控制
 - 添加一个RecyclerBinder
 ```
@@ -555,7 +556,7 @@ a）使用BaseRecyclerViewBinderAdapter适配器来存放Binder，BaseRecyclerVi
 ```
     clearBinder()
 ```
-b）使用自定义的TestBinder继承RecyclerBinder，如下图所示：
+b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
 - 构造函数传入的binderType在同一个BaseRecyclerViewBinderAdapter里要保证唯一性，否则会出现冲突。
 - 重写getItemCount()方法可以指明这个Binder占多少个item，如果只占1个item则直接返回1，如果数据进来的是一个列表则可以返回列表的长度。
 - 其他使用方法与适配器保持一致
