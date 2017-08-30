@@ -12,6 +12,7 @@ import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
 import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageloaderManager;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * application
@@ -26,6 +27,13 @@ public class AgileDevApplication extends BaseApplication{
 
     @Override
     protected void afterCreate() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
         FileManager.init();// 初始化文件管理

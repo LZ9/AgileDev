@@ -84,4 +84,8 @@ dependencies {
     // 下载
     compile 'zlc.season:rxdownload2:2.0.4'
 
+    // leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+
 }

@@ -26,7 +26,7 @@ public class ThreadPoolManager {
     }
 
     /** 最高优先级线程池（界面数据加载） */
-    public ExecutorService mHighestExecutor;
+    private ExecutorService mHighestExecutor;
 
     /** 正常优先级线程池（下载等） */
     private ExecutorService mNormalExecutor;
