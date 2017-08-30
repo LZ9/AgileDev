@@ -9,6 +9,9 @@
     <string name="splash_check_permission_unconfirmed">再次确认</string>
     <string name="splash_check_permission_cancel">请在设置中打开权限后重启应用</string>
 
+    <!-- 主页面 -->
+    <string name="main_title">功能模块</string>
+
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
     <string name="lesson_detail_tab_video">视频</string>

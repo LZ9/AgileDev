@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
-import com.lodz.android.agiledev.ui.MainActivity;
+import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.utils.CrashHandler;
 import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.activity.AbsActivity;

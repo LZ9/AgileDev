@@ -33,15 +33,15 @@ public class App extends BaseApplication{
         NetworkManager.get().init(this);// 初始化网络管理
         initImageLoader();
 
-//        configBaseLayout();
+        configBaseLayout();
     }
 
     /** 配置基类 */
     private void configBaseLayout() {
         configTitleBarLayout();
-        configErrorLayout();
-        configLoadingLayout();
-        configNoDataLayout();
+//        configErrorLayout();
+//        configLoadingLayout();
+//        configNoDataLayout();
     }
 
     /** 配置无数据 */
@@ -71,16 +71,16 @@ public class App extends BaseApplication{
     /** 配置标题栏 */
     private void configTitleBarLayout() {
         getBaseLayoutConfig().getTitleBarLayoutConfig().setNeedBackButton(true);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setReplaceBackBtnResId(R.drawable.ic_launcher);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackgroundColor(R.color.color_ff4081);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnName("返返");
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnTextColor(R.color.color_d9d9d9);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnTextSize(14);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setTitleTextColor(R.color.color_3f51b5);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setTitleTextSize(18);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setIsShowDivideLine(true);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineHeight(10);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineColor(R.color.color_2f6dc9);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setReplaceBackBtnResId(R.drawable.ic_launcher);
+        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackgroundColor(R.color.color_00a0e9);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnName("返返");
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnTextColor(R.color.color_d9d9d9);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnTextSize(14);
+        getBaseLayoutConfig().getTitleBarLayoutConfig().setTitleTextColor(R.color.white);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setTitleTextSize(18);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setIsShowDivideLine(true);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineHeight(10);
+//        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineColor(R.color.color_2f6dc9);
     }
 
     /** 配置错误页 */

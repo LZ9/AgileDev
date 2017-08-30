@@ -1,5 +1,7 @@
 package com.lodz.android.agiledev.ui.dialog;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +13,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 弹框测试
  * Created by zhouL on 2017/6/14.
  */
 
 public class DialogTestActivity extends AbsActivity{
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, DialogTestActivity.class);
+        context.startActivity(starter);
+    }
 
     @BindView(R.id.center_btn)
     Button mCenterBtn;

@@ -1,5 +1,7 @@
 package com.lodz.android.agiledev.ui.drag;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,11 @@ import java.util.List;
  * Created by zhouL on 2017/3/6.
  */
 public class DragRecyclerViewActivity extends BaseActivity{
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, DragRecyclerViewActivity.class);
+        context.startActivity(starter);
+    }
 
     private RecyclerView mRecyclerView;
 
