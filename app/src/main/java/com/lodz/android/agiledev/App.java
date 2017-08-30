@@ -3,43 +3,36 @@ package com.lodz.android.agiledev;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-import com.lodz.android.agiledev.ui.MainActivity;
-import com.lodz.android.agiledev.utils.CrashHandler;
-import com.lodz.android.agiledev.utils.FileManager;
 import com.lodz.android.component.base.application.BaseApplication;
-import com.lodz.android.core.cache.ACacheUtils;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
 import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageloaderManager;
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * application
  * Created by zhouL on 2017/2/3.
  */
 
-public class AgileDevApplication extends BaseApplication{
+public class App extends BaseApplication{
 
-    public static AgileDevApplication getInstance() {
-        return (AgileDevApplication) get();
+    public static App getInstance() {
+        return (App) get();
     }
 
     @Override
     protected void afterCreate() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
 
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
-        FileManager.init();// 初始化文件管理
         initImageLoader();
-        initCrashHandler();
-        initACache();
+
 //        configBaseLayout();
     }
 
@@ -106,31 +99,11 @@ public class AgileDevApplication extends BaseApplication{
         ImageloaderManager.get().newBuilder()
                 .setPlaceholderResId(R.drawable.ic_launcher)//设置默认占位符
                 .setErrorResId(R.drawable.ic_launcher)// 设置加载失败图
-                .setFrescoRetryResId(R.drawable.ic_launcher)// 设置默认重载图片
-                .setFrescoTapToRetryEnabled(false)// 开启加载失败重试
-                .setFrescoAutoPlayAnimations(true)// 开启GIF自动播放
+//                .setFrescoRetryResId(R.drawable.ic_launcher)// 设置默认重载图片
+//                .setFrescoTapToRetryEnabled(false)// 开启加载失败重试
+//                .setFrescoAutoPlayAnimations(true)// 开启GIF自动播放
                 .setDirectoryFile(this.getApplicationContext().getCacheDir())
                 .setDirectoryName("image_cache")
-                .build(this);
-    }
-
-    /** 初始化异常处理 */
-    private void initCrashHandler() {
-        CrashHandler.get()
-                .setLauncherClass(MainActivity.class)
-//                .setInterceptor(true)
-//                .setToastTips("嗝屁啦")
-//                .setSaveFolderPath(FileManager.getCacheFolderPath())
-//                .setLogFileName("heheda.log")
-                .init();
-    }
-
-    /** 初始化缓存类 */
-    private void initACache() {
-        ACacheUtils.get().newBuilder()
-                .setCacheDir(FileManager.getCacheFolderPath())
-//                .setMaxSize(1024 * 1024 * 50)
-//                .setMaxCount(Integer.MAX_VALUE)
                 .build(this);
     }
 

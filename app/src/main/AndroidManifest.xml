@@ -6,24 +6,23 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 拨打电话 -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- ********************* 需要申请（只要同组有一个授权整组的权限都可以使用） ********************* -->
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 震动 -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
     <!--允许读取手机信息权限-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 写存储 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 读存储 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 在SDCard中创建与删除文件权限 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
-        android:name=".AgileDevApplication"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,7 +37,25 @@
             android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
             android:value="GlideModule" />
 
-        <activity android:name="com.lodz.android.agiledev.ui.MainActivity">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name="com.lodz.android.agiledev.ui.other.MainActivity">
 
         </activity>
 
@@ -50,15 +67,15 @@
 
         </activity>
 
-        <activity android:name=".ui.TestActivity">
+        <activity android:name=".ui.other.TestActivity">
 
         </activity>
 
-        <activity android:name=".ui.Test2Activity">
+        <activity android:name=".ui.other.Test2Activity">
 
         </activity>
 
-        <activity android:name=".ui.TitleBarTestActivity">
+        <activity android:name=".ui.other.TitleBarTestActivity">
 
         </activity>
 
@@ -109,7 +126,7 @@
         <activity android:name=".ui.mvp.base.activity.MvpTestBaseActivity">
 
         </activity>
-        
+
         <activity android:name=".ui.mvp.refresh.activity.MvpTestRefreshActivity">
 
         </activity>
@@ -120,11 +137,7 @@
 
 
         <activity android:name=".ui.jump.AzActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.jump.BzActivity">

@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">AgileDev</string>
 
+    <!-- 启动页 -->
+    <string name="splash_title">AgileDev测试工程</string>
+    <string name="splash_check_permission_tips">请在权限页面打开应用所有权限</string>
+    <string name="splash_check_permission_title">请确认已打开该应用使用的所有权限</string>
+    <string name="splash_check_permission_confirm">已确认</string>
+    <string name="splash_check_permission_unconfirmed">再次确认</string>
+    <string name="splash_check_permission_cancel">请在设置中打开权限后重启应用</string>
+
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
     <string name="lesson_detail_tab_video">视频</string>

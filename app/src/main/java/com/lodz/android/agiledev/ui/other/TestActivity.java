@@ -1,25 +1,23 @@
-package com.lodz.android.agiledev.ui;
+package com.lodz.android.agiledev.ui.other;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.fragment.TestFragment;
+import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.rx.subscribe.observer.RxObserver;
-import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -29,23 +27,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- *
- * Created by zhouL on 2017/2/23.
+ * Created by zhouL on 2017/2/22.
  */
-public class Test2Activity extends AppCompatActivity{
 
-    private LinearLayout mContentLayout;
-
-    private LoadingLayout mLoadingLayout;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_2_layout);
-        findViews(savedInstanceState);
-        setListeners();
-        initData();
-    }
+public class TestActivity extends AbsActivity{
 
 
     /** 详情页tab名称 */
@@ -61,10 +46,18 @@ public class Test2Activity extends AppCompatActivity{
     CollapsingToolbarLayout mCollapsingToolbarLayout;
 //    SimpleDraweeView mBgDraweeView;
 
-    protected void findViews(Bundle savedInstanceState) {
-        mContentLayout = (LinearLayout) findViewById(R.id.content_layout);
-        mLoadingLayout = (LoadingLayout) findViewById(R.id.loading_layout);
+//    @Override
+//    protected int getLayoutId() {
+//        return R.layout.activity_test_layout;
+//    }
 
+    @Override
+    protected int getAbsLayoutId() {
+        return R.layout.activity_test_layout;
+    }
+
+    @Override
+    protected void findViews(Bundle savedInstanceState) {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mBackImageView = (ImageView) findViewById(R.id.detail_back_imageview);
@@ -74,7 +67,9 @@ public class Test2Activity extends AppCompatActivity{
     }
 
 
+    @Override
     protected void setListeners() {
+        super.setListeners();
         // 返回按钮
         mBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,16 +82,26 @@ public class Test2Activity extends AppCompatActivity{
         mCollectionImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShort(Test2Activity.this, "收藏");
+                ToastUtils.showShort(getContext(), "收藏");
             }
         });
     }
 
+    @Override
     protected void initData() {
+        super.initData();
+//        goneTitleBar();
         initViewPager();
-        showStatusCompleted();
+//        showStatusLoading();
         reuqestData();
     }
+
+//    @Override
+//    protected void clickReload() {
+//        super.clickReload();
+//        showStatusLoading();
+//        reuqestData();
+//    }
 
     /** 请求数据 */
     private void reuqestData() {
@@ -116,6 +121,7 @@ public class Test2Activity extends AppCompatActivity{
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(this.<String>bindUntilEvent(ActivityEvent.DESTROY))
 //                .doOnNext(new Consumer<ResponseBean<LessonDetailInfoBean>>() {
 //                    @Override
 //                    public void accept(@NonNull ResponseBean<LessonDetailInfoBean> responseBean) throws Exception {
@@ -133,11 +139,12 @@ public class Test2Activity extends AppCompatActivity{
                     public void onRxNext(String str) {
                         initCollapsingToolbarLayout(str);
                         showBgImg("http://p.jianke.net/article/201507/20150709164730105.jpg");
-                        showStatusCompleted();
+//                        showStatusCompleted();
                     }
 
                     @Override
                     public void onRxError(Throwable e, boolean isNetwork) {
+//                        showStatusError();
                     }
 
                     @Override
@@ -163,7 +170,7 @@ public class Test2Activity extends AppCompatActivity{
 
     /** 初始化ViewPager */
     private void initViewPager() {
-        mViewPager.setOffscreenPageLimit(tabNameResId.length);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(new LessonTabAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
     }
@@ -192,17 +199,9 @@ public class Test2Activity extends AppCompatActivity{
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return Test2Activity.this.getString(tabNameResId[position]);
+            return TestActivity.this.getString(tabNameResId[position]);
         }
     }
 
-    private void showStatusLoading() {
-        mContentLayout.setVisibility(View.GONE);
-        mLoadingLayout.setVisibility(View.VISIBLE);
-    }
 
-    private void showStatusCompleted() {
-        mContentLayout.setVisibility(View.VISIBLE);
-        mLoadingLayout.setVisibility(View.GONE);
-    }
 }

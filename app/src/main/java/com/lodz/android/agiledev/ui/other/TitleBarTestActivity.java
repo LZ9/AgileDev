@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui;
+package com.lodz.android.agiledev.ui.other;
 
 import android.content.Intent;
 import android.os.Bundle;

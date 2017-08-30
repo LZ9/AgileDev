@@ -2,7 +2,7 @@ package com.lodz.android.agiledev.utils;
 
 import android.text.TextUtils;
 
-import com.lodz.android.agiledev.AgileDevApplication;
+import com.lodz.android.agiledev.App;
 import com.lodz.android.core.utils.FileUtils;
 import com.lodz.android.core.utils.StorageUtils;
 
@@ -36,9 +36,9 @@ public class FileManager {
 
     /** 初始化路径 */
     private static void initPath() {
-        String rootPath = StorageUtils.getInternalStoragePath(AgileDevApplication.get());// 先获取内置存储路径
+        String rootPath = StorageUtils.getInternalStoragePath(App.get());// 先获取内置存储路径
         if (TextUtils.isEmpty(rootPath)){// 内置为空再获取外置
-            rootPath = StorageUtils.getExternalStoragePath(AgileDevApplication.get());
+            rootPath = StorageUtils.getExternalStoragePath(App.get());
         }
         if (TextUtils.isEmpty(rootPath)){// 没有存储卡
             isStorageCanUse = false;
