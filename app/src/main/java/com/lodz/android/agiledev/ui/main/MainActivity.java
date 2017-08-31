@@ -3,8 +3,11 @@ package com.lodz.android.agiledev.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
@@ -13,6 +16,7 @@ import com.lodz.android.agiledev.ui.drag.DragRecyclerViewActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.core.utils.DensityUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -61,6 +65,18 @@ public class MainActivity extends BaseActivity{
 
     private void initTitleBar(TitleBarLayout titleBarLayout) {
         titleBarLayout.setTitleName(R.string.main_title);
+        TextView refreshBtn = new TextView(getContext());
+        refreshBtn.setText(R.string.main_change_mood);
+        refreshBtn.setPadding(DensityUtils.dp2px(getContext(), 15), 0 , DensityUtils.dp2px(getContext(), 15), 0);
+        refreshBtn.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        titleBarLayout.addExpandView(refreshBtn);
+        titleBarLayout.needBackButton(false);
     }
 
     private void initRecyclerView() {
@@ -70,12 +86,6 @@ public class MainActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected void clickBackBtn() {
-        super.clickBackBtn();
-        App.get().exit();
     }
 
     @Override

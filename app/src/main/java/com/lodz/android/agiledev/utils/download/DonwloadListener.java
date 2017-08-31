@@ -13,12 +13,16 @@ public interface DonwloadListener {
 
     /** 下载地址为空 */
     public static final int URL_EMPTY = 0;
+    /** 保存名称为空 */
+    public static final int SAVE_NAME_EMPTY = 1;
+    /** 保存路径为空 */
+    public static final int SAVE_PATH_EMPTY = 2;
     /** 网络错误 */
-    public static final int NETWORK_ERROR = 1;
+    public static final int NETWORK_ERROR = 3;
     /** 下在过程错误 */
-    public static final int DOWNLOADING_ERROR = 2;
+    public static final int DOWNLOADING_ERROR = 4;
 
-    @IntDef({URL_EMPTY, NETWORK_ERROR, DOWNLOADING_ERROR})
+    @IntDef({URL_EMPTY, SAVE_NAME_EMPTY, SAVE_PATH_EMPTY, NETWORK_ERROR, DOWNLOADING_ERROR})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ErrorType {}
 

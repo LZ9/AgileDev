@@ -116,12 +116,45 @@ public class Downloader {
     }
 
     /**
+     * 下载（获取Observable对象）
+     * @param context 上下文
+     * @param url 地址
+     * @param saveName 保存名称
+     */
+    public Observable<DownloadStatus> download(Context context, String url, String saveName){
+        if (TextUtils.isEmpty(url)){
+            DownloadStatus status = new DownloadStatus(0, 0);
+            return Observable.just(status);
+        }
+        return RxDownload.getInstance(context)
+                .download(url, saveName)
+                .compose(RxUtils.<DownloadStatus>io_main());
+    }
+
+    /**
+     * 下载（获取Observable对象）
+     * @param context 上下文
+     * @param url 地址
+     * @param saveName 保存名称
+     * @param savePath 保存路径
+     */
+    public Observable<DownloadStatus> download(Context context, String url, String saveName, String savePath){
+        if (TextUtils.isEmpty(url)){
+            DownloadStatus status = new DownloadStatus(0, 0);
+            return Observable.just(status);
+        }
+        return RxDownload.getInstance(context)
+                .download(url, saveName, savePath)
+                .compose(RxUtils.<DownloadStatus>io_main());
+    }
+
+    /**
      * 下载（可获取订阅者对象来暂定下载）
      * @param context 上下文
      * @param url 地址
      * @param listener 监听器
      */
-    public BaseObserver<DownloadStatus> download(Context context, String url, final DonwloadListener listener){
+    public BaseObserver<DownloadStatus> download(Context context, String url, DonwloadListener listener){
         if (TextUtils.isEmpty(url)){
             if (listener != null){
                 listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
@@ -129,7 +162,83 @@ public class Downloader {
             PrintLog.e(TAG, "url is null");
             return null;
         }
-        BaseObserver<DownloadStatus> observer = new BaseObserver<DownloadStatus>() {
+        BaseObserver<DownloadStatus> observer = getDownloadObserver(listener);
+        download(context, url).subscribe(observer);
+        return observer;
+    }
+
+    /**
+     * 下载（可获取订阅者对象来暂定下载）
+     * @param context 上下文
+     * @param url 地址
+     * @param saveName 保存名称
+     * @param listener 监听器
+     */
+    public BaseObserver<DownloadStatus> download(Context context, String url, String saveName, final DonwloadListener listener){
+        if (TextUtils.isEmpty(url)){
+            if (listener != null){
+                listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
+            }
+            PrintLog.e(TAG, "url is null");
+            return null;
+        }
+
+        if (TextUtils.isEmpty(saveName)){
+            if (listener != null){
+                listener.onError(DonwloadListener.SAVE_NAME_EMPTY, new NullPointerException("saveName is null"));
+            }
+            PrintLog.e(TAG, "saveName is null");
+            return null;
+        }
+
+        BaseObserver<DownloadStatus> observer = getDownloadObserver(listener);
+        download(context, url, saveName).subscribe(observer);
+        return observer;
+    }
+
+    /**
+     * 下载（可获取订阅者对象来暂定下载）
+     * @param context 上下文
+     * @param url 地址
+     * @param saveName 保存名称
+     * @param savePath 保存路径
+     * @param listener 监听器
+     */
+    public BaseObserver<DownloadStatus> download(Context context, String url, String saveName, String savePath, final DonwloadListener listener){
+        if (TextUtils.isEmpty(url)){
+            if (listener != null){
+                listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
+            }
+            PrintLog.e(TAG, "url is null");
+            return null;
+        }
+
+        if (TextUtils.isEmpty(saveName)){
+            if (listener != null){
+                listener.onError(DonwloadListener.SAVE_NAME_EMPTY, new NullPointerException("saveName is null"));
+            }
+            PrintLog.e(TAG, "saveName is null");
+            return null;
+        }
+
+        if (TextUtils.isEmpty(savePath)){
+            if (listener != null){
+                listener.onError(DonwloadListener.SAVE_PATH_EMPTY, new NullPointerException("savePath is null"));
+            }
+            PrintLog.e(TAG, "savePath is null");
+            return null;
+        }
+        BaseObserver<DownloadStatus> observer = getDownloadObserver(listener);
+        download(context, url, saveName, savePath).subscribe(observer);
+        return observer;
+    }
+
+    /**
+     * 用监听器处理下载订阅
+     * @param listener 监听器
+     */
+    private BaseObserver<DownloadStatus> getDownloadObserver(final DonwloadListener listener) {
+        return new BaseObserver<DownloadStatus>() {
             @Override
             public void onBaseSubscribe(Disposable d) {
                 if (d.isDisposed()) {
@@ -185,9 +294,6 @@ public class Downloader {
                 PrintLog.w(TAG, "onPause");
             }
         };
-        download(context, url).subscribe(observer);
-        return observer;
     }
-
 
 }

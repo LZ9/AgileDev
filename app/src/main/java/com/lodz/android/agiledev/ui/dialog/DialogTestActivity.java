@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.AbsActivity;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,14 +25,24 @@ public class DialogTestActivity extends AbsActivity{
         context.startActivity(starter);
     }
 
+    @BindView(R.id.title_bar_layout)
+    TitleBarLayout mTitleBarLayout;
+
     @BindView(R.id.center_btn)
     Button mCenterBtn;
 
     @BindView(R.id.right_btn)
     Button mRightBtn;
 
+    @BindView(R.id.left_btn)
+    Button mLeftBtn;
+
     @BindView(R.id.bottom_btn)
     Button mBottomBtn;
+
+    @BindView(R.id.top_btn)
+    Button mTopBtn;
+
 
     @Override
     protected int getAbsLayoutId() {
@@ -41,6 +52,17 @@ public class DialogTestActivity extends AbsActivity{
     @Override
     protected void findViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        initTitleBarLayout(mTitleBarLayout);
+    }
+
+    private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
+        titleBarLayout.setTitleName(R.string.dialog_test_title);
+        titleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -62,10 +84,26 @@ public class DialogTestActivity extends AbsActivity{
             }
         });
 
+        mLeftBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestLeftDialog dialog = new TestLeftDialog(getContext());
+                dialog.show();
+            }
+        });
+
         mBottomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TestBottomDialog dialog = new TestBottomDialog(getContext());
+                dialog.show();
+            }
+        });
+
+        mTopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestTopDialog dialog = new TestTopDialog(getContext());
                 dialog.show();
             }
         });

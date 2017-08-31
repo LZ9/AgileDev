@@ -14,7 +14,7 @@ import com.lodz.android.component.widget.dialog.BaseRightDialog;
 public class TestRightDialog extends BaseRightDialog{
 
     public TestRightDialog(@NonNull Context context) {
-        super(context, R.style.NoDimDialog);
+        super(context, R.style.NoDimDialog);//无半透明灰色背景
     }
 
     @Override
@@ -30,10 +30,10 @@ public class TestRightDialog extends BaseRightDialog{
     @Override
     protected void initData() {
         super.initData();
-        setCanceledOnTouchOutside(false);
+        setCanceledOnTouchOutside(false);//点击空白处不会消失
     }
 
-    //    @Override
+//    @Override
 //    protected boolean isMatchHeight() {
 //        return false;
 //    }

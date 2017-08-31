@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/dialog_test_right_txt1"
+        android:text="@string/dialog_test_left_txt1"
         android:textSize="14sp" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/dialog_test_right_txt2"
+        android:text="@string/dialog_test_left_txt2"
         android:textSize="14sp" />
 
     <TextView
@@ -26,14 +26,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/dialog_test_right_txt3"
+        android:text="@string/dialog_test_left_txt3"
         android:textSize="14sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="@string/dialog_test_right_txt4"
-        android:textSize="14sp" />
 </LinearLayout>

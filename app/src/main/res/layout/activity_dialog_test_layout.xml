@@ -4,22 +4,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.lodz.android.component.widget.base.TitleBarLayout
+        android:id="@+id/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.lodz.android.component.widget.base.TitleBarLayout>
+
     <Button
         android:id="@+id/center_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="中间弹框" />
+        android:text="@string/dialog_test_middle" />
 
     <Button
         android:id="@+id/right_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="右侧弹框" />
+        android:text="@string/dialog_test_right" />
+
+    <Button
+        android:id="@+id/left_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_test_left" />
 
     <Button
         android:id="@+id/bottom_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="底部弹框" />
+        android:text="@string/dialog_test_bottom" />
+
+    <Button
+        android:id="@+id/top_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_test_top" />
 
 </LinearLayout>

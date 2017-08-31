@@ -40,9 +40,21 @@
         <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
     </style>
 
+    <!-- 顶部进顶部出 -->
+    <style name="animation_top_in_top_out" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_top_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_top_out</item>
+    </style>
+
     <!-- 右进右出 -->
     <style name="animation_right_in_right_out" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/anim_right_in</item>
         <item name="android:windowExitAnimation">@anim/anim_right_out</item>
+    </style>
+
+    <!-- 左进左出 -->
+    <style name="animation_left_in_left_out" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_left_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_left_out</item>
     </style>
 </resources>

@@ -11,6 +11,31 @@
 
     <!-- 主页面 -->
     <string name="main_title">功能模块</string>
+    <string name="main_change_mood">换个心情</string>
+
+    <!-- 弹框测试 -->
+    <string name="dialog_test_title">弹框测试</string>
+    <string name="dialog_test_middle">中间弹框</string>
+    <string name="dialog_test_right">右侧弹框</string>
+    <string name="dialog_test_left">左侧弹框</string>
+    <string name="dialog_test_bottom">底部弹框</string>
+    <string name="dialog_test_top">顶部弹框</string>
+
+    <string name="dialog_test_middle_txt">戚家十三口惨案，你居然敢说问心无愧？常威，你还说你不会武功？</string>
+
+    <string name="dialog_test_right_txt1">大师兄，师父被妖怪抓走了！</string>
+    <string name="dialog_test_right_txt2">二师兄，师父被妖怪抓走了！</string>
+    <string name="dialog_test_right_txt3">大师兄，二师兄被抓走了！</string>
+    <string name="dialog_test_right_txt4">大师兄， 二师兄和师傅都被抓走了！</string>
+
+    <string name="dialog_test_left_txt1">臣妾坐不到啊</string>
+    <string name="dialog_test_left_txt2">满身大汉</string>
+    <string name="dialog_test_left_txt3">我能插嘴么</string>
+
+    <string name="dialog_test_top_txt">老板，来瓶82年的营养快线</string>
+
+    <string name="dialog_test_bottom_txt">他把我叫过来，他把我玩了，连一百块都不给我，这种人好恶心的，好坏的！</string>
+    <string name="dialog_test_bottom_txt_sure">确定</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
