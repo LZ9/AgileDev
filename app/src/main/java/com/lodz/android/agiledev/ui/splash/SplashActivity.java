@@ -70,6 +70,7 @@ public class SplashActivity extends AbsActivity{
     @NeedsPermission({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.RECORD_AUDIO,// 声音
             Manifest.permission.CAMERA// 照相
     })
     protected void requestPermission() {
@@ -77,6 +78,9 @@ public class SplashActivity extends AbsActivity{
             return;
         }
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            return;
+        }
+        if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.RECORD_AUDIO)){
             return;
         }
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.CAMERA)){
@@ -89,6 +93,7 @@ public class SplashActivity extends AbsActivity{
     @OnPermissionDenied({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.RECORD_AUDIO,// 声音
             Manifest.permission.CAMERA// 照相
     })
     protected void onDenied() {
@@ -99,6 +104,7 @@ public class SplashActivity extends AbsActivity{
     @OnShowRationale({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.RECORD_AUDIO,// 声音
             Manifest.permission.CAMERA// 照相
     })
     protected void showRationaleBeforeRequest(PermissionRequest request) {
@@ -109,6 +115,7 @@ public class SplashActivity extends AbsActivity{
     @OnNeverAskAgain({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.RECORD_AUDIO,// 声音
             Manifest.permission.CAMERA// 照相
     })
     protected void onNeverAskAgain() {

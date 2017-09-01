@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 录制音频 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".App"
@@ -55,100 +57,154 @@
 
         </activity>
 
-        <activity android:name="com.lodz.android.agiledev.ui.other.MainActivity">
+        <activity
+            android:name="com.lodz.android.agiledev.ui.other.MainActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.premissions.PremissionsActivity">
+        <activity
+            android:name=".ui.premissions.PremissionsActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.premissions.DeviceActivity">
+        <activity
+            android:name=".ui.premissions.DeviceActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.other.TestActivity">
+        <activity
+            android:name=".ui.other.TestActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.other.Test2Activity">
+        <activity
+            android:name=".ui.other.Test2Activity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.other.TitleBarTestActivity">
+        <activity
+            android:name=".ui.other.TitleBarTestActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.refresh.RefreshTestActivity">
+        <activity
+            android:name=".ui.refresh.RefreshTestActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.drag.DragRecyclerViewActivity">
+        <activity
+            android:name=".ui.drag.DragRecyclerViewActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.reflect.ReflectActivity">
+        <activity
+            android:name=".ui.reflect.ReflectActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.head.HeadRecyclerViewActivity">
+        <activity
+            android:name=".ui.head.HeadRecyclerViewActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.image.GlideActivity">
+        <activity
+            android:name=".ui.image.GlideActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.fragmentactivity.LoginActivity">
+        <activity
+            android:name=".ui.fragmentactivity.LoginActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.tab.TabActivity">
+        <activity
+            android:name=".ui.tab.TabActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.fragmentlife.FragmentLifeTestActivity">
+        <activity
+            android:name=".ui.fragmentlife.FragmentLifeTestActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.dialog.DialogTestActivity">
+        <activity
+            android:name=".ui.dialog.DialogTestActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.config.ConfigLayoutActivity">
+        <activity
+            android:name=".ui.config.ConfigLayoutActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.mvp.abs.activity.MvpTestAbsActivity">
+        <activity
+            android:name=".ui.mvp.abs.activity.MvpTestAbsActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.mvp.base.activity.MvpTestBaseActivity">
+        <activity
+            android:name=".ui.mvp.base.activity.MvpTestBaseActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.mvp.refresh.activity.MvpTestRefreshActivity">
+        <activity
+            android:name=".ui.mvp.refresh.activity.MvpTestRefreshActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.mvp.MvpFragmentActivity">
+        <activity
+            android:name=".ui.mvp.MvpFragmentActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
 
-        <activity android:name=".ui.jump.AzActivity">
+        <activity
+            android:name=".ui.jump.AzActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.jump.BzActivity">
+        <activity
+            android:name=".ui.jump.BzActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.jump.CzActivity">
+        <activity
+            android:name=".ui.jump.CzActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.jump.DzActivity">
+        <activity
+            android:name=".ui.jump.DzActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.media.RecordActivity"
+            android:screenOrientation="portrait">
 
         </activity>
 

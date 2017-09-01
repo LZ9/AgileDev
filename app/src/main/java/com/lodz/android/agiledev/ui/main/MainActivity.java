@@ -13,6 +13,7 @@ import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.dialog.DialogTestActivity;
 import com.lodz.android.agiledev.ui.drag.DragRecyclerViewActivity;
+import com.lodz.android.agiledev.ui.media.RecordActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
@@ -41,9 +42,9 @@ public class MainActivity extends BaseActivity{
     }
 
     /** 功能名称 */
-    private static final List<String> mNameList = Arrays.asList("弹框测试", "RecyclerView拖拽测试");
+    private static final List<String> mNameList = Arrays.asList("弹框测试", "RecyclerView拖拽测试", "视频录制测试");
     /** 功能的activity */
-    private static final Class<?>[] mClassList = {DialogTestActivity.class, DragRecyclerViewActivity.class};
+    private static final Class<?>[] mClassList = {DialogTestActivity.class, DragRecyclerViewActivity.class, RecordActivity.class};
 
     /** 列表 */
     @BindView(R.id.recycler_view)

@@ -135,6 +135,7 @@ public class MediaRecorderHelper {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            release();
             if (mListener != null){
                 mListener.onStartFail(e);
             }
@@ -181,18 +182,21 @@ public class MediaRecorderHelper {
     /** 释放资源 */
     private void release(){
         try {
-            if (mMediaRecorder != null){
-                mMediaRecorder.stop();
-                mMediaRecorder.release();
-                mMediaRecorder = null;
-            }
             if (mCamera != null){
                 mCamera.stopPreview();
                 mCamera.release();
                 mCamera = null;
             }
+            if (mMediaRecorder != null){
+                mMediaRecorder.stop();
+                mMediaRecorder.release();
+                mMediaRecorder = null;
+            }
         }catch (Exception e){
             e.printStackTrace();
+            mCamera = null;
+            mMediaRecorder = null;
+
         }
     }
 
