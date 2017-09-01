@@ -20,7 +20,7 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.NotificationTarget;
 import com.bumptech.glide.request.target.Target;
 import com.lodz.android.agiledev.R;
-import com.lodz.android.agiledev.utils.FileManager;
+import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ScreenUtils;

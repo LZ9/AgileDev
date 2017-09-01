@@ -3,7 +3,7 @@ package com.lodz.android.agiledev.utils.download;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.lodz.android.agiledev.utils.FileManager;
+import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.log.PrintLog;

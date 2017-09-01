@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.utils;
+package com.lodz.android.agiledev.utils.file;
 
 import android.text.TextUtils;
 

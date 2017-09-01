@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.utils;
+package com.lodz.android.agiledev.utils.crash;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
