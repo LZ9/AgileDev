@@ -1,6 +1,8 @@
 package com.lodz.android.component.widget.dialog;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,20 +16,17 @@ import com.lodz.android.component.R;
  */
 public abstract class BaseBottomDialog extends BaseDialog{
 
-    public BaseBottomDialog(Context context) {
+    public BaseBottomDialog(@NonNull Context context) {
         super(context);
-        setWindowAnimations();
     }
 
-    public BaseBottomDialog(Context context, int themeResId) {
+    public BaseBottomDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
-        setWindowAnimations();
     }
 
-    private void setWindowAnimations(){
-        if (getWindow() != null){
-            getWindow().setWindowAnimations(R.style.animation_bottom_in_bottom_out); //设置窗口弹出动画
-        }
+    @Override
+    protected int getAnimations() {
+        return R.style.animation_bottom_in_bottom_out;
     }
 
     @Override

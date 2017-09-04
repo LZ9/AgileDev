@@ -18,6 +18,12 @@
         android:text="@string/dialog_test_middle" />
 
     <Button
+        android:id="@+id/center_scale_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_test_middle_scale" />
+
+    <Button
         android:id="@+id/right_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -16,18 +16,15 @@ public abstract class BaseTopDialog extends BaseDialog{
 
     public BaseTopDialog(Context context) {
         super(context);
-        setWindowAnimations();
     }
 
     public BaseTopDialog(Context context, int themeResId) {
         super(context, themeResId);
-        setWindowAnimations();
     }
 
-    private void setWindowAnimations(){
-        if (getWindow() != null){
-            getWindow().setWindowAnimations(R.style.animation_top_in_top_out); //设置窗口弹出动画
-        }
+    @Override
+    protected int getAnimations() {
+        return R.style.animation_top_in_top_out;
     }
 
     @Override

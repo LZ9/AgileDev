@@ -15,19 +15,15 @@ public abstract class BaseLeftDialog extends BaseDialog {
 
     public BaseLeftDialog(Context context) {
         super(context);
-        setWindowAnimations();
     }
 
     public BaseLeftDialog(Context context, int themeResId) {
         super(context, themeResId);
-        setWindowAnimations();
     }
 
-    private void setWindowAnimations() {
-        Window window = getWindow();
-        if (window != null) {
-            window.setWindowAnimations(R.style.animation_left_in_left_out); //设置窗口弹出动画
-        }
+    @Override
+    protected int getAnimations() {
+        return R.style.animation_left_in_left_out;
     }
 
     @Override

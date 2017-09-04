@@ -30,6 +30,7 @@ public abstract class BaseDialog extends Dialog{
         findViews();
         setListeners();
         initData();
+        setWindowAnimations();
     }
 
     protected void onStartInit(Context context) {}
@@ -41,5 +42,16 @@ public abstract class BaseDialog extends Dialog{
     protected void setListeners() {}
 
     protected void initData() {}
+
+    @StyleRes
+    protected int getAnimations() {
+        return -1;
+    }
+
+    private void setWindowAnimations() {
+        if (getWindow() != null && getAnimations() != -1){
+            getWindow().setWindowAnimations(getAnimations()); //设置窗口弹出动画
+        }
+    }
 
 }

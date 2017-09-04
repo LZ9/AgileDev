@@ -31,6 +31,9 @@ public class DialogTestActivity extends AbsActivity{
     @BindView(R.id.center_btn)
     Button mCenterBtn;
 
+    @BindView(R.id.center_scale_btn)
+    Button mCenterScaleBtn;
+
     @BindView(R.id.right_btn)
     Button mRightBtn;
 
@@ -72,6 +75,14 @@ public class DialogTestActivity extends AbsActivity{
             @Override
             public void onClick(View v) {
                 TestCenterDialog dialog = new TestCenterDialog(getContext());
+                dialog.show();
+            }
+        });
+
+        mCenterScaleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestCenterScaleDialog dialog = new TestCenterScaleDialog(getContext());
                 dialog.show();
             }
         });

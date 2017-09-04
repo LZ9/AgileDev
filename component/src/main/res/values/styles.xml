@@ -34,6 +34,12 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <!-- 中进中出（缩放） -->
+    <style name="animation_center_in_center_out" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_center_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_center_out</item>
+    </style>
+
     <!-- 底部进底部出 -->
     <style name="animation_bottom_in_bottom_out" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
