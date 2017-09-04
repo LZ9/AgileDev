@@ -10,11 +10,16 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.recycler.RecyclerViewDragHelper;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.log.PrintLog;
+import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.VibratorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * RecyclerView拖动测试类
@@ -27,13 +32,15 @@ public class DragRecyclerViewActivity extends BaseActivity{
         context.startActivity(starter);
     }
 
-    private RecyclerView mRecyclerView;
-
+    /** 列表 */
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+    /** 适配器 */
     private DragAdapter mAdapter;
-
-    private List<String> mList;
-
+    /** 拖拽帮助类 */
     private RecyclerViewDragHelper<String> mRecyclerViewDragHelper;
+    /** 数据列表 */
+    private List<String> mList;
 
     @Override
     protected int getLayoutId() {
@@ -42,8 +49,13 @@ public class DragRecyclerViewActivity extends BaseActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        ButterKnife.bind(this);
+        initTitleBar(getTitleBarLayout());
         initRecyclerView();
+    }
+
+    private void initTitleBar(TitleBarLayout titleBarLayout) {
+        titleBarLayout.setTitleName(R.string.drag_title);
     }
 
     /** 初始化RecyclerView */
@@ -58,8 +70,6 @@ public class DragRecyclerViewActivity extends BaseActivity{
                 .setUseLeftToRightSwipe(false)// 设置允许从左往右滑动
                 .setUseRightToLeftSwipe(false)// 设置允许从右往左滑动
                 .setEnabled(true)// 是否启用
-//                .setDragingColor(Color.GRAY)// 设置拖拽时的背景颜色
-//                .setDraggedColor(Color.RED)// 设置拖拽完成的背景颜色
                 .build(mRecyclerView, mAdapter);
     }
 
@@ -73,20 +83,26 @@ public class DragRecyclerViewActivity extends BaseActivity{
     }
 
     @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
+    }
+
+    @Override
     protected void setListeners() {
         super.setListeners();
 
         mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<String>() {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
-                PrintLog.e("testtag", item);
+                ToastUtils.showShort(getContext(), item);
             }
         });
 
         mAdapter.setOnItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<String>() {
             @Override
             public void onItemLongClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
-                VibratorUtil.vibrate(getContext(), 100);
+                VibratorUtil.vibrate(getContext(), 100);//长按震动
             }
         });
 

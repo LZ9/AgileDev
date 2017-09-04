@@ -43,6 +43,9 @@
     <string name="record_start">开始录像</string>
     <string name="record_stop">结束录像</string>
 
+    <!-- RecyclerView拖拽测试 -->
+    <string name="drag_title">RecyclerView拖拽</string>
+
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

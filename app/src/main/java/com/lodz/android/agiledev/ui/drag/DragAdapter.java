@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.utils.ScreenUtils;
-import com.lodz.android.core.utils.ToastUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 拖拽适配器
@@ -37,29 +39,18 @@ public class DragAdapter extends BaseRecyclerViewAdapter<String>{
     }
 
     private void showItem(DragViewHolder holder, final String text) {
-        int screenWidth = ScreenUtils.getScreenWidth(getContext());
-        int width = screenWidth / 4;
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        layoutParams.width = width;
-        holder.itemView.setLayoutParams(layoutParams);
-
+        setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 4);
         holder.indexTextView.setText(text);
-        holder.indexTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.showShort(getContext(), text);
-            }
-        });
     }
 
-
-    private class DragViewHolder extends RecyclerView.ViewHolder{
+    class DragViewHolder extends RecyclerView.ViewHolder{
         /** 序号 */
-        private TextView indexTextView;
+        @BindView(R.id.index_text)
+        TextView indexTextView;
 
-        public DragViewHolder(View itemView) {
+        private DragViewHolder(View itemView) {
             super(itemView);
-            indexTextView = (TextView) itemView.findViewById(R.id.index_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

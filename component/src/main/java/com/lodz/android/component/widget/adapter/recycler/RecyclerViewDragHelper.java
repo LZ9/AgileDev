@@ -1,8 +1,9 @@
 package com.lodz.android.component.widget.adapter.recycler;
 
-import android.support.annotation.ColorInt;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.Collections;
@@ -22,13 +23,6 @@ public class RecyclerViewDragHelper<T> {
     private boolean mUseLeftToRightSwipe = false;
     /** 启用拖拽效果 */
     private boolean isEnabled = true;
-
-    /** 拖拽时的背景颜色 */
-    @ColorInt
-    private int mDragingColor = 0;
-    /** 拖拽完成的背景颜色 */
-    @ColorInt
-    private int mDraggedColor = 0;
 
     /** 适配器 */
     private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
@@ -74,24 +68,6 @@ public class RecyclerViewDragHelper<T> {
     }
 
     /**
-     * 设置拖拽时的背景颜色
-     * @param dragingColor 拖拽时背景颜色
-     */
-    public RecyclerViewDragHelper setDragingColor(@ColorInt int dragingColor) {
-        this.mDragingColor = dragingColor;
-        return this;
-    }
-
-    /**
-     * 设置拖拽完成的背景颜色
-     * @param draggedColor 拖拽完成背景颜色
-     */
-    public RecyclerViewDragHelper setDraggedColor(@ColorInt int draggedColor) {
-        this.mDraggedColor = draggedColor;
-        return this;
-    }
-
-    /**
      * 设置数据
      * @param list 数据列表
      */
@@ -129,9 +105,21 @@ public class RecyclerViewDragHelper<T> {
             if (recyclerView.getLayoutManager() instanceof GridLayoutManager){// 网格布局
                 dragFlags = mUseDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
                 swipeFlags = 0;
+            } else if(recyclerView.getLayoutManager() instanceof LinearLayoutManager){// 线性布局
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.getOrientation() == LinearLayoutManager.VERTICAL){//纵向
+                    dragFlags = mUseDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN : 0;
+                    swipeFlags = (mUseRightToLeftSwipe ?ItemTouchHelper.START : 0) // START允许从右往左、
+                            | (mUseLeftToRightSwipe ? ItemTouchHelper.END : 0); // END允许从左往右
+                } else {//横向
+                    dragFlags = mUseDrag ? ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
+                    swipeFlags = 0;//横向不允许侧滑
+                }
+            }else if (recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager){// 瀑布流布局
+                dragFlags = mUseDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
+                swipeFlags = 0;
             }else {// 其他布局
-                dragFlags = mUseDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN : 0;
-
+                dragFlags = mUseDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
                 swipeFlags = (mUseRightToLeftSwipe ?ItemTouchHelper.START : 0) // START允许从右往左、
                         | (mUseLeftToRightSwipe ? ItemTouchHelper.END : 0); // END允许从左往右
             }
@@ -185,8 +173,8 @@ public class RecyclerViewDragHelper<T> {
         // 当长按选中item时（拖拽开始时）调用
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE && mDragingColor != 0){
-                viewHolder.itemView.setBackgroundColor(mDragingColor);//拖拽时的背景颜色
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE){
+                // do something
             }
             super.onSelectedChanged(viewHolder, actionState);
         }
@@ -195,9 +183,7 @@ public class RecyclerViewDragHelper<T> {
         @Override
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             super.clearView(recyclerView, viewHolder);
-            if (mDraggedColor != 0){
-                viewHolder.itemView.setBackgroundColor(mDraggedColor);//拖拽完成的背景颜色
-            }
+            // do something
         }
 
         // 是否禁止拖拽

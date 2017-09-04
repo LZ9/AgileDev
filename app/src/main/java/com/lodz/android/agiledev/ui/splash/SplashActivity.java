@@ -57,7 +57,7 @@ public class SplashActivity extends AbsActivity{
                     init();
                 }
             }
-        }, 3000);
+        }, 1000);
     }
 
     @Override

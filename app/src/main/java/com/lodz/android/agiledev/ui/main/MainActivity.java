@@ -42,9 +42,9 @@ public class MainActivity extends BaseActivity{
     }
 
     /** 功能名称 */
-    private static final List<String> mNameList = Arrays.asList("弹框测试", "RecyclerView拖拽测试", "视频录制测试");
+    private static final List<String> mNameList = Arrays.asList("弹框测试", "视频录制测试", "RecyclerView拖拽测试");
     /** 功能的activity */
-    private static final Class<?>[] mClassList = {DialogTestActivity.class, DragRecyclerViewActivity.class, RecordActivity.class};
+    private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class};
 
     /** 列表 */
     @BindView(R.id.recycler_view)
