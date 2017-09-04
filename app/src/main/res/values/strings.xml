@@ -39,6 +39,9 @@
 
     <!-- 视频录制 -->
     <string name="record_title">视频录制测试</string>
+    <string name="record_start">开始录像</string>
+    <string name="record_stop">结束录像</string>
+
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
