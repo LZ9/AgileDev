@@ -77,7 +77,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-        layoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
 //        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         return layoutManager;
     }

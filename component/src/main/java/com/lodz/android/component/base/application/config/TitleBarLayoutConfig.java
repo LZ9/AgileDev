@@ -2,6 +2,7 @@ package com.lodz.android.component.base.application.config;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.FloatRange;
 
 /**
  * 标题栏配置
@@ -40,6 +41,11 @@ public class TitleBarLayoutConfig {
     /** 背景资源图片 */
     @DrawableRes
     private int backgroundResId = 0;
+    /** 是否需要阴影 */
+    private boolean isNeedElevation = false;
+    /** 阴影的值 */
+    private float elevationVale = 12f;
+
 
     /**
      * 需要显示返回按钮
@@ -137,6 +143,21 @@ public class TitleBarLayoutConfig {
         this.backgroundResId = resId;
     }
 
+    /**
+     * 是否需要阴影
+     * @param isNeed 是否需要
+     */
+    public void setIsNeedElevation(boolean isNeed){
+        this.isNeedElevation = isNeed;
+    }
+
+    /**
+     * 设置阴影的值
+     * @param elevationVale 阴影值
+     */
+    public void setElevationVale(@FloatRange(from=0.0) float elevationVale) {
+        this.elevationVale = elevationVale;
+    }
 
     /** 获取是否需要显示返回按钮 */
     public boolean getIsNeedBackBtn() {
@@ -202,5 +223,15 @@ public class TitleBarLayoutConfig {
     @DrawableRes
     public int getBackgroundResId() {
         return backgroundResId;
+    }
+
+    /** 获取是否需要阴影 */
+    public boolean getIsNeedElevation() {
+        return isNeedElevation;
+    }
+
+    /** 获取阴影的值 */
+    public float getElevationVale() {
+        return elevationVale;
     }
 }

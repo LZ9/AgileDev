@@ -81,6 +81,8 @@ public class App extends BaseApplication{
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setIsShowDivideLine(true);
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineHeight(10);
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineColor(R.color.color_2f6dc9);
+        getBaseLayoutConfig().getTitleBarLayoutConfig().setIsNeedElevation(true);
+        getBaseLayoutConfig().getTitleBarLayoutConfig().setElevationVale(11f);
     }
 
     /** 配置错误页 */

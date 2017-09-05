@@ -119,6 +119,9 @@ public class TitleBarLayout extends LinearLayout{
         if (mConfig.getBackgroundResId() != 0){
             setBackgroundResource(mConfig.getBackgroundResId());
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mConfig.getIsNeedElevation()) {
+            mDivideLineView.setElevation(mConfig.getElevationVale());
+        }
     }
 
     /**
