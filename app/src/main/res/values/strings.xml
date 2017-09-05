@@ -14,7 +14,6 @@
     <string name="main_change_mood">换个心情</string>
 
     <!-- 弹框测试 -->
-    <string name="dialog_test_title">弹框测试</string>
     <string name="dialog_test_middle">中间弹框</string>
     <string name="dialog_test_middle_scale">中间弹框（缩放动画）</string>
     <string name="dialog_test_right">右侧弹框（无灰色背景、带阴影、空白不消失）</string>
@@ -39,12 +38,10 @@
     <string name="dialog_test_bottom_txt_sure">给他100块</string>
 
     <!-- 视频录制 -->
-    <string name="record_title">视频录制测试</string>
     <string name="record_start">开始录像</string>
     <string name="record_stop">结束录像</string>
 
     <!-- RecyclerView拖拽测试 -->
-    <string name="drag_title">RecyclerView拖拽</string>
     <string name="drag_orientation">方向</string>
     <string name="drag_layout_manager">布局</string>
     <string name="drag_vertical">纵向</string>

@@ -16,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.recycler.RecyclerViewDragHelper;
@@ -72,7 +73,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
 
     /** 初始化标题栏 */
     private void initTitleBar(TitleBarLayout titleBarLayout) {
-        titleBarLayout.setTitleName(R.string.drag_title);
+        titleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
         titleBarLayout.needExpandView(true);
         titleBarLayout.addExpandView(getExpandView());
     }

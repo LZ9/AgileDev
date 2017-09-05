@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
 import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.agiledev.utils.media.MediaRecorderHelper;
@@ -71,7 +72,7 @@ public class RecordActivity extends BaseActivity {
 
     /** 初始化TitleBarLayout */
     private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
-        titleBarLayout.setTitleName(R.string.record_title);
+        titleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
     }
 
     @Override

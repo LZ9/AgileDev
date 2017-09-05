@@ -46,6 +46,9 @@ public class MainActivity extends BaseActivity{
     /** 功能的activity */
     private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class};
 
+    /** 标题名称 */
+    public static final String EXTRA_TITLE_NAME = "extra_title_name";
+
     /** 列表 */
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -101,7 +104,9 @@ public class MainActivity extends BaseActivity{
         mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<String>() {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
-                startActivity(new Intent(getContext(), mClassList[position]));
+                Intent intent = new Intent(getContext(), mClassList[position]);
+                intent.putExtra(EXTRA_TITLE_NAME, item);
+                startActivity(intent);
             }
         });
     }

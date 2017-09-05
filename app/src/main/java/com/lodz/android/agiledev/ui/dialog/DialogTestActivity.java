@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 
@@ -59,7 +60,7 @@ public class DialogTestActivity extends AbsActivity{
     }
 
     private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
-        titleBarLayout.setTitleName(R.string.dialog_test_title);
+        titleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
         titleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
