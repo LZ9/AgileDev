@@ -17,7 +17,7 @@
     <string name="dialog_test_title">弹框测试</string>
     <string name="dialog_test_middle">中间弹框</string>
     <string name="dialog_test_middle_scale">中间弹框（缩放动画）</string>
-    <string name="dialog_test_right">右侧弹框（无灰色背景且点击空白处不会消失）</string>
+    <string name="dialog_test_right">右侧弹框（无灰色背景、带阴影、空白不消失）</string>
     <string name="dialog_test_left">左侧弹框</string>
     <string name="dialog_test_bottom">底部弹框</string>
     <string name="dialog_test_top">顶部弹框</string>
@@ -45,7 +45,13 @@
 
     <!-- RecyclerView拖拽测试 -->
     <string name="drag_title">RecyclerView拖拽</string>
-
+    <string name="drag_orientation">方向</string>
+    <string name="drag_layout_manager">布局</string>
+    <string name="drag_vertical">纵向</string>
+    <string name="drag_horizontal">横向</string>
+    <string name="drag_linear_layout_manager">线性布局</string>
+    <string name="drag_grid_layout_manager">网格布局</string>
+    <string name="drag_staggered_grid_layout_manager">瀑布流</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

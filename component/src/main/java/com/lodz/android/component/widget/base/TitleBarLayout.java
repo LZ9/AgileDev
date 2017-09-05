@@ -120,7 +120,7 @@ public class TitleBarLayout extends LinearLayout{
             setBackgroundResource(mConfig.getBackgroundResId());
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mConfig.getIsNeedElevation()) {
-            mDivideLineView.setElevation(mConfig.getElevationVale());
+            setElevation(mConfig.getElevationVale());
         }
     }
 

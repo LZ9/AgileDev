@@ -2,6 +2,7 @@ package com.lodz.android.agiledev.ui.dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.dialog.BaseRightDialog;
@@ -24,7 +25,7 @@ public class TestRightDialog extends BaseRightDialog{
 
     @Override
     protected void findViews() {
-
+        setElevation(16f, ContextCompat.getDrawable(getContext(), R.color.white));
     }
 
     @Override

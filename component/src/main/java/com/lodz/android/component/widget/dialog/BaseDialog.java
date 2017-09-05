@@ -2,6 +2,8 @@ package com.lodz.android.component.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 
@@ -51,6 +53,27 @@ public abstract class BaseDialog extends Dialog{
     private void setWindowAnimations() {
         if (getWindow() != null && getAnimations() != -1){
             getWindow().setWindowAnimations(getAnimations()); //设置窗口弹出动画
+        }
+    }
+
+    /**
+     * 设置阴影
+     * @param elevation 阴影值
+     * @param background 背景（需要设置背景才能设置阴影）
+     */
+    protected void setElevation(float elevation, Drawable background){
+        if (background == null){
+            return;
+        }
+        if (getWindow() == null){
+            return;
+        }
+        if (getWindow().getDecorView() == null){
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getDecorView().setElevation(elevation);
+            getWindow().getDecorView().setBackground(background);
         }
     }
 

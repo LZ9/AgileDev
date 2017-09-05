@@ -193,7 +193,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
             if (TextUtils.isEmpty(mLogFileName)){
                 long timestamp = System.currentTimeMillis();
-                String time = DateUtils.getFormatString(DateUtils.Type_7, new Date(timestamp));
+                String time = DateUtils.getFormatString(DateUtils.TYPE_7, new Date(timestamp));
                 mLogFileName = "crash-" + time + "-" + timestamp + ".log";
             }
             FileOutputStream fos = new FileOutputStream(mSaveFolderPath + mLogFileName);

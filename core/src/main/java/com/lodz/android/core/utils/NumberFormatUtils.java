@@ -13,17 +13,17 @@ import java.text.DecimalFormat;
 public class NumberFormatUtils {
 
     /** 保留1位小数 */
-    public static final String Type_One_Decimal = "#.0";
+    public static final String TYPE_ONE_DECIMAL = "#.0";
     /** 保留2位小数 */
-    public static final String Type_Two_Decimal = "#.00";
+    public static final String TYPE_TWO_DECIMAL = "#.00";
 
-    @StringDef({Type_One_Decimal, Type_Two_Decimal})
+    @StringDef({TYPE_ONE_DECIMAL, TYPE_TWO_DECIMAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface FormatType {}
 
     /**
      * 格式化数字
-     * @param formatType 格式化类型，例如：{@link #Type_One_Decimal}、{@link #Type_Two_Decimal}
+     * @param formatType 格式化类型，例如：{@link #TYPE_ONE_DECIMAL}、{@link #TYPE_TWO_DECIMAL}
      * @param data 数据
      */
     public static String format(String formatType, double data){

@@ -78,11 +78,11 @@ public class App extends BaseApplication{
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setBackBtnTextSize(14);
         getBaseLayoutConfig().getTitleBarLayoutConfig().setTitleTextColor(R.color.white);
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setTitleTextSize(18);
-//        getBaseLayoutConfig().getTitleBarLayoutConfig().setIsShowDivideLine(true);
+        getBaseLayoutConfig().getTitleBarLayoutConfig().setIsShowDivideLine(false);
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineHeight(10);
 //        getBaseLayoutConfig().getTitleBarLayoutConfig().setDivideLineColor(R.color.color_2f6dc9);
         getBaseLayoutConfig().getTitleBarLayoutConfig().setIsNeedElevation(true);
-        getBaseLayoutConfig().getTitleBarLayoutConfig().setElevationVale(11f);
+        getBaseLayoutConfig().getTitleBarLayoutConfig().setElevationVale(13f);
     }
 
     /** 配置错误页 */

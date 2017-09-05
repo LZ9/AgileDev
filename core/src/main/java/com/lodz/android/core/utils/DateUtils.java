@@ -16,23 +16,23 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    public static final String Type_1 = "HH:mm";
-    public static final String Type_2 = "yyyy-MM-dd HH:mm:ss";
-    public static final String Type_3 = "yyyyMMddHHmmssSSS";
-    public static final String Type_4 = "yyyyMMddHHmmss";
-    public static final String Type_5 = "yyyyMMdd";
-    public static final String Type_6 = "yyyy-MM-dd";
-    public static final String Type_7 = "yyyy-MM-dd-HH-mm-ss";
-    public static final String Type_8 = "HH:mm:ss";
-    public static final String Type_9 = "yyyy-MM-dd HH-mm-ss";
+    public static final String TYPE_1 = "HH:mm";
+    public static final String TYPE_2 = "yyyy-MM-dd HH:mm:ss";
+    public static final String TYPE_3 = "yyyyMMddHHmmssSSS";
+    public static final String TYPE_4 = "yyyyMMddHHmmss";
+    public static final String TYPE_5 = "yyyyMMdd";
+    public static final String TYPE_6 = "yyyy-MM-dd";
+    public static final String TYPE_7 = "yyyy-MM-dd-HH-mm-ss";
+    public static final String TYPE_8 = "HH:mm:ss";
+    public static final String TYPE_9 = "yyyy-MM-dd HH-mm-ss";
 
-    @StringDef({Type_1, Type_2, Type_3, Type_4, Type_5, Type_6, Type_7, Type_8, Type_9})
+    @StringDef({TYPE_1, TYPE_2, TYPE_3, TYPE_4, TYPE_5, TYPE_6, TYPE_7, TYPE_8, TYPE_9})
     @Retention(RetentionPolicy.SOURCE)
     public @interface FormatType {}
 
     /**
      * 格式化当前时间
-     * @param formatType 格式化类型，例如：{@link #Type_1}到{@link #Type_9}
+     * @param formatType 格式化类型，例如：{@link #TYPE_1}到{@link #TYPE_9}
      */
     public static String getCurrentFormatString(String formatType) {
         return getFormatString(formatType, new Date(System.currentTimeMillis()));
@@ -40,7 +40,7 @@ public class DateUtils {
 
     /**
      * 格式化当前时间
-     * @param formatType 格式化类型，例如：{@link #Type_1}到{@link #Type_9}
+     * @param formatType 格式化类型，例如：{@link #TYPE_1}到{@link #TYPE_9}
      * @param date 日期
      */
     public static String getFormatString(String formatType, Date date) {
@@ -55,7 +55,7 @@ public class DateUtils {
 
     /**
      * 将格式化后的时间转成Date
-     * @param formatType source对应的格式化类型，例如：{@link #Type_1}到{@link #Type_9}
+     * @param formatType source对应的格式化类型，例如：{@link #TYPE_1}到{@link #TYPE_9}
      * @param source 时间数据
      */
     public static Date parseFormatDate(String formatType, String source) {
@@ -70,8 +70,8 @@ public class DateUtils {
 
     /**
      * 改变日期格式
-     * @param oldFormatType 旧格式，例如：{@link #Type_1}到{@link #Type_9}
-     * @param newFormatType 新格式，例如：{@link #Type_1}到{@link #Type_9}
+     * @param oldFormatType 旧格式，例如：{@link #TYPE_1}到{@link #TYPE_9}
+     * @param newFormatType 新格式，例如：{@link #TYPE_1}到{@link #TYPE_9}
      * @param source 时间数据
      */
     public static String changeFormatString(String oldFormatType, String newFormatType, String source) {
@@ -84,7 +84,7 @@ public class DateUtils {
 
     /**
      * 获取之后n天的日期
-     * @param formatType 日期格式，例如：{@link #Type_1}到{@link #Type_9}
+     * @param formatType 日期格式，例如：{@link #TYPE_1}到{@link #TYPE_9}
      * @param source 原日期
      * @param n 之后的天数
      */
@@ -102,7 +102,7 @@ public class DateUtils {
 
     /**
      * 获取之前n天的日期
-     * @param formatType 日期格式，例如：{@link #Type_1}到{@link #Type_9}
+     * @param formatType 日期格式，例如：{@link #TYPE_1}到{@link #TYPE_9}
      * @param source 原日期
      * @param n 之后的天数
      */
@@ -120,7 +120,7 @@ public class DateUtils {
 
     /**
      * 根据日历获取对应格式的时间
-     * @param formatType 时间格式，例如：{@link #Type_1}到{@link #Type_9}
+     * @param formatType 时间格式，例如：{@link #TYPE_1}到{@link #TYPE_9}
      * @param calendar 日历
      */
     public static String parseFormatCalendar(String formatType, Calendar calendar){

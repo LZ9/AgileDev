@@ -3,8 +3,17 @@ package com.lodz.android.agiledev.ui.drag;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseActivity;
@@ -12,6 +21,7 @@ import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapte
 import com.lodz.android.component.widget.adapter.recycler.RecyclerViewDragHelper;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.log.PrintLog;
+import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.VibratorUtil;
 
@@ -42,6 +52,12 @@ public class DragRecyclerViewActivity extends BaseActivity{
     /** 数据列表 */
     private List<String> mList;
 
+    /** 当前布局 */
+    @LayoutManagerPopupWindow.LayoutManagerType
+    private int mCurrentLayoutManagerType = LayoutManagerPopupWindow.TYPE_GRID;
+    /** 当前是否纵向 */
+    private boolean mIsVertical = true;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_drag_recycler_view_layout;
@@ -54,8 +70,11 @@ public class DragRecyclerViewActivity extends BaseActivity{
         initRecyclerView();
     }
 
+    /** 初始化标题栏 */
     private void initTitleBar(TitleBarLayout titleBarLayout) {
         titleBarLayout.setTitleName(R.string.drag_title);
+        titleBarLayout.needExpandView(true);
+        titleBarLayout.addExpandView(getExpandView());
     }
 
     /** 初始化RecyclerView */
@@ -74,11 +93,18 @@ public class DragRecyclerViewActivity extends BaseActivity{
     }
 
     private RecyclerView.LayoutManager getLayoutManager() {
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+        if (mCurrentLayoutManagerType == LayoutManagerPopupWindow.TYPE_GRID){
+            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
+            layoutManager.setOrientation(mIsVertical ? GridLayoutManager.VERTICAL : GridLayoutManager.HORIZONTAL);
+            return layoutManager;
+        }
+
+        if (mCurrentLayoutManagerType == LayoutManagerPopupWindow.TYPE_STAGGERED){
+            return new StaggeredGridLayoutManager(4, mIsVertical ? StaggeredGridLayoutManager.VERTICAL : StaggeredGridLayoutManager.HORIZONTAL);
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(mIsVertical ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
         return layoutManager;
     }
 
@@ -131,5 +157,71 @@ public class DragRecyclerViewActivity extends BaseActivity{
             list.add(i+"");
         }
         return list;
+    }
+
+    /** 获取扩展view */
+    private View getExpandView() {
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.setLayoutParams(layoutParams);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        final TextView orientationTv = getTextView(R.string.drag_orientation);
+        orientationTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOrientationPopupWindow(v);
+            }
+        });
+        linearLayout.addView(orientationTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final TextView LayoutManagerTv = getTextView(R.string.drag_layout_manager);
+        LayoutManagerTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLayoutManagerPopupWindow(v);
+            }
+        });
+        linearLayout.addView(LayoutManagerTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        return linearLayout;
+    }
+
+    /** 获取TextView */
+    private TextView getTextView(@StringRes int resId) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(resId);
+        textView.setPadding(DensityUtils.dp2px(getContext(), 6), 0 , DensityUtils.dp2px(getContext(), 6), 0);
+        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        return textView;
+    }
+
+    /** 显示方向的PopupWindow */
+    private void showOrientationPopupWindow(View view) {
+        OrientationPopupWindow popupWindow = new OrientationPopupWindow(getContext());
+        popupWindow.setIsVertical(mIsVertical);
+        popupWindow.getPopupWindow().showAsDropDown(view, -50, 20);
+        popupWindow.setListener(new OrientationPopupWindow.Listener() {
+            @Override
+            public void onClick(PopupWindow popupWindow, boolean isVertical) {
+                mIsVertical = isVertical;
+                mRecyclerView.setLayoutManager(getLayoutManager());
+                mAdapter.notifyDataSetChanged();
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+    /** 显示布局的PopupWindow */
+    private void showLayoutManagerPopupWindow(View view) {
+        LayoutManagerPopupWindow popupWindow = new LayoutManagerPopupWindow(getContext());
+        popupWindow.setLayoutManagerType(mCurrentLayoutManagerType);
+        popupWindow.getPopupWindow().showAsDropDown(view, 0, 20);
+        popupWindow.setListener(new LayoutManagerPopupWindow.Listener() {
+            @Override
+            public void onClick(PopupWindow popupWindow, @LayoutManagerPopupWindow.LayoutManagerType int type) {
+                mCurrentLayoutManagerType = type;
+                mRecyclerView.setLayoutManager(getLayoutManager());
+                mAdapter.notifyDataSetChanged();
+                popupWindow.dismiss();
+            }
+        });
     }
 }
