@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.swipe;
+package com.lodz.android.agiledev.ui.rvswipe;
 
 import android.os.Bundle;
 

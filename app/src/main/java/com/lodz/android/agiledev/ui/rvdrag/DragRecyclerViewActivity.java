@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.drag;
+package com.lodz.android.agiledev.ui.rvdrag;
 
 import android.content.Context;
 import android.content.Intent;

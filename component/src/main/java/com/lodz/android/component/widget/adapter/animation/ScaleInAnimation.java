@@ -6,18 +6,24 @@ import android.view.View;
 
 
 /**
- * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+ * 缩放效果
+ * Created by zhouL on 2017/8/23.
  */
 public class ScaleInAnimation implements BaseAnimation {
-    private static final float DEFAULT_SCALE_FROM = .5f;
+
+    private static final float DEFAULT_SCALE_FROM = 0.5f;
+    private static final int DEFAULT_DURATION = 300;
+
     private final float mFrom;
+    private final int mDuration;
 
     public ScaleInAnimation() {
-        this(DEFAULT_SCALE_FROM);
+        this(DEFAULT_SCALE_FROM, DEFAULT_DURATION);
     }
 
-    public ScaleInAnimation(float from) {
+    public ScaleInAnimation(float from, int duration) {
         mFrom = from;
+        mDuration = duration;
     }
 
     @Override
@@ -29,6 +35,6 @@ public class ScaleInAnimation implements BaseAnimation {
 
     @Override
     public int getDuration() {
-        return 300;
+        return mDuration;
     }
 }

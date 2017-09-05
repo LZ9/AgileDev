@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.dialog.DialogTestActivity;
-import com.lodz.android.agiledev.ui.drag.DragRecyclerViewActivity;
+import com.lodz.android.agiledev.ui.rvdrag.DragRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.media.RecordActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;

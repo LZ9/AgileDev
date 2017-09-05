@@ -100,7 +100,7 @@
         </activity>
 
         <activity
-            android:name=".ui.drag.DragRecyclerViewActivity"
+            android:name=".ui.rvdrag.DragRecyclerViewActivity"
             android:screenOrientation="portrait">
 
         </activity>

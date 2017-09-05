@@ -2,6 +2,7 @@ package com.lodz.android.component.widget.adapter.recycler;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,13 @@ import android.view.animation.LinearInterpolator;
 
 import com.lodz.android.component.widget.adapter.animation.AlphaInAnimation;
 import com.lodz.android.component.widget.adapter.animation.BaseAnimation;
+import com.lodz.android.component.widget.adapter.animation.ScaleInAnimation;
+import com.lodz.android.component.widget.adapter.animation.SlideInBottomAnimation;
+import com.lodz.android.component.widget.adapter.animation.SlideInLeftAnimation;
+import com.lodz.android.component.widget.adapter.animation.SlideInRightAnimation;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 /**
@@ -20,6 +27,21 @@ import java.util.List;
  * Created by zhouL on 2016/12/7.
  */
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    /** 淡入 */
+    public static final int ALPHA_IN = 1;
+    /** 缩放 */
+    public static final int SCALE_IN = 2;
+    /** 底部进入 */
+    public static final int SLIDE_IN_BOTTOM = 3;
+    /** 左侧进入 */
+    public static final int SLIDE_IN_LEFT = 4;
+    /** 右侧进入 */
+    public static final int SLIDE_IN_RIGHT = 5;
+
+    @IntDef({ALPHA_IN, SCALE_IN, SLIDE_IN_BOTTOM, SLIDE_IN_LEFT, SLIDE_IN_RIGHT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface AnimationType {}
 
     /** 数据列表 */
     private List<T> mData;
@@ -39,6 +61,11 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     private int mCustomStarPosition = 0;
     /** 是否需要item加载动画 */
     private boolean isOpenItemAnim = false;
+    /** 当前动画类型 */
+    @AnimationType
+    private int mCurrentAnimationType = ALPHA_IN;
+    /** 自定义动画 */
+    private BaseAnimation mCustomAnimation = null;
 
     public BaseRecyclerViewAdapter(Context context) {
         this.mContext = context;
@@ -80,12 +107,35 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         if (!isOpenItemAnim || holder.getLayoutPosition() <= mLastPosition){//不打开item动画 || 已经加载过了
             return;
         }
+        BaseAnimation animation = getAnimationByType(mCurrentAnimationType);
+        if (mCustomAnimation != null){
+            animation = mCustomAnimation;
+        }
 
-        BaseAnimation animation = new AlphaInAnimation();
         for (Animator anim : animation.getAnimators(holder.itemView)) {
             beginAnim(anim, animation);
         }
         mLastPosition = holder.getLayoutPosition();
+    }
+
+    /**
+     * 根据动画类型获取动画
+     * @param animationType 动画类型
+     */
+    private BaseAnimation getAnimationByType(@AnimationType int animationType) {
+        if (animationType == SCALE_IN){
+            return new ScaleInAnimation();
+        }
+        if (animationType == SLIDE_IN_BOTTOM){
+            return new SlideInBottomAnimation();
+        }
+        if (animationType == SLIDE_IN_LEFT){
+            return new SlideInLeftAnimation();
+        }
+        if (animationType == SLIDE_IN_RIGHT){
+            return new SlideInRightAnimation();
+        }
+        return new AlphaInAnimation();
     }
 
     /** 获取是否打开item加载动画 */
@@ -119,6 +169,19 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     /** 重置item动画 */
     public void resetItemAnimPosition(){
         setItemAnimStartPosition(mCustomStarPosition);
+    }
+
+    /** 设置自定义动画 */
+    public void setBaseAnimation(BaseAnimation animation){
+        mCustomAnimation = animation;
+    }
+
+    /**
+     * 设置默认的动画类型
+     * @param animationType 动画类型 {@link #ALPHA_IN}、{@link #SCALE_IN}、{@link #SLIDE_IN_BOTTOM}、{@link #SLIDE_IN_LEFT}、{@link #SLIDE_IN_RIGHT}
+     */
+     public void setAnimationType(@AnimationType int animationType){
+        mCurrentAnimationType = animationType;
     }
 
     /** 设置点击事件 */

@@ -6,18 +6,30 @@ import android.view.View;
 
 
 /**
- * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+ * 底部进入
+ * Created by zhouL on 2017/8/23.
  */
 public class SlideInBottomAnimation implements BaseAnimation {
+
+    private static final int DEFAULT_DURATION = 300;
+
+    private final int mDuration;
+
+    public SlideInBottomAnimation() {
+        this(DEFAULT_DURATION);
+    }
+
+    public SlideInBottomAnimation(int duration) {
+        mDuration = duration;
+    }
+
     @Override
     public Animator[] getAnimators(View view) {
-        return new Animator[]{
-                ObjectAnimator.ofFloat(view, "translationY", view.getMeasuredHeight(), 0)
-        };
+        return new Animator[]{ObjectAnimator.ofFloat(view, "translationY", view.getMeasuredHeight(), 0)};
     }
 
     @Override
     public int getDuration() {
-        return 300;
+        return mDuration;
     }
 }

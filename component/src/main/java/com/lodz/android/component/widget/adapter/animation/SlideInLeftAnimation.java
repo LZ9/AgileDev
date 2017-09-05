@@ -6,18 +6,30 @@ import android.view.View;
 
 
 /**
- * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+ * 左侧进入
+ * Created by zhouL on 2017/8/23.
  */
 public class SlideInLeftAnimation implements BaseAnimation {
+
+    private static final int DEFAULT_DURATION = 300;
+
+    private final int mDuration;
+
+    public SlideInLeftAnimation() {
+        this(DEFAULT_DURATION);
+    }
+
+    public SlideInLeftAnimation(int duration) {
+        mDuration = duration;
+    }
+
     @Override
     public Animator[] getAnimators(View view) {
-        return new Animator[]{
-                ObjectAnimator.ofFloat(view, "translationX", -view.getRootView().getWidth(), 0)
-        };
+        return new Animator[]{ObjectAnimator.ofFloat(view, "translationX", -view.getRootView().getWidth(), 0)};
     }
 
     @Override
     public int getDuration() {
-        return 300;
+        return mDuration;
     }
 }
