@@ -33,7 +33,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 /**
- * 视频录制测试类
+ * 视频录制测试
  * Created by zhouL on 2017/9/1.
  */
 

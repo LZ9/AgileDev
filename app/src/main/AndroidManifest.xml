@@ -99,6 +99,7 @@
 
         </activity>
 
+        <!--视频录制测试-->
         <activity
             android:name=".ui.rvdrag.DragRecyclerViewActivity"
             android:screenOrientation="portrait">
@@ -141,6 +142,7 @@
 
         </activity>
 
+        <!--弹框测试-->
         <activity
             android:name=".ui.dialog.DialogTestActivity"
             android:screenOrientation="portrait">
@@ -202,8 +204,16 @@
 
         </activity>
 
+        <!--视频录制测试-->
         <activity
             android:name=".ui.media.RecordActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <!--RV动画测试-->
+        <activity
+            android:name=".ui.rvanim.AnimRecyclerViewActivity"
             android:screenOrientation="portrait">
 
         </activity>

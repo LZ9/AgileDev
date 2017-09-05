@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * RecyclerView拖动测试类
+ * RV拖拽测试
  * Created by zhouL on 2017/3/6.
  */
 public class DragRecyclerViewActivity extends BaseActivity{
