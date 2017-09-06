@@ -2,6 +2,7 @@ package com.lodz.android.agiledev.ui.rvdrag;
 
 import android.content.Context;
 import android.support.annotation.IntDef;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -65,7 +66,7 @@ public class LayoutManagerPopupWindow extends BasePopupWindow{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onClick(getPopupWindow(), TYPE_LINEAR);
+                    mListener.onClick(getPopup(), TYPE_LINEAR);
                 }
             }
         });
@@ -74,7 +75,7 @@ public class LayoutManagerPopupWindow extends BasePopupWindow{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onClick(getPopupWindow(), TYPE_GRID);
+                    mListener.onClick(getPopup(), TYPE_GRID);
                 }
             }
         });
@@ -83,7 +84,7 @@ public class LayoutManagerPopupWindow extends BasePopupWindow{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onClick(getPopupWindow(), TYPE_STAGGERED);
+                    mListener.onClick(getPopup(), TYPE_STAGGERED);
                 }
             }
         });
@@ -95,8 +96,11 @@ public class LayoutManagerPopupWindow extends BasePopupWindow{
      */
     public void setLayoutManagerType(@LayoutManagerType int type){
         mLinearBtn.setBackgroundResource(type == TYPE_LINEAR ? R.drawable.bg_f0f0f0_stroke_00a0e9 : R.drawable.bg_f0f0f0_stroke_cccccc);
+        mLinearBtn.setTextColor(ContextCompat.getColor(getContext(), type == TYPE_LINEAR ? R.color.color_00a0e9 : R.color.color_9a9a9a));
         mGridBtn.setBackgroundResource(type == TYPE_GRID ? R.drawable.bg_f0f0f0_stroke_00a0e9 : R.drawable.bg_f0f0f0_stroke_cccccc);
+        mGridBtn.setTextColor(ContextCompat.getColor(getContext(), type == TYPE_GRID ? R.color.color_00a0e9 : R.color.color_9a9a9a));
         mStaggeredBtn.setBackgroundResource(type == TYPE_STAGGERED ? R.drawable.bg_f0f0f0_stroke_00a0e9 : R.drawable.bg_f0f0f0_stroke_cccccc);
+        mStaggeredBtn.setTextColor(ContextCompat.getColor(getContext(), type == TYPE_STAGGERED ? R.color.color_00a0e9 : R.color.color_9a9a9a));
     }
 
     public void setListener(Listener listener){

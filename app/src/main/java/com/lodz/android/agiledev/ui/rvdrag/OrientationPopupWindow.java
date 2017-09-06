@@ -1,6 +1,7 @@
 package com.lodz.android.agiledev.ui.rvdrag;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class OrientationPopupWindow extends BasePopupWindow{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onClick(getPopupWindow(), true);
+                    mListener.onClick(getPopup(), true);
                 }
             }
         });
@@ -58,7 +59,7 @@ public class OrientationPopupWindow extends BasePopupWindow{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onClick(getPopupWindow(), false);
+                    mListener.onClick(getPopup(), false);
                 }
             }
         });
@@ -70,7 +71,9 @@ public class OrientationPopupWindow extends BasePopupWindow{
      */
     public void setIsVertical(boolean isVertical){
         mVerticalBtn.setBackgroundResource(isVertical ? R.drawable.bg_f0f0f0_stroke_00a0e9 : R.drawable.bg_f0f0f0_stroke_cccccc);
+        mVerticalBtn.setTextColor(ContextCompat.getColor(getContext(), isVertical ? R.color.color_00a0e9 : R.color.color_9a9a9a));
         mHorizontalBtn.setBackgroundResource(isVertical ? R.drawable.bg_f0f0f0_stroke_cccccc : R.drawable.bg_f0f0f0_stroke_00a0e9);
+        mHorizontalBtn.setTextColor(ContextCompat.getColor(getContext(), isVertical ? R.color.color_9a9a9a : R.color.color_00a0e9));
     }
 
     public void setListener(Listener listener){

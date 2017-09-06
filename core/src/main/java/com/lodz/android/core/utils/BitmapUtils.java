@@ -2,6 +2,7 @@ package com.lodz.android.core.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
@@ -31,7 +32,7 @@ public class BitmapUtils {
      * @param flags 转码类型 例如Base64.DEFAULT、Base64.NO_WRAP等
      */
     public static String bitmapToBase64(Bitmap bitmap, int quality, int flags) {
-        String result = null;
+        String result = "";
         ByteArrayOutputStream baos = null;
         try {
             if (bitmap != null) {
@@ -56,7 +57,7 @@ public class BitmapUtils {
                 e.printStackTrace();
             }
         }
-        return result;
+        return TextUtils.isEmpty(result) ? "" : result;
     }
 
     /**

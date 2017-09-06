@@ -11,7 +11,7 @@
         android:background="@drawable/bg_f0f0f0_stroke_cccccc"
         android:gravity="center"
         android:text="@string/drag_linear_layout_manager"
-        android:textColor="@color/color_00a0e9"
+        android:textColor="@color/color_9a9a9a"
         android:textSize="16sp" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:background="@drawable/bg_f0f0f0_stroke_cccccc"
         android:gravity="center"
         android:text="@string/drag_grid_layout_manager"
-        android:textColor="@color/color_00a0e9"
+        android:textColor="@color/color_9a9a9a"
         android:textSize="16sp" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:background="@drawable/bg_f0f0f0_stroke_cccccc"
         android:gravity="center"
         android:text="@string/drag_staggered_grid_layout_manager"
-        android:textColor="@color/color_00a0e9"
+        android:textColor="@color/color_9a9a9a"
         android:textSize="16sp" />
 
 </LinearLayout>

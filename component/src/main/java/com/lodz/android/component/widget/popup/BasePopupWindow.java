@@ -76,7 +76,7 @@ public abstract class BasePopupWindow {
         return mContext;
     }
 
-    public PopupWindow getPopupWindow(){
+    public PopupWindow getPopup(){
         return mPopupWindow;
     }
 }

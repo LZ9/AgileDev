@@ -166,7 +166,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         linearLayout.setLayoutParams(layoutParams);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        final TextView orientationTv = getTextView(R.string.drag_orientation);
+        final TextView orientationTv = getTextView(R.string.drag_orientation);//方向
         orientationTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,7 +174,8 @@ public class DragRecyclerViewActivity extends BaseActivity{
             }
         });
         linearLayout.addView(orientationTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final TextView LayoutManagerTv = getTextView(R.string.drag_layout_manager);
+
+        final TextView LayoutManagerTv = getTextView(R.string.drag_layout_manager);// 布局
         LayoutManagerTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +199,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
     private void showOrientationPopupWindow(View view) {
         OrientationPopupWindow popupWindow = new OrientationPopupWindow(getContext());
         popupWindow.setIsVertical(mIsVertical);
-        popupWindow.getPopupWindow().showAsDropDown(view, -50, 20);
+        popupWindow.getPopup().showAsDropDown(view, -50, 20);
         popupWindow.setListener(new OrientationPopupWindow.Listener() {
             @Override
             public void onClick(PopupWindow popupWindow, boolean isVertical) {
@@ -214,7 +215,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
     private void showLayoutManagerPopupWindow(View view) {
         LayoutManagerPopupWindow popupWindow = new LayoutManagerPopupWindow(getContext());
         popupWindow.setLayoutManagerType(mCurrentLayoutManagerType);
-        popupWindow.getPopupWindow().showAsDropDown(view, 0, 20);
+        popupWindow.getPopup().showAsDropDown(view, 0, 20);
         popupWindow.setListener(new LayoutManagerPopupWindow.Listener() {
             @Override
             public void onClick(PopupWindow popupWindow, @LayoutManagerPopupWindow.LayoutManagerType int type) {
