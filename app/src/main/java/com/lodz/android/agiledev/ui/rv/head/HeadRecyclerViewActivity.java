@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.head;
+package com.lodz.android.agiledev.ui.rv.head;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -45,7 +45,8 @@ public class HeadRecyclerViewActivity extends AbsActivity{
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        layoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         mAdapter = new HeadRecyclerViewAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法

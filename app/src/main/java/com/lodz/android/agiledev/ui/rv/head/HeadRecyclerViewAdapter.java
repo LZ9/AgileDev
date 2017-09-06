@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.head;
+package com.lodz.android.agiledev.ui.rv.head;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

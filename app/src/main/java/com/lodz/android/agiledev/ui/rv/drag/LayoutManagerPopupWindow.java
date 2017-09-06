@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.rvdrag;
+package com.lodz.android.agiledev.ui.rv.drag;
 
 import android.content.Context;
 import android.support.annotation.IntDef;

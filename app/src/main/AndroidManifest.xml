@@ -101,7 +101,7 @@
 
         <!--视频录制测试-->
         <activity
-            android:name=".ui.rvdrag.DragRecyclerViewActivity"
+            android:name=".ui.rv.drag.DragRecyclerViewActivity"
             android:screenOrientation="portrait">
 
         </activity>
@@ -112,8 +112,9 @@
 
         </activity>
 
+        <!--RV头/底部测试-->
         <activity
-            android:name=".ui.head.HeadRecyclerViewActivity"
+            android:name=".ui.rv.head.HeadRecyclerViewActivity"
             android:screenOrientation="portrait">
 
         </activity>
@@ -213,7 +214,7 @@
 
         <!--RV动画测试-->
         <activity
-            android:name=".ui.rvanim.AnimRecyclerViewActivity"
+            android:name=".ui.rv.anim.AnimRecyclerViewActivity"
             android:screenOrientation="portrait">
 
         </activity>

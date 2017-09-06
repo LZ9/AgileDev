@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.rvanim;
+package com.lodz.android.agiledev.ui.rv.anim;
 
 import android.content.Context;
 import android.content.Intent;

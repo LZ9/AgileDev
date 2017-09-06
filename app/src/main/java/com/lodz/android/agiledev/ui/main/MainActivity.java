@@ -12,9 +12,10 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.dialog.DialogTestActivity;
+import com.lodz.android.agiledev.ui.rv.head.HeadRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.media.RecordActivity;
-import com.lodz.android.agiledev.ui.rvanim.AnimRecyclerViewActivity;
-import com.lodz.android.agiledev.ui.rvdrag.DragRecyclerViewActivity;
+import com.lodz.android.agiledev.ui.rv.anim.AnimRecyclerViewActivity;
+import com.lodz.android.agiledev.ui.rv.drag.DragRecyclerViewActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
@@ -44,10 +45,10 @@ public class MainActivity extends BaseActivity{
 
     /** 功能名称 */
     private static final List<String> mNameList = Arrays.asList("弹框测试", "视频录制测试", "RV拖拽测试",
-            "RV动画测试");
+            "RV动画测试", "带头部RV测试");
     /** 功能的activity */
     private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class,
-            AnimRecyclerViewActivity.class};
+            AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";
