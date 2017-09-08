@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.widget.adapter.recycler.BaseSimpleLoadMoreRecyclerViewAdapter;
+import com.lodz.android.component.widget.adapter.recycler.SimpleLoadMoreRVAdapter;
 import com.lodz.android.core.utils.ScreenUtils;
 
 /**
@@ -17,7 +17,7 @@ import com.lodz.android.core.utils.ScreenUtils;
  * Created by zhouL on 2017/2/28.
  */
 
-public class RefreshAdapter extends BaseSimpleLoadMoreRecyclerViewAdapter<String> {
+public class RefreshAdapter extends SimpleLoadMoreRVAdapter<String> {
 
     private Listener mListener;
 

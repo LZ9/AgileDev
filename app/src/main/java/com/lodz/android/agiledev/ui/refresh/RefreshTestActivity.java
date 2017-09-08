@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseRefreshActivity;
-import com.lodz.android.component.widget.adapter.recycler.BaseLoadMoreRecyclerViewAdapter;
+import com.lodz.android.component.widget.adapter.recycler.BaseLoadMoreRVAdapter;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.recycler.RecyclerLoadMoreHelper;
 import com.lodz.android.core.utils.ToastUtils;
@@ -108,7 +108,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
             }
         });
 
-        mAdapter.setOnAllItemHideListener(new BaseLoadMoreRecyclerViewAdapter.OnAllItemHideListener() {
+        mAdapter.setOnAllItemHideListener(new BaseLoadMoreRVAdapter.OnAllItemHideListener() {
             @Override
             public void onAllItemHide() {
                 showStatusNoData();

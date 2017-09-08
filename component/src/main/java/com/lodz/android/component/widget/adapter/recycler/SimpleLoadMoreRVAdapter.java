@@ -16,7 +16,7 @@ import com.lodz.android.core.utils.ScreenUtils;
  * 简单实现的BaseLoadMoreRecyclerViewAdapter
  * Created by zhouL on 2017/2/28.
  */
-public abstract class BaseSimpleLoadMoreRecyclerViewAdapter<T> extends BaseLoadMoreRecyclerViewAdapter<T>{
+public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T> {
 
     /** 完成加载提示语 */
     private String mFinishText = getContext().getString(R.string.load_finish_tips);
@@ -51,7 +51,7 @@ public abstract class BaseSimpleLoadMoreRecyclerViewAdapter<T> extends BaseLoadM
     @ColorRes
     private int mLoadFailBackgroundColor = android.R.color.transparent;
 
-    public BaseSimpleLoadMoreRecyclerViewAdapter(Context context) {
+    public SimpleLoadMoreRVAdapter(Context context) {
         super(context);
     }
 

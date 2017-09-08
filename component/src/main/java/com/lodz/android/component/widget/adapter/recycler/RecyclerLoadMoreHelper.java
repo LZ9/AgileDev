@@ -9,7 +9,7 @@ import java.util.List;
 public class RecyclerLoadMoreHelper<T> {
 
     /** 加载更多适配器 */
-    private BaseLoadMoreRecyclerViewAdapter<T> mAdapter;
+    private BaseLoadMoreRVAdapter<T> mAdapter;
     /** 监听器 */
     private Listener mListener;
 
@@ -17,7 +17,7 @@ public class RecyclerLoadMoreHelper<T> {
      * 初始化
      * @param adapter 适配器
      */
-    public void init(BaseLoadMoreRecyclerViewAdapter<T> adapter){
+    public void init(BaseLoadMoreRVAdapter<T> adapter){
         mAdapter = adapter;
     }
 
@@ -80,7 +80,7 @@ public class RecyclerLoadMoreHelper<T> {
      */
     public void setListener(Listener listener){
         mListener = listener;
-        mAdapter.setOnLoadMoreListener(new BaseLoadMoreRecyclerViewAdapter.OnLoadMoreListener() {
+        mAdapter.setOnLoadMoreListener(new BaseLoadMoreRVAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore(int currentPage, int nextPage, int size, int position) {
                 mAdapter.setIsLoadMore(false);
@@ -90,7 +90,7 @@ public class RecyclerLoadMoreHelper<T> {
             }
         });
 
-        mAdapter.setOnLoadFailClickListener(new BaseLoadMoreRecyclerViewAdapter.OnLoadFailClickListener() {
+        mAdapter.setOnLoadFailClickListener(new BaseLoadMoreRVAdapter.OnLoadFailClickListener() {
             @Override
             public void onClickLoadFail(int reloadPage, int size) {
                 mAdapter.setIsShowLoadFail(false);

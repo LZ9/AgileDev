@@ -16,7 +16,7 @@ import java.util.List;
  * RecyclerView加载更多基类适配器
  * Created by zhouL on 2017/1/6.
  */
-public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerViewAdapter<T> {
+public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T> {
 
     /** 列表内容 */
     private static final int VIEW_TYPE_ITEM = 0;
@@ -54,7 +54,7 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
     /** 所有item都隐藏回调 */
     private OnAllItemHideListener mOnAllItemHideListener;
 
-    public BaseLoadMoreRecyclerViewAdapter(Context context) {
+    public BaseLoadMoreRVAdapter(Context context) {
         super(context);
     }
 
@@ -142,11 +142,11 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof BaseLoadMoreRecyclerViewAdapter.LoadFinishViewHolder){
+        if (holder instanceof BaseLoadMoreRVAdapter.LoadFinishViewHolder){
             showLoadFinish(holder);
-        }else if (holder instanceof BaseLoadMoreRecyclerViewAdapter.LoadingMoreViewHolder){
+        }else if (holder instanceof BaseLoadMoreRVAdapter.LoadingMoreViewHolder){
             showLoadingMore(holder);
-        } else if (holder instanceof BaseLoadMoreRecyclerViewAdapter.LoadFailViewHolder){
+        } else if (holder instanceof BaseLoadMoreRVAdapter.LoadFailViewHolder){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -156,7 +156,7 @@ public abstract class BaseLoadMoreRecyclerViewAdapter<T> extends BaseRecyclerVie
                 }
             });
             showLoadFail(holder);
-        } else if (holder instanceof BaseLoadMoreRecyclerViewAdapter.BlankViewHolder){
+        } else if (holder instanceof BaseLoadMoreRVAdapter.BlankViewHolder){
             // 空白占位不需要操作
         } else {
             super.onBindViewHolder(holder, position);
