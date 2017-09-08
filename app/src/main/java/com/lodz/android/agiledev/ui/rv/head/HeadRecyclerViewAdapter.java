@@ -7,21 +7,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.widget.adapter.recycler.BaseHeadRecyclerViewAdapter;
+import com.lodz.android.component.widget.adapter.recycler.BaseHeaderFooterRVAdapter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 带头部的适配器
  * Created by zhouL on 2017/4/6.
  */
-public class HeadRecyclerViewAdapter extends BaseHeadRecyclerViewAdapter<String, String>{
+public class HeadRecyclerViewAdapter extends BaseHeaderFooterRVAdapter<String, String, String> {
 
     public HeadRecyclerViewAdapter(Context context) {
         super(context);
     }
 
     @Override
-    protected RecyclerView.ViewHolder getHeadViewHolder(ViewGroup parent) {
-        return new HeadViewHolder(getLayoutView(parent, R.layout.item_head_layout));
+    protected RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent) {
+        return new HeaderViewHolder(getLayoutView(parent, R.layout.item_head_layout));
     }
 
     @Override
@@ -30,41 +33,68 @@ public class HeadRecyclerViewAdapter extends BaseHeadRecyclerViewAdapter<String,
     }
 
     @Override
+    protected RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent) {
+        return new FooterViewHolder(getLayoutView(parent, R.layout.item_footer_layout));
+    }
+
+    @Override
     protected void onBind(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof HeadViewHolder){
-            showHeadItem((HeadViewHolder) holder);
+        if (holder instanceof HeaderViewHolder){
+            showHeaderItem((HeaderViewHolder) holder);
+            return;
+        }
+        if (holder instanceof FooterViewHolder){
+            showFooterItem((FooterViewHolder) holder);
             return;
         }
         showItem((ItemViewHolder) holder, position);
     }
 
-    private void showHeadItem(HeadViewHolder holder) {
-        String headStr = getHeadData();
-        holder.headTextView.setText(headStr);
+    private void showHeaderItem(HeaderViewHolder holder) {
+        String data = getHeaderData();
+        holder.titleTv.setText(data);
     }
 
     private void showItem(ItemViewHolder holder, int position) {
-        String str = getItemUnderHead(position);
-        holder.indexTextView.setText(str);
+        String str = getItem(position);
+        holder.indexTv.setText(str);
     }
 
-    private class HeadViewHolder extends RecyclerView.ViewHolder{
-        /** 标题 */
-        private TextView headTextView;
+    private void showFooterItem(FooterViewHolder holder) {
+        String data = getFooterData();
+        holder.titleTv.setText(data);
+    }
 
-        public HeadViewHolder(View itemView) {
+    class HeaderViewHolder extends RecyclerView.ViewHolder{
+        /** 标题 */
+        @BindView(R.id.header_title)
+        TextView titleTv;
+
+        private HeaderViewHolder(View itemView) {
             super(itemView);
-            headTextView = (TextView) itemView.findViewById(R.id.head_title);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    private class ItemViewHolder extends RecyclerView.ViewHolder{
+    class ItemViewHolder extends RecyclerView.ViewHolder{
         /** 序号 */
-        private TextView indexTextView;
+        @BindView(R.id.index_text)
+        TextView indexTv;
 
-        public ItemViewHolder(View itemView) {
+        private ItemViewHolder(View itemView) {
             super(itemView);
-            indexTextView = (TextView) itemView.findViewById(R.id.index_text);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class FooterViewHolder extends RecyclerView.ViewHolder{
+        /** 标题 */
+        @BindView(R.id.footer_title)
+        TextView titleTv;
+
+        private FooterViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

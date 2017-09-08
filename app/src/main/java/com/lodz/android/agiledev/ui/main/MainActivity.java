@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity{
 
     /** 功能名称 */
     private static final List<String> mNameList = Arrays.asList("弹框测试", "视频录制测试", "RV拖拽测试",
-            "RV动画测试", "带头部RV测试");
+            "RV动画测试", "带头/底部RV测试");
     /** 功能的activity */
     private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class,
             AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class};

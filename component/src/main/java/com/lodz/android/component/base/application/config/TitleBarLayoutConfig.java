@@ -29,7 +29,7 @@ public class TitleBarLayoutConfig {
     /** 标题文字大小 */
     private float titleTextSize = 0f;
     /** 是否显示分割线 */
-    private boolean isShowDivideLine = true;
+    private boolean isShowDivideLine = false;
     /** 分割线颜色 */
     @ColorRes
     private int divideLineColor = 0;
@@ -42,7 +42,7 @@ public class TitleBarLayoutConfig {
     @DrawableRes
     private int backgroundResId = 0;
     /** 是否需要阴影 */
-    private boolean isNeedElevation = false;
+    private boolean isNeedElevation = true;
     /** 阴影的值 */
     private float elevationVale = 12f;
 

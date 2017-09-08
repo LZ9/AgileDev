@@ -204,7 +204,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
                 if (position >= 0 && mOnItemLongClickListener != null){
                     mOnItemLongClickListener.onItemLongClick(holder, getItem(position), position);
                 }
-                return false;
+                return true;
             }
         });
     }
