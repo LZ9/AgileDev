@@ -39,6 +39,7 @@
             android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
             android:value="GlideModule" />
 
+        <!--启动页-->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"
@@ -50,6 +51,7 @@
             </intent-filter>
         </activity>
 
+        <!--主页面-->
         <activity
             android:name=".ui.main.MainActivity"
             android:launchMode="singleTask"
