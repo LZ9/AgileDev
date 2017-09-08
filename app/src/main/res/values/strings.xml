@@ -60,6 +60,15 @@
     <string name="rvanim_popup_slide_in_right">右侧进入</string>
     <string name="rvanim_popup_custom">自定义</string>
 
+    <!-- 带头部和底部的RecyclerView测试 -->
+    <string name="rvhead_header">头部</string>
+    <string name="rvhead_footer">底部</string>
+    <string name="rvhead_header_tips">宝宝是头布局</string>
+    <string name="rvhead_footer_tips">宝宝是腿布局</string>
+    <string name="rvhead_item_long_click_tips">死变态 快松手啊</string>
+    <string name="rvhead_header_long_click_tips">官人按得好紧呀 ~.~ </string>
+    <string name="rvhead_footer_long_click_tips">客官不可以</string>
+
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
