@@ -69,6 +69,10 @@
     <string name="rvhead_header_long_click_tips">官人按得好紧呀 ~.~ </string>
     <string name="rvhead_footer_long_click_tips">客官不可以</string>
 
+    <!-- 刷新/加载更多测试 -->
+    <string name="rvrefresh_load_fail">加载失败</string>
+    <string name="rvrefresh_delete">朵蜜我吧</string>
+    <string name="rvrefresh_refresh_fail">刷新失败啦</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

@@ -22,7 +22,18 @@ public class RecyclerLoadMoreHelper<T> {
     }
 
     /**
-     * 配置加载更多适配器（请在获得数据后进行初始化）
+     * 配置加载更多适配器（请在获得数据后调用该方法配置）
+     * @param list 数据
+     * @param sumSize 总条数
+     * @param size 每页条数
+     * @param isShowBottomLayout 是否显示底部提示界面
+     */
+    public void config(List<T> list, int sumSize, int size, boolean isShowBottomLayout){
+        config(list, sumSize, size, isShowBottomLayout, 0);
+    }
+
+    /**
+     * 配置加载更多适配器（请在获得数据后调用该方法配置）
      * @param list 数据
      * @param sumSize 总条数
      * @param size 每页条数

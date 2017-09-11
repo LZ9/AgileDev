@@ -95,8 +95,9 @@
 
         </activity>
 
+        <!--刷新/加载更多测试-->
         <activity
-            android:name=".ui.refresh.RefreshTestActivity"
+            android:name=".ui.rv.refresh.RefreshTestActivity"
             android:screenOrientation="portrait">
 
         </activity>

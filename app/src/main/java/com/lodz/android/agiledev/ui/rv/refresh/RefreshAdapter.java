@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.refresh;
+package com.lodz.android.agiledev.ui.rv.refresh;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,9 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.adapter.recycler.SimpleLoadMoreRVAdapter;
 import com.lodz.android.core.utils.ScreenUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 刷新测试adapter
  * Created by zhouL on 2017/2/28.
@@ -23,6 +26,7 @@ public class RefreshAdapter extends SimpleLoadMoreRVAdapter<String> {
 
     public RefreshAdapter(Context context) {
         super(context);
+        setIndeterminateDrawable(R.drawable.anims_custom_progress);//自定义加载动画资源
     }
 
     @Override
@@ -40,12 +44,7 @@ public class RefreshAdapter extends SimpleLoadMoreRVAdapter<String> {
     }
 
     private void showItem(DataViewHolder holder, String str, final int position) {
-//        if (position % 2 == 0){
-//            setItemViewHeight(holder.itemView, DensityUtils.dp2px(getContext(), 200));
-//        }else {
-//            setItemViewHeight(holder.itemView, DensityUtils.dp2px(getContext(), 400));
-//        }
-        setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()));
+        setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
         holder.dataTextView.setText(str);
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +56,17 @@ public class RefreshAdapter extends SimpleLoadMoreRVAdapter<String> {
         });
     }
 
-    private class DataViewHolder extends RecyclerView.ViewHolder{
-        private TextView dataTextView;
-        private Button deleteBtn;
-        public DataViewHolder(View itemView) {
+    class DataViewHolder extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.data_text)
+        TextView dataTextView;
+
+        @BindView(R.id.delete_btn)
+        Button deleteBtn;
+
+        private DataViewHolder(View itemView) {
             super(itemView);
-            dataTextView = (TextView) itemView.findViewById(R.id.data_text);
-            deleteBtn = (Button) itemView.findViewById(R.id.delete_btn);
+            ButterKnife.bind(this, itemView);
         }
     }
 

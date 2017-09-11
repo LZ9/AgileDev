@@ -2,10 +2,12 @@ package com.lodz.android.component.widget.adapter.recycler;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
@@ -39,6 +41,9 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     /** 正在加载背景色颜色 */
     @ColorRes
     private int mLoadingMoreBackgroundColor = android.R.color.transparent;
+    /** 正在加载动画资源资源 */
+    @DrawableRes
+    private int indeterminateDrawable = 0;
 
     /** 加载失败提示语 */
     private String mLoadFailText = getContext().getString(R.string.load_fail_tips);
@@ -119,6 +124,13 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
         loadFinishTextView.setText(mLoadingMoreText);
         loadFinishTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mLoadingMoreTextSizeSp);
         loadFinishTextView.setTextColor(ContextCompat.getColor(getContext(), mLoadingMoreTextColor));
+
+        ProgressBar progressBar = (ProgressBar) holder.itemView.findViewById(R.id.loading_progressbar);
+        progressBar.setIndeterminate(true);
+        if (indeterminateDrawable != 0){
+            progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), indeterminateDrawable));
+            indeterminateDrawable = 0;//设置过以后就清空数据，避免展示异常
+        }
     }
 
     /**
@@ -183,6 +195,14 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
      */
     public void setLoadingMoreBackgroundColor(@ColorRes int backgroundColor) {
         this.mLoadingMoreBackgroundColor = backgroundColor;
+    }
+
+    /**
+     * 设置正在加载动画资源
+     * @param resId 资源id
+     */
+    public void setIndeterminateDrawable(@DrawableRes int resId){
+        this.indeterminateDrawable = resId;
     }
 
     /**
