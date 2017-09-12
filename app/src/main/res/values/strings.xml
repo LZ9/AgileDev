@@ -74,6 +74,10 @@
     <string name="rvrefresh_delete">朵蜜我吧</string>
     <string name="rvrefresh_refresh_fail">刷新失败啦</string>
 
+    <!-- 崩溃测试 -->
+    <string name="crash_txt">崩溃</string>
+
+
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
     <string name="lesson_detail_tab_video">视频</string>

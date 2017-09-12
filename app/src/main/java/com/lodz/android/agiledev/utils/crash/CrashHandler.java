@@ -142,6 +142,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             BaseApplication.get().getApplicationContext().startActivity(intent);
         }
+        if (BaseApplication.get() != null){
+            BaseApplication.get().exit();
+        }
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);  // 非0表示异常退出
     }

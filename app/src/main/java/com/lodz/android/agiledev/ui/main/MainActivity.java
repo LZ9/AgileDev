@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.crash.CrashTestActivity;
 import com.lodz.android.agiledev.ui.dialog.DialogTestActivity;
 import com.lodz.android.agiledev.ui.media.RecordActivity;
 import com.lodz.android.agiledev.ui.rv.anim.AnimRecyclerViewActivity;
@@ -46,10 +47,10 @@ public class MainActivity extends BaseActivity{
 
     /** 功能名称 */
     private static final List<String> mNameList = Arrays.asList("弹框测试", "视频录制测试", "RV拖拽测试",
-            "RV动画测试", "带头/底部RV测试", "刷新/加载更多测试");
+            "RV动画测试", "带头/底部RV测试", "刷新/加载更多测试", "崩溃测试");
     /** 功能的activity */
     private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class,
-            AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class, RefreshTestActivity.class};
+            AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class, RefreshTestActivity.class, CrashTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

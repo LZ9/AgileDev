@@ -150,7 +150,7 @@ public class SplashActivity extends AbsActivity{
     /** 初始化异常处理 */
     private void initCrashHandler() {
         CrashHandler.get()
-                .setLauncherClass(MainActivity.class)
+                .setLauncherClass(MainActivity.class)// 如果不设置重启的Activity，闪退后就直接退出应用
                 .setInterceptor(true)
 //                .setToastTips("嗝屁啦")
                 .setSaveFolderPath(FileManager.getCrashFolderPath())
