@@ -78,6 +78,15 @@
     <string name="crash_txt">借贷宝10g</string>
     <string name="crash_tips">骚年，你在想什么！？</string>
 
+    <!-- 基础控件配置测试类 -->
+    <string name="config_base_no_data">无数据</string>
+    <string name="config_base_no_data_tips">没黄鳝怎么直播啊！？</string>
+    <string name="config_base_loading">加载</string>
+    <string name="config_base_loading_tips">前方高能预警</string>
+    <string name="config_base_fail">失败</string>
+    <string name="config_base_fail_tips">加载不出来，你心里没点B数吗！？</string>
+
+
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

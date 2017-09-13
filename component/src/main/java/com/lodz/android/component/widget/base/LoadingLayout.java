@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -92,10 +93,18 @@ public class LoadingLayout extends LinearLayout{
         if (mConfig.getTextSize() != 0f){
             setTipsTextSize(mConfig.getTextSize());
         }
-        getProgressBar().setIndeterminate(mConfig.getIsIndeterminate());
+        mLoadingProgressBar.setIndeterminate(mConfig.getIsIndeterminate());
         if (mConfig.getIndeterminateDrawable() != 0){
-            getProgressBar().setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), mConfig.getIndeterminateDrawable()));
+            mLoadingProgressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), mConfig.getIndeterminateDrawable()));
         }
+        ViewGroup.LayoutParams layoutParams = mLoadingProgressBar.getLayoutParams();
+        if (mConfig.getPbWidth() != 0){
+            layoutParams.width = mConfig.getPbWidth();
+        }
+        if (mConfig.getPbHeight() != 0){
+            layoutParams.height = mConfig.getPbHeight();
+        }
+
         setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
     }
 

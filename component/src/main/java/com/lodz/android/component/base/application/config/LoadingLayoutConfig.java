@@ -31,6 +31,10 @@ public class LoadingLayoutConfig {
     private int indeterminateDrawable = 0;
     /** 页面方向布局 */
     private int orientation = LinearLayout.VERTICAL;
+    /** 进度条高度 */
+    private int pbHeight = 0;
+    /** 进度条宽度 */
+    private int pbWidth = 0;
 
     /**
      * 需要提示文字
@@ -98,6 +102,22 @@ public class LoadingLayoutConfig {
         }
     }
 
+    /**
+     * 设置进度条高度
+     * @param height 高度 单位px
+     */
+    public void setPbHeight(int height) {
+        this.pbHeight = height;
+    }
+
+    /**
+     * 设置进度条宽度
+     * @param width 宽度 单位px
+     */
+    public void setPbWidth(int width) {
+        this.pbWidth = width;
+    }
+
     /** 获取是否需要提示文字 */
     public boolean getIsNeedTips() {
         return isNeedTips;
@@ -140,4 +160,13 @@ public class LoadingLayoutConfig {
         return orientation;
     }
 
+    /** 获取进度条高度 单位px */
+    public int getPbHeight() {
+        return pbHeight;
+    }
+
+    /** 获取进度条宽度 单位px */
+    public int getPbWidth() {
+        return pbWidth;
+    }
 }

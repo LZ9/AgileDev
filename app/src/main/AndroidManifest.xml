@@ -153,6 +153,7 @@
 
         </activity>
 
+        <!--基础控件配置测试类-->
         <activity
             android:name=".ui.config.ConfigLayoutActivity"
             android:screenOrientation="portrait">
