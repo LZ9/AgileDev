@@ -18,11 +18,13 @@ public class RecyclerViewDragHelper<T> {
     /** 允许拖拽 */
     private boolean mUseDrag = true;
     /** 允许从右往左滑动 */
-    private boolean mUseRightToLeftSwipe = false;
+    private boolean mUseRightToLeftSwipe = true;
     /** 允许从左往右滑动 */
-    private boolean mUseLeftToRightSwipe = false;
-    /** 启用拖拽效果 */
-    private boolean isEnabled = true;
+    private boolean mUseLeftToRightSwipe = true;
+    /** 启用长按拖拽效果 */
+    private boolean isLongPressDragEnabled = true;
+    /** 启用滑动效果 */
+    private boolean isSwipeEnabled = true;
 
     /** 适配器 */
     private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
@@ -30,6 +32,8 @@ public class RecyclerViewDragHelper<T> {
     private Listener<T> mListener;
     /** 数据列表 */
     private List<T> mList;
+
+    private ItemTouchHelper mItemTouchHelper;
 
     /**
      * 设置是否允许拖拽
@@ -59,11 +63,20 @@ public class RecyclerViewDragHelper<T> {
     }
 
     /**
-     * 设置是否启用
+     * 设置是否启用长按拖拽效果
      * @param enabled 是否启用
      */
-    public RecyclerViewDragHelper setEnabled(boolean enabled) {
-        isEnabled = enabled;
+    public RecyclerViewDragHelper setLongPressDragEnabled(boolean enabled) {
+        isLongPressDragEnabled = enabled;
+        return this;
+    }
+
+    /**
+     * 设置是否启用滑动效果
+     * @param enabled 是否启用
+     */
+    public RecyclerViewDragHelper setSwipeEnabled(boolean enabled){
+        isSwipeEnabled = enabled;
         return this;
     }
 
@@ -88,11 +101,15 @@ public class RecyclerViewDragHelper<T> {
      * @param recyclerView 控件
      * @param adapter 适配器
      */
-    public RecyclerViewDragHelper build(RecyclerView recyclerView, RecyclerView.Adapter<RecyclerView.ViewHolder> adapter){
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(mItemTouchHelperCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+    public void build(final RecyclerView recyclerView, RecyclerView.Adapter<RecyclerView.ViewHolder> adapter){
+        mItemTouchHelper = new ItemTouchHelper(mItemTouchHelperCallback);
+        mItemTouchHelper.attachToRecyclerView(recyclerView);
         this.mAdapter = adapter;
-        return this;
+    }
+
+    /** 获取ItemTouchHelper */
+    public ItemTouchHelper getItemTouchHelper(){
+        return mItemTouchHelper;
     }
 
     private ItemTouchHelper.Callback mItemTouchHelperCallback = new ItemTouchHelper.Callback() {
@@ -186,10 +203,15 @@ public class RecyclerViewDragHelper<T> {
             // do something
         }
 
-        // 是否禁止拖拽
+        // 是否启用长按拖拽效果
         @Override
         public boolean isLongPressDragEnabled() {
-            return isEnabled;
+            return isLongPressDragEnabled;
+        }
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return isSwipeEnabled;
         }
     };
 

@@ -87,10 +87,12 @@ public class DragRecyclerViewActivity extends BaseActivity{
         mRecyclerViewDragHelper = new RecyclerViewDragHelper<>();
         mRecyclerViewDragHelper
                 .setUseDrag(true)// 设置是否允许拖拽
-                .setUseLeftToRightSwipe(false)// 设置允许从左往右滑动
-                .setUseRightToLeftSwipe(false)// 设置允许从右往左滑动
-                .setEnabled(true)// 是否启用
+                .setLongPressDragEnabled(true)// 是否启用长按拖拽效果
+                .setUseLeftToRightSwipe(true)// 设置允许从左往右滑动
+                .setUseRightToLeftSwipe(true)// 设置允许从右往左滑动
+                .setSwipeEnabled(false)// 设置是否允许滑动
                 .build(mRecyclerView, mAdapter);
+//        mAdapter.setItemTouchHelper(mRecyclerViewDragHelper.getItemTouchHelper());//由适配器来控制何时进行拖动
     }
 
     private RecyclerView.LayoutManager getLayoutManager() {

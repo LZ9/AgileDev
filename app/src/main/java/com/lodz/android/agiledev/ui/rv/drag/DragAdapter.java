@@ -2,7 +2,9 @@ package com.lodz.android.agiledev.ui.rv.drag;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,8 +22,14 @@ import butterknife.ButterKnife;
  */
 public class DragAdapter extends BaseRecyclerViewAdapter<String>{
 
+    private ItemTouchHelper mItemTouchHelper;
+
     public DragAdapter(Context context) {
         super(context);
+    }
+
+    public void setItemTouchHelper(ItemTouchHelper helper){
+        mItemTouchHelper = helper;
     }
 
     @Override
@@ -43,7 +51,7 @@ public class DragAdapter extends BaseRecyclerViewAdapter<String>{
         holder.indexTextView.setText(text);
     }
 
-    class DragViewHolder extends RecyclerView.ViewHolder{
+    class DragViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener{
         /** 序号 */
         @BindView(R.id.index_text)
         TextView indexTextView;
@@ -51,6 +59,21 @@ public class DragAdapter extends BaseRecyclerViewAdapter<String>{
         private DragViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            indexTextView.setOnTouchListener(this);
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN: {
+                    if (mItemTouchHelper != null){
+                        mItemTouchHelper.startDrag(this);
+                    }
+                    break;
+                }
+            }
+            return false;
         }
     }
 }
