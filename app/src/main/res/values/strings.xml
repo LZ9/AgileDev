@@ -75,7 +75,8 @@
     <string name="rvrefresh_refresh_fail">刷新失败啦</string>
 
     <!-- 崩溃测试 -->
-    <string name="crash_txt">崩溃</string>
+    <string name="crash_txt">借贷宝10g</string>
+    <string name="crash_tips">骚年，你在想什么！？</string>
 
 
     <!-- 课程详情页 -->

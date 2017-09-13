@@ -9,6 +9,7 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.core.utils.UiHandler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,10 @@ public class CrashTestActivity extends BaseActivity{
 
     @BindView(R.id.crash_btn)
     TextView mCrashBtn;
+
+    @BindView(R.id.crash_tips)
+    TextView mCrashTips;
+
 
     @Override
     protected int getLayoutId() {
@@ -54,8 +59,14 @@ public class CrashTestActivity extends BaseActivity{
         mCrashBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = null;//可以在SplashActivity的initCrashHandler方法中进行测试配置
-                a.toString();
+                mCrashTips.setVisibility(View.VISIBLE);
+                UiHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String a = null;//可以在SplashActivity的initCrashHandler方法中进行测试配置
+                        a.toString();
+                    }
+                }, 100);
             }
         });
 
