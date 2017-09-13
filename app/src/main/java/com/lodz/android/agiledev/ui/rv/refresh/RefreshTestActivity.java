@@ -100,6 +100,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
         mAdapter = new RefreshAdapter(getContext());
         mRecyclerView.setLayoutManager(getLayoutManager());
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
+        mAdapter.setManagerType(mCurrentLayoutManagerType);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mLoadMoreHelper = new RecyclerLoadMoreHelper<>();
@@ -347,6 +348,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
             public void onClick(PopupWindow popupWindow, @LayoutManagerPopupWindow.LayoutManagerType int type) {
                 mCurrentLayoutManagerType = type;
                 mRecyclerView.setLayoutManager(getLayoutManager());
+                mAdapter.setManagerType(mCurrentLayoutManagerType);
                 mAdapter.onAttachedToRecyclerView(mRecyclerView);
                 mAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();

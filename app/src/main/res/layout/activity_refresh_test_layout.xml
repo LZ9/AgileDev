@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,15 +8,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:elevation="12.0px"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        tools:targetApi="lollipop">
 
         <Switch
             android:id="@+id/load_fail_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="@string/rvrefresh_load_fail" />
+            android:text="@string/rvrefresh_load_fail"
+            android:textColor="@color/color_00a0e9" />
 
         <TextView
             android:id="@+id/layout_manager_btn"
