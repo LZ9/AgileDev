@@ -39,9 +39,9 @@
             android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
             android:value="GlideModule" />
 
-        <!--启动页-->
         <activity
             android:name=".ui.splash.SplashActivity"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -51,9 +51,9 @@
             </intent-filter>
         </activity>
 
-        <!--主页面-->
         <activity
             android:name=".ui.main.MainActivity"
+            android:label="主页面"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
 
@@ -95,16 +95,16 @@
 
         </activity>
 
-        <!--刷新/加载更多测试-->
         <activity
             android:name=".ui.rv.refresh.RefreshTestActivity"
+            android:label="刷新/加载更多测试"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <!--视频录制测试-->
         <activity
             android:name=".ui.rv.drag.DragRecyclerViewActivity"
+            android:label="视频录制测试"
             android:screenOrientation="portrait">
 
         </activity>
@@ -115,9 +115,9 @@
 
         </activity>
 
-        <!--RV头/底部测试-->
         <activity
             android:name=".ui.rv.head.HeadRecyclerViewActivity"
+            android:label="RV头/底部测试"
             android:screenOrientation="portrait">
 
         </activity>
@@ -146,16 +146,16 @@
 
         </activity>
 
-        <!--弹框测试-->
         <activity
             android:name=".ui.dialog.DialogTestActivity"
+            android:label="弹框测试"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <!--基础控件配置测试类-->
         <activity
             android:name=".ui.config.ConfigLayoutActivity"
+            android:label="基础控件配置测试类"
             android:screenOrientation="portrait">
 
         </activity>
@@ -209,23 +209,30 @@
 
         </activity>
 
-        <!--视频录制测试-->
+        <activity
+            android:name=".ui.rv.swipe.SwipeRecyclerViewActivity"
+            android:label="RV侧滑菜单测试"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <activity
             android:name=".ui.media.RecordActivity"
+            android:label="视频录制测试"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <!--RV动画测试-->
         <activity
             android:name=".ui.rv.anim.AnimRecyclerViewActivity"
+            android:label="RV动画测试"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <!--崩溃测试-->
         <activity
             android:name=".ui.crash.CrashTestActivity"
+            android:label="崩溃测试"
             android:screenOrientation="portrait">
 
         </activity>

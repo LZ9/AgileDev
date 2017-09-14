@@ -19,6 +19,7 @@ import com.lodz.android.agiledev.ui.rv.anim.AnimRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.drag.DragRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.head.HeadRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.refresh.RefreshTestActivity;
+import com.lodz.android.agiledev.ui.rv.swipe.SwipeRecyclerViewActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
@@ -48,12 +49,12 @@ public class MainActivity extends BaseActivity{
 
     /** 功能名称 */
     private static final List<String> mNameList = Arrays.asList("弹框测试", "视频录制测试", "RV拖拽测试",
-            "RV动画测试", "带头/底部RV测试", "刷新/加载更多测试", "崩溃测试",
-            "基础控件配置");
+            "RV动画测试", "带头/底部RV测试", "刷新/加载更多测试", "RV侧滑菜单测试",
+            "崩溃测试", "基础控件配置");
     /** 功能的activity */
     private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class,
-            AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class, RefreshTestActivity.class, CrashTestActivity.class,
-            ConfigLayoutActivity.class};
+            AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class, RefreshTestActivity.class, SwipeRecyclerViewActivity.class,
+            CrashTestActivity.class, ConfigLayoutActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        swipe:contentViewId="@+id/content_view"
+        swipe:leftViewId="@+id/left_view"
+        swipe:rightViewId="@+id/right_view">
+
+        <LinearLayout
+            android:id="@id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Layout左右两边可以放任何View，滑动我试试吧" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/left_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="左面1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="左面2" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="左面3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/right_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="右面Button1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="右面Button2" />
+
+
+        </LinearLayout>
+
+
+    </com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout>
+
+
+</LinearLayout>
