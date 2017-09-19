@@ -85,11 +85,11 @@ public class DateUtils {
 
     /**
      * 获取之后n天的日期
-     * @param formatType 日期格式，例如：{@link #TYPE_1}到{@link #TYPE_10}
+     * @param formatType 原日期格式，例如：{@link #TYPE_1}到{@link #TYPE_10}
      * @param source 原日期
      * @param n 之后的天数
      */
-     private String getAfterDay(String formatType, String source, int n){
+    public String getAfterDay(String formatType, String source, int n){
         try {
             Calendar cal = Calendar.getInstance();
             cal.setTime(parseFormatDate(formatType, source));
@@ -103,11 +103,11 @@ public class DateUtils {
 
     /**
      * 获取之前n天的日期
-     * @param formatType 日期格式，例如：{@link #TYPE_1}到{@link #TYPE_10}
+     * @param formatType 原日期格式，例如：{@link #TYPE_1}到{@link #TYPE_10}
      * @param source 原日期
-     * @param n 之后的天数
+     * @param n 之前的天数
      */
-    private String getBeforeDay(String formatType, String source, int n){
+    public String getBeforeDay(String formatType, String source, int n){
         try {
             Calendar cal = Calendar.getInstance();
             cal.setTime(parseFormatDate(formatType, source));

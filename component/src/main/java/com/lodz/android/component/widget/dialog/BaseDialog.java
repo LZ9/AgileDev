@@ -1,11 +1,11 @@
 package com.lodz.android.component.widget.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
+import android.support.v7.app.AppCompatDialog;
 
 import com.lodz.android.component.R;
 
@@ -14,7 +14,7 @@ import com.lodz.android.component.R;
  * 弹框基类
  * Created by zhouL on 2016/12/7.
  */
-public abstract class BaseDialog extends Dialog{
+public abstract class BaseDialog extends AppCompatDialog {
 
     public BaseDialog(@NonNull Context context) {
         super(context, R.style.BaseDialog);
