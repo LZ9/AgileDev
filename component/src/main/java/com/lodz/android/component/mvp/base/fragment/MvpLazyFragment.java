@@ -21,7 +21,9 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
     protected void startCreate() {
         super.startCreate();
         mPresenterContract = createMainPresenter();
-        mPresenterContract.onCreate(getContext(), (VC) this);
+        if (mPresenterContract != null){
+            mPresenterContract.onCreate(getContext(), (VC) this);
+        }
     }
 
     protected abstract PC createMainPresenter();
@@ -34,19 +36,25 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPresenterContract.onDestroy();
+        if (mPresenterContract != null){
+            mPresenterContract.onDestroy();
+        }
     }
 
     @Override
     protected void onFragmentResume() {
         super.onFragmentResume();
-        mPresenterContract.onResume();
+        if (mPresenterContract != null){
+            mPresenterContract.onResume();
+        }
     }
 
     @Override
     protected void onFragmentPause() {
         super.onFragmentPause();
-        mPresenterContract.onPause();
+        if (mPresenterContract != null){
+            mPresenterContract.onPause();
+        }
     }
 
 }

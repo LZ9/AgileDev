@@ -21,7 +21,9 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
     protected void startCreate() {
         super.startCreate();
         mPresenterContract = createMainPresenter();
-        mPresenterContract.onCreate(this, (VC) this);
+        if (mPresenterContract != null){
+            mPresenterContract.onCreate(this, (VC) this);
+        }
     }
 
     protected abstract PC createMainPresenter();
@@ -34,18 +36,24 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenterContract.onDestroy();
+        if (mPresenterContract != null){
+            mPresenterContract.onDestroy();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mPresenterContract.onPause();
+        if (mPresenterContract != null){
+            mPresenterContract.onPause();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenterContract.onResume();
+        if (mPresenterContract != null){
+            mPresenterContract.onResume();
+        }
     }
 }
