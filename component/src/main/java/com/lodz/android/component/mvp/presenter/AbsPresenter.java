@@ -40,10 +40,17 @@ public class AbsPresenter<VC extends ViewContract> implements PresenterContract<
 
     }
 
-    public VC getViewContract(){
-        return mViewContract;
+    @Override
+    public boolean isDestroy() {
+        return mContext == null || mViewContract == null;
     }
 
+    public VC getViewContract(){
+        if (mViewContract == null){
+            throw new NullPointerException("the view already destroy , please use isDestroy() before getViewContract()");
+        }
+        return mViewContract;
+    }
 
     @Override
     public void onDestroy() {

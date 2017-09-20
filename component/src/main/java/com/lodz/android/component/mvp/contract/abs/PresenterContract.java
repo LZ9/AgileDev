@@ -25,4 +25,7 @@ public interface PresenterContract<VC extends ViewContract> {
     /** onResume */
     void onResume();
 
+    /** 界面是否被回收 */
+    boolean isDestroy();
+
 }

@@ -21,9 +21,11 @@ public class MvpTestBasePresenter extends BasePresenter<MvpTestBaseViewContract>
         mApiModule.requestResult(new ApiModule.Listener() {
             @Override
             public void onCallback(String response) {
-                getViewContract().showResult();
-                getViewContract().setResult(response);
-                getViewContract().showStatusCompleted();
+                if (!isDestroy()){
+                    getViewContract().showResult();
+                    getViewContract().setResult(response);
+                    getViewContract().showStatusCompleted();
+                }
             }
         });
     }
