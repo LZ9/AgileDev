@@ -34,10 +34,12 @@ public abstract class BaseObserver<T> implements Observer<T> {
     @Override
     public void onError(Throwable t) {
         try {
-            ApplicationInfo appInfo = BaseApplication.get().getPackageManager()
-                    .getApplicationInfo(BaseApplication.get().getPackageName(), PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null && !TextUtils.isEmpty(appInfo.metaData.getString(ERROR_TAG))){
-                PrintLog.e(appInfo.metaData.getString(ERROR_TAG), t.toString());
+            if (BaseApplication.get() != null){
+                ApplicationInfo appInfo = BaseApplication.get().getPackageManager()
+                        .getApplicationInfo(BaseApplication.get().getPackageName(), PackageManager.GET_META_DATA);
+                if (appInfo.metaData != null && !TextUtils.isEmpty(appInfo.metaData.getString(ERROR_TAG))){
+                    PrintLog.e(appInfo.metaData.getString(ERROR_TAG), t.toString());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
