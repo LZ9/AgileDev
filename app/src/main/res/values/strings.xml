@@ -86,7 +86,8 @@
     <string name="config_base_fail">失败</string>
     <string name="config_base_fail_tips">加载不出来，你心里没点B数吗！？</string>
 
-
+    <!-- 照片选择器 -->
+    <string name="photo_picker_take">选择照片</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

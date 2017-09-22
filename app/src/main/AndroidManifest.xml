@@ -237,6 +237,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.photopicker.PhotoPickerTestActivity"
+            android:label="照片选择器测试"
+            android:screenOrientation="portrait">
+
+        </activity>
+
     </application>
 
 </manifest>
