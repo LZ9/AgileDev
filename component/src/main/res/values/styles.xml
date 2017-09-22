@@ -10,6 +10,8 @@
     </style>
 
     <style name="BaseDialog" parent="Theme.AppCompat.Light.Dialog">
+        <!--无标题-->
+        <item name="windowNoTitle">true</item>
         <!--无边框-->
         <item name="android:windowFrame">@null</item>
         <!--提示框是否是浮动的-->
