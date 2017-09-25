@@ -89,7 +89,7 @@ public class DateUtils {
      * @param source 原日期
      * @param n 之后的天数
      */
-    public String getAfterDay(String formatType, String source, int n){
+    public static String getAfterDay(String formatType, String source, int n){
         try {
             Calendar cal = Calendar.getInstance();
             cal.setTime(parseFormatDate(formatType, source));
@@ -107,7 +107,7 @@ public class DateUtils {
      * @param source 原日期
      * @param n 之前的天数
      */
-    public String getBeforeDay(String formatType, String source, int n){
+    public static String getBeforeDay(String formatType, String source, int n){
         try {
             Calendar cal = Calendar.getInstance();
             cal.setTime(parseFormatDate(formatType, source));
