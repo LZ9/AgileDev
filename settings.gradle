@@ -1,1 +1,1 @@
-include ':app', ':core', ':component', ':imageloader', ':mmsbanner'
+include ':app', ':core', ':component', ':imageloader'

@@ -5,10 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
@@ -17,6 +20,7 @@ import com.lodz.android.agiledev.ui.splash.CheckDialog;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.AppUtils;
+import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -44,6 +48,10 @@ public class PhotoPickerTestActivity extends BaseActivity{
     /** 选择按钮 */
     @BindView(R.id.take_btn)
     TextView mTakeBtn;
+
+    @BindView(R.id.test)
+    ImageView mImageView;
+
 
     @Override
     protected int getLayoutId() {
@@ -98,7 +106,12 @@ public class PhotoPickerTestActivity extends BaseActivity{
 
     /** 初始化 */
     private void init(){
-
+        Bitmap src2 = BitmapUtils.drawableToBitmap(ContextCompat.getDrawable(getContext(), R.drawable.ic_regret));
+        Bitmap src = BitmapUtils.drawableToBitmap(ContextCompat.getDrawable(getContext(), R.drawable.bg_pokemon));
+        Bitmap watermark = BitmapUtils.drawableToBitmap(ContextCompat.getDrawable(getContext(), R.drawable.bg_splash));
+        mImageView.setImageBitmap(BitmapUtils.createRoundBitmap(watermark));
+//        mImageView.setImageBitmap(BitmapUtils.createWatermarkBitmap(src, watermark, BitmapUtils.RIGHT_TOP, DensityUtils.dp2px(getContext(), 10)));
+//        mImageView.setImageBitmap(watermark);
         showStatusCompleted();
     }
 
