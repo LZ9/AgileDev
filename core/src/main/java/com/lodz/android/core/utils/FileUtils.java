@@ -139,8 +139,8 @@ public class FileUtils {
      */
     public static boolean createNewFile(@NonNull String filePath){
         try {
-            File folder = createFile(filePath);
-            return folder != null && !folder.exists() && folder.createNewFile();
+            File file = createFile(filePath);
+            return file != null && !file.exists() && file.createNewFile();
         }catch (Exception e){
             e.printStackTrace();
         }

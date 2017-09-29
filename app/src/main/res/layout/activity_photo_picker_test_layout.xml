@@ -22,15 +22,4 @@
         android:textSize="16sp"
         tools:targetApi="lollipop" />
 
-    <ImageView
-        android:id="@+id/test"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:scaleType="centerInside" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:text="46548979876465484654897987646548978644987978644987"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

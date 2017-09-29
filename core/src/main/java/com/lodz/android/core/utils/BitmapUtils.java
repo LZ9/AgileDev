@@ -3,6 +3,9 @@ package com.lodz.android.core.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -14,12 +17,15 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Retention;
@@ -375,6 +381,509 @@ public class BitmapUtils {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, src, dst, paint);
         return output;
+    }
+
+    /**
+     * 旋转图片
+     * @param bitmap 图片
+     * @param angle 角度
+     */
+    public static Bitmap rotateBitmap(Bitmap bitmap, int angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    /**
+     * 水平翻转处理
+     * @param bitmap 图片
+     */
+    public static Bitmap reverseBitmapHorizontal(Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(-1, 1);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+    }
+
+    /**
+     * 垂直翻转处理
+     * @param bitmap 图片
+     */
+    public static Bitmap reverseBitmapVertical(Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.preScale(1, -1);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+    }
+
+    /**
+     * 更改图片色系，变亮或变暗
+     * @param bitmap 图片
+     * @param delta 图片的亮暗程度值，越小图片会越亮，取值范围(0,23)
+     */
+    public static Bitmap setBitmapTone(Bitmap bitmap, @IntRange(from = 0, to = 23) int delta) {
+        if (delta >= 23 || delta <= 0) {
+            return null;
+        }
+        // 设置高斯矩阵
+        int[] gauss = new int[]{1, 2, 1, 2, 4, 2, 1, 2, 1};
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+        int pixColor = 0;
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+        int idx = 0;
+        int[] pixels = new int[width * height];
+
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        for (int i = 1, length = height - 1; i < length; i++) {
+            for (int k = 1, len = width - 1; k < len; k++) {
+                idx = 0;
+                for (int m = -1; m <= 1; m++) {
+                    for (int n = -1; n <= 1; n++) {
+                        pixColor = pixels[(i + m) * width + k + n];
+                        pixR = Color.red(pixColor);
+                        pixG = Color.green(pixColor);
+                        pixB = Color.blue(pixColor);
+
+                        newR += (pixR * gauss[idx]);
+                        newG += (pixG * gauss[idx]);
+                        newB += (pixB * gauss[idx]);
+                        idx++;
+                    }
+                }
+                newR /= delta;
+                newG /= delta;
+                newB /= delta;
+                newR = Math.min(255, Math.max(0, newR));
+                newG = Math.min(255, Math.max(0, newG));
+                newB = Math.min(255, Math.max(0, newB));
+                pixels[i * width + k] = Color.argb(255, newR, newG, newB);
+                newR = 0;
+                newG = 0;
+                newB = 0;
+            }
+        }
+        result.setPixels(pixels, 0, width, 0, 0, width, height);
+        return result;
+    }
+
+    /**
+     * 处理图片饱和度
+     * @param bitmap 图片
+     * @param value 饱和度值
+     */
+    public static Bitmap setBitmapSaturation(Bitmap bitmap, int value) {
+        // 计算出符合要求的饱和度值
+        float newSaturationValue = value * 1.0F / 127;
+        // 创建一个颜色矩阵
+        ColorMatrix saturationColorMatrix = new ColorMatrix();
+        // 设置饱和度值
+        saturationColorMatrix.setSaturation(newSaturationValue);
+        // 创建一个画笔并设置其颜色过滤器
+        Paint paint = new Paint();
+        paint.setColorFilter(new ColorMatrixColorFilter(saturationColorMatrix));
+        // 创建一个新的图片并创建画布
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newBitmap);
+        // 将原图使用给定的画笔画到画布上
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return newBitmap;
+    }
+
+    /**
+     * 处理图片亮度
+     * @param bitmap 图片
+     * @param value 亮度值
+     */
+    public static Bitmap setBitmapLuminance(Bitmap bitmap, int value) {
+        // 计算出符合要求的亮度值
+        float newlumValue = value * 1.0F / 127;
+        // 创建一个颜色矩阵
+        ColorMatrix lumColorMatrix = new ColorMatrix();
+        // 设置亮度值
+        lumColorMatrix.setScale(newlumValue, newlumValue, newlumValue, 1);
+        // 创建一个画笔并设置其颜色过滤器
+        Paint paint = new Paint();
+        paint.setColorFilter(new ColorMatrixColorFilter(lumColorMatrix));
+        // 创建一个新的图片并创建画布
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newBitmap);
+        // 将原图使用给定的画笔画到画布上
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return newBitmap;
+    }
+
+    /**
+     * 色相处理
+     * @param bitmap 图片
+     * @param value 色相值
+     */
+    public static Bitmap setBitmapHue(Bitmap bitmap, int value) {
+        // 计算出符合要求的色相值
+        float newHueValue = (value - 127) * 1.0F / 127 * 180;
+        // 创建一个颜色矩阵
+        ColorMatrix hueColorMatrix = new ColorMatrix();
+        // 控制让红色区在色轮上旋转的角度
+        hueColorMatrix.setRotate(0, newHueValue);
+        // 控制让绿红色区在色轮上旋转的角度
+        hueColorMatrix.setRotate(1, newHueValue);
+        // 控制让蓝色区在色轮上旋转的角度
+        hueColorMatrix.setRotate(2, newHueValue);
+        // 创建一个画笔并设置其颜色过滤器
+        Paint paint = new Paint();
+        paint.setColorFilter(new ColorMatrixColorFilter(hueColorMatrix));
+        // 创建一个新的图片并创建画布
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newBitmap);
+        // 将原图使用给定的画笔画到画布上
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return newBitmap;
+    }
+
+
+    /**
+     * 怀旧效果处理
+     * @param bitmap 图片
+     */
+    public static Bitmap createNostalgicBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        int pixColor = 0;
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        for (int i = 0; i < height; i++) {
+            for (int k = 0; k < width; k++) {
+                pixColor = pixels[width * i + k];
+                pixR = Color.red(pixColor);
+                pixG = Color.green(pixColor);
+                pixB = Color.blue(pixColor);
+                newR = (int) (0.393 * pixR + 0.769 * pixG + 0.189 * pixB);
+                newG = (int) (0.349 * pixR + 0.686 * pixG + 0.168 * pixB);
+                newB = (int) (0.272 * pixR + 0.534 * pixG + 0.131 * pixB);
+                int newColor = Color.argb(255, newR > 255 ? 255 : newR, newG > 255 ? 255 : newG, newB > 255 ? 255 : newB);
+                pixels[width * i + k] = newColor;
+            }
+        }
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return newBitmap;
+    }
+
+    /**
+     * 柔化效果处理
+     * @param bitmap 图片
+     */
+    public static Bitmap createSoftenBitmap(Bitmap bitmap) {
+        // 高斯矩阵
+        int[] gauss = new int[]{1, 2, 1, 2, 4, 2, 1, 2, 1};
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+
+        int pixColor = 0;
+
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+
+        int delta = 16; // 值越小图片会越亮，越大则越暗
+
+        int idx = 0;
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        for (int i = 1, length = height - 1; i < length; i++) {
+            for (int k = 1, len = width - 1; k < len; k++) {
+                idx = 0;
+                for (int m = -1; m <= 1; m++) {
+                    for (int n = -1; n <= 1; n++) {
+                        pixColor = pixels[(i + m) * width + k + n];
+                        pixR = Color.red(pixColor);
+                        pixG = Color.green(pixColor);
+                        pixB = Color.blue(pixColor);
+
+                        newR = newR + (int) (pixR * gauss[idx]);
+                        newG = newG + (int) (pixG * gauss[idx]);
+                        newB = newB + (int) (pixB * gauss[idx]);
+                        idx++;
+                    }
+                }
+
+                newR /= delta;
+                newG /= delta;
+                newB /= delta;
+
+                newR = Math.min(255, Math.max(0, newR));
+                newG = Math.min(255, Math.max(0, newG));
+                newB = Math.min(255, Math.max(0, newB));
+
+                pixels[i * width + k] = Color.argb(255, newR, newG, newB);
+
+                newR = 0;
+                newG = 0;
+                newB = 0;
+            }
+        }
+
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return newBitmap;
+    }
+
+    /**
+     * 光照效果处理
+     * @param bitmap 图片
+     * @param centerX 光源在X轴的位置
+     * @param centerY 光源在Y轴的位置
+     */
+    public static Bitmap createSunshineBitmap(Bitmap bitmap, int centerX, int centerY) {
+        final int width = bitmap.getWidth();
+        final int height = bitmap.getHeight();
+        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+
+        int pixColor = 0;
+
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+        int radius = Math.min(centerX, centerY);
+
+        final float strength = 150F; // 光照强度 100~150
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        int pos = 0;
+        for (int i = 1, length = height - 1; i < length; i++) {
+            for (int k = 1, len = width - 1; k < len; k++) {
+                pos = i * width + k;
+                pixColor = pixels[pos];
+
+                pixR = Color.red(pixColor);
+                pixG = Color.green(pixColor);
+                pixB = Color.blue(pixColor);
+
+                newR = pixR;
+                newG = pixG;
+                newB = pixB;
+
+                // 计算当前点到光照中心的距离，平面座标系中求两点之间的距离
+                int distance = (int) (Math.pow((centerY - i), 2) + Math.pow(centerX - k, 2));
+                if (distance < radius * radius) {
+                    // 按照距离大小计算增加的光照值
+                    int result = (int) (strength * (1.0 - Math.sqrt(distance) / radius));
+                    newR = pixR + result;
+                    newG = pixG + result;
+                    newB = pixB + result;
+                }
+
+                newR = Math.min(255, Math.max(0, newR));
+                newG = Math.min(255, Math.max(0, newG));
+                newB = Math.min(255, Math.max(0, newB));
+
+                pixels[pos] = Color.argb(255, newR, newG, newB);
+            }
+        }
+
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return newBitmap;
+    }
+
+    /**
+     * 底片效果处理
+     * @param bitmap 图片
+     */
+    public static Bitmap createFilmBitmap(Bitmap bitmap) {
+        // RGBA的最大值
+        final int MAX_VALUE = 255;
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+
+        int pixColor = 0;
+
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        int pos = 0;
+        for (int i = 1, length = height - 1; i < length; i++) {
+            for (int k = 1, len = width - 1; k < len; k++) {
+                pos = i * width + k;
+                pixColor = pixels[pos];
+
+                pixR = Color.red(pixColor);
+                pixG = Color.green(pixColor);
+                pixB = Color.blue(pixColor);
+
+                newR = MAX_VALUE - pixR;
+                newG = MAX_VALUE - pixG;
+                newB = MAX_VALUE - pixB;
+
+                newR = Math.min(MAX_VALUE, Math.max(0, newR));
+                newG = Math.min(MAX_VALUE, Math.max(0, newG));
+                newB = Math.min(MAX_VALUE, Math.max(0, newB));
+
+                pixels[pos] = Color.argb(MAX_VALUE, newR, newG, newB);
+            }
+        }
+
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return newBitmap;
+    }
+
+    /**
+     * 锐化效果处理
+     * @param bitmap 图片
+     */
+    public static Bitmap createSharpenBitmap(Bitmap bitmap) {
+        // 拉普拉斯矩阵
+        int[] laplacian = new int[]{-1, -1, -1, -1, 9, -1, -1, -1, -1};
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap newBitmap = Bitmap.createBitmap(width, height,
+                Bitmap.Config.RGB_565);
+
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+
+        int pixColor = 0;
+
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+
+        int idx = 0;
+        float alpha = 0.3F;
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        for (int i = 1, length = height - 1; i < length; i++) {
+            for (int k = 1, len = width - 1; k < len; k++) {
+                idx = 0;
+                for (int m = -1; m <= 1; m++) {
+                    for (int n = -1; n <= 1; n++) {
+                        pixColor = pixels[(i + n) * width + k + m];
+                        pixR = Color.red(pixColor);
+                        pixG = Color.green(pixColor);
+                        pixB = Color.blue(pixColor);
+
+                        newR = newR + (int) (pixR * laplacian[idx] * alpha);
+                        newG = newG + (int) (pixG * laplacian[idx] * alpha);
+                        newB = newB + (int) (pixB * laplacian[idx] * alpha);
+                        idx++;
+                    }
+                }
+
+                newR = Math.min(255, Math.max(0, newR));
+                newG = Math.min(255, Math.max(0, newG));
+                newB = Math.min(255, Math.max(0, newB));
+
+                pixels[i * width + k] = Color.argb(255, newR, newG, newB);
+                newR = 0;
+                newG = 0;
+                newB = 0;
+            }
+        }
+
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return newBitmap;
+    }
+
+    /**
+     * 浮雕效果处理
+     * @param bitmap 图片
+     */
+    public static Bitmap createEmbossBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap newBitmap = Bitmap.createBitmap(width, height,
+                Bitmap.Config.RGB_565);
+
+        int pixR = 0;
+        int pixG = 0;
+        int pixB = 0;
+
+        int pixColor = 0;
+
+        int newR = 0;
+        int newG = 0;
+        int newB = 0;
+
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        int pos = 0;
+        for (int i = 1, length = height - 1; i < length; i++) {
+            for (int k = 1, len = width - 1; k < len; k++) {
+                pos = i * width + k;
+                pixColor = pixels[pos];
+
+                pixR = Color.red(pixColor);
+                pixG = Color.green(pixColor);
+                pixB = Color.blue(pixColor);
+
+                pixColor = pixels[pos + 1];
+                newR = Color.red(pixColor) - pixR + 127;
+                newG = Color.green(pixColor) - pixG + 127;
+                newB = Color.blue(pixColor) - pixB + 127;
+
+                newR = Math.min(255, Math.max(0, newR));
+                newG = Math.min(255, Math.max(0, newG));
+                newB = Math.min(255, Math.max(0, newB));
+
+                pixels[pos] = Color.argb(255, newR, newG, newB);
+            }
+        }
+
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return newBitmap;
+    }
+
+    /**
+     * 将Bitmap保存在本地路径
+     * @param bitmap 图片
+     * @param path 路径
+     * @param picName 文件名
+     */
+    public static boolean saveBitmap(Bitmap bitmap, String path, String picName) {
+        File file = new File(path, picName);
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
