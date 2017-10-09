@@ -11,6 +11,7 @@ import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.component.base.fragment.IFragmentBackPressed;
 import com.lodz.android.component.base.fragment.LazyFragment;
 import com.lodz.android.component.event.ActivityFinishEvent;
+import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ReflectUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -148,6 +149,9 @@ public abstract class AbsActivity extends RxAppCompatActivity {
         if (BaseApplication.get() == null){
             return;
         }
+        if (!AppUtils.isBackground(this)){
+            return;
+        }
         Bundle bundle = BaseApplication.get().getSaveInstanceState();
         if (outState != null && bundle != null){
             outState.putBundle(SAVE_INSTANCE_STATE_BUNDLE, bundle);
@@ -160,6 +164,9 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (BaseApplication.get() == null){
+            return;
+        }
+        if (AppUtils.isBackground(this)){
             return;
         }
         if (savedInstanceState != null){

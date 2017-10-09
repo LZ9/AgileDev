@@ -68,10 +68,7 @@ public class AppUtils {
         return -1;
     }
 
-    /**
-     * 当前是否在主线程（UI线程）
-     * @return
-     */
+    /** 当前是否在主线程（UI线程） */
     public static boolean isMainThread() {
         return Looper.myLooper() == Looper.getMainLooper();
     }
@@ -210,5 +207,20 @@ public class AppUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 当前APP是否在后台
+     * @param context 上下文
+     */
+    public static boolean isBackground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(context.getPackageName())) {
+                return appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
+            }
+        }
+        return false;
     }
 }
