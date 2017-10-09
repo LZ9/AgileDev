@@ -3,6 +3,7 @@ package com.lodz.android.core.utils;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -194,5 +195,20 @@ public class AppUtils {
     public static void jumpDateSetting(Context context){
         Intent intent = new Intent(Settings.ACTION_DATE_SETTINGS);
         context.startActivity(intent);
+    }
+
+    /**
+     * 获取MetaData
+     * @param context 上下文
+     * @param key 标签名
+     */
+    public static Object getMetaData(Context context, String key) {
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            return appInfo.metaData.get(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

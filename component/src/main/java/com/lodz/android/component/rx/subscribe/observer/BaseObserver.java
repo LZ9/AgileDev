@@ -1,11 +1,10 @@
 package com.lodz.android.component.rx.subscribe.observer;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
+import com.lodz.android.core.utils.AppUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -34,19 +33,26 @@ public abstract class BaseObserver<T> implements Observer<T> {
     @Override
     public void onError(Throwable t) {
         try {
-            if (BaseApplication.get() != null){
-                ApplicationInfo appInfo = BaseApplication.get().getPackageManager()
-                        .getApplicationInfo(BaseApplication.get().getPackageName(), PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null && !TextUtils.isEmpty(appInfo.metaData.getString(ERROR_TAG))){
-                    PrintLog.e(appInfo.metaData.getString(ERROR_TAG), t.toString());
-                }
-            }
+            printTagLog(t);
         } catch (Exception e) {
             e.printStackTrace();
         }
         onBaseError(t);
     }
 
+    /** 打印标签日志 */
+    private void printTagLog(Throwable t) {
+        if (BaseApplication.get() == null){
+            return;
+        }
+        Object o = AppUtils.getMetaData(BaseApplication.get(), ERROR_TAG);
+        if (o != null && o instanceof String){
+            String tag = (String) o;
+            if (!TextUtils.isEmpty(tag)) {
+                PrintLog.e(tag, t.toString(), t);
+            }
+        }
+    }
     @Override
     public void onComplete() {
         onBaseComplete();

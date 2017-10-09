@@ -85,7 +85,7 @@ public class NetworkManager {
     }
 
     /** 更新网络信息 */
-    public void updateNet(ConnectivityManager manager){
+    protected void updateNet(ConnectivityManager manager){
         mNetInfo.type = NetInfo.NETWORK_TYPE_NONE;
         mNetInfo.standard = NetInfo.NETWORK_TYPE_NONE;
         if (manager == null){
@@ -187,7 +187,7 @@ public class NetworkManager {
     }
 
     /** 通知监听器回调 */
-    public void notifyNetworkListeners() {
+    protected void notifyNetworkListeners() {
         Iterator<NetworkListener> iterator = mNetworkListeners.iterator();
         while (iterator.hasNext()){
             NetworkListener listener = iterator.next();
