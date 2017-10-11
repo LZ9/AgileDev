@@ -6,13 +6,10 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
-import com.lodz.android.core.utils.DensityUtils;
-import com.lodz.android.core.utils.ScreenUtils;
 
 /**
  * 简单实现的BaseLoadMoreRecyclerViewAdapter
@@ -80,10 +77,6 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
         if (holder == null) {
             return;
         }
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        layoutParams.width = ScreenUtils.getScreenWidth(getContext());
-        layoutParams.height = DensityUtils.dp2px(getContext(), 40);
-
         holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mFinishBackgroundColor));
 
         TextView loadFinishTextView = (TextView) holder.itemView.findViewById(R.id.load_finish_text_view);
@@ -97,10 +90,6 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
         if (holder == null) {
             return;
         }
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        layoutParams.width = ScreenUtils.getScreenWidth(getContext());
-        layoutParams.height = DensityUtils.dp2px(getContext(), 40);
-
         holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mLoadFailBackgroundColor));
 
         TextView textView = (TextView) holder.itemView.findViewById(R.id.load_fail_text_view);
@@ -114,10 +103,6 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
         if (holder == null) {
             return;
         }
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        layoutParams.width = ScreenUtils.getScreenWidth(getContext());
-        layoutParams.height = DensityUtils.dp2px(getContext(), 40);
-
         holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mLoadingMoreBackgroundColor));
 
         TextView loadFinishTextView = (TextView) holder.itemView.findViewById(R.id.loading_more_text_view);
