@@ -13,6 +13,22 @@ import java.util.List;
 public class ArrayUtils {
 
     /**
+     * 列表是否为空
+     * @param list 列表
+     */
+    public static <T> boolean isEmpty(List<T> list){
+        return list == null || list.size() == 0;
+    }
+
+    /**
+     * 数组是否为空
+     * @param array 数组
+     */
+    public static <T> boolean isEmpty(T[] array){
+        return array == null || array.length == 0;
+    }
+
+    /**
      * 数组转列表
      * @param array 数组
      */
