@@ -2,8 +2,16 @@ package com.lodz.android.component.photopicker.preview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
@@ -27,10 +35,12 @@ public class PicturePreviewActivity extends AbsActivity{
         context.startActivity(starter);
     }
 
+    /** 背景控件 */
+    private ViewGroup mRootView;
     /** 翻页适配器 */
     private PhotoViewPager mViewPager;
     /** 页码提示 */
-    private TextView mPagerTips;
+    private TextView mPagerTipsTv;
 
     /** 图片数据 */
     private PreviewBean mPreviewBean;
@@ -38,7 +48,6 @@ public class PicturePreviewActivity extends AbsActivity{
     @Override
     protected void startCreate() {
         super.startCreate();
-
         mPreviewBean = PreviewManager.previewBean;
     }
 
@@ -49,7 +58,8 @@ public class PicturePreviewActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mPagerTips = (TextView) findViewById(R.id.pager_tips);
+        mRootView = (ViewGroup) findViewById(R.id.root_view);
+        mPagerTipsTv = (TextView) findViewById(R.id.pager_tips);
         initViewPager();
     }
 
@@ -57,8 +67,19 @@ public class PicturePreviewActivity extends AbsActivity{
         mViewPager = (PhotoViewPager) findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(new PicturePagerAdapter(mPreviewBean));
-        setPagerNum(mPreviewBean.showPosition);
         mViewPager.setCurrentItem(mPreviewBean.showPosition);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mRootView.setBackgroundColor(ContextCompat.getColor(getContext(), mPreviewBean.backgroundColor));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSystemBarColor(mPreviewBean.statusBarColor, mPreviewBean.navigationBarColor);
+        }
+        setPagerNum(mPreviewBean.showPosition);
+        mPagerTipsTv.setTextColor(ContextCompat.getColor(getContext(), mPreviewBean.pagerTextColor));
+        mPagerTipsTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, mPreviewBean.pagerTextSize);
     }
 
     @Override
@@ -84,7 +105,26 @@ public class PicturePreviewActivity extends AbsActivity{
 
     /** 设置页码 */
     private void setPagerNum(int position){
-        mPagerTips.setText((position + 1) + " / " + ArrayUtils.getSize(mPreviewBean.sourceList));
+        mPagerTipsTv.setText((position + 1) + " / " + ArrayUtils.getSize(mPreviewBean.sourceList));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setSystemBarColor(@ColorRes int statusBarColor, @ColorRes int navigationBarColor) {
+        if (statusBarColor == 0 && navigationBarColor == 0){
+            return;
+        }
+
+        try {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            if (statusBarColor != 0){
+                window.setStatusBarColor(ContextCompat.getColor(getContext(), statusBarColor));
+            }
+            if (navigationBarColor != 0){
+                window.setNavigationBarColor(ContextCompat.getColor(getContext(), navigationBarColor));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

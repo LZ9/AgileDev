@@ -97,13 +97,17 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onClick(View v) {
                 PreviewManager
                         .<String>create()
+                        .setPosition(12)
+                        .setBackgroundColor(R.color.black)
+                        .setStatusBarColor(R.color.black)
+                        .setPagerTextColor(R.color.white)
+                        .setPagerTextSize(18)
                         .setImgLoader(new PreviewLoader<String>() {
                             @Override
                             public void displayPreviewImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
                             }
                         })
-                        .setPosition(12)
                         .build(urls)
                         .open(getContext());
             }

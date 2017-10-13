@@ -1,6 +1,7 @@
 package com.lodz.android.component.photopicker.preview;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IntRange;
 
 import com.lodz.android.component.R;
@@ -56,6 +57,51 @@ public class PreviewManager {
          */
         public Builder<T> setPosition(@IntRange(from = 0) int position){
             previewBean.showPosition = position;
+            return this;
+        }
+
+        /**
+         * 设置背景色
+         * @param backgroundColor 背景色
+         */
+        public Builder<T> setBackgroundColor(@ColorRes int backgroundColor){
+            previewBean.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        /**
+         * 设置顶部状态栏颜色
+         * @param statusBarColor 状态栏颜色
+         */
+        public Builder<T> setStatusBarColor(@ColorRes int statusBarColor){
+            previewBean.statusBarColor = statusBarColor;
+            return this;
+        }
+
+        /**
+         * 设置底部导航栏颜色
+         * @param navigationBarColor 导航栏颜色
+         */
+        public Builder<T> setNavigationBarColor(@ColorRes int navigationBarColor){
+            previewBean.navigationBarColor = navigationBarColor;
+            return this;
+        }
+
+        /**
+         * 设置页码文字颜色
+         * @param pagerTextColor 页码文字颜色
+         */
+        public Builder<T> setPagerTextColor(@ColorRes int pagerTextColor){
+            previewBean.pagerTextColor = pagerTextColor;
+            return this;
+        }
+
+        /**
+         * 设置页码文字大小
+         * @param textSize 文字大小（单位SP）
+         */
+        public Builder<T> setPagerTextSize(int textSize){
+            previewBean.pagerTextSize = textSize;
             return this;
         }
 

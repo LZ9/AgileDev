@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:background="@android:color/black"
     android:layout_height="match_parent">
 
     <com.lodz.android.component.widget.photoview.PhotoViewPager
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:textSize="16sp"
         tool:text="15/90" />
 
