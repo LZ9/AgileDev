@@ -16,4 +16,9 @@
     <string name="loading_more_tips">努力为您加载中~</string>
     <string name="load_fail_tips">加载失败，请点击重试~</string>
 
+    <!-- 图片预览 -->
+    <string name="preview_loader_unset">您尚未设置图片加载器</string>
+    <string name="preview_source_list_empty">图片数据为空</string>
+
+
 </resources>

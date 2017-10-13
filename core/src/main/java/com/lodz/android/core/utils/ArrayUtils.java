@@ -13,6 +13,22 @@ import java.util.List;
 public class ArrayUtils {
 
     /**
+     * 获取列表数据长度
+     * @param list 列表
+     */
+    public static <T> int getSize(List<T> list){
+        return isEmpty(list) ? 0 : list.size();
+    }
+
+    /**
+     * 获取数组数据长度
+     * @param array 数组
+     */
+    public static <T> int getSize(T[] array){
+        return isEmpty(array) ? 0 : array.length;
+    }
+
+    /**
      * 列表是否为空
      * @param list 列表
      */

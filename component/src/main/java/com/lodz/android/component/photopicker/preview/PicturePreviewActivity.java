@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
-import com.lodz.android.core.utils.ToastUtils;
+import com.lodz.android.component.widget.photoview.PhotoViewPager;
+import com.lodz.android.core.utils.ArrayUtils;
 
 /**
  * 图片预览页面
@@ -17,16 +18,17 @@ import com.lodz.android.core.utils.ToastUtils;
 
 public class PicturePreviewActivity extends AbsActivity{
 
-    private static final String EXTRA_PREVIEW_BEAN = "extra_preview_bean";
-
-    public static void start(Context context, PreviewBean bean) {
+    /**
+     * 启动页面
+     * @param context 上下文
+     */
+    public static void start(Context context) {
         Intent starter = new Intent(context, PicturePreviewActivity.class);
-        starter.putExtra(EXTRA_PREVIEW_BEAN, bean);
         context.startActivity(starter);
     }
 
     /** 翻页适配器 */
-    private ViewPager mViewPager;
+    private PhotoViewPager mViewPager;
     /** 页码提示 */
     private TextView mPagerTips;
 
@@ -36,11 +38,8 @@ public class PicturePreviewActivity extends AbsActivity{
     @Override
     protected void startCreate() {
         super.startCreate();
-        mPreviewBean = (PreviewBean) getIntent().getSerializableExtra(EXTRA_PREVIEW_BEAN);
-        if (mPreviewBean == null || mPreviewBean.pictureType == PreviewBean.TYPE_NONE){
-            ToastUtils.showShort(getContext(), "图片数据错误");
-            finish();
-        }
+
+        mPreviewBean = PreviewManager.previewBean;
     }
 
     @Override
@@ -55,9 +54,11 @@ public class PicturePreviewActivity extends AbsActivity{
     }
 
     private void initViewPager() {
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager = (PhotoViewPager) findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(new PicturePagerAdapter(mPreviewBean));
+        setPagerNum(mPreviewBean.showPosition);
+        mViewPager.setCurrentItem(mPreviewBean.showPosition);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class PicturePreviewActivity extends AbsActivity{
 
             @Override
             public void onPageSelected(int position) {
-                mPagerTips.setText((position + 1) + " / " + mPreviewBean.getPictureCount());
+                setPagerNum(position);
             }
 
             @Override
@@ -81,5 +82,9 @@ public class PicturePreviewActivity extends AbsActivity{
         });
     }
 
+    /** 设置页码 */
+    private void setPagerNum(int position){
+        mPagerTips.setText((position + 1) + " / " + ArrayUtils.getSize(mPreviewBean.sourceList));
+    }
 
 }
