@@ -45,7 +45,7 @@ class PicturePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         final Context context = container.getContext();
-        final PhotoView imageView = new PhotoView(context);
+        ImageView imageView = mPreviewBean.isScale ? new PhotoView(context) : new ImageView(context);
         container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setScaleType(ImageView.ScaleType.CENTER);
         mPreviewBean.previewLoader.displayPreviewImg(context, mPreviewBean.sourceList.get(position), imageView);

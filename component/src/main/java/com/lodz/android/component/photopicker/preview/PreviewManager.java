@@ -55,6 +55,15 @@ public class PreviewManager {
         }
 
         /**
+         * 设置是否可缩放
+         * @param isScale 是否可缩放
+         */
+        public Builder<T> setScale(boolean isScale){
+            previewBean.isScale = isScale;
+            return this;
+        }
+
+        /**
          * 设置默认展示图片的位置
          * @param position 位置
          */

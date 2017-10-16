@@ -40,5 +40,7 @@ public class PreviewBean<T> implements Serializable{
     public OnClickListener<T> clickListener;
     /** 长按事件事件 */
     public OnLongClickListener<T> longClickListener;
+    /** 是否可缩放 */
+    public boolean isScale = true;
 
 }

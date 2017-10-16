@@ -19,8 +19,8 @@ import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.OnLongClickListener;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
-import com.lodz.android.component.photopicker.preview.PreviewManager;
 import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
+import com.lodz.android.component.photopicker.preview.PreviewManager;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
@@ -101,6 +101,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                 PreviewManager
                         .<String>create()
                         .setPosition(3)
+                        .setScale(true)
                         .setBackgroundColor(R.color.black)
                         .setStatusBarColor(R.color.black)
                         .setPagerTextColor(R.color.white)
@@ -114,7 +115,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setOnLongClickListener(new OnLongClickListener<String>() {
                             @Override
                             public void onLongClick(Context context, String source, int position, PreviewController controller) {
-                                ToastUtils.showShort(getContext(), "long click " + position);
+                                ToastUtils.showShort(context, "long click " + position);
                             }
                         })
                         .setImgLoader(new PreviewLoader<String>() {
