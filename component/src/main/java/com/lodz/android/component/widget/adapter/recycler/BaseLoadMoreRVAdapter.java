@@ -54,6 +54,9 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     /** 所有item都隐藏回调 */
     private OnAllItemHideListener mOnAllItemHideListener;
 
+    /** 是否是GridLayoutManager */
+    protected boolean isGridLayoutManager = false;
+
     public BaseLoadMoreRVAdapter(Context context) {
         super(context);
     }
@@ -353,7 +356,8 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if(manager instanceof GridLayoutManager) {// 网格布局时要优化加载排版
+        isGridLayoutManager = manager instanceof GridLayoutManager;// 网格布局时要优化加载排版
+        if(isGridLayoutManager) {
             adapterGridLayoutManager((GridLayoutManager) manager);
         }
     }
