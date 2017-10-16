@@ -36,6 +36,8 @@ public class PreviewBean<T> implements Serializable{
     public int pagerTextColor = android.R.color.darker_gray;
     /** 页码文字大小（单位SP） */
     public int pagerTextSize = 16;
+    /** 是否显示页码文字 */
+    public boolean isShowPagerText = true;
     /** 点击事件 */
     public OnClickListener<T> clickListener;
     /** 长按事件事件 */

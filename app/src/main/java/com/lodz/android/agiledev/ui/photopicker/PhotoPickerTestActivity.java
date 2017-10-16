@@ -100,12 +100,13 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onClick(View v) {
                 PreviewManager
                         .<String>create()
-                        .setPosition(3)
+                        .setPosition(4)
                         .setScale(true)
                         .setBackgroundColor(R.color.black)
                         .setStatusBarColor(R.color.black)
                         .setPagerTextColor(R.color.white)
                         .setPagerTextSize(18)
+                        .setShowPagerText(true)
                         .setOnClickListener(new OnClickListener<String>() {
                             @Override
                             public void onClick(Context context, String source, int position, PreviewController controller) {

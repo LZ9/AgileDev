@@ -118,6 +118,16 @@ public class PreviewManager {
         }
 
         /**
+         * 设置是否显示页码文字
+         * @param isShow 是否显示
+         */
+        public Builder<T> setShowPagerText(boolean isShow){
+            previewBean.isShowPagerText = isShow;
+            return this;
+        }
+
+
+        /**
          * 设置点击监听
          * @param listener 监听器
          */

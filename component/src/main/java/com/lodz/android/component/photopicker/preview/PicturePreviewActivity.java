@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -79,6 +80,7 @@ public class PicturePreviewActivity extends AbsActivity{
             setSystemBarColor(mPreviewBean.statusBarColor, mPreviewBean.navigationBarColor);
         }
         setPagerNum(mPreviewBean.showPosition);
+        mPagerTipsTv.setVisibility(mPreviewBean.isShowPagerText ? View.VISIBLE : View.GONE);
         mPagerTipsTv.setTextColor(ContextCompat.getColor(getContext(), mPreviewBean.pagerTextColor));
         mPagerTipsTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, mPreviewBean.pagerTextSize);
     }
