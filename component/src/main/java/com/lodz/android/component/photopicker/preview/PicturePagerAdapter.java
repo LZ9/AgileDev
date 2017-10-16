@@ -1,10 +1,12 @@
 package com.lodz.android.component.photopicker.preview;
 
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.widget.photoview.PhotoView;
 import com.lodz.android.core.utils.ArrayUtils;
 
@@ -17,8 +19,11 @@ class PicturePagerAdapter extends PagerAdapter {
 
     private PreviewBean  mPreviewBean;
 
-    PicturePagerAdapter(PreviewBean previewBean) {
+    private PreviewController mPreviewController;
+
+    PicturePagerAdapter(PreviewBean previewBean, PreviewController controller) {
         this.mPreviewBean = previewBean;
+        this.mPreviewController = controller;
     }
 
     @Override
@@ -38,17 +43,33 @@ class PicturePagerAdapter extends PagerAdapter {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        PhotoView imageView = new PhotoView(container.getContext());
+    public Object instantiateItem(ViewGroup container, final int position) {
+        final Context context = container.getContext();
+        final PhotoView imageView = new PhotoView(context);
         container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setScaleType(ImageView.ScaleType.CENTER);
-        mPreviewBean.previewLoader.displayPreviewImg(container.getContext(), mPreviewBean.sourceList.get(position), imageView);
+        mPreviewBean.previewLoader.displayPreviewImg(context, mPreviewBean.sourceList.get(position), imageView);
+
+        if (mPreviewBean.clickListener != null){
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPreviewBean.clickListener.onClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
+                }
+            });
+        }
+
+        if (mPreviewBean.longClickListener != null){
+            imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mPreviewBean.longClickListener.onLongClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
+                    return true;
+                }
+            });
+        }
+
         return imageView;
     }
-
-    public interface Listener{
-        void onClickPicture();
-    }
-
 
 }

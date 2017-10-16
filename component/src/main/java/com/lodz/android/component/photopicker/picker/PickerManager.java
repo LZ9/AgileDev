@@ -1,4 +1,4 @@
-package com.lodz.android.component.photopicker.manager;
+package com.lodz.android.component.photopicker.picker;
 
 /**
  * 照片选择管理类

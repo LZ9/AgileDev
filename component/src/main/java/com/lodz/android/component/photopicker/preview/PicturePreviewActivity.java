@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
+import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.widget.photoview.PhotoViewPager;
 import com.lodz.android.core.utils.ArrayUtils;
 
@@ -66,7 +67,7 @@ public class PicturePreviewActivity extends AbsActivity{
     private void initViewPager() {
         mViewPager = (PhotoViewPager) findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setAdapter(new PicturePagerAdapter(mPreviewBean));
+        mViewPager.setAdapter(new PicturePagerAdapter(mPreviewBean, mPreviewController));
         mViewPager.setCurrentItem(mPreviewBean.showPosition);
     }
 
@@ -102,6 +103,13 @@ public class PicturePreviewActivity extends AbsActivity{
             }
         });
     }
+
+    private PreviewController mPreviewController = new PreviewController() {
+        @Override
+        public void close() {
+            finish();
+        }
+    };
 
     /** 设置页码 */
     private void setPagerNum(int position){

@@ -1,4 +1,4 @@
-package com.lodz.android.component.photopicker.preview;
+package com.lodz.android.component.photopicker.contract.preview;
 
 import android.content.Context;
 import android.widget.ImageView;

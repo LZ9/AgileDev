@@ -2,6 +2,10 @@ package com.lodz.android.component.photopicker.preview;
 
 import android.support.annotation.ColorRes;
 
+import com.lodz.android.component.photopicker.contract.OnClickListener;
+import com.lodz.android.component.photopicker.contract.OnLongClickListener;
+import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,5 +36,9 @@ public class PreviewBean<T> implements Serializable{
     public int pagerTextColor = android.R.color.darker_gray;
     /** 页码文字大小（单位SP） */
     public int pagerTextSize = 16;
+    /** 点击事件 */
+    public OnClickListener<T> clickListener;
+    /** 长按事件事件 */
+    public OnLongClickListener<T> longClickListener;
 
 }

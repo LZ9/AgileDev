@@ -5,6 +5,9 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.IntRange;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.photopicker.contract.OnClickListener;
+import com.lodz.android.component.photopicker.contract.OnLongClickListener;
+import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
@@ -102,6 +105,24 @@ public class PreviewManager {
          */
         public Builder<T> setPagerTextSize(int textSize){
             previewBean.pagerTextSize = textSize;
+            return this;
+        }
+
+        /**
+         * 设置点击监听
+         * @param listener 监听器
+         */
+        public Builder<T> setOnClickListener(OnClickListener<T> listener){
+            previewBean.clickListener = listener;
+            return this;
+        }
+
+        /**
+         * 设置长按监听
+         * @param listener 监听器
+         */
+        public Builder<T> setOnLongClickListener(OnLongClickListener<T> listener){
+            previewBean.longClickListener = listener;
             return this;
         }
 

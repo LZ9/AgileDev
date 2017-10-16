@@ -16,8 +16,11 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.photopicker.contract.OnClickListener;
+import com.lodz.android.component.photopicker.contract.OnLongClickListener;
+import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
-import com.lodz.android.component.photopicker.preview.PreviewLoader;
+import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
@@ -97,11 +100,23 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onClick(View v) {
                 PreviewManager
                         .<String>create()
-                        .setPosition(12)
+                        .setPosition(3)
                         .setBackgroundColor(R.color.black)
                         .setStatusBarColor(R.color.black)
                         .setPagerTextColor(R.color.white)
                         .setPagerTextSize(18)
+                        .setOnClickListener(new OnClickListener<String>() {
+                            @Override
+                            public void onClick(Context context, String source, int position, PreviewController controller) {
+                                controller.close();
+                            }
+                        })
+                        .setOnLongClickListener(new OnLongClickListener<String>() {
+                            @Override
+                            public void onLongClick(Context context, String source, int position, PreviewController controller) {
+                                ToastUtils.showShort(getContext(), "long click " + position);
+                            }
+                        })
                         .setImgLoader(new PreviewLoader<String>() {
                             @Override
                             public void displayPreviewImg(Context context, String source, ImageView imageView) {
