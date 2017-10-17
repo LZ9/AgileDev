@@ -97,6 +97,9 @@ public class BitmapUtils {
     public static Bitmap drawableToBitmap(Drawable drawable) {
         int width = drawable.getIntrinsicWidth();
         int height = drawable.getIntrinsicHeight();
+        if (width <= 1 || height <= 1){
+            return null;
+        }
         Bitmap bitmap = Bitmap.createBitmap(width, height,
                 drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
@@ -112,6 +115,9 @@ public class BitmapUtils {
      * @param height 高度
      */
     public static Bitmap drawableToBitmap(Drawable drawable, @IntRange(from = 1) int width, @IntRange(from = 1) int height) {
+        if (width <= 1 || height <= 1){
+            return null;
+        }
         Bitmap bitmap = Bitmap.createBitmap(width, height,
                 drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);

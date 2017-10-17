@@ -22,7 +22,7 @@
     <string name="photo_source_list_empty">您没有可以选择的图片</string>
     <string name="picker_title">图片选择</string>
     <string name="picker_confirm">确定</string>
-    <string name="picker_confirm_num">确定(%1$s,/%2$s,)</string>
+    <string name="picker_confirm_num">确定(%1$s/%2$s)</string>
     <string name="picker_preview">预览</string>
     <string name="picker_preview_num">预览(%s)</string>
     <string name="picker_all_photo">全部图片</string>
