@@ -103,7 +103,21 @@ public class BitmapUtils {
         drawable.setBounds(0, 0, width, height);
         drawable.draw(canvas);
         return bitmap;
+    }
 
+    /**
+     * Drawable转化为Bitmap
+     * @param drawable drawable
+     * @param width 宽度
+     * @param height 高度
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable, @IntRange(from = 1) int width, @IntRange(from = 1) int height) {
+        Bitmap bitmap = Bitmap.createBitmap(width, height,
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     /**

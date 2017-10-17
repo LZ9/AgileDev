@@ -48,7 +48,7 @@ class PicturePagerAdapter extends PagerAdapter {
         ImageView imageView = mPreviewBean.isScale ? new PhotoView(context) : new ImageView(context);
         container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        mPreviewBean.previewLoader.displayPreviewImg(context, mPreviewBean.sourceList.get(position), imageView);
+        mPreviewBean.photoLoader.displayImg(context, mPreviewBean.sourceList.get(position), imageView);
 
         if (mPreviewBean.clickListener != null){
             imageView.setOnClickListener(new View.OnClickListener() {

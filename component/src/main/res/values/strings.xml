@@ -16,9 +16,17 @@
     <string name="loading_more_tips">努力为您加载中~</string>
     <string name="load_fail_tips">加载失败，请点击重试~</string>
 
-    <!-- 图片预览 -->
-    <string name="preview_loader_unset">您尚未设置图片加载器</string>
+    <!-- 图片预览/选择 -->
+    <string name="photo_loader_unset">您尚未设置图片加载器</string>
     <string name="preview_source_list_empty">图片数据为空</string>
+    <string name="photo_source_list_empty">您没有可以选择的图片</string>
+    <string name="picker_title">图片选择</string>
+    <string name="picker_confirm">确定</string>
+    <string name="picker_confirm_num">确定(%1$s,/%2$s,)</string>
+    <string name="picker_preview">预览</string>
+    <string name="picker_preview_num">预览(%s)</string>
+    <string name="picker_all_photo">全部图片</string>
+
 
 
 </resources>

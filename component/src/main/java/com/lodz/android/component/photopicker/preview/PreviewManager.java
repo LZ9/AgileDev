@@ -7,7 +7,7 @@ import android.support.annotation.IntRange;
 import com.lodz.android.component.R;
 import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.OnLongClickListener;
-import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
+import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
@@ -23,16 +23,16 @@ import java.util.List;
 public class PreviewManager {
 
     /** 预览数据 */
-    static PreviewBean previewBean;
+    static PreviewBean sPreviewBean;
 
     /** 创建构造对象 */
     public static <T> Builder<T> create(){
         return new Builder<>();
     }
 
-    private <T> PreviewManager(final Builder<T> builder) {
-        previewBean = null;
-        previewBean = builder.previewBean;
+    private <T> PreviewManager(Builder<T> builder) {
+        sPreviewBean = null;
+        sPreviewBean = builder.previewBean;
     }
 
     /** 预览数据构建类 */
@@ -47,10 +47,19 @@ public class PreviewManager {
 
         /**
          * 设置图片加载器
-         * @param previewLoader 图片加载器
+         * @param photoLoader 图片加载器
          */
-        public Builder<T> setImgLoader(PreviewLoader<T> previewLoader) {
-            previewBean.previewLoader = previewLoader;
+        public Builder<T> setImgLoader(PhotoLoader<T> photoLoader) {
+            previewBean.photoLoader = photoLoader;
+            return this;
+        }
+
+        /**
+         * 设置页面缓存数
+         * @param pageLimit 页面缓存数
+         */
+        public Builder<T> setPageLimit(@IntRange(from = 1) int pageLimit){
+            previewBean.pageLimit = pageLimit;
             return this;
         }
 
@@ -179,16 +188,17 @@ public class PreviewManager {
      * @param context 上下文
      */
     public void open(Context context){
-        if (previewBean.previewLoader == null){// 校验图片加载器
-            ToastUtils.showShort(context, R.string.preview_loader_unset);
+        if (sPreviewBean.photoLoader == null){// 校验图片加载器
+            ToastUtils.showShort(context, R.string.photo_loader_unset);
             return;
         }
-        if (ArrayUtils.isEmpty(previewBean.sourceList)){// 校验数据列表
+        if (ArrayUtils.isEmpty(sPreviewBean.sourceList)){// 校验数据列表
             ToastUtils.showShort(context, R.string.preview_source_list_empty);
             return;
         }
-        if ((previewBean.showPosition + 1) > previewBean.sourceList.size()){// 校验默认位置参数
-            previewBean.showPosition = 0;
+        sPreviewBean.isShowPagerText = ArrayUtils.getSize(sPreviewBean.sourceList) > 1;// 只有一张图片不显示页码提示
+        if ((sPreviewBean.showPosition + 1) > sPreviewBean.sourceList.size()){// 校验默认位置参数
+            sPreviewBean.showPosition = 0;
         }
         PicturePreviewActivity.start(context);
     }

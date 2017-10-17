@@ -16,15 +16,11 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.photopicker.contract.OnClickListener;
-import com.lodz.android.component.photopicker.contract.OnLongClickListener;
-import com.lodz.android.component.photopicker.contract.preview.PreviewController;
-import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
-import com.lodz.android.component.photopicker.preview.PreviewManager;
+import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.photopicker.picker.PickerManager;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
-import com.lodz.android.imageloader.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,48 +81,63 @@ public class PhotoPickerTestActivity extends BaseActivity{
     @Override
     protected void setListeners() {
         super.setListeners();
-        final String[] urls = new String[]{
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507892144572&di=a34f5d0692bdd2bf09518a247216678f&imgtype=0&src=http%3A%2F%2Fimg1.ph.126.net%2F6bytMk5nTddW4FRg2OrdGQ%3D%3D%2F1547830896949199659.jpg",
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508486908&di=5d41971051b00f15c1f23113380d67af&imgtype=jpg&er=1&src=http%3A%2F%2Fimg0.ph.126.net%2FbuWcqJ7E9zV-jAy-Wh42Bw%3D%3D%2F1119425982395581236.jpg",
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507892191605&di=0dfd0f9b87ce36e35b6ad873236a82bb&imgtype=0&src=http%3A%2F%2Fimg2.ph.126.net%2FsmHY3894QY9w9KakIl9mJg%3D%3D%2F54606145499167538.jpg",
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508486932&di=c74340412dfa4a5ebed40bf3d1c73193&imgtype=jpg&er=1&src=http%3A%2F%2Fimg2.ph.126.net%2F1MhXiknpoplqL9mHDf98yw%3D%3D%2F2662753279700113973.jpg",
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507892227491&di=22c7f59c1fcb47098da64b4e4b1ccede&imgtype=0&src=http%3A%2F%2Fimg2.ph.126.net%2FU78LqnWDqm5r7BQUaPMAwg%3D%3D%2F3062729221606374682.jpg",
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507892253859&di=3c31a941cde1f77a8a04549a7661aa47&imgtype=0&src=http%3A%2F%2Fa3.mzstatic.com%2Fus%2Fr30%2FPurple%2Fv4%2Fab%2Fa7%2F00%2Faba7007e-2297-ab89-78d5-9469c9d9f40b%2Fscreen640x960.jpeg",
-                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=238811131,1278881919&fm=27&gp=0.jpg",
-        };
-
         mTakeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreviewManager
-                        .<String>create()
-                        .setPosition(4)
-                        .setScale(true)
-                        .setBackgroundColor(R.color.black)
-                        .setStatusBarColor(R.color.black)
-                        .setPagerTextColor(R.color.white)
-                        .setPagerTextSize(18)
-                        .setShowPagerText(true)
-                        .setOnClickListener(new OnClickListener<String>() {
+
+                PickerManager
+                        .create()
+                        .setImgLoader(new PhotoLoader<String>() {
                             @Override
-                            public void onClick(Context context, String source, int position, PreviewController controller) {
-                                controller.close();
+                            public void displayImg(Context context, String source, ImageView imageView) {
+
                             }
                         })
-                        .setOnLongClickListener(new OnLongClickListener<String>() {
-                            @Override
-                            public void onLongClick(Context context, String source, int position, PreviewController controller) {
-                                ToastUtils.showShort(context, "long click " + position);
-                            }
-                        })
-                        .setImgLoader(new PreviewLoader<String>() {
-                            @Override
-                            public void displayPreviewImg(Context context, String source, ImageView imageView) {
-                                ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
-                            }
-                        })
-                        .build(urls)
+                        .build()
                         .open(getContext());
+
+
+
+//                String[] urls = new String[]{
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135406740&di=ad56c6b92e5d9888a04f0b724e5219d0&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F3801213fb80e7beca9004ec5252eb9389b506b38.jpg",
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135426954&di=45834427b6f8ec30f1d7e1d99f59ee5c&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F0b7b02087bf40ad1cd0f99c55d2c11dfa9ecce29.jpg",
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135506833&di=6b22dd2085f18b3643fe62b0f8b8955f&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F242dd42a2834349b8d289fafcbea15ce36d3beea.jpg",
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135457903&di=e107c45dd449126ae54f0f665c558d05&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Df49943efb8119313d34ef7f30d5166a2%2Fb17eca8065380cd736f92fc0ab44ad345982813c.jpg",
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135473894&di=27b040e674c4f9ac8b499f38612cab39&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fd788d43f8794a4c2fc3e95eb07f41bd5ac6e39d4.jpg",
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135496262&di=5cef907ceff298c8d5d6c79841a72696&imgtype=0&src=http%3A%2F%2Fimg4q.duitang.com%2Fuploads%2Fitem%2F201409%2F07%2F20140907224542_h4HvW.jpeg",
+//                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135447478&di=90ddcac4604965af5d9bc744237a27aa&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd52a2834349b033b1c4bcdcf1fce36d3d439bde7.jpg",
+//                };
+//
+//                PreviewManager
+//                        .<String>create()
+//                        .setPosition(1)
+//                        .setPageLimit(2)
+//                        .setScale(true)
+//                        .setBackgroundColor(R.color.black)
+//                        .setStatusBarColor(R.color.black)
+//                        .setPagerTextColor(R.color.white)
+//                        .setPagerTextSize(14)
+//                        .setShowPagerText(true)
+//                        .setOnClickListener(new OnClickListener<String>() {
+//                            @Override
+//                            public void onClick(Context context, String source, int position, PreviewController controller) {
+//                                controller.close();
+//                            }
+//                        })
+//                        .setOnLongClickListener(new OnLongClickListener<String>() {
+//                            @Override
+//                            public void onLongClick(Context context, String source, int position, PreviewController controller) {
+//                                ToastUtils.showShort(context, "long click " + position);
+//                            }
+//                        })
+//                        .setImgLoader(new PhotoLoader<String>() {
+//                            @Override
+//                            public void displayImg(Context context, String source, ImageView imageView) {
+//                                ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
+//                            }
+//                        })
+//                        .build(urls)
+//                        .open(getContext());
             }
         });
     }

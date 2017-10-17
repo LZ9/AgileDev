@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
+import com.lodz.android.component.widget.photoview.PhotoView;
+import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
 import com.lodz.android.component.widget.photoview.PhotoViewPager;
 import com.lodz.android.core.utils.ArrayUtils;
 
@@ -39,7 +41,7 @@ public class PicturePreviewActivity extends AbsActivity{
 
     /** 背景控件 */
     private ViewGroup mRootView;
-    /** 翻页适配器 */
+    /** 翻页控件 */
     private PhotoViewPager mViewPager;
     /** 页码提示 */
     private TextView mPagerTipsTv;
@@ -50,7 +52,7 @@ public class PicturePreviewActivity extends AbsActivity{
     @Override
     protected void startCreate() {
         super.startCreate();
-        mPreviewBean = PreviewManager.previewBean;
+        mPreviewBean = PreviewManager.sPreviewBean;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class PicturePreviewActivity extends AbsActivity{
 
     private void initViewPager() {
         mViewPager = (PhotoViewPager) findViewById(R.id.view_pager);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(mPreviewBean.pageLimit);
         mViewPager.setAdapter(new PicturePagerAdapter(mPreviewBean, mPreviewController));
         mViewPager.setCurrentItem(mPreviewBean.showPosition);
     }
@@ -96,6 +98,7 @@ public class PicturePreviewActivity extends AbsActivity{
 
             @Override
             public void onPageSelected(int position) {
+                resetPhoto(mViewPager);
                 setPagerNum(position);
             }
 
@@ -104,6 +107,21 @@ public class PicturePreviewActivity extends AbsActivity{
 
             }
         });
+    }
+
+    /**
+     * 还原照片
+     * @param viewPager 翻页控件
+     */
+    private void resetPhoto(PhotoViewPager viewPager) {
+        for (int i = 0; i < viewPager.getChildCount(); i++) {
+            View view = viewPager.getChildAt(i);
+            if (view != null && view instanceof PhotoView){
+                PhotoView photoView = (PhotoView) view;
+                PhotoViewAttacher attacher = photoView.getAttacher();
+                attacher.update();
+            }
+        }
     }
 
     private PreviewController mPreviewController = new PreviewController() {

@@ -4,7 +4,7 @@ import android.support.annotation.ColorRes;
 
 import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.OnLongClickListener;
-import com.lodz.android.component.photopicker.contract.preview.PreviewLoader;
+import com.lodz.android.component.photopicker.contract.PhotoLoader;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.List;
 
 public class PreviewBean<T> implements Serializable{
 
-    /** 本地资源列表 */
+    /** 资源列表 */
     public List<T> sourceList;
     /** 图片加载接口 */
-    public PreviewLoader<T> previewLoader;
+    public PhotoLoader<T> photoLoader;
     /** 默认显示的图片位置 */
     public int showPosition = 0;
     /** 预览页的背景色 */
@@ -44,5 +44,7 @@ public class PreviewBean<T> implements Serializable{
     public OnLongClickListener<T> longClickListener;
     /** 是否可缩放 */
     public boolean isScale = true;
+    /** 页面缓存数 */
+    public int pageLimit = 2;
 
 }

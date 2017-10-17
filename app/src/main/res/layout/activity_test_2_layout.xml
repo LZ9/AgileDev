@@ -52,7 +52,7 @@
                                 android:layout_height="32dp"
                                 android:layout_gravity="start"
                                 android:contentDescription="@string/app_name"
-                                android:src="@drawable/selector_btn_back" />
+                                android:src="@drawable/component_selector_btn_back" />
 
                             <ImageView
                                 android:id="@+id/detail_collection_imageview"
