@@ -1,8 +1,10 @@
 package com.lodz.android.core.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
@@ -14,88 +16,254 @@ import android.support.v4.content.ContextCompat;
 
 public class SelectorUtils {
 
-    public static StateListDrawable createPressedDrawable(Context context, @DrawableRes int normal, @DrawableRes int pressed){
+    /**
+     * 创建按压背景
+     * @param context 上下文
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     */
+    public static StateListDrawable createBgPressedDrawable(Context context, @DrawableRes int normal, @DrawableRes int pressed){
+        return createBgSelectorDrawable(context, normal, pressed, -1, -1, -1);
+    }
+
+    /**
+     * 创建按压和不可用背景
+     * @param context 上下文
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     * @param unable 不可用背景
+     */
+    public static StateListDrawable createBgPressedUnableDrawable(Context context, @DrawableRes int normal, @DrawableRes int pressed, @DrawableRes int unable){
+        return createBgSelectorDrawable(context, normal, pressed, unable, -1, -1);
+    }
+
+    /**
+     * 创建选中背景
+     * @param context 上下文
+     * @param normal 正常背景
+     * @param selected 选中背景
+     */
+    public static StateListDrawable createBgSelectedDrawable(Context context, @DrawableRes int normal, @DrawableRes int selected){
+        return createBgSelectorDrawable(context, normal, -1, -1, selected, -1);
+    }
+
+    /**
+     * 创建按压背景
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     */
+    public static StateListDrawable createBgPressedDrawable(Drawable normal, Drawable pressed){
+        return createBgSelectorDrawable(normal, pressed, null, null, null);
+    }
+
+    /**
+     * 创建按压和不可用背景
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     * @param unable 不可用背景
+     */
+    public static StateListDrawable createBgPressedUnableDrawable(Drawable normal, Drawable pressed, Drawable unable){
+        return createBgSelectorDrawable(normal, pressed, unable, null, null);
+    }
+
+    /**
+     * 创建选中背景
+     * @param normal 正常背景
+     * @param selected 选中背景
+     */
+    public static StateListDrawable createBgSelectedDrawable(Drawable normal, Drawable selected){
+        return createBgSelectorDrawable(normal, null, null, selected, null);
+    }
+
+    /**
+     * 创建按压背景
+     * @param context 上下文
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     */
+    public static StateListDrawable createBgPressedColor(Context context, @ColorRes int normal, @ColorRes int pressed){
+        return createBgSelectorColor(context, normal, pressed, -1, -1, -1);
+    }
+
+    /**
+     * 创建按压和不可用背景
+     * @param context 上下文
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     * @param unable 不可用背景
+     */
+    public static StateListDrawable createBgPressedUnableColor(Context context, @ColorRes int normal, @ColorRes int pressed, @ColorRes int unable){
+        return createBgSelectorColor(context, normal, pressed, unable, -1, -1);
+    }
+
+    /**
+     * 创建选中背景
+     * @param context 上下文
+     * @param normal 正常背景
+     * @param selected 选中背景
+     */
+    public static StateListDrawable createBgSelectedColor(Context context, @ColorRes int normal, @ColorRes int selected){
+        return createBgSelectorColor(context, normal, -1, -1, selected, -1);
+    }
+
+    /**
+     * 创建背景选择器
+     * @param context 上下文
+     * @param normal 正常背景（不需要可传-1）
+     * @param pressed 按压背景（不需要可传-1）
+     * @param unable 不可用背景（不需要可传-1）
+     * @param selected 选中背景（不需要可传-1）
+     * @param focused 获取焦点背景（不需要可传-1）
+     */
+    public static StateListDrawable createBgSelectorDrawable(Context context, @DrawableRes int normal, @DrawableRes int pressed,
+            @DrawableRes int unable, @DrawableRes int selected, @DrawableRes int focused){
+        return createBgSelectorDrawable(normal > 0 ? ContextCompat.getDrawable(context, normal) : null,
+                pressed > 0 ? ContextCompat.getDrawable(context, pressed) : null,
+                unable > 0 ? ContextCompat.getDrawable(context, unable) : null,
+                selected > 0 ? ContextCompat.getDrawable(context, selected) : null,
+                focused > 0 ? ContextCompat.getDrawable(context, focused) : null);
+    }
+
+    /**
+     * 创建背景选择器
+     * @param context 上下文
+     * @param normal 正常背景（不需要可传-1）
+     * @param pressed 按压背景（不需要可传-1）
+     * @param unable 不可用背景（不需要可传-1）
+     * @param selected 选中背景（不需要可传-1）
+     * @param focused 获取焦点背景（不需要可传-1）
+     */
+    public static StateListDrawable createBgSelectorColor(Context context, @ColorRes int normal, @ColorRes int pressed,
+            @ColorRes int unable, @ColorRes int selected, @ColorRes int focused){
+        return createBgSelectorDrawable(normal > 0 ? DrawableUtils.createColorDrawable(context, normal) : null,
+                pressed > 0 ? DrawableUtils.createColorDrawable(context, pressed) : null,
+                unable > 0 ? DrawableUtils.createColorDrawable(context, unable) : null,
+                selected > 0 ? DrawableUtils.createColorDrawable(context, selected) : null,
+                focused > 0 ? DrawableUtils.createColorDrawable(context, focused) : null);
+    }
+
+    /**
+     * 创建背景选择器
+     * @param normal 正常背景
+     * @param pressed 按压背景
+     * @param unable 不可用背景
+     * @param selected 选中背景
+     * @param focused 获取焦点背景
+     */
+    public static StateListDrawable createBgSelectorDrawable(Drawable normal, Drawable pressed, Drawable unable, Drawable selected, Drawable focused) {
         StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{android.R.attr.state_pressed}, ContextCompat.getDrawable(context, pressed));
-        drawable.addState(new int[]{}, ContextCompat.getDrawable(context, normal));
+        if (pressed != null) {
+            drawable.addState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled}, pressed);
+        }
+        if (selected != null) {
+            drawable.addState(new int[]{android.R.attr.state_selected, android.R.attr.state_enabled}, selected);
+        }
+        if (focused != null) {
+            drawable.addState(new int[]{android.R.attr.state_focused, android.R.attr.state_enabled}, focused);
+        }
+        if (normal != null) {
+            drawable.addState(new int[]{android.R.attr.state_enabled}, normal);
+        }
+        if (unable != null) {
+            drawable.addState(new int[]{}, unable);
+        }
         return drawable;
     }
 
-    public static StateListDrawable createPressedDrawable(Drawable normal, Drawable pressed){
-        StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{android.R.attr.state_pressed}, pressed);
-        drawable.addState(new int[]{}, normal);
-        return drawable;
+    /**
+     * 创建按压文字颜色
+     * @param normal 正常颜色
+     * @param pressed 按压颜色
+     */
+    public static ColorStateList createTxPressedColor(@ColorInt int normal, @ColorInt int pressed){
+        return createTxSelectorColor(normal, pressed, -1, -1, -1);
     }
 
-    public static StateListDrawable createPressedColor(Context context, @ColorRes int normal, @ColorRes int pressed){
-        StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{android.R.attr.state_pressed}, DrawableUtils.createColorDrawable(context, pressed));
-        drawable.addState(new int[]{}, DrawableUtils.createColorDrawable(context, normal));
-        return drawable;
+    /**
+     * 创建按压和不可用文字颜色
+     * @param normal 正常颜色
+     * @param pressed 按压颜色
+     * @param unable 不可用颜色
+     */
+    public static ColorStateList createTxPressedUnableColor(@ColorInt int normal, @ColorInt int pressed, @ColorInt int unable){
+        return createTxSelectorColor(normal, pressed, unable, -1, -1);
     }
 
-
-    public static StateListDrawable createSelectorColor(Context context, @ColorRes int normal, @ColorRes int pressed,
-            @ColorRes int enabled, @ColorRes int selected, @ColorRes int focused){
-        StateListDrawable drawable = new StateListDrawable();
-        if (pressed > 0){
-            drawable.addState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled}, DrawableUtils.createColorDrawable(context, pressed));
-        }
-        if (normal > 0){
-            drawable.addState(new int[]{android.R.attr.state_enabled}, DrawableUtils.createColorDrawable(context, normal));
-        }
-        if (selected > 0){
-            drawable.addState(new int[]{android.R.attr.state_selected}, DrawableUtils.createColorDrawable(context, selected));
-        }
-        if (focused > 0){
-            drawable.addState(new int[]{android.R.attr.state_focused, android.R.attr.state_enabled}, DrawableUtils.createColorDrawable(context, focused));
-        }
-        if (enabled > 0){
-            drawable.addState(new int[]{}, DrawableUtils.createColorDrawable(context, enabled));
-        }
-        return drawable;
-
-//        StateListDrawable drawable = new StateListDrawable();
-//        Drawable normalDrawable = normal <= 0 ? null : DrawableUtils.createColorDrawable(context, normal);
-//        Drawable pressedDrawable = pressed <= 0 ? null : DrawableUtils.createColorDrawable(context, pressed);
-//        Drawable unenabledDrawable = unenabled <= 0 ? null : DrawableUtils.createColorDrawable(context, unenabled);
-//        Drawable selectedDrawable = selected <= 0 ? null : DrawableUtils.createColorDrawable(context, selected);
-//        Drawable focusedDrawable = focused <= 0 ? null : DrawableUtils.createColorDrawable(context, focused);
-//
-//        // View.PRESSED_ENABLED_STATE_SET
-//        drawable.addState(new int[] { android.R.attr.state_pressed, android.R.attr.state_enabled}, pressedDrawable);
-//        // View.ENABLED_FOCUSED_STATE_SET
-//        drawable.addState(new int[] { android.R.attr.state_enabled, android.R.attr.state_focused}, focusedDrawable);
-//        // View.ENABLED_STATE_SET
-//        drawable.addState(new int[] { android.R.attr.state_enabled }, normalDrawable);
-//        // View.FOCUSED_STATE_SET
-//        drawable.addState(new int[] { android.R.attr.state_focused }, focusedDrawable);
-//        // View.WINDOW_FOCUSED_STATE_SET
-//        drawable.addState(new int[] { android.R.attr.state_window_focused }, unenabledDrawable);
-//        // View.EMPTY_STATE_SET
-//        drawable.addState(new int[] {}, normalDrawable);
-//        return drawable;
+    /**
+     * 创建选中文字颜色
+     * @param normal 正常颜色
+     * @param selected 选中颜色
+     */
+    public static ColorStateList createTxSelectedColor(@ColorInt int normal, @ColorInt int selected){
+        return createTxSelectorColor(normal, -1, -1, selected, -1);
     }
 
-    public static StateListDrawable newSelector(Context context, int idNormal, int idPressed, int idFocused,  int idUnable) {
-        StateListDrawable bg = new StateListDrawable();
-        Drawable normal = idNormal == -1 ? null : context.getResources().getDrawable(idNormal);
-        Drawable pressed = idPressed == -1 ? null : context.getResources().getDrawable(idPressed);
-        Drawable focused = idFocused == -1 ? null : context.getResources().getDrawable(idFocused);
-        Drawable unable = idUnable == -1 ? null : context.getResources().getDrawable(idUnable);
-        // View.PRESSED_ENABLED_STATE_SET
-        bg.addState(new int[] { android.R.attr.state_pressed, android.R.attr.state_enabled }, pressed);
-        // View.ENABLED_FOCUSED_STATE_SET
-        bg.addState(new int[] { android.R.attr.state_enabled, android.R.attr.state_focused }, focused);
-        // View.ENABLED_STATE_SET
-        bg.addState(new int[] { android.R.attr.state_enabled }, normal);
-        // View.FOCUSED_STATE_SET
-        bg.addState(new int[] { android.R.attr.state_focused }, focused);
-        // View.WINDOW_FOCUSED_STATE_SET
-        bg.addState(new int[] { android.R.attr.state_window_focused }, unable);
-        // View.EMPTY_STATE_SET
-        bg.addState(new int[] {}, normal);
-        return bg;
+    /**
+     * 创建按压文字颜色
+     * @param context 上下文
+     * @param normal 正常颜色
+     * @param pressed 按压颜色
+     */
+    public static ColorStateList createTxPressedColor(Context context, @ColorRes int normal, @ColorRes int pressed){
+        return createTxSelectorColor(context, normal, pressed, -1, -1, -1);
     }
+
+    /**
+     * 创建按压和不可用文字颜色
+     * @param context 上下文
+     * @param normal 正常颜色
+     * @param pressed 按压颜色
+     * @param unable 不可用颜色
+     */
+    public static ColorStateList createTxPressedUnableColor(Context context, @ColorRes int normal, @ColorRes int pressed, @ColorRes int unable){
+        return createTxSelectorColor(context, normal, pressed, unable, -1, -1);
+    }
+
+    /**
+     * 创建选中文字颜色
+     * @param context 上下文
+     * @param normal 正常颜色
+     * @param selected 选中颜色
+     */
+    public static ColorStateList createTxSelectedColor(Context context, @ColorRes int normal, @ColorRes int selected){
+        return createTxSelectorColor(context, normal, -1, -1, selected, -1);
+    }
+
+    /**
+     * 创建文字颜色选择器
+     * @param normal 正常颜色（不需要可传-1）
+     * @param pressed 按压颜色（不需要可传-1）
+     * @param unable 不可用颜色（不需要可传-1）
+     * @param selected 选中颜色（不需要可传-1）
+     * @param focused 获取焦点颜色（不需要可传-1）
+     */
+    public static ColorStateList createTxSelectorColor(Context context, @ColorRes int normal, @ColorRes int pressed,
+            @ColorRes int unable, @ColorRes int selected, @ColorRes int focused){
+        return createTxSelectorColor(normal > 0 ? ContextCompat.getColor(context, normal) : -1,
+                pressed > 0 ? ContextCompat.getColor(context, pressed) : -1,
+                unable > 0 ? ContextCompat.getColor(context, unable) : -1,
+                selected > 0 ? ContextCompat.getColor(context, selected) : -1,
+                focused > 0 ? ContextCompat.getColor(context, focused) : -1);
+    }
+
+    /**
+     * 创建文字颜色选择器
+     * @param normal 正常颜色（不需要可传-1）
+     * @param pressed 按压颜色（不需要可传-1）
+     * @param unable 不可用颜色（不需要可传-1）
+     * @param selected 选中颜色（不需要可传-1）
+     * @param focused 获取焦点颜色（不需要可传-1）
+     */
+    public static ColorStateList createTxSelectorColor(@ColorInt int normal, @ColorInt int pressed,
+            @ColorInt int unable, @ColorInt int selected, @ColorInt int focused){
+        int[] colors = new int[]{pressed, selected, focused, normal, unable};
+        int[][] states = new int[colors.length][];
+        states[0] = new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled};
+        states[1] = new int[]{android.R.attr.state_selected, android.R.attr.state_enabled};
+        states[2] = new int[]{android.R.attr.state_focused, android.R.attr.state_enabled};
+        states[3] = new int[]{android.R.attr.state_enabled};
+        states[4] = new int[] {};
+        return new ColorStateList(states, colors);
+    }
+
 }

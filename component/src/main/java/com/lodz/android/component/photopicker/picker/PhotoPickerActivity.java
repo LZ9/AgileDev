@@ -3,11 +3,11 @@ package com.lodz.android.component.photopicker.picker;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
-import com.lodz.android.core.utils.AnimUtils;
 import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.DrawableUtils;
+import com.lodz.android.core.utils.SelectorUtils;
 
 /**
  * 照片选择页面
@@ -43,8 +43,6 @@ public class PhotoPickerActivity extends AbsActivity{
     /** 预览按钮 */
     private TextView mPreviewBtn;
 
-    private int i = 1;
-
     @Override
     protected int getAbsLayoutId() {
         return R.layout.component_activity_picker_layout;
@@ -60,7 +58,6 @@ public class PhotoPickerActivity extends AbsActivity{
 
     }
 
-
     @Override
     protected void setListeners() {
         super.setListeners();
@@ -75,12 +72,12 @@ public class PhotoPickerActivity extends AbsActivity{
         findViewById(R.id.folder_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i % 2 == 0){
-                    AnimUtils.startRotateSelf(mMoreImg, 180, 0, 600, true);
-                }else {
-                    AnimUtils.startRotateSelf(mMoreImg, 0, 180, 600, true);
-                }
-                i++;
+//                if (i % 2 == 0){
+//                    AnimUtils.startRotateSelf(mMoreImg, 180, 0, 600, true);
+//                }else {
+//                    AnimUtils.startRotateSelf(mMoreImg, 0, 180, 600, true);
+//                }
+//                i++;
             }
         });
     }
@@ -90,6 +87,7 @@ public class PhotoPickerActivity extends AbsActivity{
         super.initData();
         drawConfirmBtn();
         mConfirmBtn.setText(getString(R.string.picker_confirm_num, "1", "9"));
+        mPreviewBtn.setTextColor(SelectorUtils.createTxPressedUnableColor(getContext(), android.R.color.white, android.R.color.darker_gray, android.R.color.darker_gray));
     }
 
     /** 绘制确定按钮 */
@@ -100,29 +98,34 @@ public class PhotoPickerActivity extends AbsActivity{
                 mConfirmBtn.getViewTreeObserver().removeOnPreDrawListener(this);
                 int width = mConfirmBtn.getMeasuredWidth();
                 int height = mConfirmBtn.getMeasuredHeight();
-                Bitmap bitmap = BitmapUtils.drawableToBitmap(DrawableUtils.createColorDrawable(getContext(), android.R.color.holo_red_light), width, height);
-                if (bitmap == null){
+
+                StateListDrawable drawable = SelectorUtils.createBgPressedUnableDrawable(getCornerDrawable(android.R.color.holo_green_light, width, height), getCornerDrawable(android.R.color.white, width, height), getCornerDrawable(android.R.color.darker_gray, width, height));
+                if (drawable == null){
                     return true;
                 }
-                Bitmap cornerBitmap = BitmapUtils.createRoundedCornerBitmap(bitmap, 8);
-                StateListDrawable drawable = new StateListDrawable();
-                BitmapDrawable normal = new BitmapDrawable(getContext().getResources(), cornerBitmap);
-                ColorDrawable press = DrawableUtils.createColorDrawable(getContext(), android.R.color.tertiary_text_dark);
-                drawable.addState(new int[]{android.R.attr.state_pressed}, press);
-                drawable.addState(new int[]{}, normal);
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     mConfirmBtn.setBackground(drawable);
-//                    mConfirmBtn.setBackground(SelectorUtils.createSelectorColor(getContext(), android.R.color.holo_red_light, android.R.color.holo_green_light,
-//                            android.R.color.darker_gray, android.R.color.holo_blue_light, android.R.color.holo_orange_light));
-//                    mConfirmBtn.setFocusable(true);
-//                    mConfirmBtn.setFocusableInTouchMode(true);
                 }else {
                     mConfirmBtn.setBackgroundDrawable(drawable);
                 }
+                mConfirmBtn.setTextColor(SelectorUtils.createTxPressedUnableColor(getContext(), android.R.color.white, android.R.color.holo_green_light, android.R.color.white));
                 return true;
             }
         });
     }
 
+    /**
+     * 根据颜色获取圆角Drawable
+     * @param color 颜色
+     * @param width 宽度
+     * @param height 高度
+     */
+    private Drawable getCornerDrawable(@ColorRes int color, int width, int height){
+        Bitmap bitmap = BitmapUtils.drawableToBitmap(DrawableUtils.createColorDrawable(getContext(), color), width, height);
+        if (bitmap == null){
+            return null;
+        }
+        Bitmap cornerBitmap = BitmapUtils.createRoundedCornerBitmap(bitmap, 8);
+        return DrawableUtils.createBitmapDrawable(getContext(), cornerBitmap);
+    }
 }

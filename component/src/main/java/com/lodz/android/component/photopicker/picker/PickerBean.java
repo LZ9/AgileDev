@@ -19,4 +19,12 @@ public class PickerBean implements Serializable {
     /** 图片加载接口 */
     public PhotoLoader<String> photoLoader;
 
+    /** 按钮主颜色 */
+    public int btnMainColor;
+    /** 按钮副颜色 */
+    public int btnViceColor;
+    /** 按钮不可用颜色 */
+    public int btnUnableColor;
+
+
 }
