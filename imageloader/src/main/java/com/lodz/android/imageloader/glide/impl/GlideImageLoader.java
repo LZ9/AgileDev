@@ -16,9 +16,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.signature.StringSignature;
 import com.lodz.android.imageloader.ImageloaderManager;
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
 import com.lodz.android.imageloader.glide.transformations.BlurTransformation;
@@ -32,6 +34,7 @@ import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransfor
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -271,7 +274,7 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     }
 
     @Override
-    public GlideContract setRequestListener(RequestListener listener) {
+    public GlideContract setRequestListener(RequestListener<Object, GlideDrawable> listener) {
         mGlideBuilderBean.requestListener = listener;
         return this;
     }
@@ -312,6 +315,9 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     @SuppressWarnings("unchecked")
     private DrawableTypeRequest getDrawableTypeRequest(Context context, RequestManager manager, GlideBuilderBean bean){
         DrawableTypeRequest request = manager.load(bean.path);
+        if (bean.path instanceof byte[]){
+            request.signature(new StringSignature(UUID.randomUUID().toString()));// 修复glide加载byte数组图片无法缓存的BUG
+        }
         request.placeholder(bean.placeholderResId);// 设置加载图
         request.error(bean.errorResId);// 设置加载失败图
         request.skipMemoryCache(!bean.saveToMemoryCache);// 设置跳过内存缓存
@@ -353,8 +359,8 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     private DrawableTypeRequest configDiskCacheStrategy(DrawableTypeRequest request, GlideBuilderBean bean) {
         if (bean.isVideo){//显示视频的第一帧需要设置为NONE
             request.diskCacheStrategy(DiskCacheStrategy.NONE);
-        } else if (bean.path instanceof File || bean.path instanceof Integer){// 资源文件和本地手机存储的文件不需要进行磁盘缓存
-            request.diskCacheStrategy(DiskCacheStrategy.NONE);
+        } else if (bean.path instanceof File || bean.path instanceof Integer || bean.path instanceof byte[]){
+            request.diskCacheStrategy(DiskCacheStrategy.NONE);// 资源文件、本地手机存储的文件和byte数组不需要进行磁盘缓存
         }else {// 其他情况根据自定义缓存策略设置
             request.diskCacheStrategy(getGlideDiskCacheStrategy(bean.diskCacheStrategy));
         }
