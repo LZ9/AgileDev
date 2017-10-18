@@ -18,7 +18,7 @@
     compile 'cn.lodz:Component:1.3.5'
 ```
 ```
-    compile 'cn.lodz:ImagerLoader:1.1.6'
+    compile 'cn.lodz:ImagerLoader:1.1.7'
 ```
 ## 2、详细了解
 - [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
