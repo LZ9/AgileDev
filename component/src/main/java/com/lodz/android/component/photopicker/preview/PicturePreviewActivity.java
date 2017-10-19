@@ -136,6 +136,11 @@ public class PicturePreviewActivity extends AbsActivity{
         mPagerTipsTv.setText((position + 1) + " / " + ArrayUtils.getSize(mPreviewBean.sourceList));
     }
 
+    /**
+     * 设置系统颜色
+     * @param statusBarColor 状态栏颜色
+     * @param navigationBarColor 导航栏颜色
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void setSystemBarColor(@ColorRes int statusBarColor, @ColorRes int navigationBarColor) {
         if (statusBarColor == 0 && navigationBarColor == 0){

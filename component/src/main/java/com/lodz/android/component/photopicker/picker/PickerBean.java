@@ -1,6 +1,7 @@
 package com.lodz.android.component.photopicker.picker;
 
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,14 @@ public class PickerBean implements Serializable {
     public List<String> sourceList;
     /** 图片加载接口 */
     public PhotoLoader<String> photoLoader;
+    /** 预览图加载接口 */
+    public PhotoLoader<String> previewLoader;
+    /** 照片回调接口 */
+    public OnPhotoPickerListener photoPickerListener;
+    /** 可选最大数量 */
+    public int maxCount = 9;
+
+
 
     /** 按钮主颜色 */
     public int btnMainColor;

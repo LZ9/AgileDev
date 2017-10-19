@@ -1,9 +1,12 @@
 package com.lodz.android.component.photopicker.picker;
 
 import android.content.Context;
+import android.support.annotation.IntRange;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
+import com.lodz.android.core.album.AlbumUtils;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
@@ -49,6 +52,33 @@ public class PickerManager {
             return this;
         }
 
+        /**
+         * 设置预览图图加载器
+         * @param previewLoader 图片加载器
+         */
+        public Builder setPreviewImgLoader(PhotoLoader<String> previewLoader) {
+            pickerBean.previewLoader = previewLoader;
+            return this;
+        }
+
+        /**
+         * 设置图片选中回调
+         * @param listener 监听器
+         */
+        public Builder setOnPhotoPickerListener(OnPhotoPickerListener listener) {
+            pickerBean.photoPickerListener = listener;
+            return this;
+        }
+
+        /**
+         * 设置图片可选最大数量
+         * @param maxCount 最大数量
+         */
+        public Builder setMaxCount(@IntRange(from = 1)int maxCount) {
+            pickerBean.maxCount = maxCount;
+            return this;
+        }
+
         /** 完成构建（选择手机里的全部图片） */
         public PickerManager build() {
             pickerBean.isPickAllPhoto = true;
@@ -85,7 +115,18 @@ public class PickerManager {
             ToastUtils.showShort(context, R.string.photo_loader_unset);
             return;
         }
+        if (sPickerBean.previewLoader == null){
+            sPickerBean.previewLoader = sPickerBean.photoLoader;
+        }
+        if (sPickerBean.photoPickerListener == null){// 校验图片选中回调监听
+            ToastUtils.showShort(context, R.string.photo_selected_listener_unset);
+            return;
+        }
         if (!sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(sPickerBean.sourceList)){// 校验数据列表
+            ToastUtils.showShort(context, R.string.photo_source_list_empty);
+            return;
+        }
+        if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllAlbumImages(context))){
             ToastUtils.showShort(context, R.string.photo_source_list_empty);
             return;
         }

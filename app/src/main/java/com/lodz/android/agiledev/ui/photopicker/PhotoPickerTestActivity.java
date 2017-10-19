@@ -17,10 +17,18 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
 import com.lodz.android.component.photopicker.picker.PickerManager;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
+import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
+import com.lodz.android.imageloader.ImageLoader;
+import com.lodz.android.imageloader.glide.impl.GlideBuilderBean;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,9 +98,31 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setImgLoader(new PhotoLoader<String>() {
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
-
+                                ImageLoader.create(context)
+                                        .load(source)
+                                        .joinGlide()
+                                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                                        .setCenterCrop()
+                                        .into(imageView);
                             }
                         })
+                        .setPreviewImgLoader(new PhotoLoader<String>() {
+                            @Override
+                            public void displayImg(Context context, String source, ImageView imageView) {
+                                ImageLoader.create(context)
+                                        .load(source)
+                                        .joinGlide()
+                                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                                        .into(imageView);
+                            }
+                        })
+                        .setOnPhotoPickerListener(new OnPhotoPickerListener() {
+                            @Override
+                            public void onPickerSelected(List<String> photos) {
+                                PrintLog.d("testtag", Arrays.toString(ArrayUtils.listToArray(photos, String.class)));
+                            }
+                        })
+                        .setMaxCount(9)
                         .build()
                         .open(getContext());
 
