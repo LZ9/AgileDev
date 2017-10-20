@@ -1,6 +1,7 @@
 package com.lodz.android.component.widget.dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -77,4 +78,7 @@ public abstract class BaseDialog extends AppCompatDialog {
         }
     }
 
+    protected DialogInterface getDialogInterface(){
+        return this;
+    }
 }

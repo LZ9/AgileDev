@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
+import com.lodz.android.core.utils.ArrayUtils;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class AlbumUtils {
      * 获取相册中所有图片列表
      * @param context 上下文
      */
-    public static List<String> getAllAlbumImages(Context context) {
+    public static List<String> getAllImages(Context context) {
         List<String> imageList = new LinkedList<>();
 
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -52,25 +54,37 @@ public class AlbumUtils {
         }
 
         cursor.close();
-        Collections.reverse(imageList);
+        Collections.reverse(imageList);// 按时间降序
         return imageList;
     }
 
+    /**
+     * 获取所有图片的文件夹（包括所有图片文件夹）
+     * @param context 上下文
+     */
+    public static List<ImageFolder> getAllImageFolders(Context context) {
+        List<String> list = getAllImages(context);
+        if (ArrayUtils.isEmpty(list)){
+            return new LinkedList<>();
+        }
+        List<ImageFolder> folders = new LinkedList<>();
+        folders.add(getAllImageFolder(context));
+        folders.addAll(getImageFolders(list));
+        return folders;
+    }
 
     /**
-     * 获取相册文件夹列表
-     * @param albumImages 所有图片文件列表
+     * 获取所有图片的文件夹（不包括所有图片文件夹）
+     * @param pictures 所有图片数据
      */
-    public static List<ImageFolder> getImageFolderList(List<String> albumImages) {
+    public static List<ImageFolder> getImageFolders(List<String> pictures) {
         List<ImageFolder> list = new LinkedList<>();
-        ImageFolder totalImageFolder = getAllImageFolder(albumImages);
-        list.add(totalImageFolder);
-        if (albumImages == null || albumImages.isEmpty()) {
+        if (ArrayUtils.isEmpty(pictures)){
             return list;
         }
 
         List<String> directoryList = new LinkedList<>();
-        for (String path : albumImages) {
+        for (String path : pictures) {
             File file = new File(path);
             if (!file.exists()) {
                 continue;
@@ -93,18 +107,17 @@ public class AlbumUtils {
     }
 
     /**
-     * 获取"所有图片"文件夹信息
-     * @param albumImages 所有图片文件列表
+     * 获取所有图片文件夹信息
+     * @param context 上下文
      */
-    public static ImageFolder getAllImageFolder(List<String> albumImages) {
-        boolean isAlbumEmpty = (albumImages == null || albumImages.isEmpty());
-        int count = isAlbumEmpty ? 0 : albumImages.size();
-        String firstImagePath = isAlbumEmpty ? "" : albumImages.get(0);
+    public static ImageFolder getAllImageFolder(Context context) {
+        List<String> list = getAllImages(context);
 
         ImageFolder imageFolder = new ImageFolder();
-        imageFolder.setDirectory(false);
-        imageFolder.setCount(count);
-        imageFolder.setFirstImagePath(firstImagePath);
+        imageFolder.setName("所有图片");
+        imageFolder.setAllPicture(true);
+        imageFolder.setCount(ArrayUtils.getSize(list));
+        imageFolder.setFirstImagePath(ArrayUtils.isEmpty(list) ? "" : list.get(0));
 
         return imageFolder;
     }
@@ -112,9 +125,9 @@ public class AlbumUtils {
     /**
      * 获取指定目录下的图片文件夹信息
      * @param file 目录
-     * @param firstImagePath 第一张图片路径
+     * @param coverImgPath 封面图片路径
      */
-    public static ImageFolder getImageFolder(File file, String firstImagePath) {
+    public static ImageFolder getImageFolder(File file, String coverImgPath) {
         String[] fileList = file.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
@@ -124,29 +137,41 @@ public class AlbumUtils {
                         || filename.endsWith(".jpeg")));
             }
         });
-        int count = (fileList == null ? 0 : fileList.length);
-        if (count == 0) {
+
+        if (fileList == null || fileList.length == 0){
             return null;
         }
 
         ImageFolder imageFolder = new ImageFolder();
-        imageFolder.setCount(count);
-        imageFolder.setFirstImagePath(firstImagePath);
+        imageFolder.setCount(fileList.length);
+        imageFolder.setFirstImagePath(coverImgPath);
         imageFolder.setDir(file.getAbsolutePath());
-
         return imageFolder;
     }
 
     /**
-     * 获取指定目录下的图片文件列表
-     * @param imageFolder 目录
+     * 获取指定目录下的图片数据列表
+     * @param context 上下文
+     * @param imageFolder 文件夹目录
      */
-    public static List<String> getImageListOfFolder(ImageFolder imageFolder) {
+    public static List<String> getImageListOfFolder(Context context, ImageFolder imageFolder) {
+        if (imageFolder == null){
+            return new ArrayList<>();
+        }
+        if (imageFolder.isAllPicture()){
+            return getAllImages(context);
+        }
+
+        if (!imageFolder.isDirectory()){
+            return new ArrayList<>();
+        }
+
         File directoryFile = new File(imageFolder.getDir());
         File[] files = directoryFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                return (filename.endsWith(".jpg") || filename.endsWith(".png")
+                return (filename.endsWith(".jpg")
+                        || filename.endsWith(".png")
                         || filename.endsWith(".jpeg"));
             }
         });
@@ -157,7 +182,9 @@ public class AlbumUtils {
         }
 
         for (File file : files) {
-            imageList.add(file.getAbsolutePath());
+            if (file.exists() && file.length() > 0){
+                imageList.add(file.getAbsolutePath());
+            }
         }
 
         return imageList;

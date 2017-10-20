@@ -63,17 +63,18 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@android:color/black">
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/folder_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             tool:ignore="UseCompoundDrawables">
@@ -103,8 +104,6 @@
             android:id="@+id/preview_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:clickable="true"
             android:gravity="center"
             android:paddingLeft="15dp"
@@ -114,7 +113,7 @@
             android:textSize="16sp"
             tool:ignore="RelativeOverlap" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -126,7 +126,7 @@ public class PickerManager {
             ToastUtils.showShort(context, R.string.photo_source_list_empty);
             return;
         }
-        if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllAlbumImages(context))){
+        if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllImages(context))){
             ToastUtils.showShort(context, R.string.photo_source_list_empty);
             return;
         }

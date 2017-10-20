@@ -1,6 +1,7 @@
 package com.lodz.android.component.photopicker.picker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,12 +28,15 @@ import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
+import com.lodz.android.component.photopicker.picker.dialog.ImageFolderDialog;
+import com.lodz.android.component.photopicker.picker.dialog.ImageFolderIteamBean;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.album.AlbumUtils;
 import com.lodz.android.core.album.ImageFolder;
+import com.lodz.android.core.utils.AnimUtils;
 import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.DrawableUtils;
@@ -236,20 +240,38 @@ public class PhotoPickerActivity extends AbsActivity{
         findViewById(R.id.folder_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<String> list = new ArrayList<>();
-                for (PickerItemBean itemBean : mCurrentPhotoList) {
-                    list.add(itemBean.photoPath);
+                List<ImageFolderIteamBean> folders = new ArrayList<>();
+
+                for (ImageFolder folder : AlbumUtils.getAllImageFolders(getContext())) {
+                    ImageFolderIteamBean iteamBean = new ImageFolderIteamBean();
+                    iteamBean.imageFolder = folder;
+                    iteamBean.isSelected = mFolderTextTv.getText().toString().equals(folder.getName());
+                    folders.add(iteamBean);
                 }
-
-                List<ImageFolder> folders = AlbumUtils.getImageFolderList(list);
-
-
-//                if (i % 2 == 0){
-//                    AnimUtils.startRotateSelf(mMoreImg, 180, 0, 600, true);
-//                }else {
-//                    AnimUtils.startRotateSelf(mMoreImg, 0, 180, 600, true);
-//                }
-//                i++;
+                ImageFolderDialog dialog = new ImageFolderDialog(getContext());
+                dialog.setPhotoLoader(mPickerBean.photoLoader);
+                dialog.setData(folders);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        dialog.dismiss();
+                        AnimUtils.startRotateSelf(mMoreImg, -180, 0, 500, true);
+                    }
+                });
+                dialog.setListener(new ImageFolderDialog.Listener() {
+                    @Override
+                    public void onSelected(DialogInterface dialog, ImageFolderIteamBean bean) {
+                        dialog.dismiss();
+                        if (mFolderTextTv.getText().toString().equals(bean.imageFolder.getName())){// 选择了同一个文件夹
+                            return;
+                        }
+                        mFolderTextTv.setText(bean.imageFolder.getName());
+                        configAdapterData(AlbumUtils.getImageListOfFolder(getContext(), bean.imageFolder));
+                        AnimUtils.startRotateSelf(mMoreImg, -180, 0, 500, true);
+                    }
+                });
+                dialog.show();
+                AnimUtils.startRotateSelf(mMoreImg, 0, -180, 500, true);
             }
         });
 
@@ -370,18 +392,25 @@ public class PhotoPickerActivity extends AbsActivity{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSystemBarColor(android.R.color.black, android.R.color.black);
         }
-        configAdapterData();
+        configAdapterData(AlbumUtils.getAllImages(getContext()));
     }
 
     /** 配置适配器数据 */
-    private void configAdapterData() {
+    private void configAdapterData(List<String> source) {
         mCurrentPhotoList.clear();
-        for (String path : AlbumUtils.getAllAlbumImages(getContext())) {
+        for (String path : source) {
             PickerItemBean itemBean = new PickerItemBean();
             itemBean.photoPath = path;
+            for (PickerItemBean selectedBean : mSelectedList) {
+                if (selectedBean.photoPath.equals(path)){
+                    itemBean.isSelected = true;
+                    break;
+                }
+            }
             mCurrentPhotoList.add(itemBean);
         }
         mAdapter.setData(mCurrentPhotoList);
+        mRecyclerView.smoothScrollToPosition(0);
         mAdapter.notifyDataSetChanged();
     }
 
