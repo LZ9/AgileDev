@@ -122,6 +122,9 @@ public class PickerManager {
             ToastUtils.showShort(context, R.string.photo_selected_listener_unset);
             return;
         }
+        if (sPickerBean.maxCount < 1){// 修正最大选择数
+            sPickerBean.maxCount = 1;
+        }
         if (!sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(sPickerBean.sourceList)){// 校验数据列表
             ToastUtils.showShort(context, R.string.photo_source_list_empty);
             return;

@@ -71,7 +71,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
     }
 
     private Bitmap getUnselectBitmap(@ColorRes int color){
-        int side = DensityUtils.dp2px(getContext(), 30);
+        int side = DensityUtils.dp2px(getContext(), 40);
 
         Bitmap bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -81,12 +81,12 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 10, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - 20, paint);
         return bitmap;
     }
 
     private Bitmap getSelectedBitmap(@ColorRes int color){
-        int side = DensityUtils.dp2px(getContext(), 30);
+        int side = DensityUtils.dp2px(getContext(),40);
 
         Bitmap bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -96,11 +96,11 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 10, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - 20, paint);
 
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 25, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - 35, paint);
         return bitmap;
     }
 

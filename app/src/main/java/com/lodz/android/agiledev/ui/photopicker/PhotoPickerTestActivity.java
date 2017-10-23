@@ -122,7 +122,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                                 PrintLog.d("testtag", Arrays.toString(ArrayUtils.listToArray(photos, String.class)));
                             }
                         })
-                        .setMaxCount(9)
+                        .setMaxCount(1)
                         .build()
                         .open(getContext());
 
