@@ -27,6 +27,7 @@
     <string name="picker_preview">预览</string>
     <string name="picker_preview_num">预览(%s)</string>
     <string name="picker_all_photo">所有图片</string>
+    <string name="picker_custom_photo">指定图片</string>
     <string name="picker_photo_count_tips">您最多可以选择%s张图片</string>
     <string name="picker_folder_num">%s张</string>
 

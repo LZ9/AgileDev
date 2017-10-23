@@ -26,7 +26,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
     /** 图片加载接口 */
     private PhotoLoader<String> mPhotoLoader;
-
+    /** 监听器 */
     private Listener mListener;
 
     /** 未选中图标 */
@@ -70,7 +70,11 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         holder.maskView.setVisibility(bean.isSelected ? View.VISIBLE : View.GONE);
     }
 
-    private Bitmap getUnselectBitmap(@ColorRes int color){
+    /**
+     * 获取未选中的背景图
+     * @param color 颜色
+     */
+    private Bitmap getUnselectBitmap(@ColorRes int color) {
         int side = DensityUtils.dp2px(getContext(), 40);
 
         Bitmap bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
@@ -81,12 +85,16 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 20, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - 30, paint);
         return bitmap;
     }
 
-    private Bitmap getSelectedBitmap(@ColorRes int color){
-        int side = DensityUtils.dp2px(getContext(),40);
+    /**
+     * 获取选中的背景图
+     * @param color 颜色
+     */
+    private Bitmap getSelectedBitmap(@ColorRes int color) {
+        int side = DensityUtils.dp2px(getContext(), 40);
 
         Bitmap bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -96,11 +104,11 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 20, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - 30, paint);
 
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 35, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - 45, paint);
         return bitmap;
     }
 

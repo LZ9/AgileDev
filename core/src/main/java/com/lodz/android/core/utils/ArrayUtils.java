@@ -3,7 +3,9 @@ package com.lodz.android.core.utils;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 数组列表帮助类
@@ -11,6 +13,35 @@ import java.util.List;
  */
 
 public class ArrayUtils {
+
+    /**
+     * 去除重复数据
+     * @param array 数组
+     * @param cls 数组内的属性类型
+     */
+    public static <T> T[] deduplication(T[] array, Class<? extends T> cls) {
+        if (isEmpty(array)){
+            return null;
+        }
+
+        Set<T> set = new HashSet<>(arrayToList(array));
+        List<T> list = new ArrayList<>();
+        list.addAll(set);
+        return listToArray(list, cls);
+    }
+
+    /**
+     * 去除重复数据
+     * @param list 列表
+     */
+    public static <T> List<T> deduplication(List<T> list) {
+        if (isEmpty(list)){
+            return new ArrayList<>();
+        }
+
+        Set<T> set = new HashSet<>(list);
+        return new ArrayList<>(set);
+    }
 
     /**
      * 获取列表数据长度

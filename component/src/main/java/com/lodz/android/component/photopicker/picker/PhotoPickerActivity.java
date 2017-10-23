@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,6 +38,7 @@ import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapte
 import com.lodz.android.core.album.AlbumUtils;
 import com.lodz.android.core.album.ImageFolder;
 import com.lodz.android.core.utils.AnimUtils;
+import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.DrawableUtils;
@@ -63,9 +65,12 @@ public class PhotoPickerActivity extends AbsActivity{
         context.startActivity(starter);
     }
 
+    /** 返回按钮 */
     private ImageView mBackBtn;
     /** 确定按钮 */
     private TextView mConfirmBtn;
+    /** 文件夹按钮 */
+    private ViewGroup mFolderBtn;
     /** 文件夹名称 */
     private TextView mFolderTextTv;
     /** 更多图片 */
@@ -101,6 +106,7 @@ public class PhotoPickerActivity extends AbsActivity{
         mBackBtn = (ImageView) findViewById(R.id.back_btn);
         mConfirmBtn = (TextView) findViewById(R.id.confirm_btn);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mFolderBtn = (ViewGroup) findViewById(R.id.folder_btn);
         mFolderTextTv = (TextView) findViewById(R.id.folder_text);
         mMoreImg = (ImageView) findViewById(R.id.more_img);
         mPreviewBtn = (TextView) findViewById(R.id.preview_btn);
@@ -237,7 +243,7 @@ public class PhotoPickerActivity extends AbsActivity{
         });
 
         // 文件夹按钮
-        findViewById(R.id.folder_btn).setOnClickListener(new View.OnClickListener() {
+        mFolderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<ImageFolderIteamBean> folders = new ArrayList<>();
@@ -392,7 +398,14 @@ public class PhotoPickerActivity extends AbsActivity{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setSystemBarColor(android.R.color.black, android.R.color.black);
         }
-        configAdapterData(AlbumUtils.getAllImages(getContext()));
+        if (ArrayUtils.isEmpty(mPickerBean.sourceList)){
+            configAdapterData(AlbumUtils.getAllImages(getContext()));
+        }else {
+            configAdapterData(mPickerBean.sourceList);//让用户选择指定的图片
+            mFolderBtn.setEnabled(false);
+            mFolderTextTv.setText(R.string.picker_custom_photo);
+            mMoreImg.setVisibility(View.GONE);
+        }
     }
 
     /** 配置适配器数据 */

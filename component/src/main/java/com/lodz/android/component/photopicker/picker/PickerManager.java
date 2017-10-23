@@ -129,10 +129,18 @@ public class PickerManager {
             ToastUtils.showShort(context, R.string.photo_source_list_empty);
             return;
         }
-        if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllImages(context))){
+        if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllImages(context))){// 校验手机内是否有图片
             ToastUtils.showShort(context, R.string.photo_source_list_empty);
             return;
         }
+        if (!ArrayUtils.isEmpty(sPickerBean.sourceList)){// 对指定的图片列表去重
+            sPickerBean.sourceList = ArrayUtils.deduplication(sPickerBean.sourceList);
+        }
+        if (!ArrayUtils.isEmpty(sPickerBean.sourceList) && ArrayUtils.getSize(sPickerBean.sourceList) < sPickerBean.maxCount){
+            //校验指定图片列表总数和最大可选择数
+            sPickerBean.maxCount = ArrayUtils.getSize(sPickerBean.sourceList);
+        }
+
         PhotoPickerActivity.start(context);
     }
 }
