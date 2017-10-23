@@ -85,8 +85,8 @@ public class NoDataLayout extends LinearLayout{
         setLayoutOrientation(mConfig.getOrientation());
         needImg(mConfig.getIsNeedImg());
         needTips(mConfig.getIsNeedTips());// 默认不需要提示语
-        setImg(mConfig.getImg() == 0 ? R.drawable.ic_no_data : mConfig.getImg());
-        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.no_data) : mConfig.getTips());
+        setImg(mConfig.getImg() == 0 ? R.drawable.component_ic_no_data : mConfig.getImg());
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_no_data) : mConfig.getTips());
         if (mConfig.getTextColor() != 0){
             setTipsTextColor(mConfig.getTextColor());
         }

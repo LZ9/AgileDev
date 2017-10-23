@@ -3,17 +3,17 @@
     android:oneshot="false"
     android:visible="true" >
 
-    <item android:duration="100" android:drawable="@drawable/ic_progress_loading_64_1">
+    <item android:duration="100" android:drawable="@drawable/component_ic_progress_loading_64_1">
     </item>
-    <item android:duration="100" android:drawable="@drawable/ic_progress_loading_64_2">
+    <item android:duration="100" android:drawable="@drawable/component_ic_progress_loading_64_2">
     </item>
-    <item android:duration="100" android:drawable="@drawable/ic_progress_loading_64_3">
+    <item android:duration="100" android:drawable="@drawable/component_ic_progress_loading_64_3">
     </item>
-    <item android:duration="100" android:drawable="@drawable/ic_progress_loading_64_4">
+    <item android:duration="100" android:drawable="@drawable/component_ic_progress_loading_64_4">
     </item>
-    <item android:duration="100" android:drawable="@drawable/ic_progress_loading_64_5">
+    <item android:duration="100" android:drawable="@drawable/component_ic_progress_loading_64_5">
     </item>
-    <item android:duration="100" android:drawable="@drawable/ic_progress_loading_64_6">
+    <item android:duration="100" android:drawable="@drawable/component_ic_progress_loading_64_6">
     </item>
 
 </animation-list>

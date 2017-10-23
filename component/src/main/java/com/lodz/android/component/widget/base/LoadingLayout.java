@@ -86,7 +86,7 @@ public class LoadingLayout extends LinearLayout{
     private void configLayout() {
         setLayoutOrientation(mConfig.getOrientation());
         needTips(mConfig.getIsNeedTips());
-        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.loading) : mConfig.getTips());
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_loading) : mConfig.getTips());
         if (mConfig.getTextColor() != 0){
             setTipsTextColor(mConfig.getTextColor());
         }

@@ -14,11 +14,11 @@ public class BuilderBean {
 
     /** 加载图的资源id */
     @DrawableRes
-    public int placeholderResId = R.drawable.ic_launcher;
+    public int placeholderResId = R.drawable.imageloader_ic_launcher;
 
     /** 失败图的资源id */
     @DrawableRes
-    public int errorResId = R.drawable.ic_launcher;
+    public int errorResId = R.drawable.imageloader_ic_launcher;
 
     /** 控件宽度 */
     public int width = 0;

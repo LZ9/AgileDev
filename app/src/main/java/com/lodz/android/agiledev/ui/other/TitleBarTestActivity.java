@@ -100,7 +100,7 @@ public class TitleBarTestActivity extends BaseActivity{
         ImageView imageView = new ImageView(getContext());
         imageView.setLayoutParams(layoutParams);
         imageView.setPadding(10, 5, 10, 5);
-        imageView.setImageResource(R.drawable.ic_progress_loading_64_8);
+        imageView.setImageResource(R.drawable.component_ic_progress_loading_64_8);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         return imageView;
     }

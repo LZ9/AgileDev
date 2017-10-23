@@ -20,7 +20,7 @@ import com.lodz.android.core.utils.ScreenUtils;
 public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T> {
 
     /** 完成加载提示语 */
-    private String mFinishText = getContext().getString(R.string.load_finish_tips);
+    private String mFinishText = getContext().getString(R.string.component_load_finish_tips);
     /** 完成加载提示语大小 */
     private int mFinishTextSizeSp = 12;
     /** 完成加载提示语颜色 */
@@ -31,7 +31,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     private int mFinishBackgroundColor = android.R.color.transparent;
 
     /** 正在加载提示语 */
-    private String mLoadingMoreText = getContext().getString(R.string.loading_more_tips);
+    private String mLoadingMoreText = getContext().getString(R.string.component_loading_more_tips);
     /** 正在加载提示语大小 */
     private int mLoadingMoreTextSizeSp = 12;
     /** 正在加载提示语颜色 */
@@ -45,7 +45,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     private int indeterminateDrawable = 0;
 
     /** 加载失败提示语 */
-    private String mLoadFailText = getContext().getString(R.string.load_fail_tips);
+    private String mLoadFailText = getContext().getString(R.string.component_load_fail_tips);
     /** 加载失败提示语大小 */
     private int mLoadFailTextSizeSp = 12;
     /** 加载失败提示语颜色 */

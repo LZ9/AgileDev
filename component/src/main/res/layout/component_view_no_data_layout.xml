@@ -13,12 +13,12 @@
         android:contentDescription="@string/app_name"
         android:padding="10dp"
         android:scaleType="center"
-        android:src="@drawable/ic_no_data" />
+        android:src="@drawable/component_ic_no_data" />
 
     <TextView
         android:id="@+id/no_data_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_data" />
+        android:text="@string/component_no_data" />
 
 </LinearLayout>

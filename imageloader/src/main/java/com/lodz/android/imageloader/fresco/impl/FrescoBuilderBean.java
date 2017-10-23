@@ -23,7 +23,7 @@ public class FrescoBuilderBean extends BuilderBean{
     public ScalingUtils.ScaleType errorScaleType = ScalingUtils.ScaleType.FIT_XY;
     /** 重试图的资源id */
     @DrawableRes
-    public int retryResId = R.drawable.ic_retry;
+    public int retryResId = R.drawable.imageloader_ic_retry;
     /** 重试图的缩放类型 */
     public ScalingUtils.ScaleType retryScaleType = ScalingUtils.ScaleType.CENTER_INSIDE;
     /** 图片的缩放类型 */

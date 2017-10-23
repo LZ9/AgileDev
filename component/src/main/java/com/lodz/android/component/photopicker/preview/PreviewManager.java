@@ -189,11 +189,11 @@ public class PreviewManager {
      */
     public void open(Context context){
         if (sPreviewBean.photoLoader == null){// 校验图片加载器
-            ToastUtils.showShort(context, R.string.photo_loader_unset);
+            ToastUtils.showShort(context, R.string.component_photo_loader_unset);
             return;
         }
         if (ArrayUtils.isEmpty(sPreviewBean.sourceList)){// 校验数据列表
-            ToastUtils.showShort(context, R.string.preview_source_list_empty);
+            ToastUtils.showShort(context, R.string.component_preview_source_list_empty);
             return;
         }
         sPreviewBean.isShowPagerText = ArrayUtils.getSize(sPreviewBean.sourceList) > 1;// 只有一张图片不显示页码提示

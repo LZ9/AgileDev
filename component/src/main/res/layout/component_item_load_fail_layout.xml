@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="center"
-        android:src="@drawable/ic_load_more_fail" />
+        android:src="@drawable/component_ic_load_more_fail" />
 
     <TextView
         android:id="@+id/load_fail_text_view"

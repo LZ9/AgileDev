@@ -88,8 +88,8 @@ public class ErrorLayout extends LinearLayout{
         setLayoutOrientation(mConfig.getOrientation());
         needImg(mConfig.getIsNeedImg());
         needTips(mConfig.getIsNeedTips());
-        setImg(mConfig.getImg() == 0 ? R.drawable.ic_data_fail : mConfig.getImg());
-        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.load_fail) : mConfig.getTips());
+        setImg(mConfig.getImg() == 0 ? R.drawable.component_ic_data_fail : mConfig.getImg());
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_load_fail) : mConfig.getTips());
         if (mConfig.getTextColor() != 0){
             setTipsTextColor(mConfig.getTextColor());
         }

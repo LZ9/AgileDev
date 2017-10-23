@@ -17,7 +17,7 @@
         android:id="@+id/loading_tips_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/loading"
+        android:text="@string/component_loading"
         android:textSize="17sp" />
 
 </LinearLayout>

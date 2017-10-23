@@ -112,25 +112,25 @@ public class PickerManager {
      */
     public void open(Context context){
         if (sPickerBean.photoLoader == null){// 校验图片加载器
-            ToastUtils.showShort(context, R.string.photo_loader_unset);
+            ToastUtils.showShort(context, R.string.component_photo_loader_unset);
             return;
         }
         if (sPickerBean.previewLoader == null){
             sPickerBean.previewLoader = sPickerBean.photoLoader;
         }
         if (sPickerBean.photoPickerListener == null){// 校验图片选中回调监听
-            ToastUtils.showShort(context, R.string.photo_selected_listener_unset);
+            ToastUtils.showShort(context, R.string.component_photo_selected_listener_unset);
             return;
         }
         if (sPickerBean.maxCount < 1){// 修正最大选择数
             sPickerBean.maxCount = 1;
         }
         if (!sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(sPickerBean.sourceList)){// 校验数据列表
-            ToastUtils.showShort(context, R.string.photo_source_list_empty);
+            ToastUtils.showShort(context, R.string.component_photo_source_list_empty);
             return;
         }
         if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllImages(context))){// 校验手机内是否有图片
-            ToastUtils.showShort(context, R.string.photo_source_list_empty);
+            ToastUtils.showShort(context, R.string.component_photo_source_list_empty);
             return;
         }
         if (!ArrayUtils.isEmpty(sPickerBean.sourceList)){// 对指定的图片列表去重

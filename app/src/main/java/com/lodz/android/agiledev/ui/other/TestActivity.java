@@ -157,8 +157,8 @@ public class TestActivity extends AbsActivity{
     private void showBgImg(String imgUrl) {
 //        ImageLoader.create(this)
 //                .load(UriUtils.parseUrl(imgUrl))
-//                .setPlaceholder(R.drawable.ic_default)
-//                .setError(R.drawable.ic_default)
+//                .setPlaceholder(R.drawable.imageloader_ic_default)
+//                .setError(R.drawable.imageloader_ic_default)
 //                .setImageSize(ScreenUtils.getScreenWidth(this), DensityUtils.dp2px(this, 200))
 //                .useFresco()
 //                .setPlaceholderScaleType(ScalingUtils.ScaleType.CENTER_CROP)

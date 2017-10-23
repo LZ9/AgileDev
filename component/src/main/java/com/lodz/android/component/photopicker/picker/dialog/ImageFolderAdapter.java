@@ -60,7 +60,7 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
     private void showItem(ImageFolderViewHolder holder, ImageFolderIteamBean bean, int position) {
         mPhotoLoader.displayImg(getContext(), bean.imageFolder.getFirstImagePath(), holder.folderImg);
         holder.floderName.setText(bean.imageFolder.getName());
-        holder.count.setText(getContext().getString(R.string.picker_folder_num, String.valueOf(bean.imageFolder.getCount())));
+        holder.count.setText(getContext().getString(R.string.component_picker_folder_num, String.valueOf(bean.imageFolder.getCount())));
         holder.selectIconImg.setImageBitmap(bean.isSelected ? mSelectedBitmap : mUnselectBitmap);
     }
 

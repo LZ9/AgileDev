@@ -334,7 +334,7 @@ public class PhotoPickerActivity extends AbsActivity{
             @Override
             public void onSelected(PickerItemBean bean, int position) {
                 if (mSelectedList.size() == mPickerBean.maxCount && !bean.isSelected){
-                    ToastUtils.showShort(getContext(), getContext().getString(R.string.picker_photo_count_tips, String.valueOf(mPickerBean.maxCount)));
+                    ToastUtils.showShort(getContext(), getContext().getString(R.string.component_picker_photo_count_tips, String.valueOf(mPickerBean.maxCount)));
                     return;
                 }
 
@@ -355,8 +355,8 @@ public class PhotoPickerActivity extends AbsActivity{
                         }
                         mConfirmBtn.setEnabled(mSelectedList.size() > 0);
                         mPreviewBtn.setEnabled(mSelectedList.size() > 0);
-                        mConfirmBtn.setText(mSelectedList.size() > 0 ? getString(R.string.picker_confirm_num, String.valueOf(mSelectedList.size()), String.valueOf(mPickerBean.maxCount)) : getString(R.string.picker_confirm));
-                        mPreviewBtn.setText(mSelectedList.size() > 0 ? getString(R.string.picker_preview_num, String.valueOf(mSelectedList.size())) : getString(R.string.picker_preview));
+                        mConfirmBtn.setText(mSelectedList.size() > 0 ? getString(R.string.component_picker_confirm_num, String.valueOf(mSelectedList.size()), String.valueOf(mPickerBean.maxCount)) : getString(R.string.component_picker_confirm));
+                        mPreviewBtn.setText(mSelectedList.size() > 0 ? getString(R.string.component_picker_preview_num, String.valueOf(mSelectedList.size())) : getString(R.string.component_picker_preview));
                         return;
                     }
                 }
@@ -403,7 +403,7 @@ public class PhotoPickerActivity extends AbsActivity{
         }else {
             configAdapterData(mPickerBean.sourceList);//让用户选择指定的图片
             mFolderBtn.setEnabled(false);
-            mFolderTextTv.setText(R.string.picker_custom_photo);
+            mFolderTextTv.setText(R.string.component_picker_custom_photo);
             mMoreImg.setVisibility(View.GONE);
         }
     }

@@ -13,12 +13,12 @@
         android:contentDescription="@string/app_name"
         android:padding="10dp"
         android:scaleType="center"
-        android:src="@drawable/ic_data_fail" />
+        android:src="@drawable/component_ic_data_fail" />
 
     <TextView
         android:id="@+id/error_tips_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/load_fail" />
+        android:text="@string/component_load_fail" />
 
 </LinearLayout>

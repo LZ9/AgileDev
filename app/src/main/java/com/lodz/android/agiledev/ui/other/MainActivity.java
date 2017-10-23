@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity {
 //                .useGrayscale()// 使用灰度化
 //                .useCropSquare()// 切正方形图
 //                .useMask()// 使用蒙板图片
-//                .setMaskResId(R.drawable.mask_starfish)// 设置蒙板图片资源id
+//                .setMaskResId(R.drawable.imageloader_mask_starfish)// 设置蒙板图片资源id
 //                .into(imageView);
 
     }
