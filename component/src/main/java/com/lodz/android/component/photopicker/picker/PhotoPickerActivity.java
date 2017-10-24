@@ -1,5 +1,6 @@
 package com.lodz.android.component.photopicker.picker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,11 +10,14 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -40,10 +44,13 @@ import com.lodz.android.core.album.ImageFolder;
 import com.lodz.android.core.utils.AnimUtils;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.BitmapUtils;
+import com.lodz.android.core.utils.DateUtils;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.DrawableUtils;
+import com.lodz.android.core.utils.FileUtils;
 import com.lodz.android.core.utils.SelectorUtils;
 import com.lodz.android.core.utils.ToastUtils;
+import com.lodz.android.core.utils.UiHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +67,17 @@ import io.reactivex.functions.Function;
 
 public class PhotoPickerActivity extends AbsActivity{
 
+    /**
+     * 启动页面
+     * @param context 上下文
+     */
     public static void start(Context context) {
         Intent starter = new Intent(context, PhotoPickerActivity.class);
         context.startActivity(starter);
     }
+
+    /** 照相请求码 */
+    private static final int REQUEST_CAMERA = 777;
 
     /** 返回按钮 */
     private ImageView mBackBtn;
@@ -89,6 +103,9 @@ public class PhotoPickerActivity extends AbsActivity{
     private List<PickerItemBean> mCurrentPhotoList = new ArrayList<>();
     /** 已选中的照片 */
     private List<PickerItemBean> mSelectedList = new ArrayList<>();
+
+    /** 临时文件路径 */
+    private String mTempFilePath = "";
 
     @Override
     protected void startCreate() {
@@ -124,7 +141,7 @@ public class PhotoPickerActivity extends AbsActivity{
     private void initRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-        mAdapter = new PhotoPickerAdapter(getContext(), mPickerBean.photoLoader);
+        mAdapter = new PhotoPickerAdapter(getContext(), mPickerBean.photoLoader, mPickerBean.isNeedCamera);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
@@ -361,6 +378,11 @@ public class PhotoPickerActivity extends AbsActivity{
                     }
                 }
             }
+
+            @Override
+            public void onClickCamera() {
+                takePhoto();
+            }
         });
 
         // 图片点击回调
@@ -459,15 +481,15 @@ public class PhotoPickerActivity extends AbsActivity{
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
         Path path = new Path();
-        path.moveTo(centerPoint, centerPoint + 10);
-        path.lineTo(centerPoint - 19, centerPoint - 10);
-        path.moveTo(centerPoint, centerPoint + 10);
-        path.lineTo(centerPoint + 19, centerPoint - 10);
+        path.moveTo(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 4));
+        path.lineTo(centerPoint - DensityUtils.dp2px(getContext(), 9), centerPoint - DensityUtils.dp2px(getContext(), 4));
+        path.moveTo(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 4));
+        path.lineTo(centerPoint + DensityUtils.dp2px(getContext(), 9), centerPoint - DensityUtils.dp2px(getContext(), 4));
         canvas.drawPath(path, paint);
 
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(centerPoint, centerPoint + 10, 3, paint);
+        canvas.drawCircle(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 4), 3, paint);
         return bitmap;
     }
 
@@ -493,6 +515,59 @@ public class PhotoPickerActivity extends AbsActivity{
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    /** 拍照 */
+    private void takePhoto() {
+        mTempFilePath = mPickerBean.cameraSavePath + "P_" + DateUtils.getCurrentFormatString(DateUtils.TYPE_4) + ".jpg";
+        if (!FileUtils.createNewFile(mTempFilePath)){
+            ToastUtils.showShort(getContext(), R.string.component_photo_temp_file_fail);
+            return;
+        }
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) == null) {
+            ToastUtils.showShort(getContext(), R.string.component_no_camera);
+            return;
+        }
+        // 设置系统相机拍照后的输出路径
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(), "com.lodz.android.component.provider", FileUtils.createFile(mTempFilePath)));
+        }else {
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(FileUtils.createFile(mTempFilePath)));
+        }
+        startActivityForResult(cameraIntent, REQUEST_CAMERA);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CAMERA) {
+            if (resultCode == Activity.RESULT_OK) {
+                AlbumUtils.notifyScanImage(getContext(), mTempFilePath);// 更新相册
+                UiHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        handleCameraSuccess();
+                    }
+                }, 300);
+                return;
+            }
+            FileUtils.delFile(mTempFilePath);// 删除临时文件
+            mTempFilePath = "";
+        }
+    }
+
+    /** 处理拍照成功 */
+    private void handleCameraSuccess() {
+        mTempFilePath = "";
+        for (ImageFolder folder : AlbumUtils.getAllImageFolders(getContext())) {
+            if (folder.getName().equals(mFolderTextTv.getText().toString())){
+                configAdapterData(AlbumUtils.getImageListOfFolder(getContext(), folder));
+                break;
+            }
         }
     }
 }

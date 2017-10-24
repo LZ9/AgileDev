@@ -30,8 +30,8 @@
     <string name="component_picker_custom_photo">指定图片</string>
     <string name="component_picker_photo_count_tips">您最多可以选择%s张图片</string>
     <string name="component_picker_folder_num">%s张</string>
-
-
+    <string name="component_no_camera">没有系统相机</string>
+    <string name="component_photo_temp_file_fail">文件创建失败</string>
 
 
 </resources>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
+import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
@@ -132,7 +133,9 @@ public class PhotoPickerTestActivity extends BaseActivity{
                                 PrintLog.d("testtag", Arrays.toString(ArrayUtils.listToArray(photos, String.class)));
                             }
                         })
-                        .setMaxCount(7)
+                        .setMaxCount(9)
+                        .setNeedCamera(true)
+                        .setCameraSavePath(FileManager.getCacheFolderPath())
                         .build()
                         .open(getContext());
 

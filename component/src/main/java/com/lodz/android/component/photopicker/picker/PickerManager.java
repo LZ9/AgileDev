@@ -1,7 +1,10 @@
 package com.lodz.android.component.photopicker.picker;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
@@ -10,6 +13,7 @@ import com.lodz.android.core.album.AlbumUtils;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -79,6 +83,25 @@ public class PickerManager {
             return this;
         }
 
+        /**
+         * 设置是否需要相机功能
+         * @param needCamera 是否需要相机功能
+         */
+        public Builder setNeedCamera(boolean needCamera) {
+            pickerBean.isNeedCamera = needCamera;
+            return this;
+        }
+
+        /**
+         * 设置拍照保存地址
+         * @param savePath 保存地址
+         */
+        public Builder setCameraSavePath(@NonNull String savePath) {
+            pickerBean.cameraSavePath = savePath;
+            return this;
+        }
+
+
         /** 完成构建（选择手机里的全部图片） */
         public PickerManager build() {
             pickerBean.isPickAllPhoto = true;
@@ -133,12 +156,19 @@ public class PickerManager {
             ToastUtils.showShort(context, R.string.component_photo_source_list_empty);
             return;
         }
-        if (!ArrayUtils.isEmpty(sPickerBean.sourceList)){// 对指定的图片列表去重
-            sPickerBean.sourceList = ArrayUtils.deduplication(sPickerBean.sourceList);
+        if (!ArrayUtils.isEmpty(sPickerBean.sourceList)){
+            sPickerBean.sourceList = ArrayUtils.deduplication(sPickerBean.sourceList);// 对指定的图片列表去重
+            sPickerBean.isNeedCamera = false;// 不允许使用拍照模式
         }
         if (!ArrayUtils.isEmpty(sPickerBean.sourceList) && ArrayUtils.getSize(sPickerBean.sourceList) < sPickerBean.maxCount){
             //校验指定图片列表总数和最大可选择数
             sPickerBean.maxCount = ArrayUtils.getSize(sPickerBean.sourceList);
+        }
+        if (TextUtils.isEmpty(sPickerBean.cameraSavePath)){// 校验地址
+            sPickerBean.cameraSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
+        }
+        if (!sPickerBean.cameraSavePath.endsWith(File.separator)){
+            sPickerBean.cameraSavePath  = sPickerBean.cameraSavePath + File.separator;
         }
 
         PhotoPickerActivity.start(context);

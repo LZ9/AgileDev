@@ -24,6 +24,11 @@ import com.lodz.android.core.utils.ScreenUtils;
 
 public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
+    /** 相机 */
+    private static final int VIEW_TYPE_CAMERA = 0;
+    /** 图片 */
+    private static final int VIEW_TYPE_ITEM = 1;
+
     /** 图片加载接口 */
     private PhotoLoader<String> mPhotoLoader;
     /** 监听器 */
@@ -34,25 +39,61 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
     /** 已选中图标 */
     private Bitmap mSelectedBitmap;
 
-    public PhotoPickerAdapter(Context context, PhotoLoader<String> photoLoader) {
+    /** 是否需要相机 */
+    private boolean isNeedCamera = false;
+
+    public PhotoPickerAdapter(Context context, PhotoLoader<String> photoLoader, boolean isNeedCamera) {
         super(context);
         this.mPhotoLoader = photoLoader;
+        this.isNeedCamera = isNeedCamera;
         mUnselectBitmap = getUnselectBitmap(android.R.color.holo_green_dark);
         mSelectedBitmap = getSelectedBitmap(android.R.color.holo_green_dark);
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (isNeedCamera && position == 0){// 需要相机且是第一个item
+            return VIEW_TYPE_CAMERA;
+        }
+        return VIEW_TYPE_ITEM;
+    }
+
+    @Override
+    public int getItemCount() {
+        return isNeedCamera ? super.getItemCount() + 1 : super.getItemCount();
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PickerViewHolder(getLayoutView(parent, R.layout.component_item_picker_layout));
+        return viewType == VIEW_TYPE_CAMERA ?
+                new PickerCameraViewHolder(getLayoutView(parent, R.layout.component_item_picker_camera_layout)) :
+                new PickerViewHolder(getLayoutView(parent, R.layout.component_item_picker_layout));
     }
 
     @Override
     protected void onBind(RecyclerView.ViewHolder holder, int position) {
-        PickerItemBean bean = getItem(position);
+        if (holder instanceof PickerCameraViewHolder){
+            showCameraItem((PickerCameraViewHolder) holder);
+            return;
+        }
+
+        PickerItemBean bean = getItem(isNeedCamera ? position - 1 : position);
         if (bean == null){
             return;
         }
         showItem((PickerViewHolder) holder, bean, position);
+    }
+
+    private void showCameraItem(PickerCameraViewHolder holder) {
+        setItemViewHeight(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
+        holder.cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null){
+                    mListener.onClickCamera();
+                }
+            }
+        });
     }
 
     private void showItem(PickerViewHolder holder, final PickerItemBean bean, final int position) {
@@ -75,7 +116,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
      * @param color 颜色
      */
     private Bitmap getUnselectBitmap(@ColorRes int color) {
-        int side = DensityUtils.dp2px(getContext(), 40);
+        int side = ScreenUtils.getScreenWidth(getContext()) / 3 / 4;
 
         Bitmap bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -85,7 +126,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 30, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 2), paint);
         return bitmap;
     }
 
@@ -94,7 +135,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
      * @param color 颜色
      */
     private Bitmap getSelectedBitmap(@ColorRes int color) {
-        int side = DensityUtils.dp2px(getContext(), 40);
+        int side = ScreenUtils.getScreenWidth(getContext()) / 3 / 4;
 
         Bitmap bitmap = Bitmap.createBitmap(side, side, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -104,11 +145,11 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 30, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 2), paint);
 
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - 45, paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 8), paint);
         return bitmap;
     }
 
@@ -129,12 +170,35 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         }
     }
 
+    private class PickerCameraViewHolder extends RecyclerView.ViewHolder{
+
+        /** 相机按钮 */
+        private ImageView cameraBtn;
+
+        private PickerCameraViewHolder(View itemView) {
+            super(itemView);
+            cameraBtn = (ImageView) itemView.findViewById(R.id.camera_btn);
+        }
+    }
+
+
     public void setListener(Listener listener){
         mListener = listener;
     }
 
     public interface Listener{
         void onSelected(PickerItemBean bean, int position);
+
+        void onClickCamera();
     }
 
+    @Override
+    protected void setItemClick(RecyclerView.ViewHolder holder, int position) {
+        super.setItemClick(holder, isNeedCamera ? position - 1 : position);
+    }
+
+    @Override
+    protected void setItemLongClick(RecyclerView.ViewHolder holder, int position) {
+        super.setItemLongClick(holder, isNeedCamera ? position - 1 : position);
+    }
 }

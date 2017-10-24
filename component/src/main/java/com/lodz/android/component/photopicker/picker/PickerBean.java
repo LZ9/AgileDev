@@ -25,7 +25,10 @@ public class PickerBean implements Serializable {
     public OnPhotoPickerListener photoPickerListener;
     /** 可选最大数量 */
     public int maxCount = 9;
-
+    /** 是否需要相机功能 */
+    public boolean isNeedCamera = false;
+    /** 拍照保存地址 */
+    public String cameraSavePath = "";
 
 
     /** 按钮主颜色 */
