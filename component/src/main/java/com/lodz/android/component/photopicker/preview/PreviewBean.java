@@ -5,6 +5,7 @@ import android.support.annotation.ColorRes;
 import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.OnLongClickListener;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.core.utils.ArrayUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -47,4 +48,13 @@ public class PreviewBean<T> implements Serializable{
     /** 页面缓存数 */
     public int pageLimit = 2;
 
+    void clear(){
+        if (!ArrayUtils.isEmpty(sourceList)){
+            sourceList.clear();
+            sourceList = null;
+        }
+        photoLoader = null;
+        clickListener = null;
+        longClickListener = null;
+    }
 }

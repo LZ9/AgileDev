@@ -32,6 +32,6 @@
     <string name="component_picker_folder_num">%s张</string>
     <string name="component_no_camera">没有系统相机</string>
     <string name="component_photo_temp_file_fail">文件创建失败</string>
-
+    <string name="component_photo_folder_fail">文件夹创建失败</string>
 
 </resources>

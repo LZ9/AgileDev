@@ -2,6 +2,7 @@ package com.lodz.android.component.photopicker.picker;
 
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
+import com.lodz.android.core.utils.ArrayUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -39,4 +40,13 @@ public class PickerBean implements Serializable {
     public int btnUnableColor;
 
 
+    void clear(){
+        if (!ArrayUtils.isEmpty(sourceList)){
+            sourceList.clear();
+            sourceList = null;
+        }
+        photoLoader = null;
+        previewLoader = null;
+        photoPickerListener = null;
+    }
 }

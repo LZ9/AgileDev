@@ -201,7 +201,7 @@ public class AlbumUtils {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri uri = Uri.fromFile(new File(imagePath));
         intent.setData(uri);
-        context.sendBroadcast(intent);
-        MediaScannerConnection.scanFile(context, new String[]{imagePath}, new String[]{"image/jpeg"}, null);
+        context.getApplicationContext().sendBroadcast(intent);
+        MediaScannerConnection.scanFile(context.getApplicationContext(), new String[]{imagePath}, new String[]{"image/jpeg"}, null);
     }
 }

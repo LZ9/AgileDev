@@ -48,6 +48,8 @@ public class PicturePreviewActivity extends AbsActivity{
 
     /** 图片数据 */
     private PreviewBean mPreviewBean;
+    /** 适配器 */
+    private PicturePagerAdapter mAdapter;
 
     @Override
     protected void startCreate() {
@@ -70,7 +72,8 @@ public class PicturePreviewActivity extends AbsActivity{
     private void initViewPager() {
         mViewPager = (PhotoViewPager) findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(mPreviewBean.pageLimit);
-        mViewPager.setAdapter(new PicturePagerAdapter(mPreviewBean, mPreviewController));
+        mAdapter = new PicturePagerAdapter(mPreviewBean, mPreviewController);
+        mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(mPreviewBean.showPosition);
     }
 
@@ -159,5 +162,13 @@ public class PicturePreviewActivity extends AbsActivity{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        mAdapter.release();
+        PreviewManager.sPreviewBean.clear();
+        mPreviewBean.clear();
     }
 }

@@ -521,6 +521,11 @@ public class PhotoPickerActivity extends AbsActivity{
 
     /** 拍照 */
     private void takePhoto() {
+        if (!FileUtils.isFileExists(mPickerBean.cameraSavePath) && !FileUtils.createFolder(mPickerBean.cameraSavePath)){
+            ToastUtils.showShort(getContext(), R.string.component_photo_folder_fail);
+            return;
+        }
+
         mTempFilePath = mPickerBean.cameraSavePath + "P_" + DateUtils.getCurrentFormatString(DateUtils.TYPE_4) + ".jpg";
         if (!FileUtils.createNewFile(mTempFilePath)){
             ToastUtils.showShort(getContext(), R.string.component_photo_temp_file_fail);
@@ -569,5 +574,13 @@ public class PhotoPickerActivity extends AbsActivity{
                 break;
             }
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        mAdapter.release();
+        PickerManager.sPickerBean.clear();
+        mPickerBean.clear();
     }
 }

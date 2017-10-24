@@ -45,16 +45,23 @@ class PicturePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         final Context context = container.getContext();
+        if (mPreviewBean == null){
+            return container;
+        }
         ImageView imageView = mPreviewBean.isScale ? new PhotoView(context) : new ImageView(context);
         container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        mPreviewBean.photoLoader.displayImg(context, mPreviewBean.sourceList.get(position), imageView);
+        if (mPreviewBean.photoLoader != null){
+            mPreviewBean.photoLoader.displayImg(context, mPreviewBean.sourceList.get(position), imageView);
+        }
 
         if (mPreviewBean.clickListener != null){
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mPreviewBean.clickListener.onClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
+                    if (mPreviewBean.clickListener != null) {
+                        mPreviewBean.clickListener.onClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
+                    }
                 }
             });
         }
@@ -63,7 +70,9 @@ class PicturePagerAdapter extends PagerAdapter {
             imageView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    mPreviewBean.longClickListener.onLongClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
+                    if (mPreviewBean.longClickListener != null) {
+                        mPreviewBean.longClickListener.onLongClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
+                    }
                     return true;
                 }
             });
@@ -72,4 +81,10 @@ class PicturePagerAdapter extends PagerAdapter {
         return imageView;
     }
 
+    public void release(){
+        mPreviewController = null;
+        if (mPreviewBean != null){
+            mPreviewBean.clear();
+        }
+    }
 }

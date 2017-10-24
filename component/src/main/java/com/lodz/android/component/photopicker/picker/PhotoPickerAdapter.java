@@ -98,7 +98,9 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
     private void showItem(PickerViewHolder holder, final PickerItemBean bean, final int position) {
         setItemViewHeight(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
-        mPhotoLoader.displayImg(getContext(), bean.photoPath, holder.photoImg);
+        if (mPhotoLoader != null){
+            mPhotoLoader.displayImg(getContext(), bean.photoPath, holder.photoImg);
+        }
         holder.selectIconImg.setImageBitmap(bean.isSelected ? mSelectedBitmap : mUnselectBitmap);
         holder.selectIconImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,5 +202,9 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
     @Override
     protected void setItemLongClick(RecyclerView.ViewHolder holder, int position) {
         super.setItemLongClick(holder, isNeedCamera ? position - 1 : position);
+    }
+
+    public void release(){
+        mPhotoLoader = null;
     }
 }
