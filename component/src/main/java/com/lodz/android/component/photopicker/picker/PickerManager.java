@@ -101,6 +101,14 @@ public class PickerManager {
             return this;
         }
 
+        /**
+         * 设置选择器的界面配置
+         * @param config 界面配置
+         */
+        public Builder setPickerUIConfig(PickerUIConfig config) {
+            pickerBean.pickerUIConfig = config;
+            return this;
+        }
 
         /** 完成构建（选择手机里的全部图片） */
         public PickerManager build() {

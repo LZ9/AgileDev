@@ -30,14 +30,8 @@ public class PickerBean implements Serializable {
     public boolean isNeedCamera = false;
     /** 拍照保存地址 */
     public String cameraSavePath = "";
-
-
-    /** 按钮主颜色 */
-    public int btnMainColor;
-    /** 按钮副颜色 */
-    public int btnViceColor;
-    /** 按钮不可用颜色 */
-    public int btnUnableColor;
+    /** UI配置 */
+    public PickerUIConfig pickerUIConfig;
 
 
     void clear(){

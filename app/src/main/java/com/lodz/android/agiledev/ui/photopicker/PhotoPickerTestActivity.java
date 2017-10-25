@@ -20,6 +20,7 @@ import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
 import com.lodz.android.component.photopicker.picker.PickerManager;
+import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
@@ -104,6 +105,13 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508135447478&di=90ddcac4604965af5d9bc744237a27aa&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd52a2834349b033b1c4bcdcf1fce36d3d439bde7.jpg",
                 };
 
+                PickerUIConfig config = PickerUIConfig.createDefault()
+                        .setCameraImg(R.drawable.ic_launcher)
+                        .setNavigationBarColor(R.color.black)
+                        .setStatusBarColor(R.color.black);
+
+
+
                 PickerManager
                         .create()
                         .setImgLoader(new PhotoLoader<String>() {
@@ -136,6 +144,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setMaxCount(9)
                         .setNeedCamera(true)
                         .setCameraSavePath(FileManager.getCacheFolderPath())
+                        .setPickerUIConfig(config)
                         .build()
                         .open(getContext());
 

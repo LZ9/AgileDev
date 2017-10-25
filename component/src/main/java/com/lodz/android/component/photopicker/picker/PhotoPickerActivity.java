@@ -141,7 +141,7 @@ public class PhotoPickerActivity extends AbsActivity{
     private void initRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-        mAdapter = new PhotoPickerAdapter(getContext(), mPickerBean.photoLoader, mPickerBean.isNeedCamera);
+        mAdapter = new PhotoPickerAdapter(getContext(), mPickerBean.photoLoader, mPickerBean.isNeedCamera, mPickerBean.pickerUIConfig);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
@@ -418,7 +418,7 @@ public class PhotoPickerActivity extends AbsActivity{
     protected void initData() {
         super.initData();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSystemBarColor(android.R.color.black, android.R.color.black);
+            setSystemBarColor(mPickerBean.pickerUIConfig.getStatusBarColor(), mPickerBean.pickerUIConfig.getNavigationBarColor());
         }
         if (ArrayUtils.isEmpty(mPickerBean.sourceList)){
             configAdapterData(AlbumUtils.getAllImages(getContext()));

@@ -1,7 +1,6 @@
 package com.lodz.android.core.album;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -199,10 +198,10 @@ public class AlbumUtils {
      * @param imagePath 图片地址
      */
     public static void notifyScanImage(Context context, String imagePath) {
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(new File(imagePath));
-        intent.setData(uri);
-        context.getApplicationContext().sendBroadcast(intent);
+//        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//        Uri uri = Uri.fromFile(new File(imagePath));
+//        intent.setData(uri);
+//        context.getApplicationContext().sendBroadcast(intent);
         MediaScannerConnection.scanFile(context.getApplicationContext(), new String[]{imagePath}, new String[]{"image/jpeg"}, null);
     }
 }

@@ -41,11 +41,14 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
     /** 是否需要相机 */
     private boolean isNeedCamera = false;
+    /** UI配置 */
+    private PickerUIConfig mUIConfig;
 
-    public PhotoPickerAdapter(Context context, PhotoLoader<String> photoLoader, boolean isNeedCamera) {
+    public PhotoPickerAdapter(Context context, PhotoLoader<String> photoLoader, boolean isNeedCamera, PickerUIConfig config) {
         super(context);
         this.mPhotoLoader = photoLoader;
         this.isNeedCamera = isNeedCamera;
+        this.mUIConfig = config;
         mUnselectBitmap = getUnselectBitmap(android.R.color.holo_green_dark);
         mSelectedBitmap = getSelectedBitmap(android.R.color.holo_green_dark);
     }
@@ -86,6 +89,9 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
     private void showCameraItem(PickerCameraViewHolder holder) {
         setItemViewHeight(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
+        if (mUIConfig.getCameraImg() != 0){
+            holder.cameraBtn.setImageResource(mUIConfig.getCameraImg());
+        }
         holder.cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
