@@ -43,7 +43,7 @@ public class AlbumUtils {
         }
 
         cursor.moveToFirst();
-        while (cursor.moveToNext()) {
+        do {
             String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
             if (TextUtils.isEmpty(path)){
                 continue;
@@ -53,7 +53,8 @@ public class AlbumUtils {
             if (file.exists() && file.length() > 0) {
                 imageList.add(path);
             }
-        }
+
+        }while(cursor.moveToNext());
 
         cursor.close();
         Collections.reverse(imageList);// 按时间降序
