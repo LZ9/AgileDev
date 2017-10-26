@@ -49,8 +49,8 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         this.mPhotoLoader = photoLoader;
         this.isNeedCamera = isNeedCamera;
         this.mUIConfig = config;
-        mUnselectBitmap = getUnselectBitmap(android.R.color.holo_green_dark);
-        mSelectedBitmap = getSelectedBitmap(android.R.color.holo_green_dark);
+        mUnselectBitmap = getUnselectBitmap(mUIConfig.getSelectedBtnUnselect());
+        mSelectedBitmap = getSelectedBitmap(mUIConfig.getSelectedBtnSelected());
     }
 
     @Override
@@ -116,6 +116,9 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
                 }
             }
         });
+        if (mUIConfig.getMaskColor() != 0){
+            holder.maskView.setBackgroundColor(ContextCompat.getColor(getContext(), mUIConfig.getMaskColor()));
+        }
         holder.maskView.setVisibility(bean.isSelected ? View.VISIBLE : View.GONE);
     }
 
