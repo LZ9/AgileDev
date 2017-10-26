@@ -89,6 +89,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
     private void showCameraItem(PickerCameraViewHolder holder) {
         setItemViewHeight(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
+        holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mUIConfig.getCameraBgColor()));
         if (mUIConfig.getCameraImg() != 0){
             holder.cameraBtn.setImageResource(mUIConfig.getCameraImg());
         }

@@ -52,7 +52,6 @@ android {
                 newName = "AgileDev-v" + defaultConfig.versionName + "-" + variant.baseName + ".apk"
             }
             outputFileName = newName
-
         }
     }
 

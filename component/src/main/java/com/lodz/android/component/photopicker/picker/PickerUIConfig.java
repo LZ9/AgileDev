@@ -26,6 +26,9 @@ public class PickerUIConfig {
     /** 拍照按钮图片 */
     @DrawableRes
     private int cameraImg = 0;
+    /** 拍照按钮背景颜色 */
+    @ColorRes
+    private int cameraBgColor = android.R.color.black;
     /** 选择按钮未选中颜色 */
     @ColorRes
     private int selectedBtnUnselect = android.R.color.holo_green_dark;
@@ -72,6 +75,17 @@ public class PickerUIConfig {
     }
 
     /**
+     * 设置拍照按钮背景颜色
+     * @param color
+     */
+    public PickerUIConfig setCameraBgColor(@ColorRes int color) {
+        if (color > 0){
+            this.cameraBgColor = color;
+        }
+        return this;
+    }
+
+    /**
      * 设置选择按钮未选中颜色
      * @param color 颜色
      */
@@ -102,6 +116,10 @@ public class PickerUIConfig {
             this.maskColor = color;
         }
         return this;
+    }
+
+    public int getCameraBgColor() {
+        return cameraBgColor;
     }
 
     public int getMaskColor() {
