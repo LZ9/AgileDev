@@ -39,13 +39,13 @@ public class ReflectActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mMsgTextView = (TextView) findViewById(R.id.text_msg);
-        mConstructorNameButton = (Button) findViewById(R.id.get_constructor_name);
-        mFieldNameButton = (Button) findViewById(R.id.get_field_name);
-        mMethodNameButton = (Button) findViewById(R.id.get_method_name);
-        mFieldValueButton = (Button) findViewById(R.id.get_field_value);
-        mExecuteFunctionButton = (Button) findViewById(R.id.execute_function);
-        mSetValue = (Button) findViewById(R.id.set_value);
+        mMsgTextView = findViewById(R.id.text_msg);
+        mConstructorNameButton = findViewById(R.id.get_constructor_name);
+        mFieldNameButton = findViewById(R.id.get_field_name);
+        mMethodNameButton = findViewById(R.id.get_method_name);
+        mFieldValueButton = findViewById(R.id.get_field_value);
+        mExecuteFunctionButton = findViewById(R.id.execute_function);
+        mSetValue = findViewById(R.id.set_value);
     }
 
     @Override

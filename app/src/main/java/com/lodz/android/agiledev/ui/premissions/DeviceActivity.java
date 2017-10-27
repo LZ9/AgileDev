@@ -46,9 +46,9 @@ public class DeviceActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mImeiBtn = (Button) findViewById(R.id.imei_btn);
-        mImsiBtn = (Button) findViewById(R.id.imsi_btn);
-        mUaBtn = (Button) findViewById(R.id.ua_btn);
+        mImeiBtn = findViewById(R.id.imei_btn);
+        mImsiBtn = findViewById(R.id.imsi_btn);
+        mUaBtn = findViewById(R.id.ua_btn);
     }
 
     @Override

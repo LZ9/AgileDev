@@ -105,6 +105,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
     private void showItem(PickerViewHolder holder, final PickerItemBean bean, final int position) {
         setItemViewHeight(holder.itemView, ScreenUtils.getScreenWidth(getContext()) / 3);
+        holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mUIConfig.getItemBgColor()));
         if (mPhotoLoader != null){
             mPhotoLoader.displayImg(getContext(), bean.photoPath, holder.photoImg);
         }
@@ -176,8 +177,8 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
         private PickerViewHolder(View itemView) {
             super(itemView);
-            photoImg = (ImageView) itemView.findViewById(R.id.photo);
-            selectIconImg = (ImageView) itemView.findViewById(R.id.select_icon);
+            photoImg = itemView.findViewById(R.id.photo);
+            selectIconImg = itemView.findViewById(R.id.select_icon);
             maskView = itemView.findViewById(R.id.mask);
         }
     }
@@ -189,7 +190,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
 
         private PickerCameraViewHolder(View itemView) {
             super(itemView);
-            cameraBtn = (ImageView) itemView.findViewById(R.id.camera_btn);
+            cameraBtn = itemView.findViewById(R.id.camera_btn);
         }
     }
 

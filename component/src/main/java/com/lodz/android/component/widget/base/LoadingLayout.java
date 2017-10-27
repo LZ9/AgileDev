@@ -71,9 +71,9 @@ public class LoadingLayout extends LinearLayout{
 
     private void findViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.component_view_loading_layout, this);
-        mLoadingProgressBar = (ProgressBar) findViewById(R.id.loading_progressbar);
-        mLoadingTipsTextView = (TextView) findViewById(R.id.loading_tips_textview);
-        mRootView = (LinearLayout) findViewById(R.id.root_view);
+        mLoadingProgressBar = findViewById(R.id.loading_progressbar);
+        mLoadingTipsTextView = findViewById(R.id.loading_tips_textview);
+        mRootView = findViewById(R.id.root_view);
     }
 
     private void initData() {

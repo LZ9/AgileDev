@@ -64,13 +64,13 @@ public class PicturePreviewActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mRootView = (ViewGroup) findViewById(R.id.root_view);
-        mPagerTipsTv = (TextView) findViewById(R.id.pager_tips);
+        mRootView = findViewById(R.id.root_view);
+        mPagerTipsTv = findViewById(R.id.pager_tips);
         initViewPager();
     }
 
     private void initViewPager() {
-        mViewPager = (PhotoViewPager) findViewById(R.id.view_pager);
+        mViewPager = findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(mPreviewBean.pageLimit);
         mAdapter = new PicturePagerAdapter(mPreviewBean, mPreviewController);
         mViewPager.setAdapter(mAdapter);

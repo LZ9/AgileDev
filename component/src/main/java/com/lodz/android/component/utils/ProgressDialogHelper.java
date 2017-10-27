@@ -66,7 +66,7 @@ public class ProgressDialogHelper {
                 .setView(view)
                 .create();
         if (!TextUtils.isEmpty(msg)) {
-            TextView msgTextView = (TextView) view.findViewById(R.id.msg);
+            TextView msgTextView = view.findViewById(R.id.msg);
             msgTextView.setVisibility(View.VISIBLE);
             msgTextView.setText(msg);
         }

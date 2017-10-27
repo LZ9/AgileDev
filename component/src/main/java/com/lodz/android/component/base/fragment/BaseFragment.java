@@ -49,11 +49,11 @@ public abstract class BaseFragment extends LazyFragment{
 
     /** 初始化基础控件 */
     private void initViews(View view) {
-        mContentLayout = (LinearLayout) view.findViewById(R.id.content_layout);
-        mTitleBarViewStub = (ViewStub) view.findViewById(R.id.view_stub_title_bar_layout);
-        mLoadingViewStub = (ViewStub) view.findViewById(R.id.view_stub_loading_layout);
-        mNoDataViewStub = (ViewStub) view.findViewById(R.id.view_stub_no_data_layout);
-        mErrorViewStub = (ViewStub) view.findViewById(R.id.view_stub_error_layout);
+        mContentLayout = view.findViewById(R.id.content_layout);
+        mTitleBarViewStub = view.findViewById(R.id.view_stub_title_bar_layout);
+        mLoadingViewStub = view.findViewById(R.id.view_stub_loading_layout);
+        mNoDataViewStub = view.findViewById(R.id.view_stub_no_data_layout);
+        mErrorViewStub = view.findViewById(R.id.view_stub_error_layout);
     }
 
     /** 把内容布局设置进来 */

@@ -38,7 +38,7 @@ public class ImageFolderDialog extends BaseTopDialog{
 
     @Override
     protected void findViews() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view);
         initRecyclerView();
     }
 

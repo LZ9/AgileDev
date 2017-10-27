@@ -74,10 +74,10 @@ public class TitleBarLayout extends LinearLayout{
 
     private void findViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.component_view_title_layout, this);
-        mBackLayout = (LinearLayout) findViewById(R.id.back_layout);
-        mBackBtn = (TextView) findViewById(R.id.back_btn);
-        mTitleTextView = (TextView) findViewById(R.id.title_textview);
-        mExpandLinearLayout = (LinearLayout) findViewById(R.id.expand_layout);
+        mBackLayout = findViewById(R.id.back_layout);
+        mBackBtn = findViewById(R.id.back_btn);
+        mTitleTextView = findViewById(R.id.title_textview);
+        mExpandLinearLayout = findViewById(R.id.expand_layout);
         mDivideLineView = findViewById(R.id.divide_line);
     }
 

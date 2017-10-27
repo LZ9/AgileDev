@@ -111,10 +111,10 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
 
         private ImageFolderViewHolder(View itemView) {
             super(itemView);
-            folderImg = (ImageView) itemView.findViewById(R.id.folder_img);
-            floderName = (TextView) itemView.findViewById(R.id.floder_name);
-            count = (TextView) itemView.findViewById(R.id.count);
-            selectIconImg = (ImageView) itemView.findViewById(R.id.select_icon);
+            folderImg = itemView.findViewById(R.id.folder_img);
+            floderName = itemView.findViewById(R.id.floder_name);
+            count = itemView.findViewById(R.id.count);
+            selectIconImg = itemView.findViewById(R.id.select_icon);
         }
     }
 

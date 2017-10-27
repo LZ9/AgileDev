@@ -42,9 +42,9 @@ public class CheckDialog extends BaseDialog {
 
     @Override
     protected void findViews() {
-        mContentMsg = (TextView) findViewById(R.id.content_msg);
-        mPositiveBtn = (TextView) findViewById(R.id.positive_btn);
-        mNegativeBtn = (TextView) findViewById(R.id.negative_btn);
+        mContentMsg = findViewById(R.id.content_msg);
+        mPositiveBtn = findViewById(R.id.positive_btn);
+        mNegativeBtn = findViewById(R.id.negative_btn);
     }
 
     private void setBtn(TextView btn, String test, final Listener listener) {

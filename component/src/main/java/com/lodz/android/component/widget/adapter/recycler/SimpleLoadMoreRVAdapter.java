@@ -86,7 +86,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
 
         holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mFinishBackgroundColor));
 
-        TextView loadFinishTextView = (TextView) holder.itemView.findViewById(R.id.load_finish_text_view);
+        TextView loadFinishTextView = holder.itemView.findViewById(R.id.load_finish_text_view);
         loadFinishTextView.setText(mFinishText);
         loadFinishTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mFinishTextSizeSp);
         loadFinishTextView.setTextColor(ContextCompat.getColor(getContext(), mFinishTextColor));
@@ -104,7 +104,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
 
         holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mLoadFailBackgroundColor));
 
-        TextView textView = (TextView) holder.itemView.findViewById(R.id.load_fail_text_view);
+        TextView textView = holder.itemView.findViewById(R.id.load_fail_text_view);
         textView.setText(mLoadFailText);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mLoadFailTextSizeSp);
         textView.setTextColor(ContextCompat.getColor(getContext(), mLoadFailTextColor));
@@ -122,12 +122,12 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
 
         holder.itemView.setBackgroundColor(ContextCompat.getColor(getContext(), mLoadingMoreBackgroundColor));
 
-        TextView loadFinishTextView = (TextView) holder.itemView.findViewById(R.id.loading_more_text_view);
+        TextView loadFinishTextView = holder.itemView.findViewById(R.id.loading_more_text_view);
         loadFinishTextView.setText(mLoadingMoreText);
         loadFinishTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mLoadingMoreTextSizeSp);
         loadFinishTextView.setTextColor(ContextCompat.getColor(getContext(), mLoadingMoreTextColor));
 
-        ProgressBar progressBar = (ProgressBar) holder.itemView.findViewById(R.id.loading_progressbar);
+        ProgressBar progressBar = holder.itemView.findViewById(R.id.loading_progressbar);
         progressBar.setIndeterminate(true);
         if (indeterminateDrawable != 0){
             progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), indeterminateDrawable));

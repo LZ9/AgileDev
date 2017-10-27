@@ -179,6 +179,10 @@ public class PickerManager {
             sPickerBean.cameraSavePath  = sPickerBean.cameraSavePath + File.separator;
         }
 
+        if (sPickerBean.pickerUIConfig == null){// 校验UI配置
+            sPickerBean.pickerUIConfig = PickerUIConfig.createDefault();
+        }
+
         PhotoPickerActivity.start(context);
     }
 }

@@ -68,12 +68,12 @@ public abstract class BaseRefreshActivity extends AbsActivity{
 
     /** 初始化基类的view */
     private void initViews() {
-        mContentLayout = (LinearLayout) findViewById(R.id.content_layout);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        mTitleBarViewStub = (ViewStub) findViewById(R.id.view_stub_title_bar_layout);
-        mLoadingViewStub = (ViewStub) findViewById(R.id.view_stub_loading_layout);
-        mNoDataViewStub = (ViewStub) findViewById(R.id.view_stub_no_data_layout);
-        mErrorViewStub = (ViewStub) findViewById(R.id.view_stub_error_layout);
+        mContentLayout = findViewById(R.id.content_layout);
+        mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mTitleBarViewStub = findViewById(R.id.view_stub_title_bar_layout);
+        mLoadingViewStub = findViewById(R.id.view_stub_loading_layout);
+        mNoDataViewStub = findViewById(R.id.view_stub_no_data_layout);
+        mErrorViewStub = findViewById(R.id.view_stub_error_layout);
     }
 
     /** 把内容布局设置进来 */

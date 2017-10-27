@@ -37,7 +37,7 @@ public class TestFragment extends BaseRefreshFragment{
 
     @Override
     protected void findViews(View view, Bundle savedInstanceState) {
-        mTextView = (TextView) view.findViewById(R.id.first_text);
+        mTextView = view.findViewById(R.id.first_text);
     }
 
     @Override

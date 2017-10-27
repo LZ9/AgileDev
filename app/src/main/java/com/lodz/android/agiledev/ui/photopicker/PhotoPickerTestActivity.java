@@ -108,11 +108,15 @@ public class PhotoPickerTestActivity extends BaseActivity{
                 PickerUIConfig config = PickerUIConfig.createDefault()
                         .setCameraImg(R.drawable.ic_launcher)
                         .setCameraBgColor(R.color.white)
+                        .setItemBgColor(R.color.color_ea413c)
+                        .setBackBtnColor(R.color.color_ea413c)
+                        .setMainTextColor(R.color.color_ea413c)
+                        .setMoreFolderImg(R.drawable.ic_launcher)
                         .setSelectedBtnUnselect(R.color.color_ff4081)
                         .setSelectedBtnSelected(R.color.color_303f9f)
                         .setMaskColor(R.color.color_a0191919)
-                        .setNavigationBarColor(R.color.black)
-                        .setStatusBarColor(R.color.black);
+                        .setNavigationBarColor(R.color.color_00a0e9)
+                        .setStatusBarColor(R.color.color_00a0e9);
 
 
 

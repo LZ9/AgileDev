@@ -36,8 +36,8 @@ public class PremissionsActivity extends BaseActivity {
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mCallButton = (Button) findViewById(R.id.btn_call);
-        mPhotoButton = (Button) findViewById(R.id.btn_photo);
+        mCallButton = findViewById(R.id.btn_call);
+        mPhotoButton = findViewById(R.id.btn_photo);
     }
 
     @Override

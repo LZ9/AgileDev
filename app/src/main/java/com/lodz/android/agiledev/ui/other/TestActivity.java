@@ -58,12 +58,12 @@ public class TestActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mBackImageView = (ImageView) findViewById(R.id.detail_back_imageview);
-        mCollectionImageView = (ImageView) findViewById(R.id.detail_collection_imageview);
-        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
-//        mBgDraweeView = (SimpleDraweeView) findViewById(R.id.drawee_view);
+        mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
+        mBackImageView = findViewById(R.id.detail_back_imageview);
+        mCollectionImageView = findViewById(R.id.detail_collection_imageview);
+        mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+//        mBgDraweeView = findViewById(R.id.drawee_view);
     }
 
 

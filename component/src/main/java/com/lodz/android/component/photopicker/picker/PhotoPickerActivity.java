@@ -79,6 +79,7 @@ public class PhotoPickerActivity extends AbsActivity{
     /** 照相请求码 */
     private static final int REQUEST_CAMERA = 777;
 
+    private TextView mTitleTv;
     /** 返回按钮 */
     private ImageView mBackBtn;
     /** 确定按钮 */
@@ -120,21 +121,31 @@ public class PhotoPickerActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mBackBtn = (ImageView) findViewById(R.id.back_btn);
-        mConfirmBtn = (TextView) findViewById(R.id.confirm_btn);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mFolderBtn = (ViewGroup) findViewById(R.id.folder_btn);
-        mFolderTextTv = (TextView) findViewById(R.id.folder_text);
-        mMoreImg = (ImageView) findViewById(R.id.more_img);
-        mPreviewBtn = (TextView) findViewById(R.id.preview_btn);
+        mTitleTv = findViewById(R.id.title);
+        mBackBtn = findViewById(R.id.back_btn);
+        mConfirmBtn = findViewById(R.id.confirm_btn);
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mFolderBtn = findViewById(R.id.folder_btn);
+        mFolderTextTv = findViewById(R.id.folder_text);
+        mMoreImg = findViewById(R.id.more_img);
+        mPreviewBtn = findViewById(R.id.preview_btn);
 
+        mTitleTv.setTextColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getMainTextColor()));
+        mFolderTextTv.setTextColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getMainTextColor()));
         initRecyclerView();
-        drawBackBtn(android.R.color.white);
-        drawMoreImg(android.R.color.white);
+        drawBackBtn(mPickerBean.pickerUIConfig.getBackBtnColor());
+        if (mPickerBean.pickerUIConfig.getMoreFolderImg() != 0){
+            mMoreImg.setImageResource(mPickerBean.pickerUIConfig.getMoreFolderImg());
+        }else {
+            drawMoreImg(mPickerBean.pickerUIConfig.getMainTextColor());
+        }
         drawConfirmBtn();
         mPreviewBtn.setTextColor(SelectorUtils.createTxPressedUnableColor(getContext(), android.R.color.white, android.R.color.darker_gray, android.R.color.darker_gray));
         mConfirmBtn.setEnabled(false);
         mPreviewBtn.setEnabled(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSystemBarColor(mPickerBean.pickerUIConfig.getStatusBarColor(), mPickerBean.pickerUIConfig.getNavigationBarColor());
+        }
     }
 
     /** 初始化RecyclerView */
@@ -417,9 +428,6 @@ public class PhotoPickerActivity extends AbsActivity{
     @Override
     protected void initData() {
         super.initData();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSystemBarColor(mPickerBean.pickerUIConfig.getStatusBarColor(), mPickerBean.pickerUIConfig.getNavigationBarColor());
-        }
         if (ArrayUtils.isEmpty(mPickerBean.sourceList)){
             configAdapterData(AlbumUtils.getAllImages(getContext()));
         }else {
@@ -428,6 +436,7 @@ public class PhotoPickerActivity extends AbsActivity{
             mFolderTextTv.setText(R.string.component_picker_custom_photo);
             mMoreImg.setVisibility(View.GONE);
         }
+
     }
 
     /** 配置适配器数据 */

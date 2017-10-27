@@ -72,9 +72,9 @@ public class ErrorLayout extends LinearLayout{
 
     private void findViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.component_view_error_layout, this);
-        mErrorRootLayout = (LinearLayout) findViewById(R.id.error_root_layout);
-        mErrorImageView = (ImageView) findViewById(R.id.error_imageview);
-        mErrorTipsTextView = (TextView) findViewById(R.id.error_tips_textview);
+        mErrorRootLayout = findViewById(R.id.error_root_layout);
+        mErrorImageView = findViewById(R.id.error_imageview);
+        mErrorTipsTextView = findViewById(R.id.error_tips_textview);
     }
 
     private void initData() {

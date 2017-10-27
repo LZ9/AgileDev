@@ -62,15 +62,15 @@ public class Test2Activity extends AppCompatActivity{
 //    SimpleDraweeView mBgDraweeView;
 
     protected void findViews(Bundle savedInstanceState) {
-        mContentLayout = (LinearLayout) findViewById(R.id.content_layout);
-        mLoadingLayout = (LoadingLayout) findViewById(R.id.loading_layout);
+        mContentLayout = findViewById(R.id.content_layout);
+        mLoadingLayout = findViewById(R.id.loading_layout);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mBackImageView = (ImageView) findViewById(R.id.detail_back_imageview);
-        mCollectionImageView = (ImageView) findViewById(R.id.detail_collection_imageview);
-        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
-//        mBgDraweeView = (SimpleDraweeView) findViewById(R.id.drawee_view);
+        mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
+        mBackImageView = findViewById(R.id.detail_back_imageview);
+        mCollectionImageView = findViewById(R.id.detail_collection_imageview);
+        mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+//        mBgDraweeView = findViewById(R.id.drawee_view);
     }
 
 

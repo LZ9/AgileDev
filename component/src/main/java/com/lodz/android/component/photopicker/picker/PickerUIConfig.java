@@ -29,6 +29,9 @@ public class PickerUIConfig {
     /** 拍照按钮背景颜色 */
     @ColorRes
     private int cameraBgColor = android.R.color.black;
+    /** 照片背景颜色 */
+    @ColorRes
+    private int itemBgColor = android.R.color.black;
     /** 选择按钮未选中颜色 */
     @ColorRes
     private int selectedBtnUnselect = android.R.color.holo_green_dark;
@@ -38,6 +41,15 @@ public class PickerUIConfig {
     /** 选中后的遮罩层颜色 */
     @ColorRes
     private int maskColor = 0;
+    /** 返回按钮颜色 */
+    @ColorRes
+    private int backBtnColor = android.R.color.white;
+    /** 主文字颜色 */
+    @ColorRes
+    private int mainTextColor = android.R.color.white;
+    /** 更多文件夹图片 */
+    @DrawableRes
+    private int moreFolderImg = 0;
 
 
 
@@ -116,6 +128,66 @@ public class PickerUIConfig {
             this.maskColor = color;
         }
         return this;
+    }
+
+    /**
+     * 设置照片背景颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setItemBgColor(@ColorRes int color) {
+        if (color > 0){
+            this.itemBgColor = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置返回按钮颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setBackBtnColor(@ColorRes int color) {
+        if (color > 0){
+            this.backBtnColor = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置主文字颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setMainTextColor(@ColorRes int color) {
+        if (color > 0){
+            this.mainTextColor = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置更多文件夹图片
+     * @param moreFolderRes 资源图片
+     */
+    public PickerUIConfig setMoreFolderImg(@DrawableRes int moreFolderRes) {
+        if (moreFolderRes > 0){
+            this.moreFolderImg = moreFolderRes;
+        }
+        return this;
+    }
+
+    public int getMoreFolderImg() {
+        return moreFolderImg;
+    }
+
+    public int getMainTextColor() {
+        return mainTextColor;
+    }
+
+    public int getBackBtnColor() {
+        return backBtnColor;
+    }
+
+    public int getItemBgColor() {
+        return itemBgColor;
     }
 
     public int getCameraBgColor() {
