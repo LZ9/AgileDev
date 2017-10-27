@@ -81,7 +81,7 @@ class PicturePagerAdapter extends PagerAdapter {
         return imageView;
     }
 
-    public void release(){
+    void release(){
         mPreviewController = null;
         if (mPreviewBean != null){
             mPreviewBean.clear();

@@ -44,7 +44,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
     /** UI配置 */
     private PickerUIConfig mUIConfig;
 
-    public PhotoPickerAdapter(Context context, PhotoLoader<String> photoLoader, boolean isNeedCamera, PickerUIConfig config) {
+    PhotoPickerAdapter(Context context, PhotoLoader<String> photoLoader, boolean isNeedCamera, PickerUIConfig config) {
         super(context);
         this.mPhotoLoader = photoLoader;
         this.isNeedCamera = isNeedCamera;
@@ -139,7 +139,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 2), paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 4), paint);
         return bitmap;
     }
 
@@ -158,11 +158,11 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         paint.setStrokeWidth(4);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 2), paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 4), paint);
 
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 8), paint);
+        canvas.drawCircle(side / 2, side / 2, side / 2 - DensityUtils.dp2px(getContext(), 10), paint);
         return bitmap;
     }
 
@@ -215,7 +215,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         super.setItemLongClick(holder, isNeedCamera ? position - 1 : position);
     }
 
-    public void release(){
+    void release(){
         mPhotoLoader = null;
     }
 }

@@ -12,31 +12,30 @@ import java.util.List;
  * Created by zhouL on 2017/10/16.
  */
 
-public class PickerBean implements Serializable {
+class PickerBean implements Serializable {
 
     /** 是否挑选手机的全部图片 */
-    public boolean isPickAllPhoto = true;
+    boolean isPickAllPhoto = true;
     /** 资源列表 */
-    public List<String> sourceList;
+    List<String> sourceList;
     /** 图片加载接口 */
-    public PhotoLoader<String> photoLoader;
+    PhotoLoader<String> photoLoader;
     /** 预览图加载接口 */
-    public PhotoLoader<String> previewLoader;
+    PhotoLoader<String> previewLoader;
     /** 照片回调接口 */
-    public OnPhotoPickerListener photoPickerListener;
+    OnPhotoPickerListener photoPickerListener;
     /** 可选最大数量 */
-    public int maxCount = 9;
+    int maxCount = 9;
     /** 是否需要相机功能 */
-    public boolean isNeedCamera = false;
+    boolean isNeedCamera = false;
     /** 拍照保存地址 */
-    public String cameraSavePath = "";
+    String cameraSavePath = "";
     /** UI配置 */
-    public PickerUIConfig pickerUIConfig;
+    PickerUIConfig pickerUIConfig;
 
 
     void clear(){
         if (!ArrayUtils.isEmpty(sourceList)){
-            sourceList.clear();
             sourceList = null;
         }
         photoLoader = null;

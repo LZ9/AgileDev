@@ -15,42 +15,41 @@ import java.util.List;
  * Created by zhouL on 2017/10/12.
  */
 
-public class PreviewBean<T> implements Serializable{
+class PreviewBean<T> implements Serializable{
 
     /** 资源列表 */
-    public List<T> sourceList;
+    List<T> sourceList;
     /** 图片加载接口 */
-    public PhotoLoader<T> photoLoader;
+    PhotoLoader<T> photoLoader;
     /** 默认显示的图片位置 */
-    public int showPosition = 0;
+    int showPosition = 0;
     /** 预览页的背景色 */
     @ColorRes
-    public int backgroundColor = android.R.color.black;
+    int backgroundColor = android.R.color.black;
     /** 顶部状态栏颜色 */
     @ColorRes
-    public int statusBarColor = 0;
+    int statusBarColor = 0;
     /** 底部导航栏颜色 */
     @ColorRes
-    public int navigationBarColor = 0;
+    int navigationBarColor = 0;
     /** 页码文字颜色 */
     @ColorRes
-    public int pagerTextColor = android.R.color.darker_gray;
+    int pagerTextColor = android.R.color.darker_gray;
     /** 页码文字大小（单位SP） */
-    public int pagerTextSize = 16;
+    int pagerTextSize = 16;
     /** 是否显示页码文字 */
-    public boolean isShowPagerText = true;
+    boolean isShowPagerText = true;
     /** 点击事件 */
-    public OnClickListener<T> clickListener;
+    OnClickListener<T> clickListener;
     /** 长按事件事件 */
-    public OnLongClickListener<T> longClickListener;
+    OnLongClickListener<T> longClickListener;
     /** 是否可缩放 */
-    public boolean isScale = true;
+    boolean isScale = true;
     /** 页面缓存数 */
-    public int pageLimit = 2;
+    int pageLimit = 2;
 
     void clear(){
         if (!ArrayUtils.isEmpty(sourceList)){
-            sourceList.clear();
             sourceList = null;
         }
         photoLoader = null;

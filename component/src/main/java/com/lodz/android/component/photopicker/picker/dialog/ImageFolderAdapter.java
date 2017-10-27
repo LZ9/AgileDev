@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.utils.DensityUtils;
 
@@ -34,13 +35,17 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
 
     public ImageFolderAdapter(Context context) {
         super(context);
-        mUnselectBitmap = getUnselectBitmap(android.R.color.holo_green_dark);
-        mSelectedBitmap = getSelectedBitmap(android.R.color.holo_green_dark);
     }
 
     /** 设置图片加载接口 */
     public void setPhotoLoader(PhotoLoader<String> photoLoader){
         mPhotoLoader = photoLoader;
+    }
+
+    /** 设置UI配置 */
+    public void setPickerUIConfig(PickerUIConfig config){
+        mUnselectBitmap = getUnselectBitmap(config.getFolderSelectColor());
+        mSelectedBitmap = getSelectedBitmap(config.getFolderSelectColor());
     }
 
     @Override

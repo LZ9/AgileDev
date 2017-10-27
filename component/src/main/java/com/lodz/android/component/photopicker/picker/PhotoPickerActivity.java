@@ -36,7 +36,6 @@ import com.lodz.android.component.photopicker.contract.preview.PreviewController
 import com.lodz.android.component.photopicker.picker.dialog.ImageFolderDialog;
 import com.lodz.android.component.photopicker.picker.dialog.ImageFolderIteamBean;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
-import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.album.AlbumUtils;
@@ -57,7 +56,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
@@ -79,7 +78,6 @@ public class PhotoPickerActivity extends AbsActivity{
     /** 照相请求码 */
     private static final int REQUEST_CAMERA = 777;
 
-    private TextView mTitleTv;
     /** 返回按钮 */
     private ImageView mBackBtn;
     /** 确定按钮 */
@@ -121,7 +119,9 @@ public class PhotoPickerActivity extends AbsActivity{
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        mTitleTv = findViewById(R.id.title);
+        TextView titleTv = findViewById(R.id.title);
+        ViewGroup topLayout = findViewById(R.id.top_layout);
+        ViewGroup bottomLayout = findViewById(R.id.bottom_layout);
         mBackBtn = findViewById(R.id.back_btn);
         mConfirmBtn = findViewById(R.id.confirm_btn);
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -130,9 +130,11 @@ public class PhotoPickerActivity extends AbsActivity{
         mMoreImg = findViewById(R.id.more_img);
         mPreviewBtn = findViewById(R.id.preview_btn);
 
-        mTitleTv.setTextColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getMainTextColor()));
-        mFolderTextTv.setTextColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getMainTextColor()));
         initRecyclerView();
+        topLayout.setBackgroundColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getTopLayoutColor()));
+        bottomLayout.setBackgroundColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getBottomLayoutColor()));
+        titleTv.setTextColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getMainTextColor()));
+        mFolderTextTv.setTextColor(ContextCompat.getColor(getContext(), mPickerBean.pickerUIConfig.getMainTextColor()));
         drawBackBtn(mPickerBean.pickerUIConfig.getBackBtnColor());
         if (mPickerBean.pickerUIConfig.getMoreFolderImg() != 0){
             mMoreImg.setImageResource(mPickerBean.pickerUIConfig.getMoreFolderImg());
@@ -140,7 +142,10 @@ public class PhotoPickerActivity extends AbsActivity{
             drawMoreImg(mPickerBean.pickerUIConfig.getMainTextColor());
         }
         drawConfirmBtn();
-        mPreviewBtn.setTextColor(SelectorUtils.createTxPressedUnableColor(getContext(), android.R.color.white, android.R.color.darker_gray, android.R.color.darker_gray));
+        mPreviewBtn.setTextColor(SelectorUtils.createTxPressedUnableColor(getContext(),
+                mPickerBean.pickerUIConfig.getPreviewBtnNormal(),
+                mPickerBean.pickerUIConfig.getPreviewBtnUnable(),
+                mPickerBean.pickerUIConfig.getPreviewBtnUnable()));
         mConfirmBtn.setEnabled(false);
         mPreviewBtn.setEnabled(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -171,25 +176,10 @@ public class PhotoPickerActivity extends AbsActivity{
                     }
                 })
                 .compose(RxUtils.<Bitmap>io_main())
-                .subscribe(new BaseObserver<Bitmap>() {
+                .subscribe(new Consumer<Bitmap>() {
                     @Override
-                    public void onBaseSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onBaseNext(Bitmap bitmap) {
+                    public void accept(Bitmap bitmap) throws Exception {
                         mBackBtn.setImageBitmap(bitmap);
-                    }
-
-                    @Override
-                    public void onBaseError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onBaseComplete() {
-
                     }
                 });
     }
@@ -207,25 +197,10 @@ public class PhotoPickerActivity extends AbsActivity{
                     }
                 })
                 .compose(RxUtils.<Bitmap>io_main())
-                .subscribe(new BaseObserver<Bitmap>() {
+                .subscribe(new Consumer<Bitmap>() {
                     @Override
-                    public void onBaseSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onBaseNext(Bitmap bitmap) {
+                    public void accept(Bitmap bitmap) throws Exception {
                         mMoreImg.setImageBitmap(bitmap);
-                    }
-
-                    @Override
-                    public void onBaseError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onBaseComplete() {
-
                     }
                 });
     }
@@ -240,9 +215,9 @@ public class PhotoPickerActivity extends AbsActivity{
                 int height = mConfirmBtn.getMeasuredHeight();
 
                 StateListDrawable drawable = SelectorUtils.createBgPressedUnableDrawable(
-                        getCornerDrawable(android.R.color.holo_green_light, width, height),
-                        getCornerDrawable(android.R.color.white, width, height),
-                        getCornerDrawable(android.R.color.holo_green_dark, width, height));
+                        getCornerDrawable(mPickerBean.pickerUIConfig.getConfirmBtnNormal(), width, height),
+                        getCornerDrawable(mPickerBean.pickerUIConfig.getConfirmBtnPressed(), width, height),
+                        getCornerDrawable(mPickerBean.pickerUIConfig.getConfirmBtnUnable(), width, height));
                 if (drawable == null){
                     return true;
                 }
@@ -252,7 +227,9 @@ public class PhotoPickerActivity extends AbsActivity{
                     mConfirmBtn.setBackgroundDrawable(drawable);
                 }
                 mConfirmBtn.setTextColor(SelectorUtils.createTxPressedUnableColor(getContext(),
-                        android.R.color.white, android.R.color.holo_green_dark, android.R.color.darker_gray));
+                        mPickerBean.pickerUIConfig.getConfirmTextNormal(),
+                        mPickerBean.pickerUIConfig.getConfirmTextPressed(),
+                        mPickerBean.pickerUIConfig.getConfirmTextUnable()));
                 return true;
             }
         });
@@ -276,14 +253,17 @@ public class PhotoPickerActivity extends AbsActivity{
             public void onClick(View v) {
                 List<ImageFolderIteamBean> folders = new ArrayList<>();
 
+                // 组装数据
                 for (ImageFolder folder : AlbumUtils.getAllImageFolders(getContext())) {
                     ImageFolderIteamBean iteamBean = new ImageFolderIteamBean();
                     iteamBean.imageFolder = folder;
                     iteamBean.isSelected = mFolderTextTv.getText().toString().equals(folder.getName());
                     folders.add(iteamBean);
                 }
+
                 ImageFolderDialog dialog = new ImageFolderDialog(getContext());
                 dialog.setPhotoLoader(mPickerBean.photoLoader);
+                dialog.setPickerUIConfig(mPickerBean.pickerUIConfig);
                 dialog.setData(folders);
                 dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
@@ -328,18 +308,15 @@ public class PhotoPickerActivity extends AbsActivity{
             public void onClick(View v) {
                 List<String> list = new ArrayList<>();
                 for (PickerItemBean itemBean : mSelectedList) {
-                    list.add(itemBean.photoPath);
+                    list.add(itemBean.photoPath);// 组装数据
                 }
 
                 PreviewManager
                         .<String>create()
-                        .setPageLimit(2)
-                        .setScale(true)
-                        .setBackgroundColor(android.R.color.black)
-                        .setStatusBarColor(android.R.color.black)
-                        .setPagerTextColor(android.R.color.white)
-                        .setPagerTextSize(14)
-                        .setShowPagerText(true)
+                        .setBackgroundColor(mPickerBean.pickerUIConfig.getItemBgColor())
+                        .setStatusBarColor(mPickerBean.pickerUIConfig.getStatusBarColor())
+                        .setNavigationBarColor(mPickerBean.pickerUIConfig.getNavigationBarColor())
+                        .setPagerTextColor(mPickerBean.pickerUIConfig.getMainTextColor())
                         .setOnClickListener(new OnClickListener<String>() {
                             @Override
                             public void onClick(Context context, String source, int position, PreviewController controller) {
@@ -361,8 +338,9 @@ public class PhotoPickerActivity extends AbsActivity{
         mAdapter.setListener(new PhotoPickerAdapter.Listener() {
             @Override
             public void onSelected(PickerItemBean bean, int position) {
-                if (mSelectedList.size() == mPickerBean.maxCount && !bean.isSelected){
-                    ToastUtils.showShort(getContext(), getContext().getString(R.string.component_picker_photo_count_tips, String.valueOf(mPickerBean.maxCount)));
+                if (mSelectedList.size() == mPickerBean.maxCount && !bean.isSelected){// 已经选满图片
+                    ToastUtils.showShort(getContext(),
+                            getContext().getString(R.string.component_picker_photo_count_tips, String.valueOf(mPickerBean.maxCount)));
                     return;
                 }
 
@@ -381,10 +359,15 @@ public class PhotoPickerActivity extends AbsActivity{
                                 }
                             }
                         }
+                        // 设置按钮状态
                         mConfirmBtn.setEnabled(mSelectedList.size() > 0);
                         mPreviewBtn.setEnabled(mSelectedList.size() > 0);
-                        mConfirmBtn.setText(mSelectedList.size() > 0 ? getString(R.string.component_picker_confirm_num, String.valueOf(mSelectedList.size()), String.valueOf(mPickerBean.maxCount)) : getString(R.string.component_picker_confirm));
-                        mPreviewBtn.setText(mSelectedList.size() > 0 ? getString(R.string.component_picker_preview_num, String.valueOf(mSelectedList.size())) : getString(R.string.component_picker_preview));
+                        mConfirmBtn.setText(mSelectedList.size() > 0 ? getString(R.string.component_picker_confirm_num,
+                                String.valueOf(mSelectedList.size()), String.valueOf(mPickerBean.maxCount))
+                                : getString(R.string.component_picker_confirm));
+                        mPreviewBtn.setText(mSelectedList.size() > 0 ? getString(R.string.component_picker_preview_num,
+                                String.valueOf(mSelectedList.size()))
+                                : getString(R.string.component_picker_preview));
                         return;
                     }
                 }
@@ -402,10 +385,10 @@ public class PhotoPickerActivity extends AbsActivity{
             public void onItemClick(RecyclerView.ViewHolder viewHolder, PickerItemBean item, int position) {
                 PreviewManager
                         .<String>create()
-                        .setPageLimit(2)
-                        .setScale(true)
-                        .setBackgroundColor(android.R.color.black)
-                        .setStatusBarColor(android.R.color.black)
+                        .setBackgroundColor(mPickerBean.pickerUIConfig.getItemBgColor())
+                        .setStatusBarColor(mPickerBean.pickerUIConfig.getStatusBarColor())
+                        .setNavigationBarColor(mPickerBean.pickerUIConfig.getNavigationBarColor())
+                        .setPagerTextColor(mPickerBean.pickerUIConfig.getMainTextColor())
                         .setShowPagerText(false)
                         .setOnClickListener(new OnClickListener<String>() {
                             @Override
@@ -490,15 +473,15 @@ public class PhotoPickerActivity extends AbsActivity{
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
         Path path = new Path();
-        path.moveTo(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 4));
-        path.lineTo(centerPoint - DensityUtils.dp2px(getContext(), 9), centerPoint - DensityUtils.dp2px(getContext(), 4));
-        path.moveTo(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 4));
-        path.lineTo(centerPoint + DensityUtils.dp2px(getContext(), 9), centerPoint - DensityUtils.dp2px(getContext(), 4));
+        path.moveTo(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 3));
+        path.lineTo(centerPoint - DensityUtils.dp2px(getContext(), 7), centerPoint - DensityUtils.dp2px(getContext(), 3));
+        path.moveTo(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 3));
+        path.lineTo(centerPoint + DensityUtils.dp2px(getContext(), 7), centerPoint - DensityUtils.dp2px(getContext(), 3));
         canvas.drawPath(path, paint);
 
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 4), 3, paint);
+        canvas.drawCircle(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 3), 3, paint);
         return bitmap;
     }
 

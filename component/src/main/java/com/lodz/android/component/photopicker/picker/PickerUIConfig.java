@@ -19,7 +19,7 @@ public class PickerUIConfig {
 
     /** 顶部状态栏颜色 */
     @ColorRes
-    private int statusBarColor = 0;
+    private int statusBarColor = android.R.color.black;
     /** 底部导航栏颜色 */
     @ColorRes
     private int navigationBarColor = 0;
@@ -50,8 +50,39 @@ public class PickerUIConfig {
     /** 更多文件夹图片 */
     @DrawableRes
     private int moreFolderImg = 0;
-
-
+    /** 顶部背景颜色 */
+    @ColorRes
+    private int topLayoutColor = android.R.color.black;
+    /** 底部背景颜色 */
+    @ColorRes
+    private int bottomLayoutColor = android.R.color.black;
+    /** 预览按钮普通颜色 */
+    @ColorRes
+    private int previewBtnNormal = android.R.color.white;
+    /** 预览按钮不可用颜色 */
+    @ColorRes
+    private int previewBtnUnable = android.R.color.darker_gray;
+    /** 确认按钮普通颜色 */
+    @ColorRes
+    private int confirmBtnNormal = android.R.color.holo_green_light;
+    /** 确认按钮按压颜色 */
+    @ColorRes
+    private int confirmBtnPressed = android.R.color.white;
+    /** 确认按钮不可用颜色 */
+    @ColorRes
+    private int confirmBtnUnable = android.R.color.holo_green_dark;
+    /** 确认文字普通颜色 */
+    @ColorRes
+    private int confirmTextNormal = android.R.color.white;
+    /** 确认文字按压颜色 */
+    @ColorRes
+    private int confirmTextPressed = android.R.color.holo_green_dark;
+    /** 确认文字不可用颜色 */
+    @ColorRes
+    private int confirmTextUnable = android.R.color.darker_gray;
+    /** 文件夹选择颜色 */
+    @ColorRes
+    private int folderSelectColor = android.R.color.holo_green_dark;
 
     /**
      * 设置顶部状态栏颜色
@@ -88,7 +119,7 @@ public class PickerUIConfig {
 
     /**
      * 设置拍照按钮背景颜色
-     * @param color
+     * @param color 颜色
      */
     public PickerUIConfig setCameraBgColor(@ColorRes int color) {
         if (color > 0){
@@ -174,47 +205,212 @@ public class PickerUIConfig {
         return this;
     }
 
-    public int getMoreFolderImg() {
+    /**
+     * 设置顶部背景颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setTopLayoutColor(@ColorRes int color) {
+        if (color > 0){
+            this.topLayoutColor = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置底部背景颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setBottomLayoutColor(@ColorRes int color) {
+        if (color > 0){
+            this.bottomLayoutColor = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置预览按钮普通颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setPreviewBtnNormal(@ColorRes int color) {
+        if (color > 0){
+            this.previewBtnNormal = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置预览按钮不可用颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setPreviewBtnUnable(@ColorRes int color) {
+        if (color > 0){
+            this.previewBtnUnable = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置确认按钮普通颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setConfirmBtnNormal(@ColorRes int color) {
+        if (color > 0){
+            this.confirmBtnNormal = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置确认按钮按压颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setConfirmBtnPressed(@ColorRes int color) {
+        if (color > 0){
+            this.confirmBtnPressed = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置确认按钮不可用颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setConfirmBtnUnable(@ColorRes int color) {
+        if (color > 0){
+            this.confirmBtnUnable = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置确认文字普通颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setConfirmTextNormal(@ColorRes int color) {
+        if (color > 0){
+            this.confirmTextNormal = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置确认文字按压颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setConfirmTextPressed(@ColorRes int color) {
+        if (color > 0){
+            this.confirmTextPressed = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置确认文字不可用颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setConfirmTextUnable(@ColorRes int color) {
+        if (color > 0){
+            this.confirmTextUnable = color;
+        }
+        return this;
+    }
+
+    /**
+     * 设置文件夹选择颜色
+     * @param color 颜色
+     */
+    public PickerUIConfig setFolderSelectColor(@ColorRes int color) {
+        if (color > 0){
+            this.folderSelectColor = color;
+        }
+        return this;
+    }
+
+    public int getFolderSelectColor() {
+        return folderSelectColor;
+    }
+
+    int getConfirmTextNormal() {
+        return confirmTextNormal;
+    }
+
+    int getConfirmTextPressed() {
+        return confirmTextPressed;
+    }
+
+    int getConfirmTextUnable() {
+        return confirmTextUnable;
+    }
+
+    int getConfirmBtnNormal() {
+        return confirmBtnNormal;
+    }
+
+    int getConfirmBtnPressed() {
+        return confirmBtnPressed;
+    }
+
+    int getConfirmBtnUnable() {
+        return confirmBtnUnable;
+    }
+
+    int getPreviewBtnNormal() {
+        return previewBtnNormal;
+    }
+
+    int getPreviewBtnUnable() {
+        return previewBtnUnable;
+    }
+
+    int getTopLayoutColor() {
+        return topLayoutColor;
+    }
+
+    int getBottomLayoutColor() {
+        return bottomLayoutColor;
+    }
+
+    int getMoreFolderImg() {
         return moreFolderImg;
     }
 
-    public int getMainTextColor() {
+    int getMainTextColor() {
         return mainTextColor;
     }
 
-    public int getBackBtnColor() {
+    int getBackBtnColor() {
         return backBtnColor;
     }
 
-    public int getItemBgColor() {
+    int getItemBgColor() {
         return itemBgColor;
     }
 
-    public int getCameraBgColor() {
+    int getCameraBgColor() {
         return cameraBgColor;
     }
 
-    public int getMaskColor() {
+    int getMaskColor() {
         return maskColor;
     }
 
-    public int getSelectedBtnUnselect() {
+    int getSelectedBtnUnselect() {
         return selectedBtnUnselect;
     }
 
-    public int getSelectedBtnSelected() {
+    int getSelectedBtnSelected() {
         return selectedBtnSelected;
     }
 
-    public int getCameraImg() {
+    int getCameraImg() {
         return cameraImg;
     }
 
-    public int getStatusBarColor() {
+    int getStatusBarColor() {
         return statusBarColor;
     }
 
-    public int getNavigationBarColor() {
+    int getNavigationBarColor() {
         return navigationBarColor;
     }
 }

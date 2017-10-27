@@ -8,8 +8,8 @@ package com.lodz.android.component.photopicker.picker;
 class PickerItemBean {
 
     /** 照片路径 */
-    public String photoPath;
+    String photoPath;
     /** 是否选中 */
-    public boolean isSelected = false;
+    boolean isSelected = false;
 
 }

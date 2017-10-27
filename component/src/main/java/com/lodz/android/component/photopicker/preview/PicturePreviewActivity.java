@@ -136,7 +136,7 @@ public class PicturePreviewActivity extends AbsActivity{
 
     /** 设置页码 */
     private void setPagerNum(int position){
-        mPagerTipsTv.setText((position + 1) + " / " + ArrayUtils.getSize(mPreviewBean.sourceList));
+        mPagerTipsTv.setText(new StringBuffer().append(position + 1).append(" / ").append(ArrayUtils.getSize(mPreviewBean.sourceList)));
     }
 
     /**

@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.dialog.BaseTopDialog;
 import com.lodz.android.core.utils.ArrayUtils;
@@ -64,6 +65,10 @@ public class ImageFolderDialog extends BaseTopDialog{
         mAdapter.setData(list);
         mRecyclerView.smoothScrollToPosition(0);
         mAdapter.notifyDataSetChanged();
+    }
+
+    public void setPickerUIConfig(PickerUIConfig config){
+        mAdapter.setPickerUIConfig(config);
     }
 
     @Override
