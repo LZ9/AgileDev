@@ -15,13 +15,13 @@
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
     dependencies {
-        compile 'com.android.support:appcompat-v7:25.3.1'
-        compile 'com.android.support:design:25.3.1'
-        compile 'com.android.support:recyclerview-v7:25.3.1'
-        compile 'com.android.support:cardview-v7:25.3.1'
-        compile 'com.android.support:support-annotations:25.3.1'
+        compile 'com.android.support:appcompat-v7:26.1.0'
+        compile 'com.android.support:design:26.1.0'
+        compile 'com.android.support:recyclerview-v7:26.1.0'
+        compile 'com.android.support:cardview-v7:26.1.0'
+        compile 'com.android.support:support-annotations:27.0.0'
         compile 'com.android.support.constraint:constraint-layout:1.0.2'
-        compile 'com.google.android:flexbox:0.3.0'
+        compile 'com.google.android:flexbox:0.3.1'
     }
 ```
 
