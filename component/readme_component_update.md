@@ -1,5 +1,16 @@
 # component库更新记录
 
+##### 2017/09/26
+1. 添加动画dialog抽象类
+2. 修复RecyclerView拖拽帮助类的BUG
+3. 标题栏增加阴影
+4. 封装PopupWindow基类
+5. RecyclerView添加自定义动画
+6. 优化RecyclerView添加头部/底部的适配器
+7. 添加侧滑菜单控件
+8. 修复MVP相关的BUG
+9. 发布1.3.5版本
+
 ##### 2017/08/21
 1. 对组件库里引用到BaseApplication的地方做判空处理
 2. 基础控件增加布局方向配置

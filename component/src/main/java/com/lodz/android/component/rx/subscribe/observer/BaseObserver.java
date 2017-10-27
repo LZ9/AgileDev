@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseObserver<T> implements Observer<T> {
 
-    private String ERROR_TAG = "error_tag";
+    private static final String ERROR_TAG = "error_tag";
 
     private Disposable mDisposable;
 

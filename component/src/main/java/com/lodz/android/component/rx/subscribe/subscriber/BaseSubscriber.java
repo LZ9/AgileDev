@@ -15,7 +15,7 @@ import org.reactivestreams.Subscription;
  */
 public abstract class BaseSubscriber<T> implements Subscriber<T> {
 
-    private String ERROR_TAG = "error_tag";
+    private static final String ERROR_TAG = "error_tag";
 
     private Subscription mSubscription;
 
