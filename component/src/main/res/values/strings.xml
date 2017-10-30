@@ -33,5 +33,6 @@
     <string name="component_no_camera">没有系统相机</string>
     <string name="component_photo_temp_file_fail">文件创建失败</string>
     <string name="component_photo_folder_fail">文件夹创建失败</string>
+    <string name="component_photo_authority_empty">您尚未配置FileProvider</string>
 
 </resources>

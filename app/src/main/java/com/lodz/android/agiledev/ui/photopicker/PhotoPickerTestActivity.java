@@ -176,6 +176,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setCameraSavePath(FileManager.getCacheFolderPath())
                         .setPickerUIConfig(PickerUIConfig.createDefault())
                         .setPickerUIConfig(config)
+                        .setAuthority("com.lodz.android.agiledev.fileprovider")
                         .build()
                         .open(getContext());
             }

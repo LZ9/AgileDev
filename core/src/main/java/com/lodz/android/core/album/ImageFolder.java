@@ -19,7 +19,7 @@ public class ImageFolder {
     /** 是否所有图片 */
     private boolean isAllPicture = false;
 
-    public void setDir(String dir) {
+    void setDir(String dir) {
         this.dir = dir;
         if (dir.contains("/")) {
             int lastIndexOf = dir.lastIndexOf("/");
@@ -27,7 +27,7 @@ public class ImageFolder {
         }
     }
 
-    public void setFirstImagePath(String firstImagePath) {
+    void setFirstImagePath(String firstImagePath) {
         this.firstImagePath = firstImagePath;
     }
 

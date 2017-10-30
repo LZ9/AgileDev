@@ -1,6 +1,7 @@
 package com.lodz.android.component.photopicker.picker;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -110,6 +111,15 @@ public class PickerManager {
             return this;
         }
 
+        /**
+         * 设置7.0的FileProvider名字
+         * @param authority 名称
+         */
+        public Builder setAuthority(String authority){
+            pickerBean.authority = authority;
+            return this;
+        }
+
         /** 完成构建（选择手机里的全部图片） */
         public PickerManager build() {
             pickerBean.isPickAllPhoto = true;
@@ -181,6 +191,11 @@ public class PickerManager {
 
         if (sPickerBean.pickerUIConfig == null){// 校验UI配置
             sPickerBean.pickerUIConfig = PickerUIConfig.createDefault();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && TextUtils.isEmpty(sPickerBean.authority)) {//当前系统是7.0以上且没有配置FileProvider
+            ToastUtils.showShort(context, R.string.component_photo_authority_empty);
+            return;
         }
 
         PhotoPickerActivity.start(context);

@@ -32,6 +32,8 @@ class PickerBean implements Serializable {
     String cameraSavePath = "";
     /** UI配置 */
     PickerUIConfig pickerUIConfig;
+    /** 7.0的FileProvider名字 */
+    String authority = "";
 
 
     void clear(){
