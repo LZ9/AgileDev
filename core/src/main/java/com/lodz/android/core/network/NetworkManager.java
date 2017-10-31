@@ -1,5 +1,6 @@
 package com.lodz.android.core.network;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -85,14 +86,19 @@ public class NetworkManager {
     }
 
     /** 更新网络信息 */
-    protected void updateNet(ConnectivityManager manager){
+    @SuppressLint("MissingPermission")
+    void updateNet(ConnectivityManager manager){
         mNetInfo.type = NetInfo.NETWORK_TYPE_NONE;
         mNetInfo.standard = NetInfo.NETWORK_TYPE_NONE;
         if (manager == null){
             return;
         }
-
-        NetworkInfo netInfo = manager.getActiveNetworkInfo();
+        NetworkInfo netInfo = null;
+        try {
+            netInfo = manager.getActiveNetworkInfo();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if (netInfo == null || !netInfo.isAvailable()){//网络未连接
             return;
         }
@@ -187,7 +193,7 @@ public class NetworkManager {
     }
 
     /** 通知监听器回调 */
-    protected void notifyNetworkListeners() {
+    void notifyNetworkListeners() {
         Iterator<NetworkListener> iterator = mNetworkListeners.iterator();
         while (iterator.hasNext()){
             NetworkListener listener = iterator.next();

@@ -10,7 +10,7 @@ public class PriorityThread extends Thread{
     /** android下线程优先级  */
     private int mOSPriority = android.os.Process.THREAD_PRIORITY_DEFAULT;
 
-    public PriorityThread(Runnable runnable) {
+    PriorityThread(Runnable runnable) {
         super(runnable);
     }
 
@@ -18,7 +18,7 @@ public class PriorityThread extends Thread{
      * 设置android下线程优先级，【-20， 19】，高优先级 到 低优先级.
      * @param priority 优先级
      */
-    public void setOSPriority(int priority) {
+    void setOSPriority(int priority) {
         this.mOSPriority = priority;
     }
 

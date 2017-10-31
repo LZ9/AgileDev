@@ -111,6 +111,12 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 17. VibratorUtil 手机震动帮助类
 18. BitmapUtils 图片处理帮助类，压缩转码等等
 19. IdCardUtils 身份证校验类
+20. ArrayUtils 数组列表帮助类
+21. AssetsUtils 获取Assets资源的工具类
+22. DrawableUtils 创建Drawable帮助类
+23. SelectorUtils 按钮和文字Selector状态帮助类
+24. SettingUtils 系统设置帮助类
+
 
 ## 7、缓存Cache
 缓存这块引用了ACache来做，我封装了ACacheUtils方便小伙伴进行缓存的配置和使用。

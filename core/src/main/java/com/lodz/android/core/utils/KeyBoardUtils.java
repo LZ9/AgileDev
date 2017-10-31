@@ -25,6 +25,9 @@ public class KeyBoardUtils {
      */
     public static void showInputMethod(View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null){
+            return;
+        }
         imm.showSoftInput(view, InputMethodManager.RESULT_SHOWN);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
@@ -34,12 +37,11 @@ public class KeyBoardUtils {
      * @param view 隐藏的view
      */
     public static void hideInputMethod(View view) {
-        try {
-            InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }catch (Exception e){
-            e.printStackTrace();
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm == null){
+            return;
         }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 

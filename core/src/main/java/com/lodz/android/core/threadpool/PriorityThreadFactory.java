@@ -10,10 +10,10 @@ import java.util.concurrent.ThreadFactory;
  * Created by zhouL on 2016/11/17.
  */
 
-public class PriorityThreadFactory {
+class PriorityThreadFactory {
 
     /** 创建一个优先级最高线程 */
-    public static ThreadFactory createHighestPriorityThread(){
+    static ThreadFactory createHighestPriorityThread(){
         return new ThreadFactory() {
             @Override
             public Thread newThread(@Nullable Runnable runnable) {
@@ -26,7 +26,7 @@ public class PriorityThreadFactory {
     }
 
     /** 创建一个普通线程 */
-    public static ThreadFactory createNormPriorityThread(){
+    static ThreadFactory createNormPriorityThread(){
         return new ThreadFactory() {
             @Override
             public Thread newThread(@Nullable Runnable runnable) {
@@ -39,7 +39,7 @@ public class PriorityThreadFactory {
     }
 
     /** 创建一个优先级最低线程 */
-    public static ThreadFactory createLowestPriorityThread(){
+    static ThreadFactory createLowestPriorityThread(){
         return new ThreadFactory() {
             @Override
             public Thread newThread(@Nullable Runnable runnable) {
