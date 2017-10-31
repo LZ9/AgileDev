@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatDialog;
@@ -38,6 +39,7 @@ public abstract class BaseDialog extends AppCompatDialog {
 
     protected void onStartInit(Context context) {}
 
+    @LayoutRes
     protected abstract int getLayoutId();
 
     protected abstract void findViews();

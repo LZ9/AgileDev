@@ -1,5 +1,6 @@
 package com.lodz.android.component.base.fragment;
 
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public abstract class BaseFragment extends LazyFragment{
         mContentLayout.addView(view, layoutParams);
     }
 
+    @LayoutRes
     protected abstract int getLayoutId();
 
     /** 点击标题栏的返回按钮 */

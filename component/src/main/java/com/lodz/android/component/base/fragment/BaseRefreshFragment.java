@@ -1,6 +1,7 @@
 package com.lodz.android.component.base.fragment;
 
 import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -87,6 +88,7 @@ public abstract class BaseRefreshFragment extends LazyFragment{
         mContentLayout.addView(view, layoutParams);
     }
 
+    @LayoutRes
     protected abstract int getLayoutId();
 
     @Override

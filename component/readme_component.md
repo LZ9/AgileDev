@@ -16,6 +16,7 @@
  - [7、Dialog相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7dialog相关)
  - [8、自定义widget](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#8自定义widget)
  - [9、MVP相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#9mvp相关)
+ - [10、PopupWindow基类](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#10PopupWindow基类)
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
 ## 1、涉及的依赖
@@ -346,20 +347,24 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
 ```
 
 ### 4）RxUtils
-目前RxUtils只收录了异步线程发起主线程订阅的方法，即
+a）异步线程发起主线程订阅的方法
 ```
     .compose(RxUtils.<T>io_main())
+```
+b）在订阅者的onError中去获取提示语
+```
+    RxUtils.getExceptionTips(throwable, isNetwork, defaultTips)
 ```
 
 ## 6、RecyclerView相关
 ### 1）BaseRecyclerViewAdapter
-这个是RecyclerView适配器的基类adapter，继承这个基类，
-实现onCreateViewHolder(ViewGroup parent, int viewType)和onBind(RecyclerView.ViewHolder holder, int position)两个抽象方法，
-来实现适配器逻辑
+a）这个是RecyclerView适配器的基类adapter，继承这个基类，
+实现onCreateViewHolder(ViewGroup parent, int viewType)
+和onBind(RecyclerView.ViewHolder holder, int position)两个抽象方法
 ```
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemHolder(getLayoutView(parent, R.layout.item_view_layout));
+        return new ItemHolder(getLayoutView(parent, R.layout.xxx));
     }
 
     @Override
@@ -368,31 +373,53 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
     }
 ```
 
-### 2）BaseHeadRecyclerViewAdapter
-带头布局的RecyclerView适配器基类，接触这个基类，
-实现getHeadViewHolder(ViewGroup parent)、getGridListViewHolder(ViewGroup parent)和onBind(RecyclerView.ViewHolder holder, int position)方法，
-实现头布局和item列表逻辑
+b）适配器内集成了动画开关和动画配置方法，可以根据自己的需要来配置动画
 ```
- @Override
-    protected RecyclerView.ViewHolder getHeadViewHolder(ViewGroup parent) {
-        return new HeadViewHolder(getLayoutView(parent, R.layout.item_head_layout));
-    }
+    adapter.setOpenItemAnim(isOpen);//开启动画
+    adapter.setItemAnimStartPosition(n);//设置动画起始位置
+    adapter.setAnimationType(@AnimationType);//设置已有的动画类型
+    adapter.setBaseAnimation(BaseAnimation);// 设置自定义动画
+```
 
+### 2）BaseHeaderFooterRVAdapter
+a）带头布局和底布局的RecyclerView适配器基类，继承这个基类，
+实现getHeaderViewHolder(ViewGroup parent)、getItemViewHolder(ViewGroup parent)、
+getFooterViewHolder(ViewGroup parent)和onBind(RecyclerView.ViewHolder holder, int position)
+方法
+```
     @Override
-    protected RecyclerView.ViewHolder getGridListViewHolder(ViewGroup parent) {
-        return new ItemViewHolder(getLayoutView(parent, R.layout.item_view_layout));
+    protected RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent) {
+        return new HeadViewHolder(getLayoutView(parent, R.layout.xxx));
     }
-
+    
+    @Override
+    protected RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
+        return new ItemViewHolder(getLayoutView(parent, R.layout.xxx));
+    }
+    
+    @Override
+    protected RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent) {
+        return new FooterViewHolder(getLayoutView(parent, R.layout.xxx));
+    }
+    
     @Override
     protected void onBind(RecyclerView.ViewHolder holder, int position) {
         ....
     }
 ```
 
-### 3）BaseLoadMoreRecyclerViewAdapter
+b）假设你只需要头布局不需要底布局，那你在getFooterViewHolder的方法里返回null即可
+```
+    @Override
+    protected RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent) {
+        return null;
+    }
+```
+
+### 3）BaseLoadMoreRVAdapter
 a）加载更多适配器基类，如果你希望深度定制（定制加载更多/失败/完成的界面）可以直接继承改类，实现下面的方法
 ```
-  @Override
+    @Override
     protected int getLoadFinishLayoutId() {
         return R.layout.item_load_finish_layout;
     }
@@ -432,7 +459,7 @@ a）加载更多适配器基类，如果你希望深度定制（定制加载更�
         .....
     }
 ```
-b）我已经为小伙伴提供了一个简单界面实现BaseSimpleLoadMoreRecyclerViewAdapter，如果你觉得这些简单的界面已经满足你的基本需求，你可以选择直接继承这个类。
+b）我已经为小伙伴提供了一个简单界面实现SimpleLoadMoreRVAdapter，如果你觉得这些简单的界面已经满足你的基本需求，你可以选择直接继承这个类。
 如果你希望替换这个界面的字体颜色或大小可以在继承类的构造函数中调用配置方法，我为小伙伴提供了以下几个简单的配置方法：
 - 设置完成加载时的提示语：setFinishText(String text)
 - 设置完成加载提示语大小：setFinishTextSizeSp(int sizeSp)
@@ -449,7 +476,7 @@ b）我已经为小伙伴提供了一个简单界面实现BaseSimpleLoadMoreRecy
 
 c）加载更多适配器的使用方法很简单，结合RecyclerLoadMoreHelper帮助类来使用即可
 
-- 初始化RecyclerView及加载帮助类，init传入的适配器必须继承BaseLoadMoreRecyclerViewAdapter。
+- 初始化RecyclerView及加载帮助类，init传入的适配器必须继承BaseLoadMoreRVAdapter。
 如果要用网格布局加载更多，一定需要设置onAttachedToRecyclerView方法，线性布局则不需要
 ```
     private void initRecyclerView() {
@@ -517,13 +544,12 @@ onClickLoadFail(int reloadPage, int size)方法在用户点击底部失败提示
 ```
     RecyclerViewDragHelper<String> recyclerViewDragHelper = new RecyclerViewDragHelper<>();
     recyclerViewDragHelper
-        .setUseDrag(false)// 设置是否允许拖拽
+        .setUseDrag(true)// 设置是否允许拖拽
+        .setLongPressDragEnabled(true)// 是否启用长按拖拽效果
         .setUseLeftToRightSwipe(true)// 设置允许从左往右滑动
-        .setUseRightToLeftSwipe(false)// 设置允许从右往左滑动
-        .setEnabled(true)// 是否启用
-        .setDragingColor(Color.GRAY)// 设置拖拽时的背景颜色
-        .setDraggedColor(Color.RED)// 设置拖拽完成的背景颜色
-        .build(mRecyclerView, mAdapter);
+        .setUseRightToLeftSwipe(true)// 设置允许从右往左滑动
+        .setSwipeEnabled(false)// 设置是否允许滑动
+        .build(recyclerView, adapter);
 ```
 - 设置拖拽列表数据
 ```
@@ -595,26 +621,46 @@ a）BaseDialog继承自Dialog，小伙伴继承BaseDialog后可以实现下面�
 ```
     @Override
     protected int getLayoutId() {
-        return dialog_view_layout;
+        return R.layout.xxx;
     }
 
     @Override
     protected void findViews() {
         .....
     }
+    
 ```
 b）重写设置监听器和设置数据方法，可以在里面设置控件的监听器和初始化数据
 ```
-    protected void setListeners() {}
+    @Override
+    protected void setListeners() {
+        .....
+    }
     
-    protected void initData() {}
+    @Override 
+    protected void initData() {
+        .....    
+    }
 ```
+c）初始化的代码都写在构造函数内，如果你的数据是通过构造函数传入，请务必在super()方法之后再将数据赋值给UI，避免不必要的异常
 
 ### 2）BaseRightDialog
 从右侧滑出的Dialog，使用方法和BaseDialog一致
 
 ### 3）BaseBottomDialog
 从底部滑出的Dialog，使用方法和BaseDialog一致
+
+### 4）BaseCenterDialog
+从中间缩放显示的Dialog，使用方法和BaseDialog一致
+
+### 5）BaseLeftDialog
+从左侧滑出的Dialog，使用方法和BaseDialog一致
+
+### 6）BaseTopDialog
+从顶部滑出的Dialog，使用方法和BaseDialog一致
+
+### 7）ProgressDialogHelper
+一个加载框的帮助类，帮助你快速获取一个加载框，可以通过不同的创建函数来进行简单的订制
 
 ## 8、自定义widget
 ### 1）MmsTabLayout
@@ -628,6 +674,9 @@ b）重写设置监听器和设置数据方法，可以在里面设置控件的�
 ```
     setScroll(boolean isScroll)
 ```
+
+### 3）PhotoView
+由于引用还需要配置maven地址，所以就直接把view集成进来了，有需要用到的可以直接调用
 
 ## 9、MVP相关
 ### 1）基础的Activity实现
@@ -685,6 +734,63 @@ public class TestActivity extends MvpBaseRefreshActivity<PC, VC> implements VC
 public class TestFragment extends MvpBaseRefreshFragment<PC, VC> implements VC
 ```
 - 其余使用方式同：[带基础控件和刷新控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#5带基础控件和刷新控件的activity实现)
+
+## 10、PopupWindow基类
+### 1）基础使用
+a）创建一个类继承BasePopupWindow，实现下面两个方法，分别传入布局layout和获取控件id
+```
+    @Override
+    protected int getLayoutId() {
+        return R.layout.xxx;
+    }
+
+    @Override
+    protected void findViews(View view) {
+        .....
+    }
+    
+```
+b）重写设置监听器和设置数据方法，可以在里面设置控件的监听器和初始化数据
+```
+    @Override
+    protected void setListeners() {
+        .....
+    }
+    
+    @Override 
+    protected void initData() {
+        .....
+    }
+```
+### 2）进阶使用
+a）重写下面方法可以自己设置宽高
+```
+    @Override 
+    protected int getWidth(){
+        return ViewGroup.LayoutParams.WRAP_CONTENT;
+    }
+
+    @Override 
+    protected int getHeight(){
+        return ViewGroup.LayoutParams.WRAP_CONTENT;
+    }
+```
+b）重写下面方法可以自己设置阴影（需要5.0以上）
+```
+    @Override 
+    protected float getElevationValue(){
+        return 12f;
+    }
+```
+c）如果你需要使用PopupWindow的方法，请调用下面的方法，他会返回你创建的PopupWindow对象
+```
+    public PopupWindow getPopup();
+```
+### 3）创建调用
+```
+    XxxPopupWindow popupWindow = new XxxPopupWindow(context);
+    popupWindow.getPopup().showAsDropDown(view, xoff, yoff);
+```
 
 ## 扩展
 
