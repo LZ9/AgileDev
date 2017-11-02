@@ -76,7 +76,11 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
     NetworkManager.get().isWifi()
     NetworkManager.get().getNetType()
 ```
-
+记得加入下面两个权限，确保功能正常使用
+```
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+```
 ## 4、加密相关
 目前只收入了3个加密相关类，后续如果有用到其他的或者小伙伴们有需要会再陆续补充
 - AES

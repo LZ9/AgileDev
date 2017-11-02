@@ -17,6 +17,7 @@
  - [8、自定义widget](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#8自定义widget)
  - [9、MVP相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#9mvp相关)
  - [10、PopupWindow基类](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#10popupwindow基类)
+ - [11、图片选择和预览](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#11图片选择和预览)
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
 ## 1、涉及的依赖
@@ -791,6 +792,159 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
     XxxPopupWindow popupWindow = new XxxPopupWindow(context);
     popupWindow.getPopup().showAsDropDown(view, xoff, yoff);
 ```
+
+## 11、图片选择和预览
+### 1）图片预览器
+#### 构造方法：
+```
+    PreviewManager
+        .<String>create()//创建构造器<>里的泛型一定要指定
+        .setPosition(0)//设置进入展示的位置（从0开始）
+        .setPageLimit(2)//设置ViewPager的缓存数
+        .setScale(false)//是否允许图片缩放
+        .setBackgroundColor(R.color.black)//配置背景色
+        .setStatusBarColor(R.color.black)//配置状态栏颜色（sdk >= 5.0）
+        .setNavigationBarColor(R.color.black)//配置导航栏颜色（sdk >= 5.0）
+        .setPagerTextColor(R.color.white)//设置底部页码文字的颜色
+        .setPagerTextSize(14)//设置底部页码文字的大小
+        .setShowPagerText(true)//是否显示底部页码
+        .setOnClickListener(new OnClickListener<String>() {//设置点击回调
+            @Override
+            public void onClick(Context context, String source, int position, PreviewController controller) {
+                controller.close();//关闭预览器
+            }
+        })
+        .setOnLongClickListener(new OnLongClickListener<String>() {//设置长按回调，
+            @Override
+            public void onLongClick(Context context, String source, int position, PreviewController controller) {
+                //如果有需要你可以弹框什么的
+            }
+        })
+        .setImgLoader(new PhotoLoader<String>() {//设置图片加载器
+            @Override
+            public void displayImg(Context context, String source, ImageView imageView) {
+                //可以使用你喜欢的图片加载库
+            }
+        })
+        .build(URLS)//URLS可以是图片的list也可以是单张图片的地址，但是类型需要和create的泛型保持一致
+        .open(getContext());// 打开预览器
+```
+ - 图片加载器必须设置
+ - 图片数据列表长度不为0
+ - 如果只有一张图片是不会显示页码的
+ - 如果你设置的position大于数据列表的长度，默认会从第一张开始播放
+
+### 2）图片选择器
+#### a）构造方法：
+```
+    PickerManager
+        .create()//创建构造器
+        .setImgLoader(new PhotoLoader<String>() {//设置选择器的图片加载器
+            @Override
+            public void displayImg(Context context, String source, ImageView imageView) {
+                //可以使用你喜欢的图片加载库
+            }
+        })
+        .setPreviewImgLoader(new PhotoLoader<String>() {//设置预览器的图片加载器
+            @Override
+            public void displayImg(Context context, String source, ImageView imageView) {
+                //可以使用你喜欢的图片加载库
+            }
+        })
+        .setOnPhotoPickerListener(new OnPhotoPickerListener() {// 设置图片选择回调
+            @Override
+            public void onPickerSelected(List<String> photos) {
+                //在这里获取用户选择的图片数据
+            }
+        })
+        .setMaxCount(9)//图片最大可选数（n > 0）
+        .setNeedCamera(true)// 设置是否展示拍照按钮
+        .setCameraSavePath(path)//设置照片存储地址
+        .setAuthority("packageName.fileprovider")// 设置你存储地址的fileprovider名称
+        .setPickerUIConfig(PickerUIConfig.createDefault())//设置选择库的UI风格
+        .build()//如果不传参则选择用户手机的图片库，如果传图片列表则让用户选择当前的图片列表
+        .open(getContext());
+```
+ - 选择器的图片加载器必须设置
+ - 预览器的图片加载器如果不设置会默认使用选择器的图片加载器
+ - 如果用户手机没有图片，会toast提示：**您没有可以选择的图片**
+ - 如果你传入build()方法里的列表长度为0，也会toast提示：**您没有可以选择的图片**
+ - 我会对你传入build()方法里的数据列表进行去重
+ - 如果你决定让用户选择你指定的图片，那么他是无法使用拍照功能的
+ - 如果你未设置存储地址，我会将拍照的图片默认保存到DCIM文件夹里
+ - 如果你未设置UI风格，选择器会使用默认的UI风格
+ - 如果当前系统是7.0以上且没有配置FileProvider的名称，会toast提示：**您尚未配置FileProvider**
+ 
+#### b）选择器UI订制
+我为小伙伴们提供了丰富的UI订制方法，大家可以根据需要配置符合自己应用UI风格的选择器
+```
+    PickerUIConfig config = PickerUIConfig.createDefault()
+        .setCameraImg(R.drawable.xx)//设置你自己的拍照按钮图标
+        .setCameraBgColor(R.color.xx)//设置拍照按钮的背夹色
+        .setItemBgColor(R.color.xx)//设置每个item的背景色
+        .setBackBtnColor(R.color.xx)//设置返回按钮的颜色
+        .setMainTextColor(R.color.xx)//设置主要文字的颜色
+        .setMoreFolderImg(R.drawable.xx)//设置文件夹按钮的图标（默认是一个箭头）
+        .setSelectedBtnUnselect(R.color.xx)//设置item上未选中标志的颜色
+        .setSelectedBtnSelected(R.color.xx)//设置item上已选中标志的颜色
+        .setMaskColor(R.color.xx)//设置选中后item遮罩层的颜色（建议带透明度）
+        .setTopLayoutColor(R.color.xx)// 设置顶部栏的背景色
+        .setBottomLayoutColor(R.color.xx)//设置底部栏的背景色
+        .setPreviewBtnNormal(R.color.xx)//设置预览按钮的普通颜色
+        .setPreviewBtnUnable(R.color.xx)//设置预览按钮的不可用颜色
+        .setConfirmBtnNormal(R.color.xx)//设置确定按钮的普通颜色
+        .setConfirmBtnPressed(R.color.xx)//设置确定按钮的按压颜色
+        .setConfirmBtnUnable(R.color.xx)//设置确定按钮的不可用颜色
+        .setConfirmTextNormal(R.color.xx)//设置确定文字的普通颜色
+        .setConfirmTextPressed(R.color.xx)//设置确定文字的按压颜色
+        .setConfirmTextUnable(R.color.xx)//设置确定文字的不可用颜色
+        .setStatusBarColor(R.color.xx)//配置状态栏颜色（sdk >= 5.0）
+        .setNavigationBarColor(R.color.xx)//配置导航栏颜色（sdk >= 5.0）
+        .setFolderSelectColor(R.color.xx);//设置文件夹列表item的选择标志颜色
+```
+配置完后只需要把 **config** 放入 **setPickerUIConfig()** 方法里即可。
+
+#### c）拍照权限
+如果你需要使用拍照功能，请添加下方的权限
+```
+    <uses-permission android:name="android.permission.CAMERA" />
+```
+
+#### d）FileProvider配置
+首先在res目录里新建一个xml的文件夹，创建一个provider_paths.xml文件（文件名你可以自定）
+```
+    <?xml version="1.0" encoding="utf-8"?>
+    <paths xmlns:android="http://schemas.android.com/apk/res/android">
+    
+        <!--自定义地址-->
+        <external-path
+            name="app_provider_path"
+            path="AgileDev" />
+    
+        <!--默认地址-->
+        <external-path
+            name="dcim_provider_path"
+            path="DCIM" />
+    </paths>
+```
+ - 自定义地址的xxxx是你要开放的文件夹路径，正常你可以填自己APP的目录，例如我测试APP的目录叫AgileDev
+ - 默认地址是我将拍照照片默认存储的地方，如果你希望使用默认地址，则保留
+ 
+然后在 **AndroidManifest.xml** 里配置FileProvider
+```
+    <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="packageName.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths" />
+    </provider>
+```
+ - android:resource=""里放你刚才在xml里创建的文件名称
+ - android:authorities=""里放你自定义的FileProvider名称，正常是以你的包名命名**packageName.fileprovider**
+ - 然后在选择器里配置你自定义的FileProvider名称就OK了 **setAuthority("packageName.fileprovider")**
 
 ## 扩展
 

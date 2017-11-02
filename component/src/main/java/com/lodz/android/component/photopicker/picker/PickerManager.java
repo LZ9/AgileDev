@@ -180,7 +180,7 @@ public class PickerManager {
         }
         if (!ArrayUtils.isEmpty(sPickerBean.sourceList) && ArrayUtils.getSize(sPickerBean.sourceList) < sPickerBean.maxCount){
             //校验指定图片列表总数和最大可选择数
-            sPickerBean.maxCount = ArrayUtils.getSize(sPickerBean.sourceList);
+//            sPickerBean.maxCount = ArrayUtils.getSize(sPickerBean.sourceList);
         }
         if (TextUtils.isEmpty(sPickerBean.cameraSavePath)){// 校验地址
             sPickerBean.cameraSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();

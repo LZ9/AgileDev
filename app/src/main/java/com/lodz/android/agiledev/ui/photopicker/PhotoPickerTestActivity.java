@@ -192,6 +192,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setScale(false)
                         .setBackgroundColor(R.color.black)
                         .setStatusBarColor(R.color.black)
+//                        .setNavigationBarColor(R.color.black)
                         .setPagerTextColor(R.color.white)
                         .setPagerTextSize(14)
                         .setShowPagerText(true)

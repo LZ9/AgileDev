@@ -196,7 +196,7 @@ public class PreviewManager {
             ToastUtils.showShort(context, R.string.component_preview_source_list_empty);
             return;
         }
-        sPreviewBean.isShowPagerText = ArrayUtils.getSize(sPreviewBean.sourceList) > 1;// 只有一张图片不显示页码提示
+        sPreviewBean.isShowPagerText = ArrayUtils.getSize(sPreviewBean.sourceList) > 1;// 只有一张图片不显示页码
         if ((sPreviewBean.showPosition + 1) > sPreviewBean.sourceList.size()){// 校验默认位置参数
             sPreviewBean.showPosition = 0;
         }
