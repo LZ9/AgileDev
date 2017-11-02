@@ -34,6 +34,8 @@ class PickerBean implements Serializable {
     PickerUIConfig pickerUIConfig;
     /** 7.0的FileProvider名字 */
     String authority = "";
+    /** 是否需要item的预览功能 */
+    boolean isNeedItemPreview = true;
 
 
     void clear(){

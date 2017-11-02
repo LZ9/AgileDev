@@ -94,6 +94,15 @@ public class PickerManager {
         }
 
         /**
+         * 设置是否需要item的预览功能
+         * @param needItemPreview 是否需要item的预览功能
+         */
+        public Builder setNeedItemPreview(boolean needItemPreview) {
+            pickerBean.isNeedItemPreview = needItemPreview;
+            return this;
+        }
+
+        /**
          * 设置拍照保存地址
          * @param savePath 保存地址
          */

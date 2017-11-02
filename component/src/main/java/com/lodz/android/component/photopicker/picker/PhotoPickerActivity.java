@@ -383,6 +383,9 @@ public class PhotoPickerActivity extends AbsActivity{
         mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PickerItemBean>() {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder, PickerItemBean item, int position) {
+                if (!mPickerBean.isNeedItemPreview){
+                    return;
+                }
                 PreviewManager
                         .<String>create()
                         .setBackgroundColor(mPickerBean.pickerUIConfig.getItemBgColor())

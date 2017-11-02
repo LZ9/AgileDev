@@ -859,6 +859,7 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
         })
         .setMaxCount(9)//图片最大可选数（n > 0）
         .setNeedCamera(true)// 设置是否展示拍照按钮
+        .setNeedItemPreview(true)// 设置是否需要item点击预览
         .setCameraSavePath(path)//设置照片存储地址
         .setAuthority("packageName.fileprovider")// 设置你存储地址的fileprovider名称
         .setPickerUIConfig(PickerUIConfig.createDefault())//设置选择库的UI风格
