@@ -927,20 +927,29 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
             path="DCIM" />
     </paths>
 ```
- - 自定义地址的xxxx是你要开放的文件夹路径，正常你可以填自己APP的目录，例如我测试APP的目录叫AgileDev
+ - 自定义地址是指你要开放的文件夹路径，正常你可以填自己APP的目录，例如我测试APP的目录叫AgileDev
  - 默认地址是我将拍照照片默认存储的地方，如果你希望使用默认地址，则保留
  
 然后在 **AndroidManifest.xml** 里配置FileProvider
 ```
-    <provider
-        android:name="android.support.v4.content.FileProvider"
-        android:authorities="packageName.fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/provider_paths" />
-    </provider>
+    <application
+        .... >
+        
+        ....
+        
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="packageName.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        
+        ....
+        
+    </application>
 ```
  - android:resource=""里放你刚才在xml里创建的文件名称
  - android:authorities=""里放你自定义的FileProvider名称，正常是以你的包名命名**packageName.fileprovider**
