@@ -3,9 +3,12 @@ package com.lodz.android.core.utils;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 
@@ -296,5 +299,66 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 文件路径转byte数组
+     * @param filePath 文件路径
+     */
+    public static byte[] fileToByte(String filePath) {
+        byte[] buffer = null;
+        try {
+            File file = new File(filePath);
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            bos.close();
+            buffer = bos.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return buffer;
+    }
+
+    /**
+     * byte数组保存为文件
+     * @param bytes byte数组
+     * @param filePath 文件路径
+     * @param fileName 文件名字
+     */
+    public static void byteToFile(byte[] bytes, String filePath, String fileName) {
+        BufferedOutputStream bos = null;
+        FileOutputStream fos = null;
+        try {
+            File dir = new File(filePath);
+            if (!dir.exists() && dir.isDirectory()) {
+                dir.mkdirs();
+            }
+            File file = new File(filePath + File.separator + fileName);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            bos.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }

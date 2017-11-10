@@ -814,7 +814,7 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
                 controller.close();//关闭预览器
             }
         })
-        .setOnLongClickListener(new OnLongClickListener<String>() {//设置长按回调，
+        .setOnLongClickListener(new OnLongClickListener<String>() {//设置长按回调
             @Override
             public void onLongClick(Context context, String source, int position, PreviewController controller) {
                 //如果有需要你可以弹框什么的
