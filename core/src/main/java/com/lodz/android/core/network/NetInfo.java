@@ -2,6 +2,9 @@ package com.lodz.android.core.network;
 
 import android.support.annotation.IntDef;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * 手机网络信息
  * Created by zhouL on 2016/11/23.
@@ -9,6 +12,7 @@ import android.support.annotation.IntDef;
 public class NetInfo {
 
     @IntDef({NETWORK_TYPE_NONE, NETWORK_TYPE_UNKNOWN, NETWORK_TYPE_WIFI, NETWORK_TYPE_2G, NETWORK_TYPE_3G, NETWORK_TYPE_4G})
+    @Retention(RetentionPolicy.SOURCE)
     public @interface NetType {}
 
     /** 未连接网络 */

@@ -52,7 +52,7 @@ public class SplashActivity extends AbsActivity{
             @Override
             public void run() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){// 6.0以上的手机对权限进行动态申请
-                    SplashActivityPermissionsDispatcher.requestPermissionWithCheck(SplashActivity.this);//申请权限
+                    SplashActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(SplashActivity.this);//申请权限
                 }else {
                     init();
                 }
@@ -87,7 +87,7 @@ public class SplashActivity extends AbsActivity{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
     })
     protected void onDenied() {
-        SplashActivityPermissionsDispatcher.requestPermissionWithCheck(this);//申请权限
+        SplashActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(this);//申请权限
     }
 
     /** 用户拒绝后再次申请前告知用户为什么需要该权限 */
@@ -117,7 +117,7 @@ public class SplashActivity extends AbsActivity{
         dialog.setPositiveText(R.string.splash_check_permission_confirm, new CheckDialog.Listener() {
             @Override
             public void onClick(Dialog dialog) {
-                SplashActivityPermissionsDispatcher.requestPermissionWithCheck(SplashActivity.this);//申请权限
+                SplashActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(SplashActivity.this);//申请权限
                 dialog.dismiss();
             }
         });

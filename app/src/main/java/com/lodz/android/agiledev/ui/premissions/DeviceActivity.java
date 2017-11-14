@@ -57,14 +57,14 @@ public class DeviceActivity extends AbsActivity{
         mImeiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeviceActivityPermissionsDispatcher.getIMEIWithCheck(DeviceActivity.this);
+                DeviceActivityPermissionsDispatcher.getIMEIWithPermissionCheck(DeviceActivity.this);
             }
         });
 
         mImsiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeviceActivityPermissionsDispatcher.getIMSIWithCheck(DeviceActivity.this);
+                DeviceActivityPermissionsDispatcher.getIMSIWithPermissionCheck(DeviceActivity.this);
             }
         });
 

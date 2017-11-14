@@ -23,9 +23,7 @@ import android.util.Base64;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Retention;
@@ -881,29 +879,6 @@ public class BitmapUtils {
 
         newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return newBitmap;
-    }
-
-    /**
-     * 将Bitmap保存在本地路径
-     * @param bitmap 图片
-     * @param path 路径
-     * @param picName 文件名
-     */
-    public static boolean saveBitmap(Bitmap bitmap, String path, String picName) {
-        File file = new File(path, picName);
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            out.flush();
-            out.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
 }

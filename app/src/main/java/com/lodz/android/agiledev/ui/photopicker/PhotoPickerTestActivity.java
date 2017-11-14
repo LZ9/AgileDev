@@ -102,7 +102,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
     protected void clickReload() {
         super.clickReload();
         showStatusLoading();
-        PhotoPickerTestActivityPermissionsDispatcher.requestPermissionWithCheck(PhotoPickerTestActivity.this);
+        PhotoPickerTestActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(PhotoPickerTestActivity.this);
     }
 
 
@@ -225,7 +225,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
     protected void initData() {
         super.initData();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){// 6.0以上的手机对权限进行动态申请
-            PhotoPickerTestActivityPermissionsDispatcher.requestPermissionWithCheck(PhotoPickerTestActivity.this);
+            PhotoPickerTestActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(PhotoPickerTestActivity.this);
         }else {
             init();
         }
@@ -279,7 +279,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
         dialog.setPositiveText(R.string.splash_check_permission_confirm, new CheckDialog.Listener() {
             @Override
             public void onClick(Dialog dialog) {
-                PhotoPickerTestActivityPermissionsDispatcher.requestPermissionWithCheck(PhotoPickerTestActivity.this);//申请权限
+                PhotoPickerTestActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(PhotoPickerTestActivity.this);//申请权限
                 dialog.dismiss();
             }
         });

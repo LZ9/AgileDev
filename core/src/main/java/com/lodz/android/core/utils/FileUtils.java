@@ -1,5 +1,7 @@
 package com.lodz.android.core.utils;
 
+import android.graphics.Bitmap;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -304,21 +306,43 @@ public class FileUtils {
      * @param filePath 文件路径
      */
     public static byte[] fileToByte(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return null;
+        }
+
         byte[] buffer = null;
+        FileInputStream fis = null;
+        ByteArrayOutputStream baos = null;
+
         try {
             File file = new File(filePath);
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            fis = new FileInputStream(file);
+            baos = new ByteArrayOutputStream();
             byte[] b = new byte[1024];
             int n;
             while ((n = fis.read(b)) != -1) {
-                bos.write(b, 0, n);
+                baos.write(b, 0, n);
             }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
+            buffer = baos.toByteArray();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if (fis != null){
+                try {
+                    fis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (baos != null){
+                try {
+                    baos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
         return buffer;
     }
@@ -329,7 +353,15 @@ public class FileUtils {
      * @param filePath 文件路径
      * @param fileName 文件名字
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void byteToFile(byte[] bytes, String filePath, String fileName) {
+        if (bytes == null || bytes.length == 0 || TextUtils.isEmpty(filePath) || TextUtils.isEmpty(fileName)) {
+            return;
+        }
+        if (!filePath.endsWith(File.separator)) {
+            filePath = filePath + File.separator;
+        }
+
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
         try {
@@ -337,7 +369,7 @@ public class FileUtils {
             if (!dir.exists() && dir.isDirectory()) {
                 dir.mkdirs();
             }
-            File file = new File(filePath + File.separator + fileName);
+            File file = new File(filePath + fileName);
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);
@@ -358,6 +390,53 @@ public class FileUtils {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    /**
+     * 将bitmap保存为图片文件
+     * @param bitmap 图片
+     * @param filePath 目录
+     * @param fileName 名称（可以不需要后缀）
+     * @param quality 质量 0-100
+     */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void bitmapToPath(Bitmap bitmap, String filePath, String fileName, @IntRange(from = 0, to = 100) int quality) {
+        if (bitmap == null || TextUtils.isEmpty(filePath) || TextUtils.isEmpty(fileName)) {
+            return;
+        }
+        if (!filePath.endsWith(File.separator)) {
+            filePath = filePath + File.separator;
+        }
+
+        File dir = new File(filePath);
+        if (!dir.exists() && dir.isDirectory()) {
+            dir.mkdirs();
+        }
+
+        FileOutputStream fos = null;
+        try {
+            File file = new File(filePath + fileName + ".jpg");
+            if (file.exists()) {//删除旧照片
+                file.delete();
+            }
+            file.createNewFile();
+            fos= new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (fos != null){
+                try {
+                    fos.flush();
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (!bitmap.isRecycled()) {
+            bitmap.recycle();
         }
     }
 

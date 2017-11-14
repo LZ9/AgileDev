@@ -47,7 +47,7 @@ public class PremissionsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 //                PremissionsActivityPermissionsDispatcher.callPhoneWithCheck(PremissionsActivity.this);//发起权限申请
-                PremissionsActivityPermissionsDispatcher.requestPermissionWithCheck(PremissionsActivity.this);
+                PremissionsActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(PremissionsActivity.this);
             }
         });
         mPhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class PremissionsActivity extends BaseActivity {
     /** 被拒绝 */
     @OnPermissionDenied({Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void onDenied() {
-        PremissionsActivityPermissionsDispatcher.requestPermissionWithCheck(this);
+        PremissionsActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(this);
     }
 
     /** 被拒绝并且勾选了不再提醒 */

@@ -85,7 +85,7 @@ public class RecordActivity extends BaseActivity {
     protected void clickReload() {
         super.clickReload();
         showStatusLoading();
-        RecordActivityPermissionsDispatcher.requestPermissionWithCheck(RecordActivity.this);
+        RecordActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(RecordActivity.this);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class RecordActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){// 6.0以上的手机对权限进行动态申请
-            RecordActivityPermissionsDispatcher.requestPermissionWithCheck(RecordActivity.this);
+            RecordActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(RecordActivity.this);
         }else {
             init();
         }
@@ -244,7 +244,7 @@ public class RecordActivity extends BaseActivity {
         dialog.setPositiveText(R.string.splash_check_permission_confirm, new CheckDialog.Listener() {
             @Override
             public void onClick(Dialog dialog) {
-                RecordActivityPermissionsDispatcher.requestPermissionWithCheck(RecordActivity.this);//申请权限
+                RecordActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(RecordActivity.this);//申请权限
                 dialog.dismiss();
             }
         });
