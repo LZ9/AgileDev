@@ -23,6 +23,11 @@
     <!-- 录制音频 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- 通过GPS芯片接收卫星的定位信息 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 通过WiFi或移动基站的方式定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -250,6 +255,13 @@
         <activity
             android:name=".ui.photopicker.PhotoPickerTestActivity"
             android:label="照片选择器测试"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.location.LocationActivity"
+            android:label="定位测试"
             android:screenOrientation="portrait">
 
         </activity>
