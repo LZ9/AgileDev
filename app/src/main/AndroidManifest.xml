@@ -266,6 +266,14 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:label="通知测试"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -214,7 +214,7 @@ public class LocationActivity extends BaseActivity{
 
 
 
-//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 0, new LocationListener() {
+//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1 * 1000, 0, new LocationListener() {
 //            @Override
 //            public void onLocationChanged(Location location) {
 //                if (location == null){
