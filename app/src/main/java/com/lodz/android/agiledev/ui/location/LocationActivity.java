@@ -210,7 +210,7 @@ public class LocationActivity extends BaseActivity{
             return;
         }
 
-        mResult.setText("类型：" + bestProvider + " ---> Location" + "纬度：" + location.getLongitude() + "\n" +  "经度:  " + location.getLatitude());
+        mResult.setText("类型：" + bestProvider + " ---> Location" + "纬度：" + location.getLatitude() + "\n" +  "经度:  " + location.getLongitude());
 
 
 
@@ -221,7 +221,7 @@ public class LocationActivity extends BaseActivity{
 //                    mResult.setText("类型：" + location.getProvider() + " ---> 未获取到经纬度");
 //                    return;
 //                }
-//                mResult.setText("类型：" + location.getProvider() + " ---> Location" + "纬度：" + location.getLongitude() + "\n" +  "经度:  " + location.getLatitude());
+//                mResult.setText("类型：" + location.getProvider() + " ---> Location" + "纬度：" + location.getLatitude() + "\n" +  "经度:  " + location.getLongitude());
 //            }
 //
 //            @Override

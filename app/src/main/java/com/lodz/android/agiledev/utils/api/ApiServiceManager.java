@@ -138,12 +138,8 @@ public class ApiServiceManager {
         String log = "";
         try {
             log = response.body().string();
-            try {
-                List<String> list = response.request().url().pathSegments();
-                logSegmentedLog(list.get(list.size() - 1), log);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            List<String> list = response.request().url().pathSegments();
+            logSegmentedLog(list.get(list.size() - 1), log);
         } catch (Exception e) {
             e.printStackTrace();
         }

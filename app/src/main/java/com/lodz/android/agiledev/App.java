@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.core.cache.ACacheUtils;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
 import com.lodz.android.core.utils.DensityUtils;
@@ -33,8 +34,16 @@ public class App extends BaseApplication{
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
         initImageLoader();
+        initACache();
 
         configBaseLayout();
+    }
+
+    /** 初始化缓存类 */
+    private void initACache() {
+        ACacheUtils.get().newBuilder()
+                .setCacheDir(this.getApplicationContext().getCacheDir().getAbsolutePath())
+                .build(this);
     }
 
     /** 配置基类 */
