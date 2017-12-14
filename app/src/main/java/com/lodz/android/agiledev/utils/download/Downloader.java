@@ -154,10 +154,10 @@ public class Downloader {
      * @param url 地址
      * @param listener 监听器
      */
-    public BaseObserver<DownloadStatus> download(Context context, String url, DonwloadListener listener){
+    public BaseObserver<DownloadStatus> download(Context context, String url, DownloadListener listener){
         if (TextUtils.isEmpty(url)){
             if (listener != null){
-                listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
+                listener.onError(DownloadListener.URL_EMPTY, new NullPointerException("url is null"));
             }
             PrintLog.e(TAG, "url is null");
             return null;
@@ -174,10 +174,10 @@ public class Downloader {
      * @param saveName 保存名称
      * @param listener 监听器
      */
-    public BaseObserver<DownloadStatus> download(Context context, String url, String saveName, final DonwloadListener listener){
+    public BaseObserver<DownloadStatus> download(Context context, String url, String saveName, final DownloadListener listener){
         if (TextUtils.isEmpty(url)){
             if (listener != null){
-                listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
+                listener.onError(DownloadListener.URL_EMPTY, new NullPointerException("url is null"));
             }
             PrintLog.e(TAG, "url is null");
             return null;
@@ -185,7 +185,7 @@ public class Downloader {
 
         if (TextUtils.isEmpty(saveName)){
             if (listener != null){
-                listener.onError(DonwloadListener.SAVE_NAME_EMPTY, new NullPointerException("saveName is null"));
+                listener.onError(DownloadListener.SAVE_NAME_EMPTY, new NullPointerException("saveName is null"));
             }
             PrintLog.e(TAG, "saveName is null");
             return null;
@@ -204,10 +204,10 @@ public class Downloader {
      * @param savePath 保存路径
      * @param listener 监听器
      */
-    public BaseObserver<DownloadStatus> download(Context context, String url, String saveName, String savePath, final DonwloadListener listener){
+    public BaseObserver<DownloadStatus> download(Context context, String url, String saveName, String savePath, final DownloadListener listener){
         if (TextUtils.isEmpty(url)){
             if (listener != null){
-                listener.onError(DonwloadListener.URL_EMPTY, new NullPointerException("url is null"));
+                listener.onError(DownloadListener.URL_EMPTY, new NullPointerException("url is null"));
             }
             PrintLog.e(TAG, "url is null");
             return null;
@@ -215,7 +215,7 @@ public class Downloader {
 
         if (TextUtils.isEmpty(saveName)){
             if (listener != null){
-                listener.onError(DonwloadListener.SAVE_NAME_EMPTY, new NullPointerException("saveName is null"));
+                listener.onError(DownloadListener.SAVE_NAME_EMPTY, new NullPointerException("saveName is null"));
             }
             PrintLog.e(TAG, "saveName is null");
             return null;
@@ -223,7 +223,7 @@ public class Downloader {
 
         if (TextUtils.isEmpty(savePath)){
             if (listener != null){
-                listener.onError(DonwloadListener.SAVE_PATH_EMPTY, new NullPointerException("savePath is null"));
+                listener.onError(DownloadListener.SAVE_PATH_EMPTY, new NullPointerException("savePath is null"));
             }
             PrintLog.e(TAG, "savePath is null");
             return null;
@@ -237,7 +237,7 @@ public class Downloader {
      * 用监听器处理下载订阅
      * @param listener 监听器
      */
-    private BaseObserver<DownloadStatus> getDownloadObserver(final DonwloadListener listener) {
+    private BaseObserver<DownloadStatus> getDownloadObserver(final DownloadListener listener) {
         return new BaseObserver<DownloadStatus>() {
             @Override
             public void onBaseSubscribe(Disposable d) {
@@ -267,9 +267,9 @@ public class Downloader {
             public void onBaseError(Throwable e) {
                 e.printStackTrace();
                 PrintLog.e(TAG, e.toString());
-                int errorType = DonwloadListener.DOWNLOADING_ERROR;
+                int errorType = DownloadListener.DOWNLOADING_ERROR;
                 if (!NetworkManager.get().isNetworkAvailable()){
-                    errorType = DonwloadListener.NETWORK_ERROR;
+                    errorType = DownloadListener.NETWORK_ERROR;
                 }
                 if (listener != null) {
                     listener.onError(errorType, e);

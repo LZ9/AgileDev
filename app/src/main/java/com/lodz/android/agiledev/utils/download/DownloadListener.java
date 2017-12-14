@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
  * 下载状态回调
  * Created by zhouL on 2017/3/28.
  */
-public interface DonwloadListener {
+public interface DownloadListener {
 
     /** 下载地址为空 */
     public static final int URL_EMPTY = 0;
