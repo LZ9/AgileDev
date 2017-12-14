@@ -47,5 +47,18 @@ public class RxUtils {
         return defaultTips;
     }
 
+    /**
+     * 获取网络异常的提示语（配合订阅者使用）
+     * @param e 异常
+     * @param isNetwork 是否网络异常
+     * @param defaultTips 默认提示语
+     */
+    public static String getNetworkExceptionTips(Throwable e, boolean isNetwork, String defaultTips){
+        if (isNetwork && e instanceof RxException) {
+            RxException exception = (RxException) e;
+            return exception.getErrorMsg();
+        }
+        return defaultTips;
+    }
 
 }
