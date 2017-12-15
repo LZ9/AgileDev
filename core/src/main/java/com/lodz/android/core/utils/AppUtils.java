@@ -226,4 +226,23 @@ public class AppUtils {
         }
         return false;
     }
+
+    /**
+     * 跳转到定位设置页
+     * @param context 上下文
+     */
+    public static void jumpLocationSetting(Context context){
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        context.startActivity(intent);
+    }
+
+    /**
+     * GPS是否打开
+     * @param context 上下文
+     */
+    public static boolean isGpsClose(Context context) {
+        String str = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        return TextUtils.isEmpty(str) || (!TextUtils.isEmpty(str) && str.equals("0"));
+    }
+
 }

@@ -200,7 +200,7 @@ public class FileUtils {
      * @param filePath 文件路径
      */
     public static String getFileTotalLengthUnit(String filePath) {
-        return FormetFileSize(getFileTotalLength(filePath));
+        return formetFileSize(getFileTotalLength(filePath));
     }
 
     /**
@@ -256,20 +256,37 @@ public class FileUtils {
      * 转换文件大小（单位KB、MB、GB）
      * @param fileSize 文件大小
      */
-    public static String FormetFileSize(long fileSize) {
-        String fileSizeString = "0KB";
-        if (fileSize == 0) {
+    public static String formetFileSize1(long fileSize) {
+        String fileSizeString = "0B";
+        if (fileSize <= 0) {
             return fileSizeString;
         }
         DecimalFormat df = new DecimalFormat("##0.0");
-        if (fileSize < 1048576) {
+        if (fileSize < 1024){
+            fileSizeString = df.format(fileSize) + "B";
+        } else if (fileSize < 1048576) {
             fileSizeString = df.format((double) fileSize / 1024) + "KB";
         } else if (fileSize < 1073741824) {
             fileSizeString = df.format((double) fileSize / 1048576) + "MB";
-        } else {
+        } else if(fileSize < 1099511627776L){
             fileSizeString = df.format((double) fileSize / 1073741824) + "GB";
+        }else {
+            fileSizeString = df.format((double) fileSize / 1099511627776L) + "TB";
         }
         return fileSizeString;
+    }
+
+    /**
+     * 转换文件大小（单位B、KB、MB、GB、TB）
+     * @param fileSize 文件大小
+     */
+    public static String formetFileSize(long fileSize) {
+        if (fileSize <= 0) {
+            return "0KB";
+        }
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(fileSize) / Math.log10(1024));
+        return new DecimalFormat("##0.0").format(fileSize / Math.pow(1024, digitGroups)) + units[digitGroups];
     }
 
     /**
