@@ -35,6 +35,21 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
     }
 
     @Override
+    protected int getContentLayout() {
+        return R.layout.item_swipe_content_layout;
+    }
+
+    @Override
+    protected int getRightLayout() {
+        return R.layout.item_swipe_right_layout;
+    }
+
+    @Override
+    protected int getLeftLayout() {
+        return R.layout.item_swipe_left_layout;
+    }
+
+    @Override
     protected void onBind(RecyclerView.ViewHolder holder, int position) {
         String str = getItem(position);
         if (TextUtils.isEmpty(str)) {
@@ -43,7 +58,7 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
         showItem((DataViewHolder) holder, str);
     }
 
-    private void showItem(DataViewHolder holder, final String str) {
+    private void showItem(final DataViewHolder holder, final String str) {
         holder.contentTv.setText(str);
         holder.leftDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +85,7 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
             @Override
             public void onClick(View v) {
                 ToastUtils.showShort(getContext(), "新增 " + str);
+                smoothCloseMenu(holder);
             }
         });
 
@@ -77,23 +93,9 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
             @Override
             public void onClick(View v) {
                 ToastUtils.showShort(getContext(), "删除 " + str);
+                smoothCloseMenu(holder);
             }
         });
-    }
-
-    @Override
-    protected int getContentLayout() {
-        return R.layout.item_swipe_content_layout;
-    }
-
-    @Override
-    protected int getRightLayout() {
-        return R.layout.item_swipe_right_layout;
-    }
-
-    @Override
-    protected int getLeftLayout() {
-        return R.layout.item_swipe_left_layout;
     }
 
     class DataViewHolder extends SwipeViewHolder{

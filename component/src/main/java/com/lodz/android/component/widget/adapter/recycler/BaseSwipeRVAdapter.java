@@ -44,18 +44,35 @@ public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
     /** 配置侧滑菜单的ViewHolder */
     protected void configSwipeViewHolder(SwipeViewHolder holder){
         if (getContentLayout() > 0){
-            View contentView = getLayoutView(null, getContentLayout());
+            View contentView = getLayoutView(holder.contentLayout, getContentLayout());
             holder.contentLayout.addView(contentView);
         }
         if (getRightLayout() > 0){
-            View rightView = getLayoutView(null, getRightLayout());
+            View rightView = getLayoutView(holder.rightLayout, getRightLayout());
             holder.rightLayout.addView(rightView);
         }
         if (getLeftLayout() > 0){
-            View leftView = getLayoutView(null, getLeftLayout());
+            View leftView = getLayoutView(holder.leftLayout, getLeftLayout());
             holder.leftLayout.addView(leftView);
         }
         holder.swipeMenuLayout.setSwipeEnable(getRightLayout() > 0 || getLeftLayout() > 0);//没有侧滑菜单禁止滑动
+    }
+
+    /** 关闭侧滑菜单 */
+    protected void smoothCloseMenu(RecyclerView.ViewHolder holder){
+        if (holder instanceof BaseSwipeRVAdapter.SwipeViewHolder){
+            BaseSwipeRVAdapter.SwipeViewHolder viewHolder = (BaseSwipeRVAdapter.SwipeViewHolder) holder;
+            viewHolder.swipeMenuLayout.smoothCloseMenu();
+        }
+    }
+
+    /** 获取侧滑控件 */
+    protected SwipeMenuLayout getSwipeMenuLayout(RecyclerView.ViewHolder holder){
+        if (holder instanceof BaseSwipeRVAdapter.SwipeViewHolder){
+            BaseSwipeRVAdapter.SwipeViewHolder viewHolder = (BaseSwipeRVAdapter.SwipeViewHolder) holder;
+            return viewHolder.swipeMenuLayout;
+        }
+        return null;
     }
 
     @Override
