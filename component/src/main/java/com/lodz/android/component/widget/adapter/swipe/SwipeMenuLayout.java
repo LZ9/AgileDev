@@ -15,6 +15,7 @@
  */
 package com.lodz.android.component.widget.adapter.swipe;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewCompat;
@@ -70,8 +71,12 @@ public class SwipeMenuLayout extends FrameLayout {
         this(context, attrs, 0);
     }
 
+    @SuppressLint("CustomViewStyleable")
     public SwipeMenuLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        if (attrs == null){
+            return;
+        }
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.recycler_swipe_SwipeMenuLayout);
         mLeftViewId = typedArray.getResourceId(R.styleable.recycler_swipe_SwipeMenuLayout_leftViewId, mLeftViewId);
@@ -154,6 +159,11 @@ public class SwipeMenuLayout extends FrameLayout {
      */
     public void setScrollerDuration(int scrollerDuration) {
         this.mScrollerDuration = scrollerDuration;
+    }
+
+    @Override
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        super.requestDisallowInterceptTouchEvent(disallowIntercept);
     }
 
     @Override
@@ -465,6 +475,9 @@ public class SwipeMenuLayout extends FrameLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (isInEditMode()){
+            return;
+        }
         int contentViewHeight = 0;
 
         if (mContentView != null) {
@@ -497,6 +510,9 @@ public class SwipeMenuLayout extends FrameLayout {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (isInEditMode()){
+            return;
+        }
         int contentViewHeight;
         if (mContentView != null) {
             int contentViewWidth = mContentView.getMeasuredWidthAndState();
