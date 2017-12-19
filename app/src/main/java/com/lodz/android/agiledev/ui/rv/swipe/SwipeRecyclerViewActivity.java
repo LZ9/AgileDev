@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.widget.adapter.bean.SwipeMenuBean;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout;
 import com.lodz.android.component.widget.adapter.swipe.SwipeMenuRecyclerView;
@@ -33,7 +34,9 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
     @BindView(R.id.recycler_view)
     SwipeMenuRecyclerView mRecyclerView;
 
-    private SwipeAdapter mAdapter;
+//    private SwipeAdapter mAdapter;
+
+    private SwipeSimpleAdapter mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -50,10 +53,58 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mAdapter = new SwipeAdapter(getContext());
+        mAdapter = new SwipeSimpleAdapter(getContext(), createLeftMenu(), createRightMenu());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private List<SwipeMenuBean> createLeftMenu() {
+        List<SwipeMenuBean> list = new ArrayList<>();
+        SwipeMenuBean bean1 = new SwipeMenuBean();
+        bean1.bgColor = R.color.color_ff4081;
+        bean1.imgRes = R.drawable.ic_progress_loading_cutom_1;
+        bean1.text = "新增一个页面";
+        bean1.textColor = R.color.white;
+        bean1.textSizeSp = 16;
+        list.add(bean1);
+
+        SwipeMenuBean bean2 = new SwipeMenuBean();
+        bean2.bgColor = R.color.color_d28928;
+        bean2.imgRes = R.drawable.ic_progress_loading_cutom_3;
+        list.add(bean2);
+
+        SwipeMenuBean bean3 = new SwipeMenuBean();
+        bean3.bgColor = R.color.color_00a0e9;
+        bean3.text = "删除";
+        bean3.textColor = R.color.white;
+        bean3.textSizeSp = 16;
+        list.add(bean3);
+        return list;
+    }
+
+    private List<SwipeMenuBean> createRightMenu() {
+        List<SwipeMenuBean> list = new ArrayList<>();
+        SwipeMenuBean bean1 = new SwipeMenuBean();
+        bean1.bgColor = R.color.color_ea413c;
+        bean1.imgRes = R.drawable.ic_launcher;
+        bean1.text = "排行";
+        bean1.textColor = R.color.white;
+        bean1.textSizeSp = 16;
+        list.add(bean1);
+
+        SwipeMenuBean bean2 = new SwipeMenuBean();
+        bean2.bgColor = R.color.color_ff00ff;
+        bean2.imgRes = R.drawable.ic_progress_loading_cutom_5;
+        list.add(bean2);
+
+        SwipeMenuBean bean3 = new SwipeMenuBean();
+        bean3.bgColor = R.color.white;
+        bean3.text = "详情";
+        bean3.textColor = R.color.color_2f6dc9;
+        bean3.textSizeSp = 16;
+        list.add(bean3);
+        return list;
     }
 
     /** 初始化标题栏 */
