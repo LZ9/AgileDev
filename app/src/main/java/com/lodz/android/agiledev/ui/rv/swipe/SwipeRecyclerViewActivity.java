@@ -9,6 +9,7 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.bean.SwipeMenuBean;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
+import com.lodz.android.component.widget.adapter.recycler.SimpleSwipeRVAdapter;
 import com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout;
 import com.lodz.android.component.widget.adapter.swipe.SwipeMenuRecyclerView;
 import com.lodz.android.component.widget.base.TitleBarLayout;
@@ -62,6 +63,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
     private List<SwipeMenuBean> createLeftMenu() {
         List<SwipeMenuBean> list = new ArrayList<>();
         SwipeMenuBean bean1 = new SwipeMenuBean();
+        bean1.id = 1;
         bean1.bgColor = R.color.color_ff4081;
         bean1.imgRes = R.drawable.ic_progress_loading_cutom_1;
         bean1.text = "新增一个页面";
@@ -70,11 +72,13 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
         list.add(bean1);
 
         SwipeMenuBean bean2 = new SwipeMenuBean();
+        bean2.id = 2;
         bean2.bgColor = R.color.color_d28928;
         bean2.imgRes = R.drawable.ic_progress_loading_cutom_3;
         list.add(bean2);
 
         SwipeMenuBean bean3 = new SwipeMenuBean();
+        bean3.id = 3;
         bean3.bgColor = R.color.color_00a0e9;
         bean3.text = "删除";
         bean3.textColor = R.color.white;
@@ -86,6 +90,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
     private List<SwipeMenuBean> createRightMenu() {
         List<SwipeMenuBean> list = new ArrayList<>();
         SwipeMenuBean bean1 = new SwipeMenuBean();
+        bean1.id = 4;
         bean1.bgColor = R.color.color_ea413c;
         bean1.imgRes = R.drawable.ic_launcher;
         bean1.text = "排行";
@@ -94,11 +99,13 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
         list.add(bean1);
 
         SwipeMenuBean bean2 = new SwipeMenuBean();
+        bean2.id = 5;
         bean2.bgColor = R.color.color_ff00ff;
         bean2.imgRes = R.drawable.ic_progress_loading_cutom_5;
         list.add(bean2);
 
         SwipeMenuBean bean3 = new SwipeMenuBean();
+        bean3.id = 6;
         bean3.bgColor = R.color.white;
         bean3.text = "详情";
         bean3.textColor = R.color.color_2f6dc9;
@@ -132,6 +139,13 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
             @Override
             public void onItemLongClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
                 ToastUtils.showShort(getContext(), item + " long");
+            }
+        });
+
+        mAdapter.setOnMenuClickListener(new SimpleSwipeRVAdapter.OnMenuClickListener<String>() {
+            @Override
+            public void onMenuClick(String item, SwipeMenuBean menu, int position) {
+                ToastUtils.showShort(getContext(), item + " Menu " + menu.id);
             }
         });
     }
