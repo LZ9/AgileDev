@@ -24,20 +24,20 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        compile 'cn.lodz:core:1.1.5'
+        compile 'cn.lodz:core:1.1.6'
     
-        compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+        compile 'io.reactivex.rxjava2:rxjava:2.1.7'
         compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
         
         compile 'com.squareup.retrofit2:retrofit:2.3.0'
         compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
         
-        compile 'com.alibaba:fastjson:1.2.39'
+        compile 'com.alibaba:fastjson:1.2.41'
         
-        compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.0'
-        compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'
+        compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+        compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
         
-        compile 'org.greenrobot:eventbus:3.0.0'
+        compile 'org.greenrobot:eventbus:3.1.1'
     }
 ```
 

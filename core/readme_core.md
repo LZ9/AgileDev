@@ -19,7 +19,7 @@
         compile 'com.android.support:design:26.1.0'
         compile 'com.android.support:recyclerview-v7:26.1.0'
         compile 'com.android.support:cardview-v7:26.1.0'
-        compile 'com.android.support:support-annotations:27.0.0'
+        compile 'com.android.support:support-annotations:27.0.2'
         compile 'com.android.support.constraint:constraint-layout:1.0.2'
         compile 'com.google.android:flexbox:0.3.1'
     }
