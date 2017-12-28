@@ -1,8 +1,11 @@
 package com.lodz.android.component.widget.base;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
@@ -21,12 +24,19 @@ import com.lodz.android.component.R;
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.component.base.application.config.LoadingLayoutConfig;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 
 /**
  * 加载控件
  * Created by zhouL on 2016/11/17.
  */
 public class LoadingLayout extends LinearLayout{
+
+    @IntDef({LinearLayout.HORIZONTAL, LinearLayout.VERTICAL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface OrientationType {}
 
     /** 加载页配置 */
     private LoadingLayoutConfig mConfig = new LoadingLayoutConfig();
@@ -39,34 +49,34 @@ public class LoadingLayout extends LinearLayout{
 
     public LoadingLayout(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public LoadingLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     public LoadingLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public LoadingLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(attrs);
     }
 
 
-    private void init() {
+    private void init(AttributeSet attrs) {
         if (!isInEditMode()){
             if (BaseApplication.get() != null){
                 mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
             }
         }
         findViews();
-        initData();
+        initData(attrs);
     }
 
     private void findViews() {
@@ -76,23 +86,41 @@ public class LoadingLayout extends LinearLayout{
         mRootView = findViewById(R.id.root_view);
     }
 
-    private void initData() {
+    private void initData(AttributeSet attrs) {
         if (!isInEditMode()){
-            configLayout();
+            configLayout(attrs);
         }
     }
 
     /** 配置加载页面 */
-    private void configLayout() {
-        setLayoutOrientation(mConfig.getOrientation());
-        needTips(mConfig.getIsNeedTips());
-        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_loading) : mConfig.getTips());
-        if (mConfig.getTextColor() != 0){
+    private void configLayout(AttributeSet attrs) {
+        TypedArray typedArray = null;
+        if (attrs != null){
+            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LoadingLayout);
+        }
+
+        setLayoutOrientation(typedArray == null ? mConfig.getOrientation()
+                : typedArray.getInteger(R.styleable.LoadingLayout_contentOrientation, mConfig.getOrientation()));
+
+        needTips(typedArray == null ? mConfig.getIsNeedTips()
+                : typedArray.getBoolean(R.styleable.LoadingLayout_isNeedTips, mConfig.getIsNeedTips()));
+
+        String defaultTips = TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_loading) : mConfig.getTips();
+        String attrsTips = typedArray == null ? defaultTips : typedArray.getString(R.styleable.LoadingLayout_tips);
+        setTips(TextUtils.isEmpty(attrsTips) ? defaultTips : attrsTips);
+
+        ColorStateList tipsColor = typedArray == null ? null : typedArray.getColorStateList(R.styleable.LoadingLayout_tipsColor);
+        if (tipsColor != null) {
+            setTipsTextColor(tipsColor);
+        } else if (mConfig.getTextColor() != 0) {
             setTipsTextColor(mConfig.getTextColor());
         }
-        if (mConfig.getTextSize() != 0f){
+
+        float tipsSize = typedArray == null ? mConfig.getTextSize() : typedArray.getDimension(R.styleable.LoadingLayout_tipsSize, mConfig.getTextSize());
+        if (tipsSize != 0f){
             setTipsTextSize(mConfig.getTextSize());
         }
+
         mLoadingProgressBar.setIndeterminate(mConfig.getIsIndeterminate());
         if (mConfig.getIndeterminateDrawable() != 0){
             mLoadingProgressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), mConfig.getIndeterminateDrawable()));
@@ -105,8 +133,101 @@ public class LoadingLayout extends LinearLayout{
             layoutParams.height = mConfig.getPbHeight();
         }
 
-        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
+
+//        ColorStateList backgroundColor = typedArray == null ? null : typedArray.getColorStateList(R.styleable.LoadingLayout_contentBackground);
+//        if (backgroundColor != null){
+//            int colo = getContext().getco
+//        }
+//
+//        ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor());
+//
+//        setBackgroundColor();
+
+        if (typedArray != null){
+            typedArray.recycle();
+        }
     }
+
+
+    private void initLayoutByAttrs(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LoadingLayout);
+        setLayoutOrientation(typedArray.getInteger(R.styleable.LoadingLayout_contentOrientation, LinearLayout.VERTICAL));
+        needTips(typedArray.getBoolean(R.styleable.LoadingLayout_isNeedTips, true));
+
+
+
+        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_loading) : mConfig.getTips());
+        if (mConfig.getTextColor() != 0){
+            setTipsTextColor(mConfig.getTextColor());
+        }
+        if (mConfig.getTextSize() != 0f){
+            setTipsTextSize(mConfig.getTextSize());
+        }
+
+        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
+
+
+
+
+//        mSelectedBtn.setVisibility(typedArray.getBoolean(R.styleable.UdTextView_isSelectedVisibility, true) ? VISIBLE : GONE);
+//        mSelectedBtn.setSelected(typedArray.getBoolean(R.styleable.UdTextView_isSelected, true));
+//        mNameTv.setText(typedArray.getString(R.styleable.UdTextView_nameText));
+//        mContentTv.setText(typedArray.getString(R.styleable.UdTextView_contentText));
+//        mContentTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, typedArray.getResourceId(R.styleable.UdTextView_drawableRight, 0), 0);
+//        mRequiredTipsImg.setVisibility(typedArray.getBoolean(R.styleable.UdTextView_isRequired, true) ? VISIBLE : INVISIBLE);
+//        mJumpBtn.setVisibility(typedArray.getBoolean(R.styleable.UdTextView_isNeedJump, false) ? VISIBLE : GONE);
+//        mJumpBtn.setText(typedArray.getString(R.styleable.UdTextView_jumpText));
+//        mKey = typedArray.getInteger(R.styleable.UdTextView_nameKey, 0);
+
+//        mSelectedBtn.setVisibility(typedArray.getBoolean(R.styleable.UdDoubleEditText_isSelectedVisibility, true) ? VISIBLE : GONE);
+//        mSelectedBtn.setSelected(typedArray.getBoolean(R.styleable.UdDoubleEditText_isSelected, true));
+//        mRequiredTipsImg.setVisibility(typedArray.getBoolean(R.styleable.UdDoubleEditText_isRequired, true) ? VISIBLE : INVISIBLE);
+//        mNameTv.setText(typedArray.getString(R.styleable.UdDoubleEditText_nameText));
+//        mContentEdit.setText(typedArray.getString(R.styleable.UdDoubleEditText_contentText));
+//        setEditInputType(true, typedArray.getInteger(R.styleable.UdDoubleEditText_inputType, UdEditText.TYPE_TEXT));
+//        mSecondContentEdit.setText(typedArray.getString(R.styleable.UdDoubleEditText_secondContentText));
+//        setEditInputType(false, typedArray.getInteger(R.styleable.UdDoubleEditText_secondInputType, UdEditText.TYPE_TEXT));
+//        int drawableImg = typedArray.getResourceId(R.styleable.UdDoubleEditText_drawableImg, 0);
+//        mIconImg.setImageResource(drawableImg > 0 ? drawableImg : R.drawable.icon_phone);
+//        mKey = typedArray.getInteger(R.styleable.UdDoubleEditText_nameKey, 0);
+//        mSecondKey = typedArray.getInteger(R.styleable.UdDoubleEditText_secondKey, 0);
+
+
+        typedArray.recycle();
+    }
+
+//    /**
+//     * 设置文本输入类型
+//     * @param type 输入类型
+//     */
+//    public void setEditInputType(boolean isMain, @UdEditText.EditInputType int type) {
+//        EditText editText = isMain ? mContentEdit : mSecondContentEdit;
+//        if (type < 0){
+//            type = UdEditText.TYPE_TEXT;
+//        }
+//        switch (type){
+//            case UdEditText.TYPE_TEXT:
+//                editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//                break;
+//            case UdEditText.TYPE_ID_CARD:
+//                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                editText.setKeyListener(DigitsKeyListener.getInstance("1234567890xX"));
+//                break;
+//            case UdEditText.TYPE_PHONE:
+//                editText.setInputType(InputType.TYPE_CLASS_PHONE);
+//                break;
+//            case UdEditText.TYPE_NUMBER:
+//                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                break;
+//            case UdEditText.TYPE_NUMBER_DECIMAL:
+//                mContentEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                mContentEdit.setKeyListener(DigitsKeyListener.getInstance("1234567890."));
+//                break;
+//            default:
+//                editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//                break;
+//        }
+//    }
 
     /**
      * 需要提示文字
@@ -141,6 +262,17 @@ public class LoadingLayout extends LinearLayout{
     }
 
     /**
+     * 设置文字颜色
+     * @param colorStateList 颜色
+     */
+    public void setTipsTextColor(ColorStateList colorStateList){
+        if (colorStateList == null){
+            return;
+        }
+        mLoadingTipsTextView.setTextColor(colorStateList);
+    }
+
+    /**
      * 设置文字大小
      * @param size 文字大小（单位sp）
      */
@@ -165,7 +297,7 @@ public class LoadingLayout extends LinearLayout{
      * 设置加载页面的布局方向
      * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
      */
-    public void setLayoutOrientation(int orientation){
+    public void setLayoutOrientation(@OrientationType int orientation){
         if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
             mRootView.setOrientation(orientation);
         }

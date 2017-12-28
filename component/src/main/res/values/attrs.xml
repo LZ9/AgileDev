@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="recycler_swipe_SwipeMenuLayout">
+    <declare-styleable name="SwipeMenuLayout">
         <attr name="leftViewId" format="reference"/>
         <attr name="rightViewId" format="reference"/>
         <attr name="contentViewId" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="LoadingLayout">
+        <attr name="contentOrientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="isNeedTips" format="boolean" />
+        <attr name="tips" format="string" />
+        <attr name="tipsColor" format="color" />
+        <attr name="tipsSize" format="dimension" />
+        <attr name="contentBackground" format="color" />
+    </declare-styleable>
 </resources>
