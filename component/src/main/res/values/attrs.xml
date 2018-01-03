@@ -2,20 +2,41 @@
 <resources>
 
     <declare-styleable name="SwipeMenuLayout">
-        <attr name="leftViewId" format="reference"/>
-        <attr name="rightViewId" format="reference"/>
-        <attr name="contentViewId" format="reference"/>
+        <attr name="leftViewId" format="reference" />
+        <attr name="rightViewId" format="reference" />
+        <attr name="contentViewId" format="reference" />
     </declare-styleable>
 
+
+    <!--基类-->
+    <attr name="contentOrientation" format="integer">
+        <enum name="horizontal" value="0" />
+        <enum name="vertical" value="1" />
+    </attr>
+    <attr name="isNeedTips" format="boolean" />
+    <attr name="tips" format="string" />
+    <attr name="tipsColor" format="color" />
+    <attr name="tipsSize" format="dimension" />
+    <attr name="contentBackground" format="color" />
+
     <declare-styleable name="LoadingLayout">
-        <attr name="contentOrientation" format="enum">
-            <enum name="horizontal" value="0" />
-            <enum name="vertical" value="1" />
-        </attr>
-        <attr name="isNeedTips" format="boolean" />
-        <attr name="tips" format="string" />
-        <attr name="tipsColor" format="color" />
-        <attr name="tipsSize" format="dimension" />
-        <attr name="contentBackground" format="color" />
+        <attr name="contentOrientation" />
+        <attr name="isNeedTips" />
+        <attr name="tips" />
+        <attr name="tipsColor" />
+        <attr name="tipsSize" />
+        <attr name="contentBackground" />
     </declare-styleable>
+
+    <declare-styleable name="NoDataLayout">
+        <attr name="isNeedImg" format="boolean" />
+        <attr name="src" format="reference" />
+        <attr name="contentOrientation" />
+        <attr name="isNeedTips" />
+        <attr name="tips" />
+        <attr name="tipsColor" />
+        <attr name="tipsSize" />
+        <attr name="contentBackground" />
+    </declare-styleable>
+
 </resources>

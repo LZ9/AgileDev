@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
@@ -23,11 +22,9 @@ import android.widget.TextView;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.component.base.application.config.BaseLayoutConfig;
 import com.lodz.android.component.base.application.config.LoadingLayoutConfig;
 import com.lodz.android.core.utils.DensityUtils;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 
 /**
@@ -36,9 +33,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class LoadingLayout extends LinearLayout{
 
-    @IntDef({LinearLayout.HORIZONTAL, LinearLayout.VERTICAL})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface OrientationType {}
+
 
     /** 加载页配置 */
     private LoadingLayoutConfig mConfig = new LoadingLayoutConfig();
@@ -102,7 +97,7 @@ public class LoadingLayout extends LinearLayout{
         }
 
         setLayoutOrientation(typedArray == null ? mConfig.getOrientation()
-                : typedArray.getInteger(R.styleable.LoadingLayout_contentOrientation, mConfig.getOrientation()));
+                : typedArray.getInt(R.styleable.LoadingLayout_contentOrientation, mConfig.getOrientation()));
 
         needTips(typedArray == null ? mConfig.getIsNeedTips()
                 : typedArray.getBoolean(R.styleable.LoadingLayout_isNeedTips, mConfig.getIsNeedTips()));
@@ -217,7 +212,7 @@ public class LoadingLayout extends LinearLayout{
      * 设置加载页面的布局方向
      * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
      */
-    public void setLayoutOrientation(@OrientationType int orientation){
+    public void setLayoutOrientation(@BaseLayoutConfig.OrientationType int orientation){
         if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
             mRootView.setOrientation(orientation);
         }

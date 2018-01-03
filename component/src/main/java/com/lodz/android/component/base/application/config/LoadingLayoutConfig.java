@@ -96,7 +96,7 @@ public class LoadingLayoutConfig {
      * 设置加载页面的布局方向
      * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
      */
-    public void setOrientation(int orientation) {
+    public void setOrientation(@BaseLayoutConfig.OrientationType int orientation) {
         if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
             this.orientation = orientation;
         }

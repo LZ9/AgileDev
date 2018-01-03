@@ -27,11 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:contentBackground="@color/white"
-        app:contentOrientation="vertical"
+        app:contentBackground="@color/color_ff4081"
+        app:contentOrientation="horizontal"
         app:isNeedTips="true"
-        app:tips="@string/crash_tips"
-        app:tipsColor="@color/color_00a0e9"
+        app:tips="@string/config_base_loading_tips"
+        app:tipsColor="@color/white"
         app:tipsSize="15sp">
 
     </com.lodz.android.component.widget.base.LoadingLayout>
@@ -40,7 +40,15 @@
         android:id="@+id/no_data_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:contentBackground="@color/color_ea8380"
+        app:contentOrientation="horizontal"
+        app:isNeedImg="true"
+        app:isNeedTips="true"
+        app:src="@drawable/ic_launcher"
+        app:tips="@string/config_base_no_data_tips"
+        app:tipsColor="@color/color_ffa630"
+        app:tipsSize="22sp">
 
     </com.lodz.android.component.widget.base.NoDataLayout>
 

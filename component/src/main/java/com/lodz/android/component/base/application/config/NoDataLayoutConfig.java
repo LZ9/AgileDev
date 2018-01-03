@@ -92,7 +92,7 @@ public class NoDataLayoutConfig {
      * 设置无数据页面的布局方向
      * @param orientation LinearLayout.HORIZONTAL或LinearLayout.VERTICAL
      */
-    public void setOrientation(int orientation) {
+    public void setOrientation(@BaseLayoutConfig.OrientationType int orientation) {
         if (orientation == LinearLayout.HORIZONTAL || orientation == LinearLayout.VERTICAL){
             this.orientation = orientation;
         }

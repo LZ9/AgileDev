@@ -1,11 +1,21 @@
 package com.lodz.android.component.base.application.config;
 
+import android.support.annotation.IntDef;
+import android.widget.LinearLayout;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * 基类配置
  * Created by zhouL on 2017/7/3.
  */
 
 public class BaseLayoutConfig {
+
+    @IntDef({LinearLayout.HORIZONTAL, LinearLayout.VERTICAL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface OrientationType {}
 
     /** 异常页面配置 */
     private ErrorLayoutConfig mErrorLayoutConfig;
