@@ -20,7 +20,7 @@ public class LoadingLayoutConfig {
     @ColorRes
     private int textColor = 0;
     /** 文字大小 */
-    private float textSize = 0f;
+    private int textSize = 0;
     /** 背景色 */
     @ColorRes
     private int backgroundColor = 0;
@@ -64,7 +64,7 @@ public class LoadingLayoutConfig {
      * 设置文字大小
      * @param size 文字大小（单位sp）
      */
-    public void setTipsTextSize(float size){
+    public void setTipsTextSize(int size){
         this.textSize = size;
     }
 
@@ -135,7 +135,7 @@ public class LoadingLayoutConfig {
     }
 
     /** 获取文字大小 */
-    public float getTextSize() {
+    public int getTextSize() {
         return textSize;
     }
 

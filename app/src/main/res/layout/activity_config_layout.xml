@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <com.lodz.android.component.widget.base.TitleBarLayout
+        android:id="@+id/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.lodz.android.component.widget.base.TitleBarLayout>
+
+    <com.lodz.android.component.widget.MmsTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/color_00a0e9"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/color_00a0e9"
+        app:tabTextColor="@color/black" />
+
+    <com.lodz.android.component.widget.base.LoadingLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:contentBackground="@color/white"
+        app:contentOrientation="vertical"
+        app:isNeedTips="true"
+        app:tips="@string/crash_tips"
+        app:tipsColor="@color/color_00a0e9"
+        app:tipsSize="15sp">
+
+    </com.lodz.android.component.widget.base.LoadingLayout>
+
+    <com.lodz.android.component.widget.base.NoDataLayout
+        android:id="@+id/no_data_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </com.lodz.android.component.widget.base.NoDataLayout>
+
+    <com.lodz.android.component.widget.base.ErrorLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </com.lodz.android.component.widget.base.ErrorLayout>
 
 </LinearLayout>

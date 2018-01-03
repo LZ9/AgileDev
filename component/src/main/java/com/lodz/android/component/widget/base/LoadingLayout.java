@@ -3,6 +3,7 @@ package com.lodz.android.component.widget.base;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.component.base.application.config.LoadingLayoutConfig;
+import com.lodz.android.core.utils.DensityUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -116,8 +118,10 @@ public class LoadingLayout extends LinearLayout{
             setTipsTextColor(mConfig.getTextColor());
         }
 
-        float tipsSize = typedArray == null ? mConfig.getTextSize() : typedArray.getDimension(R.styleable.LoadingLayout_tipsSize, mConfig.getTextSize());
-        if (tipsSize != 0f){
+        int tipsSize = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.LoadingLayout_tipsSize, 0);
+        if (tipsSize != 0){
+            setTipsTextSize(DensityUtils.px2sp(getContext(), tipsSize));
+        }else if(mConfig.getTextSize() != 0){
             setTipsTextSize(mConfig.getTextSize());
         }
 
@@ -133,101 +137,17 @@ public class LoadingLayout extends LinearLayout{
             layoutParams.height = mConfig.getPbHeight();
         }
 
-
-//        ColorStateList backgroundColor = typedArray == null ? null : typedArray.getColorStateList(R.styleable.LoadingLayout_contentBackground);
-//        if (backgroundColor != null){
-//            int colo = getContext().getco
-//        }
-//
-//        ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor());
-//
-//        setBackgroundColor();
+        Drawable drawableBackground = typedArray == null ? null : typedArray.getDrawable(R.styleable.LoadingLayout_contentBackground);
+        if (drawableBackground != null){
+            setBackground(drawableBackground);
+        }else {
+            setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
+        }
 
         if (typedArray != null){
             typedArray.recycle();
         }
     }
-
-
-    private void initLayoutByAttrs(AttributeSet attrs) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LoadingLayout);
-        setLayoutOrientation(typedArray.getInteger(R.styleable.LoadingLayout_contentOrientation, LinearLayout.VERTICAL));
-        needTips(typedArray.getBoolean(R.styleable.LoadingLayout_isNeedTips, true));
-
-
-
-        setTips(TextUtils.isEmpty(mConfig.getTips()) ? getContext().getString(R.string.component_loading) : mConfig.getTips());
-        if (mConfig.getTextColor() != 0){
-            setTipsTextColor(mConfig.getTextColor());
-        }
-        if (mConfig.getTextSize() != 0f){
-            setTipsTextSize(mConfig.getTextSize());
-        }
-
-        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.white : mConfig.getBackgroundColor()));
-
-
-
-
-//        mSelectedBtn.setVisibility(typedArray.getBoolean(R.styleable.UdTextView_isSelectedVisibility, true) ? VISIBLE : GONE);
-//        mSelectedBtn.setSelected(typedArray.getBoolean(R.styleable.UdTextView_isSelected, true));
-//        mNameTv.setText(typedArray.getString(R.styleable.UdTextView_nameText));
-//        mContentTv.setText(typedArray.getString(R.styleable.UdTextView_contentText));
-//        mContentTv.setCompoundDrawablesWithIntrinsicBounds(0, 0, typedArray.getResourceId(R.styleable.UdTextView_drawableRight, 0), 0);
-//        mRequiredTipsImg.setVisibility(typedArray.getBoolean(R.styleable.UdTextView_isRequired, true) ? VISIBLE : INVISIBLE);
-//        mJumpBtn.setVisibility(typedArray.getBoolean(R.styleable.UdTextView_isNeedJump, false) ? VISIBLE : GONE);
-//        mJumpBtn.setText(typedArray.getString(R.styleable.UdTextView_jumpText));
-//        mKey = typedArray.getInteger(R.styleable.UdTextView_nameKey, 0);
-
-//        mSelectedBtn.setVisibility(typedArray.getBoolean(R.styleable.UdDoubleEditText_isSelectedVisibility, true) ? VISIBLE : GONE);
-//        mSelectedBtn.setSelected(typedArray.getBoolean(R.styleable.UdDoubleEditText_isSelected, true));
-//        mRequiredTipsImg.setVisibility(typedArray.getBoolean(R.styleable.UdDoubleEditText_isRequired, true) ? VISIBLE : INVISIBLE);
-//        mNameTv.setText(typedArray.getString(R.styleable.UdDoubleEditText_nameText));
-//        mContentEdit.setText(typedArray.getString(R.styleable.UdDoubleEditText_contentText));
-//        setEditInputType(true, typedArray.getInteger(R.styleable.UdDoubleEditText_inputType, UdEditText.TYPE_TEXT));
-//        mSecondContentEdit.setText(typedArray.getString(R.styleable.UdDoubleEditText_secondContentText));
-//        setEditInputType(false, typedArray.getInteger(R.styleable.UdDoubleEditText_secondInputType, UdEditText.TYPE_TEXT));
-//        int drawableImg = typedArray.getResourceId(R.styleable.UdDoubleEditText_drawableImg, 0);
-//        mIconImg.setImageResource(drawableImg > 0 ? drawableImg : R.drawable.icon_phone);
-//        mKey = typedArray.getInteger(R.styleable.UdDoubleEditText_nameKey, 0);
-//        mSecondKey = typedArray.getInteger(R.styleable.UdDoubleEditText_secondKey, 0);
-
-
-        typedArray.recycle();
-    }
-
-//    /**
-//     * 设置文本输入类型
-//     * @param type 输入类型
-//     */
-//    public void setEditInputType(boolean isMain, @UdEditText.EditInputType int type) {
-//        EditText editText = isMain ? mContentEdit : mSecondContentEdit;
-//        if (type < 0){
-//            type = UdEditText.TYPE_TEXT;
-//        }
-//        switch (type){
-//            case UdEditText.TYPE_TEXT:
-//                editText.setInputType(InputType.TYPE_CLASS_TEXT);
-//                break;
-//            case UdEditText.TYPE_ID_CARD:
-//                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                editText.setKeyListener(DigitsKeyListener.getInstance("1234567890xX"));
-//                break;
-//            case UdEditText.TYPE_PHONE:
-//                editText.setInputType(InputType.TYPE_CLASS_PHONE);
-//                break;
-//            case UdEditText.TYPE_NUMBER:
-//                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                break;
-//            case UdEditText.TYPE_NUMBER_DECIMAL:
-//                mContentEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                mContentEdit.setKeyListener(DigitsKeyListener.getInstance("1234567890."));
-//                break;
-//            default:
-//                editText.setInputType(InputType.TYPE_CLASS_TEXT);
-//                break;
-//        }
-//    }
 
     /**
      * 需要提示文字

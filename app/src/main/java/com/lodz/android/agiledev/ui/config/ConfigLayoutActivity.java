@@ -1,107 +1,129 @@
 package com.lodz.android.agiledev.ui.config;
 
 import android.os.Bundle;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.TabLayout;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
-import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.base.activity.AbsActivity;
+import com.lodz.android.component.widget.MmsTabLayout;
+import com.lodz.android.component.widget.base.ErrorLayout;
+import com.lodz.android.component.widget.base.LoadingLayout;
+import com.lodz.android.component.widget.base.NoDataLayout;
 import com.lodz.android.component.widget.base.TitleBarLayout;
-import com.lodz.android.core.utils.DensityUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 基础控件配置测试类
  * Created by zhouL on 2017/7/4.
  */
 
-public class ConfigLayoutActivity extends BaseActivity{
+public class ConfigLayoutActivity extends AbsActivity{
+
+    /** 标题栏 */
+    @BindView(R.id.title_bar_layout)
+    TitleBarLayout mTitleBarLayout;
+    /** TabLayout */
+    @BindView(R.id.tab_layout)
+    MmsTabLayout mTabLayout;
+    /** 加载页 */
+    @BindView(R.id.loading_layout)
+    LoadingLayout mLoadingLayout;
+    /** 无数据页 */
+    @BindView(R.id.no_data_layout)
+    NoDataLayout mNoDataLayout;
+    /** 失败页 */
+    @BindView(R.id.error_layout)
+    ErrorLayout mErrorLayout;
 
     @Override
-    protected int getLayoutId() {
+    protected int getAbsLayoutId() {
         return R.layout.activity_config_layout;
     }
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
-        initTitleBar(getTitleBarLayout());
+        ButterKnife.bind(this);
+        initTitleBar();
+    }
+
+    private void initTabLayout() {
+        mTabLayout.addTab(mTabLayout.newTab().setText(getContext().getString(R.string.config_base_loading)), true);
+        mTabLayout.addTab(mTabLayout.newTab().setText(getContext().getString(R.string.config_base_no_data)));
+        mTabLayout.addTab(mTabLayout.newTab().setText(getContext().getString(R.string.config_base_fail)));
     }
 
 
     /** 初始化标题栏 */
-    private void initTitleBar(TitleBarLayout titleBarLayout) {
-        titleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
-        titleBarLayout.needExpandView(true);
-        titleBarLayout.addExpandView(getExpandView());
+    private void initTitleBar() {
+        mTitleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
+        mTitleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
-    protected void clickBackBtn() {
-        super.clickBackBtn();
-        finish();
+    protected void setListeners() {
+        super.setListeners();
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        showLoading();
+                        break;
+                    case 1:
+                        showNoData();
+                        break;
+                    case 2:
+                        showError();
+                        break;
+                    default:
+                        showLoading();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
-    @Override
-    protected void clickReload() {
-        super.clickReload();
-        showStatusLoading();
+    private void showLoading() {
+        mLoadingLayout.setVisibility(View.VISIBLE);
+        mNoDataLayout.setVisibility(View.GONE);
+        mErrorLayout.setVisibility(View.GONE);
+    }
+
+    private void showNoData() {
+        mLoadingLayout.setVisibility(View.GONE);
+        mNoDataLayout.setVisibility(View.VISIBLE);
+        mErrorLayout.setVisibility(View.GONE);
+    }
+
+    private void showError() {
+        mLoadingLayout.setVisibility(View.GONE);
+        mNoDataLayout.setVisibility(View.GONE);
+        mErrorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        // 可以在App的configBaseLayout方法对基础控件进行统一订制
-        showStatusLoading();
-    }
-
-    /** 获取扩展view */
-    private View getExpandView() {
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        linearLayout.setLayoutParams(layoutParams);
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        final TextView loadingTv = getTextView(R.string.config_base_loading);//加载
-        loadingTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showStatusLoading();
-            }
-        });
-        linearLayout.addView(loadingTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        final TextView noDataTv = getTextView(R.string.config_base_no_data);//无数据
-        noDataTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showStatusNoData();
-            }
-        });
-        linearLayout.addView(noDataTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        final TextView failTv = getTextView(R.string.config_base_fail);//失败
-        failTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showStatusError();
-            }
-        });
-        linearLayout.addView(failTv, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        return linearLayout;
-    }
-
-    /** 获取TextView */
-    private TextView getTextView(@StringRes int resId) {
-        final TextView textView = new TextView(getContext());
-        textView.setText(resId);
-        textView.setPadding(DensityUtils.dp2px(getContext(), 2), 0 , DensityUtils.dp2px(getContext(), 2), 0);
-        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-        return textView;
+        initTabLayout();
     }
 }
 
