@@ -7,6 +7,7 @@ import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.cache.ACacheUtils;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
+import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageloaderManager;
 
@@ -75,8 +76,8 @@ public class App extends BaseApplication{
 //        getBaseLayoutConfig().getLoadingLayoutConfig().setBackgroundColor(R.color.color_ff4081);
         getBaseLayoutConfig().getLoadingLayoutConfig().setIsIndeterminate(true);
 //        getBaseLayoutConfig().getLoadingLayoutConfig().setIndeterminateDrawable(R.drawable.anims_custom_progress);
-//        getBaseLayoutConfig().getLoadingLayoutConfig().setPbWidth(DensityUtils.dp2px(this, 50));
-//        getBaseLayoutConfig().getLoadingLayoutConfig().setPbHeight(DensityUtils.dp2px(this, 50));
+        getBaseLayoutConfig().getLoadingLayoutConfig().setPbWidth(DensityUtils.dp2px(this, 50));
+        getBaseLayoutConfig().getLoadingLayoutConfig().setPbHeight(DensityUtils.dp2px(this, 50));
     }
 
     /** 配置标题栏 */

@@ -29,7 +29,11 @@
         android:visibility="gone"
         app:contentBackground="@color/color_ff4081"
         app:contentOrientation="horizontal"
+        app:indeterminateDrawable="@drawable/anims_custom_progress"
+        app:isIndeterminate="true"
         app:isNeedTips="true"
+        app:pbHeight="50dp"
+        app:pbWidth="50dp"
         app:tips="@string/config_base_loading_tips"
         app:tipsColor="@color/white"
         app:tipsSize="15sp">

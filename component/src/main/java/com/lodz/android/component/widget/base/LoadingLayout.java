@@ -120,16 +120,24 @@ public class LoadingLayout extends LinearLayout{
             setTipsTextSize(mConfig.getTextSize());
         }
 
-        mLoadingProgressBar.setIndeterminate(mConfig.getIsIndeterminate());
-        if (mConfig.getIndeterminateDrawable() != 0){
+        mLoadingProgressBar.setIndeterminate(typedArray == null ? mConfig.getIsIndeterminate()
+                : typedArray.getBoolean(R.styleable.LoadingLayout_isIndeterminate, mConfig.getIsIndeterminate()));
+
+        Drawable drawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.LoadingLayout_indeterminateDrawable);
+        if (drawable != null){
+            mLoadingProgressBar.setIndeterminateDrawable(drawable);
+        }else if (mConfig.getIndeterminateDrawable() != 0){
             mLoadingProgressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), mConfig.getIndeterminateDrawable()));
         }
+
         ViewGroup.LayoutParams layoutParams = mLoadingProgressBar.getLayoutParams();
-        if (mConfig.getPbWidth() != 0){
-            layoutParams.width = mConfig.getPbWidth();
+        int pbWidth = typedArray == null ? mConfig.getPbWidth() : typedArray.getDimensionPixelSize(R.styleable.LoadingLayout_pbWidth, mConfig.getPbWidth());
+        int pbHeight = typedArray == null ? mConfig.getPbHeight() : typedArray.getDimensionPixelSize(R.styleable.LoadingLayout_pbHeight, mConfig.getPbHeight());
+        if (pbWidth != 0){
+            layoutParams.width = pbWidth;
         }
-        if (mConfig.getPbHeight() != 0){
-            layoutParams.height = mConfig.getPbHeight();
+        if (pbHeight != 0){
+            layoutParams.height = pbHeight;
         }
 
         Drawable drawableBackground = typedArray == null ? null : typedArray.getDrawable(R.styleable.LoadingLayout_contentBackground);
