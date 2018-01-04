@@ -8,7 +8,23 @@
     <com.lodz.android.component.widget.base.TitleBarLayout
         android:id="@+id/title_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:backDrawable="@drawable/ic_launcher"
+        app:backText="返回"
+        app:backTextColor="@color/white"
+        app:backTextSize="16sp"
+        app:divideLineColor="@color/color_d28928"
+        app:divideLineHeight="10dp"
+        app:elevationVale="15dp"
+        app:expandViewId="@layout/view_config_expand_layout"
+        app:isNeedBackBtn="true"
+        app:isNeedElevation="true"
+        app:isNeedExpandView="false"
+        app:isShowDivideLine="false"
+        app:titleBarBackground="@color/color_ea8380"
+        app:titleText="测试"
+        app:titleTextColor="@color/color_00a0e9"
+        app:titleTextSize="15sp">
 
     </com.lodz.android.component.widget.base.TitleBarLayout>
 

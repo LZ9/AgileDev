@@ -1,6 +1,9 @@
 package com.lodz.android.component.widget.base;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
@@ -43,33 +46,33 @@ public class TitleBarLayout extends LinearLayout{
 
     public TitleBarLayout(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public TitleBarLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(attrs);
     }
 
-    private void init() {
+    private void init(AttributeSet attrs) {
         if (!isInEditMode()){
             if (BaseApplication.get() != null){
                 mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
             }
         }
         findViews();
-        initData();
+        initData(attrs);
     }
 
     private void findViews() {
@@ -81,46 +84,115 @@ public class TitleBarLayout extends LinearLayout{
         mDivideLineView = findViewById(R.id.divide_line);
     }
 
-    private void initData() {
+    private void initData(AttributeSet attrs) {
         if (!isInEditMode()){
-            config();
+            config(attrs);
         }
     }
 
-    private void config() {
-        needBackButton(mConfig.getIsNeedBackBtn());// 默认显示返回按钮
-        needExpandView(false);// 默认不需要右侧扩展区域
-        if (mConfig.getBackBtnResId() != 0){
+    private void config(AttributeSet attrs) {
+        TypedArray typedArray = null;
+        if (attrs != null){
+            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TitleBarLayout);
+        }
+
+        // 默认显示返回按钮
+        needBackButton(typedArray == null ? mConfig.getIsNeedBackBtn()
+                : typedArray.getBoolean(R.styleable.TitleBarLayout_isNeedBackBtn, mConfig.getIsNeedBackBtn()));
+
+        Drawable backDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.TitleBarLayout_backDrawable);
+        if (backDrawable != null){
+            mBackBtn.setCompoundDrawablesWithIntrinsicBounds(backDrawable, null, null, null);
+        }else if (mConfig.getBackBtnResId() != 0){
             mBackBtn.setCompoundDrawablesWithIntrinsicBounds(mConfig.getBackBtnResId(), 0, 0, 0);
         }
-        if (!TextUtils.isEmpty(mConfig.getBackBtnText())){
+
+        String backText = typedArray == null ? "" : typedArray.getString(R.styleable.TitleBarLayout_backText);
+        if (!TextUtils.isEmpty(backText)) {
+            setBackBtnName(backText);
+        }else if (!TextUtils.isEmpty(mConfig.getBackBtnText())){
             setBackBtnName(mConfig.getBackBtnText());
         }
-        if (mConfig.getBackBtnTextColor() != 0){
+
+        ColorStateList backTextColor = typedArray == null ? null : typedArray.getColorStateList(R.styleable.TitleBarLayout_backTextColor);
+        if (backTextColor != null) {
+            setBackBtnTextColor(backTextColor);
+        } else if (mConfig.getBackBtnTextColor() != 0) {
             setBackBtnTextColor(mConfig.getBackBtnTextColor());
         }
-        if (mConfig.getBackBtnTextSize() != 0f){
+
+        int backTextSize = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.TitleBarLayout_backTextSize, 0);
+        if (backTextSize != 0){
+            setBackBtnTextSize(DensityUtils.px2sp(getContext(), backTextSize));
+        }else if(mConfig.getBackBtnTextSize() != 0){
             setBackBtnTextSize(mConfig.getBackBtnTextSize());
         }
-        if (mConfig.getTitleTextColor() != 0){
+
+        String titleText = typedArray == null ? "" : typedArray.getString(R.styleable.TitleBarLayout_titleText);
+        if (!TextUtils.isEmpty(titleText)) {
+            setTitleName(titleText);
+        }
+
+        ColorStateList titleTextColor = typedArray == null ? null : typedArray.getColorStateList(R.styleable.TitleBarLayout_titleTextColor);
+        if (titleTextColor != null) {
+            setTitleTextColor(titleTextColor);
+        } else if (mConfig.getTitleTextColor() != 0) {
             setTitleTextColor(mConfig.getTitleTextColor());
         }
-        if (mConfig.getTitleTextSize() != 0f){
+
+        int titleTextSize = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.TitleBarLayout_titleTextSize, 0);
+        if (titleTextSize != 0){
+            setTitleTextSize(DensityUtils.px2sp(getContext(), titleTextSize));
+        }else if(mConfig.getTitleTextSize() != 0){
             setTitleTextSize(mConfig.getTitleTextSize());
         }
-        mDivideLineView.setVisibility(mConfig.getIsShowDivideLine() ? View.VISIBLE : View.GONE);
-        if (mConfig.getDivideLineColor() != 0){
+
+        boolean isShowDivideLine = typedArray == null ? mConfig.getIsShowDivideLine()
+                : typedArray.getBoolean(R.styleable.TitleBarLayout_isShowDivideLine, mConfig.getIsShowDivideLine());
+        mDivideLineView.setVisibility(isShowDivideLine ? View.VISIBLE : View.GONE);
+
+        Drawable divideLineDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.TitleBarLayout_divideLineColor);
+        if (divideLineDrawable != null){
+            setDivideLineColor(divideLineDrawable);
+        }else if(mConfig.getDivideLineColor() != 0){
             setDivideLineColor(mConfig.getDivideLineColor());
         }
-        if (mConfig.getDivideLineHeight() > 0){
+
+        int divideLineHeight = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.TitleBarLayout_divideLineHeight, 0);
+        if (divideLineHeight > 0){
+            setDivideLineHeight(DensityUtils.px2dp(getContext(), divideLineHeight));
+        }else if(mConfig.getDivideLineHeight() > 0){
             setDivideLineHeight(mConfig.getDivideLineHeight());
         }
-        setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.holo_blue_light : mConfig.getBackgroundColor()));
-        if (mConfig.getBackgroundResId() != 0){
+
+        Drawable drawableBackground = typedArray == null ? null : typedArray.getDrawable(R.styleable.TitleBarLayout_titleBarBackground);
+        if (drawableBackground != null){
+            setBackground(drawableBackground);
+        } else if (mConfig.getBackgroundResId() != 0){
             setBackgroundResource(mConfig.getBackgroundResId());
+        } else {
+            setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.holo_blue_light : mConfig.getBackgroundColor()));
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mConfig.getIsNeedElevation()) {
-            setElevation(mConfig.getElevationVale());
+
+        boolean isNeedElevation = typedArray == null ? mConfig.getIsNeedElevation()
+                : typedArray.getBoolean(R.styleable.TitleBarLayout_isNeedElevation, mConfig.getIsNeedElevation());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && isNeedElevation) {
+            int elevationVale = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.TitleBarLayout_elevationVale, 0);
+            setElevation(elevationVale != 0 ? elevationVale : mConfig.getElevationVale());
+        }
+
+        // 默认不需要右侧扩展区域
+        needExpandView(typedArray != null && typedArray.getBoolean(R.styleable.TitleBarLayout_isNeedExpandView, false));
+        int expandViewId = typedArray == null ? 0 : typedArray.getResourceId(R.styleable.TitleBarLayout_expandViewId, 0);
+        if (expandViewId > 0){
+            View view = LayoutInflater.from(getContext()).inflate(expandViewId, null);
+            if (view != null){
+                addExpandView(view);
+            }
+        }
+
+        if (typedArray != null){
+            typedArray.recycle();
         }
     }
 
@@ -171,6 +243,17 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     /**
+     * 设置返回按钮文字颜色
+     * @param colorStateList 颜色
+     */
+    public void setBackBtnTextColor(ColorStateList colorStateList){
+        if (colorStateList == null){
+            return;
+        }
+        mBackBtn.setTextColor(colorStateList);
+    }
+
+    /**
      * 设置返回按钮文字大小
      * @param size 文字大小（单位sp）
      */
@@ -203,6 +286,17 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     /**
+     * 设置文字颜色
+     * @param colorStateList 颜色
+     */
+    public void setTitleTextColor(ColorStateList colorStateList){
+        if (colorStateList == null){
+            return;
+        }
+        mTitleTextView.setTextColor(colorStateList);
+    }
+
+    /**
      * 设置标题文字大小
      * @param size 文字大小（单位sp）
      */
@@ -227,6 +321,11 @@ public class TitleBarLayout extends LinearLayout{
         needExpandView(true);
     }
 
+    /** 获取扩展区域的View */
+    public View getExpandView(){
+        return mExpandLinearLayout;
+    }
+
     /** 隐藏分割线 */
     public void goneDivideLine(){
         mDivideLineView.setVisibility(View.GONE);
@@ -237,11 +336,16 @@ public class TitleBarLayout extends LinearLayout{
         mDivideLineView.setBackgroundColor(ContextCompat.getColor(getContext(), colorRes));
     }
 
+    /** 设置分割线颜色 */
+    public void setDivideLineColor(Drawable drawable){
+        mDivideLineView.setBackground(drawable);
+    }
+
     /**
      * 设置分割线高度
      * @param height 高度（单位dp）
      */
-    public void setDivideLineHeight(int height){
+    public void setDivideLineHeight(float height){
         ViewGroup.LayoutParams layoutParams = mDivideLineView.getLayoutParams();
         layoutParams.height = DensityUtils.dp2px(getContext(), height);
         mDivideLineView.setLayoutParams(layoutParams);

@@ -56,4 +56,23 @@
         <attr name="contentBackground" />
     </declare-styleable>
 
+    <declare-styleable name="TitleBarLayout">
+        <attr name="isNeedBackBtn" format="boolean" />
+        <attr name="backDrawable" format="reference" />
+        <attr name="backText" format="string" />
+        <attr name="backTextColor" format="color" />
+        <attr name="backTextSize" format="dimension" />
+        <attr name="titleText" format="string" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="isShowDivideLine" format="boolean" />
+        <attr name="divideLineColor" format="color" />
+        <attr name="divideLineHeight" format="dimension" />
+        <attr name="titleBarBackground" format="reference|color" />
+        <attr name="isNeedElevation" format="boolean" />
+        <attr name="elevationVale" format="dimension" />
+        <attr name="isNeedExpandView" format="boolean" />
+        <attr name="expandViewId" format="reference" />
+    </declare-styleable>
+
 </resources>

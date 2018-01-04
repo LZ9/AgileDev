@@ -22,12 +22,12 @@ public class TitleBarLayoutConfig {
     @ColorRes
     private int backBtnTextColor = 0;
     /** 返回按钮文字大小 */
-    private float backBtnTextSize = 0f;
+    private int backBtnTextSize = 0;
     /** 标题文字颜色 */
     @ColorRes
     private int titleTextColor = 0;
     /** 标题文字大小 */
-    private float titleTextSize = 0f;
+    private int titleTextSize = 0;
     /** 是否显示分割线 */
     private boolean isShowDivideLine = false;
     /** 分割线颜色 */
@@ -44,7 +44,7 @@ public class TitleBarLayoutConfig {
     /** 是否需要阴影 */
     private boolean isNeedElevation = true;
     /** 阴影的值 */
-    private float elevationVale = 12f;
+    private float elevationVale = 12;
 
 
     /**
@@ -83,7 +83,7 @@ public class TitleBarLayoutConfig {
      * 设置返回按钮文字大小
      * @param size 文字大小（单位sp）
      */
-    public void setBackBtnTextSize(float size){
+    public void setBackBtnTextSize(int size){
         this.backBtnTextSize = size;
     }
 
@@ -99,7 +99,7 @@ public class TitleBarLayoutConfig {
      * 设置标题文字大小
      * @param size 文字大小（单位sp）
      */
-    public void setTitleTextSize(float size){
+    public void setTitleTextSize(int size){
         this.titleTextSize = size;
     }
 
@@ -152,7 +152,7 @@ public class TitleBarLayoutConfig {
     }
 
     /**
-     * 设置阴影的值
+     * 设置阴影的值（单位px）
      * @param elevationVale 阴影值
      */
     public void setElevationVale(@FloatRange(from=0.0) float elevationVale) {
@@ -182,7 +182,7 @@ public class TitleBarLayoutConfig {
     }
 
     /** 获取返回按钮文字大小 */
-    public float getBackBtnTextSize() {
+    public int getBackBtnTextSize() {
         return backBtnTextSize;
     }
 
@@ -193,7 +193,7 @@ public class TitleBarLayoutConfig {
     }
 
     /** 获取标题文字大小 */
-    public float getTitleTextSize() {
+    public int getTitleTextSize() {
         return titleTextSize;
     }
 

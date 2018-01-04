@@ -33,8 +33,6 @@ import com.lodz.android.core.utils.DensityUtils;
  */
 public class LoadingLayout extends LinearLayout{
 
-
-
     /** 加载页配置 */
     private LoadingLayoutConfig mConfig = new LoadingLayoutConfig();
 

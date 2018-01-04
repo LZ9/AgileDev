@@ -12,6 +12,7 @@ import com.lodz.android.component.widget.base.ErrorLayout;
 import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.component.widget.base.NoDataLayout;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.core.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,12 +61,6 @@ public class ConfigLayoutActivity extends AbsActivity{
     /** 初始化标题栏 */
     private void initTitleBar() {
         mTitleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
-        mTitleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override
@@ -98,6 +93,20 @@ public class ConfigLayoutActivity extends AbsActivity{
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+        mTitleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mTitleBarLayout.getExpandView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShort(getContext(), "测试");
             }
         });
     }
