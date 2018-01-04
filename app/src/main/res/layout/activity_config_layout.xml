@@ -60,7 +60,15 @@
         android:id="@+id/error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:contentBackground="@color/color_ffa630"
+        app:contentOrientation="vertical"
+        app:isNeedImg="true"
+        app:isNeedTips="true"
+        app:src="@drawable/ic_launcher"
+        app:tips="@string/config_base_fail_tips"
+        app:tipsColor="@color/color_ea413c"
+        app:tipsSize="18sp">
 
     </com.lodz.android.component.widget.base.ErrorLayout>
 

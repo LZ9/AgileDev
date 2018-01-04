@@ -24,7 +24,7 @@ public class ErrorLayoutConfig{
     @ColorRes
     private int textColor = 0;
     /** 文字大小 */
-    private float textSize = 0f;
+    private int textSize = 0;
     /** 背景色 */
     @ColorRes
     private int backgroundColor = 0;
@@ -75,7 +75,7 @@ public class ErrorLayoutConfig{
      * 设置文字大小
      * @param size 文字大小（单位sp）
      */
-    public void setTipsTextSize(float size) {
+    public void setTipsTextSize(int size) {
         this.textSize = size;
     }
 
@@ -126,7 +126,7 @@ public class ErrorLayoutConfig{
     }
 
     /** 获取提示语大小 */
-    public float getTextSize() {
+    public int getTextSize() {
         return textSize;
     }
 

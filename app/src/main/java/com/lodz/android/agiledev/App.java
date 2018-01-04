@@ -100,12 +100,13 @@ public class App extends BaseApplication{
     /** 配置错误页 */
     private void configErrorLayout() {
         getBaseLayoutConfig().getErrorLayoutConfig().setOrientation(LinearLayout.VERTICAL);
-        getBaseLayoutConfig().getErrorLayoutConfig().setImg(R.drawable.ic_launcher);
-        getBaseLayoutConfig().getErrorLayoutConfig().setBackgroundColor(R.color.color_ffa630);
+//        getBaseLayoutConfig().getErrorLayoutConfig().setImg(R.drawable.ic_launcher);
+//        getBaseLayoutConfig().getErrorLayoutConfig().setBackgroundColor(R.color.color_ffa630);
         getBaseLayoutConfig().getErrorLayoutConfig().setNeedTips(true);
-        getBaseLayoutConfig().getErrorLayoutConfig().setTips(getString(R.string.config_base_fail_tips));
-        getBaseLayoutConfig().getErrorLayoutConfig().setTipsTextColor(R.color.color_ea413c);
-        getBaseLayoutConfig().getErrorLayoutConfig().setTipsTextSize(18);
+        getBaseLayoutConfig().getErrorLayoutConfig().setNeedImg(true);
+//        getBaseLayoutConfig().getErrorLayoutConfig().setTips(getString(R.string.config_base_fail_tips));
+//        getBaseLayoutConfig().getErrorLayoutConfig().setTipsTextColor(R.color.color_ea413c);
+//        getBaseLayoutConfig().getErrorLayoutConfig().setTipsTextSize(18);
     }
 
     /** 初始化图片加载库 */

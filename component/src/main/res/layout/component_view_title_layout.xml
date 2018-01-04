@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -41,14 +43,15 @@
 
             <TextView
                 android:id="@+id/title_textview"
-                android:layout_width="190dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="我是标题"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="我是标题"
+                tools:textColor="@android:color/black" />
 
         </LinearLayout>
 
