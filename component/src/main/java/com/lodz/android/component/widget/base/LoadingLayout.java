@@ -65,13 +65,11 @@ public class LoadingLayout extends LinearLayout{
 
 
     private void init(AttributeSet attrs) {
-        if (!isInEditMode()){
-            if (BaseApplication.get() != null){
-                mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
-            }
+        if (BaseApplication.get() != null){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getLoadingLayoutConfig();
         }
         findViews();
-        initData(attrs);
+        configLayout(attrs);
     }
 
     private void findViews() {
@@ -79,12 +77,6 @@ public class LoadingLayout extends LinearLayout{
         mLoadingProgressBar = findViewById(R.id.loading_progressbar);
         mLoadingTipsTextView = findViewById(R.id.loading_tips_textview);
         mRootView = findViewById(R.id.root_view);
-    }
-
-    private void initData(AttributeSet attrs) {
-        if (!isInEditMode()){
-            configLayout(attrs);
-        }
     }
 
     /** 配置加载页面 */

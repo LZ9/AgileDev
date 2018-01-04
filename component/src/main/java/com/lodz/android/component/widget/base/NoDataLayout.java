@@ -64,13 +64,11 @@ public class NoDataLayout extends LinearLayout{
     }
 
     private void init(AttributeSet attrs) {
-        if (!isInEditMode()){
-            if (BaseApplication.get() != null){
-                mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
-            }
+        if (BaseApplication.get() != null){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getNoDataLayoutConfig();
         }
         findViews();
-        initData(attrs);
+        config(attrs);
     }
 
     private void findViews() {
@@ -78,12 +76,6 @@ public class NoDataLayout extends LinearLayout{
         mNoDataImageView = findViewById(R.id.no_data_imageview);
         mNoDataTextView = findViewById(R.id.no_data_textview);
         mRootView = findViewById(R.id.root_view);
-    }
-
-    private void initData(AttributeSet attrs) {
-        if (!isInEditMode()){
-            config(attrs);
-        }
     }
 
     private void config(AttributeSet attrs) {

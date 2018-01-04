@@ -65,13 +65,11 @@ public class ErrorLayout extends LinearLayout{
 
 
     private void init(AttributeSet attrs) {
-        if (!isInEditMode()){
-            if (BaseApplication.get() != null){
-                mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
-            }
+        if (BaseApplication.get() != null){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getErrorLayoutConfig();
         }
         findViews();
-        initData(attrs);
+        config(attrs);
     }
 
     private void findViews() {
@@ -79,12 +77,6 @@ public class ErrorLayout extends LinearLayout{
         mErrorRootLayout = findViewById(R.id.error_root_layout);
         mErrorImageView = findViewById(R.id.error_imageview);
         mErrorTipsTextView = findViewById(R.id.error_tips_textview);
-    }
-
-    private void initData(AttributeSet attrs) {
-        if (!isInEditMode()){
-            config(attrs);
-        }
     }
 
     /** 配置加载失败页面 */

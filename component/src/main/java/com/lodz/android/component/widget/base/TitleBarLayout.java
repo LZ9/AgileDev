@@ -66,13 +66,11 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     private void init(AttributeSet attrs) {
-        if (!isInEditMode()){
-            if (BaseApplication.get() != null){
-                mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
-            }
+        if (BaseApplication.get() != null){
+            mConfig = BaseApplication.get().getBaseLayoutConfig().getTitleBarLayoutConfig();
         }
         findViews();
-        initData(attrs);
+        config(attrs);
     }
 
     private void findViews() {
@@ -82,12 +80,6 @@ public class TitleBarLayout extends LinearLayout{
         mTitleTextView = findViewById(R.id.title_textview);
         mExpandLinearLayout = findViewById(R.id.expand_layout);
         mDivideLineView = findViewById(R.id.divide_line);
-    }
-
-    private void initData(AttributeSet attrs) {
-        if (!isInEditMode()){
-            config(attrs);
-        }
     }
 
     private void config(AttributeSet attrs) {
