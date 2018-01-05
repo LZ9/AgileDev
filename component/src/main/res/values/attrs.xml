@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--侧滑菜单-->
     <declare-styleable name="SwipeMenuLayout">
         <attr name="leftViewId" format="reference" />
         <attr name="rightViewId" format="reference" />
@@ -73,6 +74,11 @@
         <attr name="elevationVale" format="dimension" />
         <attr name="isNeedExpandView" format="boolean" />
         <attr name="expandViewId" format="reference" />
+    </declare-styleable>
+
+    <!--自定义TabLayout-->
+    <declare-styleable name="MmsTabLayout">
+        <attr name="tabMargin" format="dimension" />
     </declare-styleable>
 
 </resources>

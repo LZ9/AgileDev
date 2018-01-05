@@ -34,9 +34,12 @@
         android:layout_height="wrap_content"
         app:tabIndicatorColor="@color/color_00a0e9"
         app:tabIndicatorHeight="2dp"
+        app:tabMargin="20dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/color_00a0e9"
-        app:tabTextColor="@color/black" />
+        app:tabTextColor="@color/black">
+
+    </com.lodz.android.component.widget.MmsTabLayout>
 
     <com.lodz.android.component.widget.base.LoadingLayout
         android:id="@+id/loading_layout"

@@ -50,7 +50,7 @@ public class TabActivity extends AbsActivity{
         mViewPager.setOffscreenPageLimit(tabNameResId.length);
         mViewPager.setAdapter(new MainTabAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setTabIndicatorMargin(20, 20);
+        mTabLayout.setTabIndicatorMargin(20);
     }
 
     private class MainTabAdapter extends FragmentPagerAdapter {
