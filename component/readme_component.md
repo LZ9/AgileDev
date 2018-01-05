@@ -26,13 +26,13 @@
     dependencies {
         compile 'cn.lodz:core:1.1.6'
     
-        compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+        compile 'io.reactivex.rxjava2:rxjava:2.1.8'
         compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
         
         compile 'com.squareup.retrofit2:retrofit:2.3.0'
         compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
         
-        compile 'com.alibaba:fastjson:1.2.41'
+        compile 'com.alibaba:fastjson:1.2.44'
         
         compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
         compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
