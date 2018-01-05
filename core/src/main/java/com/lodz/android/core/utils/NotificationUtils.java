@@ -63,10 +63,10 @@ public class NotificationUtils {
         builder.setContentTitle("内容标题");// 通知栏通知的标题
         builder.setContentText("内容文本信息");// 通知栏通知的详细内容（只有一行）
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
-        builder.setLargeIcon(bitmap);// 通知消息上的大图标
         builder.setSmallIcon(drawableId);//通知上面的小图标（必传）
 
         //---------------------- 不常用 ---------------------
+        builder.setLargeIcon(bitmap);// 通知消息上的大图标（可传可不传）
         builder.setColor(Color.RED);//这边设置颜色，可以给5.0及以上版本smallIcon设置背景色（基本不使用）
         builder.setWhen(System.currentTimeMillis());// 设置该条通知时间（基本不使用）
         builder.setOngoing(false);//设置是否为一个正在进行中的通知，这一类型的通知将无法删除（基本不使用）

@@ -4,6 +4,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/base_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="基本通知" />
 
+    <Button
+        android:id="@+id/intent_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="带意图通知" />
+
+    <Button
+        android:id="@+id/progress_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="带进度条" />
+
+    <Button
+        android:id="@+id/single_txt_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="单行大文本样式" />
+
+    <Button
+        android:id="@+id/multi_txt_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="多行大文本样式" />
+
+    <Button
+        android:id="@+id/large_img_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大图文本样式" />
+
+    <Button
+        android:id="@+id/custom_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义内容样式" />
 
 </LinearLayout>

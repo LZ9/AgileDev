@@ -58,7 +58,7 @@ public class App extends BaseApplication{
     private void configNoDataLayout() {
         getBaseLayoutConfig().getNoDataLayoutConfig().setOrientation(LinearLayout.HORIZONTAL);
         getBaseLayoutConfig().getNoDataLayoutConfig().setNeedImg(true);
-        getBaseLayoutConfig().getNoDataLayoutConfig().setNeedTips(true);
+        getBaseLayoutConfig().getNoDataLayoutConfig().setNeedTips(false);
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setImg(R.drawable.ic_launcher);
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setTips(getString(R.string.config_base_no_data_tips));
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setTipsTextColor(R.color.color_ffa630);
@@ -102,7 +102,7 @@ public class App extends BaseApplication{
         getBaseLayoutConfig().getErrorLayoutConfig().setOrientation(LinearLayout.VERTICAL);
 //        getBaseLayoutConfig().getErrorLayoutConfig().setImg(R.drawable.ic_launcher);
 //        getBaseLayoutConfig().getErrorLayoutConfig().setBackgroundColor(R.color.color_ffa630);
-        getBaseLayoutConfig().getErrorLayoutConfig().setNeedTips(true);
+        getBaseLayoutConfig().getErrorLayoutConfig().setNeedTips(false);
         getBaseLayoutConfig().getErrorLayoutConfig().setNeedImg(true);
 //        getBaseLayoutConfig().getErrorLayoutConfig().setTips(getString(R.string.config_base_fail_tips));
 //        getBaseLayoutConfig().getErrorLayoutConfig().setTipsTextColor(R.color.color_ea413c);

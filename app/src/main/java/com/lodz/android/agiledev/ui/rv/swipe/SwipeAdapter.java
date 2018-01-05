@@ -119,7 +119,9 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
             super(itemView);
         }
 
-        private void bindView(){
+        @Override
+        protected void bindView() {
+            super.bindView();
             ButterKnife.bind(this, itemView);
         }
     }
