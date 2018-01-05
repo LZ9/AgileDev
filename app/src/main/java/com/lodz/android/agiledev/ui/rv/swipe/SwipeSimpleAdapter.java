@@ -23,6 +23,10 @@ import butterknife.ButterKnife;
 
 public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String>{
 
+    public SwipeSimpleAdapter(Context context, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList) {
+        super(context, leftList, rightList);
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
@@ -31,15 +35,10 @@ public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String>{
         return holder;
     }
 
-    public SwipeSimpleAdapter(Context context, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList) {
-        super(context, leftList, rightList);
-    }
-
     @Override
     protected int getContentLayout() {
         return R.layout.item_swipe_content_layout;
     }
-
 
     @Override
     protected void onBindContent(RecyclerView.ViewHolder holder, int position) {

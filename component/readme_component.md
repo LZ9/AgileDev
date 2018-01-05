@@ -18,6 +18,7 @@
  - [9、MVP相关](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#9mvp相关)
  - [10、PopupWindow基类](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#10popupwindow基类)
  - [11、图片选择和预览](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#11图片选择和预览)
+ - [12、侧滑菜单](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#12侧滑菜单)
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#扩展)
 
 ## 1、涉及的依赖
@@ -794,7 +795,11 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
 ```
 
 ## 11、图片选择和预览
-### 1）图片预览器
+### 1）感谢
+我在 **YancyYe** 的开源项目 **ImageSelector** 中获得了灵感，解决了如何让开发者使用自定义图片加载器的问题，并且扩展了对UI的配置。
+如果小伙伴有兴趣了解和关注 **ImageSelector** 这个开源项目可以[点我](https://github.com/YancyYe/ImageSelector)查看。
+
+### 2）图片预览器
 #### 构造方法：
 ```
     PreviewManager
@@ -834,7 +839,7 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
  - 如果只有一张图片是不会显示页码的
  - 如果你设置的position大于数据列表的长度，默认会从第一张开始播放
 
-### 2）图片选择器
+### 3）图片选择器
 #### a）构造方法：
 ```
     PickerManager
@@ -955,6 +960,217 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
  - android:resource=""里放你刚才在xml里创建的文件名称
  - android:authorities=""里放你自定义的FileProvider名称，正常是以你的包名命名**packageName.fileprovider**
  - 然后在选择器里配置你自定义的FileProvider名称就OK了 **setAuthority("packageName.fileprovider")**
+
+## 12、侧滑菜单
+### 1）感谢
+我借鉴了 **yanzhenjie** 的开源项目 **SwipeRecyclerView**，并且基于这个开源项目的部分类进行了扩展和封装，
+有兴趣了解和关注 **SwipeRecyclerView** 这个开源项目的小伙伴可以[点我](https://github.com/yanzhenjie/SwipeRecyclerView)查看。
+
+### 2）侧滑菜单控件SwipeMenuLayout
+a)直接使用SwipeMenuLayout控件时务必在布局内设置 **content_layout** 、 **left_layout** 和 **right_layout** 这几个id，
+控件会根据id将布局放入对应的区域。
+
+b）布局基本的使用方式如下：
+```
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        
+    <com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            swipe:contentViewId="@+id/content_layout"
+            swipe:leftViewId="@+id/left_layout"
+            swipe:rightViewId="@+id/right_layout">
+    
+            <LinearLayout
+                android:id="@id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    
+                ...
+                
+            </LinearLayout>
+    
+            <LinearLayout
+                android:id="@id/left_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                ...
+                   
+            </LinearLayout>
+    
+            <LinearLayout
+                android:id="@id/right_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    
+                ...
+    
+            </LinearLayout>
+    
+    </com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout>
+```
+### 3）在RecyclerView中使用SwipeMenuLayout
+#### 1>使用SwipeMenuRecyclerView来替代原本的RecyclerView
+ **SwipeMenuRecyclerView** 解决了内嵌 **SwipeMenuLayout** 导致的滑动冲突，使用SwipeMenuRecyclerView可以解决滑动冲突问题
+#### 2>侧滑按钮适配器BaseSwipeRVAdapter
+ - 如果你希望深度定制侧滑菜单的样式，可以继承BaseSwipeRVAdapter来开发
+ - 重写getContentLayout()、getRightLayout()和getLeftLayout()方法将你自定义的主布局和左右菜单布局放入item，
+ getContentLayout()必须要重写，getRightLayout()和getLeftLayout()根据你的需要选择性重写
+```
+     @Override
+     protected int getContentLayout() {
+        return R.layout.content;
+     }
+     
+     @Override
+     protected int getRightLayout() {
+         return R.layout.right;
+     }
+    
+     @Override
+     protected int getLeftLayout() {
+        return R.layout.left;
+    }
+```
+ - 你自定义的ViewHolder需要继承SwipeViewHolder，然后再重写bindView()方法，在方法里去获取你的控件对象
+ （如果你使用ButterKnife，你也可以在该方法里去绑定控件ButterKnife.bind(this, itemView);）
+```
+    protected class DataViewHolder extends SwipeViewHolder{
+ 
+        private View customView;
+       
+        protected DataViewHolder(View itemView) {
+            super(itemView);
+        }
+ 
+        @Override
+        protected void bindView(){
+            super.bindView();
+            customView = itemView.findViewById(R.id.custom_view);
+ 
+        }
+    }
+```
+ - 重写onCreateViewHolder()方法，new出你自定义的DataViewHolder对象，然后将对象传入configSwipeViewHolder()方法进行配置。
+然后调用对象的bindView()方法去绑定控件。
+```
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
+        configSwipeViewHolder(holder);
+        holder.bindView();
+        return holder;
+    }
+```
+ - 重写onBind()方法，对你的控件进行操作
+```
+    @Override
+    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+        ...
+    }
+```
+#### 3>实现基础功能的侧滑按钮适配器SimpleSwipeRVAdapter
+ - 如果你只需要用到基础的侧滑菜单功能，可以继承SimpleSwipeRVAdapter来开发
+ - 重写getContentLayout()方法，将内容布局放入item
+```
+     @Override
+     protected int getContentLayout() {
+        return R.layout.content;
+     }
+```
+ - 你自定义的ViewHolder需要继承SimpleSwipeViewHolder，然后再重写bindView()方法，在方法里去获取你的控件对象
+ （如果你使用ButterKnife，你也可以在该方法里去绑定控件ButterKnife.bind(this, itemView);）
+```
+    protected class DataViewHolder extends SimpleSwipeViewHolder{
+ 
+        private View customView;
+       
+        protected DataViewHolder(View itemView) {
+            super(itemView);
+        }
+ 
+        @Override
+        protected void bindView(){
+            super.bindView();
+            customView = itemView.findViewById(R.id.custom_view);
+ 
+        }
+    }
+```
+ - 重写onCreateViewHolder()方法，new出你自定义的DataViewHolder对象，然后将对象传入configSwipeViewHolder()方法进行配置。
+然后调用对象的bindView()方法去绑定控件。
+```
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
+        configSwipeViewHolder(holder);
+        holder.bindView();
+        return holder;
+    }
+
+```
+ - 重写onBindContent()方法，对你的控件进行操作
+```
+    @Override
+    protected void onBindContent(RecyclerView.ViewHolder holder, int position) {
+        ...
+    }
+```
+ - SimpleSwipeRVAdapter提供了两个构造函数：
+ 
+    如果你左右菜单都需要，则调用下面这个构造函数，传入左右菜单的数据列表
+    > SimpleSwipeRVAdapter(Context context, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList)
+
+    如果你只需要一侧的菜单，则调用下面这个构造函数，传入一侧的菜单列表和左右标志位
+    > SimpleSwipeRVAdapter(Context context, List<SwipeMenuBean> list, boolean isRight)
+
+ - 构造一个菜单列表（一侧的菜单最多显示3个，如果你构造的列表数量大于3，也只会显示前三个），
+ 小伙伴可以根据自己的需要创建文字、图片和文字+图片的按钮类型
+```
+    private List<SwipeMenuBean> createMenu() {
+        List<SwipeMenuBean> list = new ArrayList<>();
+        // 创建一个带图片和文字的菜单按钮
+        SwipeMenuBean bean1 = new SwipeMenuBean();
+        bean1.id = 1; //id唯一识别这个按钮类型
+        bean1.bgColor = R.color.xxx; //按钮背景色
+        bean1.imgRes = R.drawable.xxx; // 图标
+        bean1.text = "新增"; // 文字
+        bean1.textColor = R.color.xxx; // 文字颜色
+        bean1.textSizeSp = 16; // 文字大小（单位sp）
+        list.add(bean1);
+
+        // 创建一个只有图片的菜单按钮
+        SwipeMenuBean bean2 = new SwipeMenuBean();
+        bean2.id = 2;
+        bean2.bgColor = R.color.xxx;
+        bean2.imgRes = R.drawable.xxx;
+        list.add(bean2);
+
+        // 创建一个只有文字的菜单按钮
+        SwipeMenuBean bean3 = new SwipeMenuBean();
+        bean3.id = 3;
+        bean3.bgColor = R.color.xxx;
+        bean3.text = "删除";
+        bean3.textColor = R.color.xxx;
+        bean3.textSizeSp = 16;
+        list.add(bean3);
+        return list;
+    }
+```
+ - 要监听菜单按钮的点击事件可以设置setOnMenuClickListener()方法，监听器会回调点击位置的item数据、菜单menu数据以及位置position
+```
+    mAdapter.setOnMenuClickListener(new SimpleSwipeRVAdapter.OnMenuClickListener<T>() {
+        @Override
+        public void onMenuClick(T item, SwipeMenuBean menu, int position) {
+            ...
+        }
+    });
+```
+
 
 ## 扩展
 

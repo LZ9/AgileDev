@@ -122,5 +122,9 @@ public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
             rightLayout = itemView.findViewById(R.id.right_view);
             leftLayout = itemView.findViewById(R.id.left_view);
         }
+
+        protected void bindView(){
+        }
+
     }
 }

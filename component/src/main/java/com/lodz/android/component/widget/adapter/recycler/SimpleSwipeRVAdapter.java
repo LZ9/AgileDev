@@ -214,7 +214,9 @@ public abstract class SimpleSwipeRVAdapter<T> extends BaseSwipeRVAdapter<T>{
             super(itemView);
         }
 
+        @Override
         protected void bindView(){
+            super.bindView();
             // 左侧菜单按钮
             leftFirstLayout = itemView.findViewById(R.id.left_first_layout);
             leftFirstImg = itemView.findViewById(R.id.left_first_img);
