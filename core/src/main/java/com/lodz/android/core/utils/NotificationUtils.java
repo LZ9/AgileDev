@@ -1,6 +1,8 @@
 package com.lodz.android.core.utils;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,6 +15,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,6 +28,10 @@ public class NotificationUtils {
     /** 通知管理 */
     private NotificationManager mNotificationManager;
 
+    /**
+     * 创建通知管理
+     * @param context 上下文
+     */
     public static NotificationUtils create(Context context){
         return new NotificationUtils(context);
     }
@@ -33,6 +40,11 @@ public class NotificationUtils {
         mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
+    /**
+     * 发送通知
+     * @param id 通知id
+     * @param notification 通知内容
+     */
     public void send(int id, Notification notification){
         if (notification == null || mNotificationManager == null){
             return;
@@ -40,6 +52,10 @@ public class NotificationUtils {
         mNotificationManager.notify(id, notification);
     }
 
+    /**
+     * 发送通知（随机id）
+     * @param notification 通知内容
+     */
     public void send(Notification notification){
         if (notification == null || mNotificationManager == null){
             return;
@@ -47,10 +63,86 @@ public class NotificationUtils {
         mNotificationManager.notify(getRandomId(), notification);
     }
 
+    /**
+     * 创建一个通知通道
+     * @param channel 通知通道
+     */
+    public NotificationUtils createNotificationChannel(NotificationChannel channel){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (channel != null){
+                mNotificationManager.createNotificationChannel(channel);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 创建多个通知通道
+     * @param channels 通道数组
+     */
+    public NotificationUtils createNotificationChannels(List<NotificationChannel> channels){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (!ArrayUtils.isEmpty(channels)){
+                mNotificationManager.createNotificationChannels(channels);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 创建一个通知通道组
+     * @param group 通道组
+     */
+    public NotificationUtils createNotificationChannelGroup(NotificationChannelGroup group){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (group != null){
+                mNotificationManager.createNotificationChannelGroup(group);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 创建多个通知通道组
+     * @param groups 通道组数组
+     */
+    public NotificationUtils createNotificationChannelGroups(List<NotificationChannelGroup> groups){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (!ArrayUtils.isEmpty(groups)){
+                mNotificationManager.createNotificationChannelGroups(groups);
+            }
+        }
+        return this;
+    }
+
     /** 获取一个1-999999 */
     private int getRandomId(){
         Random random = new Random();
         return random.nextInt(999998) + 1;
+    }
+
+    /** 如何创建一个NotificationChannel */
+    private void notificationChannelBuild(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannelGroup group = new NotificationChannelGroup("g0001", "测试分组");
+
+            String channelId = "c00001";
+            String channelName = "测试通道";
+            int level = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, level);
+            channel.enableLights(true);// 开启指示灯，如果设备有的话。
+            channel.setLightColor(Color.RED);// 设置指示灯颜色
+            channel.setDescription("通道描述");// 通道描述
+            channel.enableVibration(true);// 开启震动
+            channel.setVibrationPattern(new long[]{100, 200, 400, 300, 100});// 设置震动频率
+            channel.setGroup(group.getId());
+            channel.canBypassDnd();// 检测是否绕过免打扰模式
+            channel.setBypassDnd(true);// 设置绕过免打扰模式
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+            channel.canShowBadge();// 检测是否显示角标
+            channel.setShowBadge(true);// 设置是否显示角标
+        }
     }
 
     /** 如何创建一个Notification */
