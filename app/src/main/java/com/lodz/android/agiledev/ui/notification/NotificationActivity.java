@@ -7,12 +7,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RemoteViews;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
@@ -37,10 +39,11 @@ import io.reactivex.disposables.Disposable;
 
 public class NotificationActivity extends BaseActivity{
 
+    /** 通知组id */
     private static final String NOTIFI_GROUP_ID = "g0001";
-
+    /** 主频道id */
     private static final String NOTIFI_CHANNEL_MAIN_ID = "c0001";
-
+    /** 下载频道id */
     private static final String NOTIFI_CHANNEL_DOWNLOAD_ID = "c0002";
 
     public static void start(Context context) {
@@ -146,7 +149,7 @@ public class NotificationActivity extends BaseActivity{
         mLargeImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showLargeImgNotify();
             }
         });
 
@@ -154,7 +157,7 @@ public class NotificationActivity extends BaseActivity{
         mCustomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showCustomNotify();
             }
         });
     }
@@ -166,7 +169,7 @@ public class NotificationActivity extends BaseActivity{
         builder.setContentTitle("拉玛西亚由来");// 通知栏通知的标题
         builder.setContentText("拉玛西亚足球学校始建于1979年，位于巴塞罗那阿里斯蒂德斯大街左侧。当时的球场非常简陋，都是人工草皮，巴萨四个年龄梯队的使用这片拥挤的训练空间。");// 通知栏通知的详细内容（只有一行）
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
-        builder.setSmallIcon(R.drawable.ic_launcher);//通知上面的小图标（必传）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
         Notification notification = builder.build();//构建通知
@@ -180,7 +183,7 @@ public class NotificationActivity extends BaseActivity{
         builder.setContentTitle("希尔斯堡惨案");// 通知栏通知的标题
         builder.setContentText("因在场警官的谎言、媒体的恶意报道与政府的失公处理，迄今还没有人为希尔斯堡惨案负起应有的责任。");// 通知栏通知的详细内容（只有一行）
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
-        builder.setSmallIcon(R.drawable.ic_launcher);//通知上面的小图标（必传）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
 
@@ -235,7 +238,7 @@ public class NotificationActivity extends BaseActivity{
         builder.setContentTitle("支付宝V8.8.12");// 通知栏通知的标题
         builder.setContentText(isComplete ? "支付宝下载完成" : "正在为您下载支付宝");// 通知栏通知的详细内容（只有一行）
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
-        builder.setSmallIcon(R.drawable.ic_launcher);//通知上面的小图标（必传）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
         if (isComplete){
             builder.setProgress(0, 0, false);
             builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
@@ -254,7 +257,7 @@ public class NotificationActivity extends BaseActivity{
         builder.setContentTitle("官宣！智利C罗加盟曼联");// 通知栏通知的标题
         builder.setContentText("北京时间1月23日，桑切斯加盟曼联，身披7号球衣。");// 通知栏通知的详细内容（只有一行）
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
-        builder.setSmallIcon(R.drawable.ic_launcher);//通知上面的小图标（必传）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
 
@@ -275,17 +278,58 @@ public class NotificationActivity extends BaseActivity{
         builder.setContentTitle("带你了解鬼畜全明星");// 通知栏通知的标题
         builder.setContentText("鬼畜是人类进步的阶梯，你今天进步了吗");// 通知栏通知的详细内容（只有一行）
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
-        builder.setSmallIcon(R.drawable.ic_launcher);//通知上面的小图标（必传）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
 
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-        inboxStyle.setBigContentTitle("鬼畜常用语 鬼畜常用语鬼畜常用语鬼畜常用语鬼畜常用语鬼畜常用语鬼畜常用语鬼畜常用语");// 给样式设置大文本的标题
-        inboxStyle.addLine("蕉迟但到 蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到蕉迟但到");//设置每行内容
-        inboxStyle.addLine("乖乖站好 乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好乖乖站好");
-        inboxStyle.addLine("我从未见过有如此厚颜无耻之人 我从未见过有如此厚颜无耻之人我从未见过有如此厚颜无耻之人我从未见过有如此厚颜无耻之人我从未见过有如此厚颜无耻之人我从未见过有如此厚颜无耻之人我从未见过有如此厚颜无耻之人");
+        inboxStyle.setBigContentTitle("鬼畜常用语");// 给样式设置大文本的标题
+        inboxStyle.addLine("* 蕉迟但到");//设置每行内容
+        inboxStyle.addLine("* 乖乖站好");
+        inboxStyle.addLine("* 我从未见过有如此厚颜无耻之人");
+        inboxStyle.addLine("* 新日暮里");
         inboxStyle.setSummaryText("Bilibili动画");//总结，可以不设置
         builder.setStyle(inboxStyle);
+
+        Notification notification = builder.build();//构建通知
+        NotificationUtils.create(getContext()).send(notification);
+    }
+
+    /** 大图文本样式 */
+    private void showLargeImgNotify() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        builder.setTicker("阿森纳の梗");// 通知栏显示的文字
+        builder.setContentTitle("阿森纳与4的不解之缘");// 通知栏通知的标题
+        builder.setContentText("争4狂魔，没4找4");// 通知栏通知的详细内容（只有一行）
+        builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
+
+        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+        bigPictureStyle.setBigContentTitle("温格的无奈");// 给样式设置大文本的标题
+        bigPictureStyle.setSummaryText("忠义法 纳私利 范雄心 宋公明");//大文本的内容（只有一行）
+        bigPictureStyle.bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.ic_regret));//设置大图
+        builder.setStyle(bigPictureStyle);
+
+        Notification notification = builder.build();//构建通知
+        NotificationUtils.create(getContext()).send(notification);
+    }
+
+    /** 自定义内容样式 */
+    private void showCustomNotify() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        builder.setTicker("电影头文字D即将上映");// 通知栏显示的文字
+        builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
+        builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
+
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.view_remote_notification);
+        remoteViews.setImageViewResource(R.id.remoteview_icon, R.drawable.ic_regret);
+        remoteViews.setTextViewText(R.id.remoteview_title, "头文字D首映");//设置对应id的标题
+        remoteViews.setTextViewText(R.id.remoteview_msg, "周杰伦，铃木杏，陈冠希，黄秋生，余文乐，陈小春等主演悉数参加首映式");//设置对应id的内容
+        builder.setContent(remoteViews);
 
         Notification notification = builder.build();//构建通知
         NotificationUtils.create(getContext()).send(notification);
@@ -302,12 +346,12 @@ public class NotificationActivity extends BaseActivity{
     private void initNotificationChannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannelGroup group = new NotificationChannelGroup(NOTIFI_GROUP_ID, "通知组");
-            NotificationUtils.create(getContext()).createNotificationChannelGroup(group);
+            NotificationUtils.create(getContext()).createNotificationChannelGroup(group);// 设置通知组
 
             List<NotificationChannel> channels = new ArrayList<>();
             channels.add(getMainChannel());
             channels.add(getDownloadChannel());
-            NotificationUtils.create(getContext()).createNotificationChannels(channels);
+            NotificationUtils.create(getContext()).createNotificationChannels(channels);// 设置频道
         }
     }
 
