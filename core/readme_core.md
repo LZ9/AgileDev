@@ -9,6 +9,7 @@
 - [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager)
 - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类)
 - [7、缓存Cache](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#7缓存cache)
+- [8、通知帮助类NotificationUtils](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#8通知帮助类NotificationUtils)
 - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展)
 
 ## 1、涉及的support依赖
@@ -158,6 +159,55 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 ```
     ACacheUtils.get().create().remove("data");
 ```
+
+
+## 8、通知帮助类NotificationUtils
+### 1）创建通知组和频道【适配O（api26）】
+在Android8.0里发送通知需要指定该通知的频道id。
+
+<1> 如果你的targetSdkVersion小于26，那么在创建Notification的时候，频道id可以传null来避开适配问题
+
+<2> 如果你的targetSdkVersion大于等于26，那么你在创建Notification的时候必须指定频道id，否则发送时会抛出异常，无法正常显示通知
+
+- 创建一个通知组，设置该通知组的groupId和groupName，只要在改APP里设置过一次以后就无需再重复设置
+```
+    NotificationChannelGroup group = new NotificationChannelGroup(groupId, groupName);
+    NotificationUtils.create(getContext()).createNotificationChannelGroup(group);// 设置通知组
+```
+- 创建一个通知频道，设置该频道的channelId和channelName，只要在改APP里设置过一次以后就无需再重复设置.
+- 通知频道内有许多参数可以设置，大家可以根据自己的需要配置参数
+- 一个组里可以有多个频道，通过setGroup(groupId)方法，将该频道配置进id对应的组里
+```
+    NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+    channel.enableLights(true);// 开启指示灯，如果设备有的话。
+    channel.setLightColor(Color.GREEN);// 设置指示灯颜色
+    channel.setDescription("应用主通知频道");// 通道描述
+    channel.enableVibration(true);// 开启震动
+    channel.setVibrationPattern(new long[]{100, 200, 400, 300, 100});// 设置震动频率
+    channel.setGroup(groupId);
+    channel.canBypassDnd();// 检测是否绕过免打扰模式
+    channel.setBypassDnd(true);// 设置绕过免打扰模式
+    channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+    channel.canShowBadge();// 检测是否显示角标
+    channel.setShowBadge(true);// 设置是否显示角标
+    NotificationUtils.create(getContext()).createNotificationChannel(channel);// 设置频道
+```
+
+### 2）发送通知
+通过NotificationCompat.Builder方法来构建你的通知内容，在获得Notification后可以传入NotificationUtils里的send()方法来发送通知
+```
+    // channelId的设置方法请参考第一点
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), channelId);
+    
+    ......
+
+    Notification notification = builder.build();//构建通知
+    NotificationUtils.create(getContext()).send(notification);
+    NotificationUtils.create(getContext()).send(notifiId, notification);
+```
+- 如果你希望随机生成id来发送，你可以在send()方法里直接传入Notification
+- 如果你希望指定id来发送，你可以在send()方法里传入id和Notification
+
 
 ## 扩展
 
