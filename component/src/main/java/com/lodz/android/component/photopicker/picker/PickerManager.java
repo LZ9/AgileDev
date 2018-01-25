@@ -157,7 +157,7 @@ public class PickerManager {
     }
 
     /**
-     * 打开预览器
+     * 打开图片选择器
      * @param context 上下文
      */
     public void open(Context context){
@@ -208,5 +208,33 @@ public class PickerManager {
         }
 
         PhotoPickerActivity.start(context);
+    }
+
+    /**
+     * 拍照
+     * @param context 上下文
+     */
+    public void takePhoto(Context context){
+        if (sPickerBean.previewLoader == null){// 校验图片预览器
+            ToastUtils.showShort(context, R.string.component_preview_loader_unset);
+            return;
+        }
+        if (sPickerBean.photoPickerListener == null){// 校验图片选中回调监听
+            ToastUtils.showShort(context, R.string.component_photo_selected_listener_unset);
+            return;
+        }
+        if (TextUtils.isEmpty(sPickerBean.cameraSavePath)){// 校验地址
+            sPickerBean.cameraSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
+        }
+        if (!sPickerBean.cameraSavePath.endsWith(File.separator)){
+            sPickerBean.cameraSavePath  = sPickerBean.cameraSavePath + File.separator;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && TextUtils.isEmpty(sPickerBean.authority)) {//当前系统是7.0以上且没有配置FileProvider
+            ToastUtils.showShort(context, R.string.component_photo_authority_empty);
+            return;
+        }
+
+        TakePhotoActivity.start(context);
     }
 }

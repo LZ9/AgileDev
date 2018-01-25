@@ -89,6 +89,7 @@
     <!-- 照片选择器 -->
     <string name="photo_picker_take">选择照片</string>
     <string name="photo_picker_preview">预览图片</string>
+    <string name="photo_picker_take_photo">拍照</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

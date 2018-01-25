@@ -71,6 +71,10 @@ public class PhotoPickerTestActivity extends BaseActivity{
     /** 选择按钮 */
     @BindView(R.id.preview_btn)
     TextView mPreviewBtn;
+    /** 拍照 */
+    @BindView(R.id.take_photo_btn)
+    TextView mTakePhotoBtn;
+
     /** 选择结果 */
     @BindView(R.id.pick_result)
     TextView mPickResultTv;
@@ -109,6 +113,8 @@ public class PhotoPickerTestActivity extends BaseActivity{
     @Override
     protected void setListeners() {
         super.setListeners();
+
+        // 选择按钮
         mPickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +189,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
             }
         });
 
+        // 选择按钮
         mPreviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,6 +224,41 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         })
                         .build(URLS)
                         .open(getContext());
+            }
+        });
+
+        // 拍照
+        mTakePhotoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPickResultTv.setText("");
+
+                PickerManager
+                        .create()
+                        .setPreviewImgLoader(new PhotoLoader<String>() {
+                            @Override
+                            public void displayImg(Context context, String source, ImageView imageView) {
+                                ImageLoader.create(context)
+                                        .load(source)
+                                        .joinGlide()
+                                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                                        .into(imageView);
+                            }
+                        })
+                        .setOnPhotoPickerListener(new OnPhotoPickerListener() {
+                            @Override
+                            public void onPickerSelected(List<String> photos) {
+                                StringBuilder stringBuilder = new StringBuilder();
+                                for (String photo : photos) {
+                                    stringBuilder.append(photo).append("\n");
+                                }
+                                mPickResultTv.setText(stringBuilder.toString());
+                            }
+                        })
+                        .setCameraSavePath(FileManager.getCacheFolderPath())
+                        .setAuthority("com.lodz.android.agiledev.fileprovider")
+                        .build()
+                        .takePhoto(getContext());
             }
         });
     }
