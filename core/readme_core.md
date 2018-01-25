@@ -9,7 +9,7 @@
 - [5、线程池ThreadPoolManager](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#5线程池threadpoolmanager)
 - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类)
 - [7、缓存Cache](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#7缓存cache)
-- [8、通知帮助类NotificationUtils](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#8通知帮助类NotificationUtils)
+- [8、通知帮助类NotificationUtils](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#8通知帮助类notificationutils)
 - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展)
 
 ## 1、涉及的support依赖

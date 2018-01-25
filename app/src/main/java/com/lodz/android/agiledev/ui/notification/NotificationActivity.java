@@ -164,7 +164,7 @@ public class NotificationActivity extends BaseActivity{
 
     /** 显示基础通知 */
     private void showBaseNotify() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
         builder.setTicker("震惊！拉玛西亚竟然是这个意思");// 通知栏显示的文字
         builder.setContentTitle("拉玛西亚由来");// 通知栏通知的标题
         builder.setContentText("拉玛西亚足球学校始建于1979年，位于巴塞罗那阿里斯蒂德斯大街左侧。当时的球场非常简陋，都是人工草皮，巴萨四个年龄梯队的使用这片拥挤的训练空间。");// 通知栏通知的详细内容（只有一行）
@@ -178,7 +178,7 @@ public class NotificationActivity extends BaseActivity{
 
     /** 显示带意图的通知 */
     private void showIntentNotify() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
         builder.setTicker("希尔斯堡惨案真相");// 通知栏显示的文字
         builder.setContentTitle("希尔斯堡惨案");// 通知栏通知的标题
         builder.setContentText("因在场警官的谎言、媒体的恶意报道与政府的失公处理，迄今还没有人为希尔斯堡惨案负起应有的责任。");// 通知栏通知的详细内容（只有一行）
@@ -233,7 +233,7 @@ public class NotificationActivity extends BaseActivity{
      * @param isComplete 是否完成
      */
     private void showProgressNotify(int progress, boolean isComplete) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_DOWNLOAD_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_DOWNLOAD_ID);// 获取构造器
         builder.setTicker(isComplete ? "下载完成" : "下载支付宝");// 通知栏显示的文字
         builder.setContentTitle("支付宝V8.8.12");// 通知栏通知的标题
         builder.setContentText(isComplete ? "支付宝下载完成" : "正在为您下载支付宝");// 通知栏通知的详细内容（只有一行）
@@ -252,7 +252,7 @@ public class NotificationActivity extends BaseActivity{
 
     /** 显示单行大文本样式通知 */
     private void showSingleTxtNotify() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
         builder.setTicker("桑切斯加盟梦剧场");// 通知栏显示的文字
         builder.setContentTitle("官宣！智利C罗加盟曼联");// 通知栏通知的标题
         builder.setContentText("北京时间1月23日，桑切斯加盟曼联，身披7号球衣。");// 通知栏通知的详细内容（只有一行）
@@ -273,7 +273,7 @@ public class NotificationActivity extends BaseActivity{
 
     /** 显示多行大文本样式通知 */
     private void showMultiTxtNotify() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
         builder.setTicker("你懂鬼畜吗");// 通知栏显示的文字
         builder.setContentTitle("带你了解鬼畜全明星");// 通知栏通知的标题
         builder.setContentText("鬼畜是人类进步的阶梯，你今天进步了吗");// 通知栏通知的详细内容（只有一行）
@@ -297,7 +297,7 @@ public class NotificationActivity extends BaseActivity{
 
     /** 大图文本样式 */
     private void showLargeImgNotify() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
         builder.setTicker("阿森纳の梗");// 通知栏显示的文字
         builder.setContentTitle("阿森纳与4的不解之缘");// 通知栏通知的标题
         builder.setContentText("争4狂魔，没4找4");// 通知栏通知的详细内容（只有一行）
@@ -318,7 +318,7 @@ public class NotificationActivity extends BaseActivity{
 
     /** 自定义内容样式 */
     private void showCustomNotify() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器，channelId在O（26）才有用可以随便传
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
         builder.setTicker("电影头文字D即将上映");// 通知栏显示的文字
         builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
         builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
