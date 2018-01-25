@@ -37,7 +37,7 @@ public class AlbumUtils {
         String sortOrder = MediaStore.Images.Media.DATE_MODIFIED;
 
         Cursor cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, sortOrder);
-        if (cursor == null) {
+        if (cursor == null || cursor.getCount() == 0) {
             return imageList;
         }
 
