@@ -26,11 +26,11 @@ android {
 
 dependencies {
     // 引用的库
-//    compile 'cn.lodz:core:1.1.6'
-    compile project(':core')
+    compile 'cn.lodz:core:1.1.7'
+//    compile project(':core')
 
     // RxJava
-    compile 'io.reactivex.rxjava2:rxjava:2.1.8'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.9'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
