@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_margin="10dp"
-        android:background="@drawable/bg_corners_3981ef"
+        android:background="@drawable/bg_3981ef_corners_8"
         android:gravity="center"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"

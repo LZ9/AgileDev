@@ -28,7 +28,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/bg_corners_3981ef"
+            android:background="@drawable/bg_3981ef_corners_8"
             android:gravity="center"
             android:text="@string/drag_layout_manager"
             android:textColor="@color/white" />
