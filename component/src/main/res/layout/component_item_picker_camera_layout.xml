@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:src="@drawable/component_ic_camera"
     android:background="@android:color/black"
     android:contentDescription="@string/app_name"
     android:scaleType="center" />
