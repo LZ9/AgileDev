@@ -1,11 +1,15 @@
 package com.lodz.android.component.rx.utils;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.lodz.android.component.rx.exception.DataException;
 import com.lodz.android.component.rx.exception.RxException;
+import com.lodz.android.core.utils.BitmapUtils;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -59,6 +63,48 @@ public class RxUtils {
             return exception.getErrorMsg();
         }
         return defaultTips;
+    }
+
+    /**
+     * 把图片路径转为base64
+     * @param path 图片路径
+     * @param widthPx 宽度（像素）
+     * @param heightPx 高度（像素）
+     */
+    private Observable<String> decodePathToBase64(final String path, final int widthPx, final int heightPx){
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                if (emitter.isDisposed()){
+                    return;
+                }
+                if (TextUtils.isEmpty(path)) {
+                    emitter.onNext("");
+                    emitter.onComplete();
+                    return;
+                }
+                try {
+                    Bitmap bitmap = BitmapUtils.decodeBitmap(path, widthPx, heightPx);
+                    if (emitter.isDisposed()){
+                        return;
+                    }
+                    if (bitmap == null){
+                        emitter.onNext("");
+                        emitter.onComplete();
+                        return;
+                    }
+                    String base64 = BitmapUtils.bitmapToBase64Default(bitmap);
+                    if (emitter.isDisposed()){
+                        return;
+                    }
+                    emitter.onNext(TextUtils.isEmpty(base64) ? "" : base64);
+                    emitter.onComplete();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    emitter.onError(e);
+                }
+            }
+        });
     }
 
 }
