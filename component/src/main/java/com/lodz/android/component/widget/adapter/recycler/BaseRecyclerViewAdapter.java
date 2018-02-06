@@ -83,7 +83,12 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         if (mData == null || mData.size() == 0){
             return null;
         }
-        return mData.get(position);
+        try {
+            return mData.get(position);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -213,6 +218,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemCount() {
+        if (mData == null){
+            return 0;
+        }
+        return mData.size();
+    }
+
+    /** 获取数据长度 */
+    protected int getDataSize(){
         if (mData == null){
             return 0;
         }
