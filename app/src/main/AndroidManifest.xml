@@ -281,6 +281,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.rv.decoration.ItemDecorationTestActivity"
+            android:label="RV装饰器测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
     </application>
 
