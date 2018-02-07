@@ -5,7 +5,11 @@ import android.text.TextUtils;
 
 import com.lodz.android.component.rx.exception.DataException;
 import com.lodz.android.component.rx.exception.RxException;
+import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.BitmapUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -107,4 +111,51 @@ public class RxUtils {
         });
     }
 
+    /**
+     * 把图片路径转为base64
+     * @param paths 图片路径
+     * @param widthPx 宽度（像素）
+     * @param heightPx 高度（像素）
+     */
+    private Observable<List<String>> decodePathToBase64(final List<String> paths, final int widthPx, final int heightPx){
+        return Observable.create(new ObservableOnSubscribe<List<String>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<String>> emitter) throws Exception {
+                if (emitter.isDisposed()){
+                    return;
+                }
+                if (ArrayUtils.isEmpty(paths)){
+                    emitter.onNext(new ArrayList<String>());
+                    emitter.onComplete();
+                    return;
+                }
+
+                try {
+                    List<String> base64s = new ArrayList<>();
+                    for (String path : paths) {
+                        if (emitter.isDisposed()){
+                            return;
+                        }
+                        Bitmap bitmap = BitmapUtils.decodeBitmap(path, widthPx, heightPx);
+                        if (bitmap == null){
+                            continue;
+                        }
+                        String base64 = BitmapUtils.bitmapToBase64Default(bitmap);
+                        if (TextUtils.isEmpty(base64)) {
+                            continue;
+                        }
+                        base64s.add(base64);
+                    }
+                    if (emitter.isDisposed()){
+                        return;
+                    }
+                    emitter.onNext(base64s);
+                    emitter.onComplete();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    emitter.onError(e);
+                }
+            }
+        });
+    }
 }

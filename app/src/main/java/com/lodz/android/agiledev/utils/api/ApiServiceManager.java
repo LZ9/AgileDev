@@ -108,7 +108,7 @@ public class ApiServiceManager {
     private void logRequest(Request request) {
         List<String> list = request.url().pathSegments();
         PrintLog.i(TAG, "[" + list.get(list.size() - 1) + "] ---> " + request.url().toString());
-        PrintLog.i(TAG, "[" + list.get(list.size() - 1) + "] ---> " + getRequestString(request));
+        logSegmentedLog(false, list.get(list.size() - 1), getRequestString(request));
     }
 
     /**
@@ -139,7 +139,7 @@ public class ApiServiceManager {
         try {
             log = response.body().string();
             List<String> list = response.request().url().pathSegments();
-            logSegmentedLog(list.get(list.size() - 1), log);
+            logSegmentedLog(true, list.get(list.size() - 1), log);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,13 +152,18 @@ public class ApiServiceManager {
 
     /**
      * 打印分段日志
+     * @param isResponse 是否打印响应数据
      * @param tag 标签
      * @param log 原始日志
      */
-    private void logSegmentedLog(String tag, String log) {
+    private void logSegmentedLog(boolean isResponse, String tag, String log) {
         synchronized (ApiServiceManager.class){
             if (TextUtils.isEmpty(log) || log.length() < 3000){
-                PrintLog.d(TAG, "[" + tag + "] <--- " + log);
+                if (isResponse){
+                    PrintLog.d(TAG, "[" + tag + "] <--- " + log);
+                }else {
+                    PrintLog.i(TAG, "[" + tag + "] ---> " + log);
+                }
                 return;
             }
             int index = (int) Math.ceil(log.length() / 3000.0);
@@ -168,7 +173,11 @@ public class ApiServiceManager {
                 if (end >= log.length()){
                     end = log.length();
                 }
-                PrintLog.d(TAG, "[" + tag + "] <--- " + log.substring(start, end));
+                if (isResponse){
+                    PrintLog.d(TAG, "[" + tag + "] <--- " + log.substring(start, end));
+                }else {
+                    PrintLog.i(TAG, "[" + tag + "] ---> " + log.substring(start, end));
+                }
                 if (end == log.length()){
                     return;
                 }

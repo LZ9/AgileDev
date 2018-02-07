@@ -49,7 +49,7 @@
 
         <meta-data
             android:name="error_tag"
-            android:value="errortag" />
+            android:value="resultValue" />
 
         <meta-data
             android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
@@ -270,6 +270,13 @@
         <activity
             android:name=".ui.notification.NotificationActivity"
             android:label="通知测试"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.retrofit.RetrofitTestActivity"
+            android:label="Retrofit测试"
             android:screenOrientation="portrait">
 
         </activity>
