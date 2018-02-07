@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.widget.adapter.decoration.DividerItemDecoration;
+import com.lodz.android.component.widget.adapter.decoration.RoundItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,15 +50,21 @@ public class ItemDecorationTestActivity extends BaseActivity{
     }
 
     private void initRecyclerView() {
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+
 //        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-//        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//        layoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
         mAdapter = new ItemDecorationTestAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
 
-        mRecyclerView.addItemDecoration(getItemDecoration());
+//        mRecyclerView.addItemDecoration(getItemDecoration());
+        mRecyclerView.addItemDecoration(RoundItemDecoration.createBottomDivider(getContext(), 1, R.color.color_3f51b5, 0, 15));
 //        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext()));
 //        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext(), new TestItemDecoration.DecorationCallback() {
 //            @Override
@@ -76,11 +82,11 @@ public class ItemDecorationTestActivity extends BaseActivity{
     }
 
     private RecyclerView.ItemDecoration getItemDecoration() {
-        DividerItemDecoration decoration = new DividerItemDecoration(getContext());
-        decoration.setTopDivider(6, R.color.color_9a9a9a, 0, 0);
-        decoration.setBottomDivider(6, R.color.color_9a9a9a, 0, 0);
-        decoration.setLeftDivider(6, R.color.color_9a9a9a, 0, 0);
-        decoration.setRightDivider(6, R.color.color_9a9a9a, 0, 0);
+        RoundItemDecoration decoration = RoundItemDecoration.create(getContext());
+//        decoration.setTopDivider(6, R.color.color_9a9a9a, R.color.color_ea413c, 15);
+        decoration.setBottomDividerRes(1, R.color.color_9a9a9a, R.color.white, 15);
+//        decoration.setLeftDivider(6, R.color.color_9a9a9a, R.color.color_00a0e9, 5);
+//        decoration.setRightDivider(6, R.color.color_9a9a9a, R.color.color_ff00ff, 5);
         return decoration;
     }
 
