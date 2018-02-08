@@ -19,4 +19,12 @@ public class BaseItemDecoration extends RecyclerView.ItemDecoration{
     public Context getContext() {
         return mContext;
     }
+
+    /**
+     * 校验数值
+     * @param value 数值
+     */
+    protected int checkValue(int value){
+        return value <= 0 ? 0 : value;
+    }
 }

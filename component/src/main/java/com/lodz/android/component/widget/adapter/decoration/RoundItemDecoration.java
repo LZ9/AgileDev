@@ -91,6 +91,18 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param lrPaddingDp 左右间隔
      */
+    public void setTopDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
+        setTopDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
+    }
+
+    /**
+     * 设置顶部分割线
+     * @param dp 间距
+     * @param color 分割线颜色
+     * @param bgColor 背景颜色
+     * @param lrPaddingDp 左右间隔
+     */
     public void setTopDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int lrPaddingDp){
         mTopPx = DensityUtils.dp2px(getContext(), dp);
         mTopLrPadding = DensityUtils.dp2px(getContext(), lrPaddingDp);
@@ -107,14 +119,14 @@ public class RoundItemDecoration extends BaseItemDecoration{
     }
 
     /**
-     * 设置顶部分割线
+     * 设置底部分割线
      * @param dp 间距
-     * @param color 分割线颜色
+     * @param color 颜色
      * @param bgColor 背景颜色
      * @param lrPaddingDp 左右间隔
      */
-    public void setTopDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
-        setTopDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+    public void setBottomDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
+        setBottomDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
                 , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
     }
 
@@ -141,15 +153,15 @@ public class RoundItemDecoration extends BaseItemDecoration{
     }
 
     /**
-     * 设置底部分割线
+     * 设置左侧分割线
      * @param dp 间距
      * @param color 颜色
      * @param bgColor 背景颜色
-     * @param lrPaddingDp 左右间隔
+     * @param tbPaddingDp 上下间隔
      */
-    public void setBottomDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
-        setBottomDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
-                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
+    public void setLeftDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
+        setLeftDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
     }
 
     /**
@@ -174,18 +186,18 @@ public class RoundItemDecoration extends BaseItemDecoration{
         mLeftBgPaint.setColor(bgColor);
     }
 
+
     /**
-     * 设置左侧分割线
+     * 设置右侧分割线
      * @param dp 间距
      * @param color 颜色
      * @param bgColor 背景颜色
      * @param tbPaddingDp 上下间隔
      */
-    public void setLeftDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
-        setLeftDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+    public void setRightDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
+        setRightDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
                 , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
     }
-
 
     /**
      * 设置右侧分割线
@@ -209,18 +221,6 @@ public class RoundItemDecoration extends BaseItemDecoration{
         mRightBgPaint.setColor(bgColor);
     }
 
-    /**
-     * 设置右侧分割线
-     * @param dp 间距
-     * @param color 颜色
-     * @param bgColor 背景颜色
-     * @param tbPaddingDp 上下间隔
-     */
-    public void setRightDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
-        setRightDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
-                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
-    }
-
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
@@ -240,7 +240,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
 
     @Override
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
-        if (mTopPx == 0 && mBottomPx == 0 && mLeftPx == 0 && mRightPx == 0){
+        if (mTopPx <= 0 && mBottomPx <= 0 && mLeftPx <= 0 && mRightPx <= 0){
             return;
         }
         int childCount = parent.getChildCount();
@@ -355,13 +355,5 @@ public class RoundItemDecoration extends BaseItemDecoration{
             }
             canvas.drawRect(checkValue(left), checkValue(top + padding), checkValue(right), checkValue(bottom - padding), paint);
         }
-    }
-
-    /**
-     * 校验数值
-     * @param value 数值
-     */
-    private int checkValue(int value){
-        return value <= 0 ? 0 : value;
     }
 }

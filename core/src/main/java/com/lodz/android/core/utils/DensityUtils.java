@@ -19,12 +19,30 @@ public class DensityUtils {
     }
 
     /**
+     * dp转px
+     * @param context 上下文
+     * @param dpValue dp值
+     */
+    public static float dp2pxFloat(Context context, float dpValue) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
+    }
+
+    /**
      * sp转px
      * @param context 上下文
      * @param spValue sp值
      */
     public static int sp2px(Context context, float spValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
+    }
+
+    /**
+     * sp转px
+     * @param context 上下文
+     * @param spValue sp值
+     */
+    public static float sp2pxFloat(Context context, float spValue) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
     }
 
     /**
@@ -45,4 +63,5 @@ public class DensityUtils {
     public static float px2sp(Context context, float pxValue) {
         return (pxValue / context.getResources().getDisplayMetrics().scaledDensity);
     }
+
 }
