@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.lodz.android.core.utils.DensityUtils;
@@ -23,7 +24,27 @@ import com.lodz.android.core.utils.DensityUtils;
 
 public class GridItemDecoration extends BaseItemDecoration{
 
-    public GridItemDecoration(Context context) {
+    /**
+     * 创建
+     * @param context 上下文
+     */
+    public static GridItemDecoration create(Context context){
+        return new GridItemDecoration(context);
+    }
+
+    /**
+     * 创建网格分割线
+     * @param context 上下文
+     * @param dp 间距
+     * @param color 分割线颜色
+     */
+    public static GridItemDecoration createDivider(Context context, @IntRange(from = 1) int dp, @ColorRes int color){
+        GridItemDecoration decoration = new GridItemDecoration(context);
+        decoration.setDividerRes(dp, color);
+        return decoration;
+    }
+
+    private GridItemDecoration(Context context) {
         super(context);
     }
 
@@ -64,6 +85,11 @@ public class GridItemDecoration extends BaseItemDecoration{
 
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
+        if (layoutManager instanceof StaggeredGridLayoutManager){
+            setStaggeredGridOffsets(outRect);
+            return;
+        }
+
         if (layoutManager instanceof GridLayoutManager){// 网格
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             setGridOffsets(outRect, view, parent, gridLayoutManager);
@@ -75,6 +101,14 @@ public class GridItemDecoration extends BaseItemDecoration{
             setLinearOffsets(outRect, view, parent, linearLayoutManager);
             return;
         }
+    }
+
+    /** 设置StaggeredGridLayoutManager的边距 */
+    private void setStaggeredGridOffsets(Rect outRect) {
+        outRect.top = mPx;
+        outRect.bottom = mPx;
+        outRect.left = mPx;
+        outRect.right = mPx;
     }
 
     /** 设置LinearLayoutManager的边距 */
@@ -133,7 +167,6 @@ public class GridItemDecoration extends BaseItemDecoration{
 
         // 横向
         parent.setPadding(0, 0, 0, mPx);
-        // 横向
         if (position < spanCount){//最左侧
             outRect.top = mPx;
             outRect.bottom = 0;

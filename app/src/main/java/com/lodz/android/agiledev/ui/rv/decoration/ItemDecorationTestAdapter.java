@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -39,6 +41,10 @@ public class ItemDecorationTestAdapter extends BaseRecyclerViewAdapter<String>{
     }
 
     private void showItem(DataViewHolder holder, String str) {
+        Random random = new Random();
+        int num = random.nextInt(5) + 5;
+//        setItemViewWidth(holder.itemView, DensityUtils.dp2px(getContext(), num * 9));
+//        setItemViewHeight(holder.itemView, DensityUtils.dp2px(getContext(), num * 10));
         holder.strTv.setText(str);
     }
 
