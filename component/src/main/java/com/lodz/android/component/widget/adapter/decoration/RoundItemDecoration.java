@@ -91,8 +91,8 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param lrPaddingDp 左右间隔
      */
-    public void setTopDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
-        setTopDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+    public RoundItemDecoration setTopDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
+        return setTopDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
                 , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
     }
 
@@ -103,7 +103,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param lrPaddingDp 左右间隔
      */
-    public void setTopDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int lrPaddingDp){
+    public RoundItemDecoration setTopDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int lrPaddingDp){
         mTopPx = DensityUtils.dp2px(getContext(), dp);
         mTopLrPadding = DensityUtils.dp2px(getContext(), lrPaddingDp);
 
@@ -116,6 +116,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
             mTopBgPaint = new Paint();
         }
         mTopBgPaint.setColor(bgColor);
+        return this;
     }
 
     /**
@@ -125,8 +126,8 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param lrPaddingDp 左右间隔
      */
-    public void setBottomDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
-        setBottomDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+    public RoundItemDecoration setBottomDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
+        return setBottomDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
                 , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
     }
 
@@ -137,7 +138,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param lrPaddingDp 左右间隔
      */
-    public void setBottomDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int lrPaddingDp){
+    public RoundItemDecoration setBottomDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int lrPaddingDp){
         mBottomPx = DensityUtils.dp2px(getContext(), dp);
         mBottomLrPadding = DensityUtils.dp2px(getContext(), lrPaddingDp);
 
@@ -150,6 +151,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
             mBottomBgPaint = new Paint();
         }
         mBottomBgPaint.setColor(bgColor);
+        return this;
     }
 
     /**
@@ -159,8 +161,8 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param tbPaddingDp 上下间隔
      */
-    public void setLeftDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
-        setLeftDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+    public RoundItemDecoration setLeftDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
+        return setLeftDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
                 , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
     }
 
@@ -171,7 +173,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param tbPaddingDp 上下间隔
      */
-    public void setLeftDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int tbPaddingDp){
+    public RoundItemDecoration setLeftDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int tbPaddingDp){
         mLeftPx = DensityUtils.dp2px(getContext(), dp);
         mLeftTbPadding = DensityUtils.dp2px(getContext(), tbPaddingDp);
 
@@ -184,6 +186,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
             mLeftBgPaint = new Paint();
         }
         mLeftBgPaint.setColor(bgColor);
+        return this;
     }
 
 
@@ -194,8 +197,8 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param tbPaddingDp 上下间隔
      */
-    public void setRightDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
-        setRightDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+    public RoundItemDecoration setRightDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
+        return setRightDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
                 , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
     }
 
@@ -206,7 +209,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * @param bgColor 背景颜色
      * @param tbPaddingDp 上下间隔
      */
-    public void setRightDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int tbPaddingDp){
+    public RoundItemDecoration setRightDividerInt(@IntRange(from = 1) int dp, @ColorInt int color, @ColorInt int bgColor, @IntRange(from = 0) int tbPaddingDp){
         mRightPx = DensityUtils.dp2px(getContext(), dp);
         mRightTbPadding = DensityUtils.dp2px(getContext(), tbPaddingDp);
 
@@ -219,6 +222,7 @@ public class RoundItemDecoration extends BaseItemDecoration{
             mRightBgPaint = new Paint();
         }
         mRightBgPaint.setColor(bgColor);
+        return this;
     }
 
     @Override

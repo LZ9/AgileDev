@@ -52,7 +52,7 @@ public class ItemDecorationTestActivity extends BaseActivity{
 
     /** 当前布局 */
     @LayoutManagerPopupWindow.LayoutManagerType
-    private int mCurrentLayoutManagerType = LayoutManagerPopupWindow.TYPE_GRID;
+    private int mCurrentLayoutManagerType = LayoutManagerPopupWindow.TYPE_LINEAR;
     /** 当前是否纵向 */
     private boolean mIsVertical = true;
 
@@ -80,19 +80,19 @@ public class ItemDecorationTestActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(getLayoutManager());
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
 
-        mRecyclerView.addItemDecoration(getItemDecoration());
+//        mRecyclerView.addItemDecoration(getItemDecoration());
 //        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext()));
-//        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext(), new TestItemDecoration.DecorationCallback() {
-//            @Override
-//            public long getGroupId(int position) {
-//                return Character.toUpperCase(mList.get(position).charAt(0));
-//            }
-//
-//            @Override
-//            public String getGroupFirstLine(int position) {
-//                return mList.get(position).substring(0, 1).toUpperCase();
-//            }
-//        }));
+        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext(), new TestItemDecoration.DecorationCallback() {
+            @Override
+            public long getGroupId(int position) {
+                return Character.toUpperCase(mList.get(position).charAt(0));
+            }
+
+            @Override
+            public String getGroupFirstLine(int position) {
+                return mList.get(position).substring(0, 1).toUpperCase();
+            }
+        }));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -100,12 +100,11 @@ public class ItemDecorationTestActivity extends BaseActivity{
     /** 获取装饰器 */
     private RecyclerView.ItemDecoration getItemDecoration() {
         // 外围分割线
-//        RoundItemDecoration decoration = RoundItemDecoration.create(getContext());
-//        decoration.setTopDivider(6, R.color.color_9a9a9a, R.color.color_ea413c, 15);
-//        decoration.setBottomDividerRes(1, R.color.color_9a9a9a, R.color.white, 15);
-//        decoration.setLeftDivider(6, R.color.color_9a9a9a, R.color.color_00a0e9, 5);
-//        decoration.setRightDivider(6, R.color.color_9a9a9a, R.color.color_ff00ff, 5);
-//        return decoration;
+//        return RoundItemDecoration.create(getContext())
+//                .setTopDividerRes(3, R.color.color_9a9a9a, R.color.color_ea413c, 15)
+//                .setBottomDividerRes(3, R.color.color_9a9a9a, R.color.white, 15)
+//                .setLeftDividerRes(3, R.color.color_9a9a9a, R.color.color_00a0e9, 5)
+//                .setRightDividerRes(3, R.color.color_9a9a9a, R.color.color_ff00ff, 5);
 
 //        return RoundItemDecoration.createBottomDivider(getContext(), 1, R.color.color_3f51b5, 0, 15);
 
