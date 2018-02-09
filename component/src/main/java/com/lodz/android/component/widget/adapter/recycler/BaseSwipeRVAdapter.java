@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.widget.adapter.bean.SwipeViewHolder;
 import com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout;
 
 /**
@@ -14,7 +15,7 @@ import com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout;
  * Created by zhouL on 2017/12/18.
  */
 
-public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
+public abstract class BaseSwipeRVAdapter<T, VH extends SwipeViewHolder> extends BaseRecyclerViewAdapter<T>{
 
     public BaseSwipeRVAdapter(Context context) {
         super(context);
@@ -36,13 +37,23 @@ public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
         return 0;
     }
 
+    @Override
+    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        VH holder = getViewHolder(parent, viewType);
+        configSwipeViewHolder(holder);
+        holder.bindView();
+        return holder;
+    }
+
+    protected abstract VH getViewHolder(ViewGroup parent, int viewType);
+
     /** 获取侧滑的ItemView */
     protected View getSwipeItemView(ViewGroup parent){
         return getLayoutView(parent, R.layout.component_item_swipe_layout);
     }
 
     /** 配置侧滑菜单的ViewHolder */
-    protected void configSwipeViewHolder(SwipeViewHolder holder){
+    protected void configSwipeViewHolder(VH holder){
         if (getContentLayout() > 0){
             View contentView = getLayoutView(holder.contentLayout, getContentLayout());
             holder.contentLayout.addView(contentView);
@@ -59,26 +70,19 @@ public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
     }
 
     /** 关闭侧滑菜单 */
-    protected void smoothCloseMenu(RecyclerView.ViewHolder holder){
-        if (holder instanceof BaseSwipeRVAdapter.SwipeViewHolder){
-            BaseSwipeRVAdapter.SwipeViewHolder viewHolder = (BaseSwipeRVAdapter.SwipeViewHolder) holder;
-            viewHolder.swipeMenuLayout.smoothCloseMenu();
-        }
+    protected void smoothCloseMenu(VH holder){
+        holder.swipeMenuLayout.smoothCloseMenu();
     }
 
     /** 获取侧滑控件 */
-    protected SwipeMenuLayout getSwipeMenuLayout(RecyclerView.ViewHolder holder){
-        if (holder instanceof BaseSwipeRVAdapter.SwipeViewHolder){
-            BaseSwipeRVAdapter.SwipeViewHolder viewHolder = (BaseSwipeRVAdapter.SwipeViewHolder) holder;
-            return viewHolder.swipeMenuLayout;
-        }
-        return null;
+    protected SwipeMenuLayout getSwipeMenuLayout(VH holder) {
+        return holder.swipeMenuLayout;
     }
 
     @Override
     protected void setItemClick(final RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof BaseSwipeRVAdapter.SwipeViewHolder){
-            ((BaseSwipeRVAdapter.SwipeViewHolder) holder).contentLayout.setOnClickListener(new View.OnClickListener() {
+        if (holder instanceof SwipeViewHolder){
+            ((SwipeViewHolder) holder).contentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(position >= 0 && mOnItemClickListener != null) {
@@ -91,8 +95,8 @@ public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
 
     @Override
     protected void setItemLongClick(final RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof BaseSwipeRVAdapter.SwipeViewHolder){
-            ((BaseSwipeRVAdapter.SwipeViewHolder) holder).contentLayout.setOnLongClickListener(new View.OnLongClickListener() {
+        if (holder instanceof SwipeViewHolder){
+            ((SwipeViewHolder) holder).contentLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     if (position >= 0 && mOnItemLongClickListener != null){
@@ -102,29 +106,5 @@ public abstract class BaseSwipeRVAdapter<T> extends BaseRecyclerViewAdapter<T>{
                 }
             });
         }
-    }
-
-    protected class SwipeViewHolder extends RecyclerView.ViewHolder{
-
-        /** 侧滑布局 */
-        SwipeMenuLayout swipeMenuLayout;
-        /** 内容布局 */
-        ViewGroup contentLayout;
-        /** 右侧布局 */
-        ViewGroup rightLayout;
-        /** 左侧布局 */
-        ViewGroup leftLayout;
-
-        protected SwipeViewHolder(View itemView) {
-            super(itemView);
-            swipeMenuLayout = itemView.findViewById(R.id.swipe_menu_layout);
-            contentLayout = itemView.findViewById(R.id.content_view);
-            rightLayout = itemView.findViewById(R.id.right_view);
-            leftLayout = itemView.findViewById(R.id.left_view);
-        }
-
-        protected void bindView(){
-        }
-
     }
 }

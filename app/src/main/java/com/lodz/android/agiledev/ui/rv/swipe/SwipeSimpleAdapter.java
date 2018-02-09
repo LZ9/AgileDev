@@ -1,13 +1,13 @@
 package com.lodz.android.agiledev.ui.rv.swipe;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.component.widget.adapter.bean.SimpleSwipeViewHolder;
 import com.lodz.android.component.widget.adapter.bean.SwipeMenuBean;
 import com.lodz.android.component.widget.adapter.recycler.SimpleSwipeRVAdapter;
 
@@ -21,18 +21,15 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2017/12/19.
  */
 
-public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String>{
+public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String, SwipeSimpleAdapter.DataViewHolder>{
 
     public SwipeSimpleAdapter(Context context, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList) {
         super(context, leftList, rightList);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
-        configSwipeViewHolder(holder);
-        holder.bindView();
-        return holder;
+    protected SimpleSwipeViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        return new DataViewHolder(getSwipeItemView(parent));
     }
 
     @Override
@@ -41,12 +38,12 @@ public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String>{
     }
 
     @Override
-    protected void onBindContent(RecyclerView.ViewHolder holder, int position) {
+    protected void onBindContent(DataViewHolder holder, int position) {
         String str = getItem(position);
         if (TextUtils.isEmpty(str)) {
             return;
         }
-        showItem((SwipeSimpleAdapter.DataViewHolder) holder, str);
+        showItem(holder, str);
     }
 
     private void showItem(SwipeSimpleAdapter.DataViewHolder holder, String str) {
@@ -58,12 +55,12 @@ public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String>{
         @BindView(R.id.content_txt)
         TextView contentTv;
 
-        private DataViewHolder(View itemView) {
+        public DataViewHolder(View itemView) {
             super(itemView);
         }
 
         @Override
-        protected void bindView() {
+        public void bindView() {
             super.bindView();
             ButterKnife.bind(this, itemView);
         }

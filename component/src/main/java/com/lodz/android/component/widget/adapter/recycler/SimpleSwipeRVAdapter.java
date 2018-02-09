@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+import com.lodz.android.component.widget.adapter.bean.SimpleSwipeViewHolder;
 import com.lodz.android.component.widget.adapter.bean.SwipeMenuBean;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DensityUtils;
@@ -23,7 +24,7 @@ import java.util.List;
  * Created by zhouL on 2017/12/19.
  */
 
-public abstract class SimpleSwipeRVAdapter<T> extends BaseSwipeRVAdapter<T>{
+public abstract class SimpleSwipeRVAdapter<T, VH extends SimpleSwipeViewHolder> extends BaseSwipeRVAdapter<T, SimpleSwipeViewHolder>{
 
     private List<SwipeMenuBean> mLeftList;
 
@@ -69,27 +70,28 @@ public abstract class SimpleSwipeRVAdapter<T> extends BaseSwipeRVAdapter<T>{
     }
 
     @Override
-    protected void configSwipeViewHolder(SwipeViewHolder holder) {
+    protected void configSwipeViewHolder(SimpleSwipeViewHolder holder) {
         super.configSwipeViewHolder(holder);
         getSwipeMenuLayout(holder).setSwipeEnable(ArrayUtils.getSize(mLeftList) > 0 || ArrayUtils.getSize(mRightList) > 0);//没有侧滑菜单禁止滑动
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
-        bindListData((SimpleSwipeRVAdapter.SimpleSwipeViewHolder) holder, mLeftList, mRightList, position);
-        onBindContent(holder, position);
+    protected final void onBind(RecyclerView.ViewHolder holder, int position) {
+        bindListData((VH) holder, mLeftList, mRightList, position);
+        onBindContent((VH) holder, position);
     }
 
     /** 绑定内容数据 */
-    protected abstract void onBindContent(RecyclerView.ViewHolder holder, int position);
+    protected abstract void onBindContent(VH holder, int position);
 
-    private void bindListData(SimpleSwipeRVAdapter.SimpleSwipeViewHolder holder, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList, int position) {
+    private void bindListData(VH holder, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList, int position) {
         configLeftMenu(holder, leftList, position);
         configRightMenu(holder, rightList, position);
     }
 
     /** 配置左侧按钮UI */
-    private void configLeftMenu(SimpleSwipeRVAdapter.SimpleSwipeViewHolder holder, List<SwipeMenuBean> leftList, int position) {
+    private void configLeftMenu(VH holder, List<SwipeMenuBean> leftList, int position) {
         holder.leftFirstLayout.setVisibility(View.GONE);
         if (ArrayUtils.getSize(leftList) > 0){
             holder.leftFirstLayout.setVisibility(View.VISIBLE);
@@ -109,7 +111,7 @@ public abstract class SimpleSwipeRVAdapter<T> extends BaseSwipeRVAdapter<T>{
 
 
     /** 配置右侧按钮UI */
-    private void configRightMenu(SimpleSwipeRVAdapter.SimpleSwipeViewHolder holder, List<SwipeMenuBean> rightList, int position) {
+    private void configRightMenu(VH holder, List<SwipeMenuBean> rightList, int position) {
         holder.rightFirstLayout.setVisibility(View.GONE);
         if (ArrayUtils.getSize(rightList) > 0){
             holder.rightFirstLayout.setVisibility(View.VISIBLE);
@@ -178,77 +180,4 @@ public abstract class SimpleSwipeRVAdapter<T> extends BaseSwipeRVAdapter<T>{
         void onMenuClick(T item, SwipeMenuBean menu, int position);
     }
 
-    protected class SimpleSwipeViewHolder extends SwipeViewHolder{
-
-        private ViewGroup leftFirstLayout;
-        private ImageView leftFirstImg;
-        private View leftFirstGapView;
-        private TextView leftFirstNameTv;
-
-        private ViewGroup leftSecondLayout;
-        private ImageView leftSecondImg;
-        private View leftSecondGapView;
-        private TextView leftSecondNameTv;
-
-        private ViewGroup leftThirdLayout;
-        private ImageView leftThirdImg;
-        private View leftThirdGapView;
-        private TextView leftThirdNameTv;
-
-        private ViewGroup rightFirstLayout;
-        private ImageView rightFirstImg;
-        private View rightFirstGapView;
-        private TextView rightFirstNameTv;
-
-        private ViewGroup rightSecondLayout;
-        private ImageView rightSecondImg;
-        private View rightSecondGapView;
-        private TextView rightSecondNameTv;
-
-        private ViewGroup rightThirdLayout;
-        private ImageView rightThirdImg;
-        private View rightThirdGapView;
-        private TextView rightThirdNameTv;
-
-        protected SimpleSwipeViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        @Override
-        protected void bindView(){
-            super.bindView();
-            // 左侧菜单按钮
-            leftFirstLayout = itemView.findViewById(R.id.left_first_layout);
-            leftFirstImg = itemView.findViewById(R.id.left_first_img);
-            leftFirstGapView = itemView.findViewById(R.id.left_first_gap);
-            leftFirstNameTv = itemView.findViewById(R.id.left_first_name);
-
-            leftSecondLayout = itemView.findViewById(R.id.left_second_layout);
-            leftSecondImg = itemView.findViewById(R.id.left_second_img);
-            leftSecondGapView = itemView.findViewById(R.id.left_second_gap);
-            leftSecondNameTv = itemView.findViewById(R.id.left_second_name);
-
-            leftThirdLayout = itemView.findViewById(R.id.left_third_layout);
-            leftThirdImg = itemView.findViewById(R.id.left_third_img);
-            leftThirdGapView = itemView.findViewById(R.id.left_third_gap);
-            leftThirdNameTv = itemView.findViewById(R.id.left_third_name);
-
-            // 右侧菜单按钮
-            rightFirstLayout = itemView.findViewById(R.id.right_first_layout);
-            rightFirstImg = itemView.findViewById(R.id.right_first_img);
-            rightFirstGapView = itemView.findViewById(R.id.right_first_gap);
-            rightFirstNameTv = itemView.findViewById(R.id.right_first_name);
-
-            rightSecondLayout = itemView.findViewById(R.id.right_second_layout);
-            rightSecondImg = itemView.findViewById(R.id.right_second_img);
-            rightSecondGapView = itemView.findViewById(R.id.right_second_gap);
-            rightSecondNameTv = itemView.findViewById(R.id.right_second_name);
-
-            rightThirdLayout = itemView.findViewById(R.id.right_third_layout);
-            rightThirdImg = itemView.findViewById(R.id.right_third_img);
-            rightThirdGapView = itemView.findViewById(R.id.right_third_gap);
-            rightThirdNameTv = itemView.findViewById(R.id.right_third_name);
-
-        }
-    }
 }

@@ -54,6 +54,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        mAdapter = new SwipeAdapter(getContext());
         mAdapter = new SwipeSimpleAdapter(getContext(), createLeftMenu(), createRightMenu());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

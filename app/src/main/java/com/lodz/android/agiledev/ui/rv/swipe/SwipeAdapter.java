@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.component.widget.adapter.bean.SwipeViewHolder;
 import com.lodz.android.component.widget.adapter.recycler.BaseSwipeRVAdapter;
 import com.lodz.android.core.utils.ToastUtils;
 
@@ -20,18 +21,10 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2017/12/18.
  */
 
-public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
+public class SwipeAdapter extends BaseSwipeRVAdapter<String, SwipeAdapter.DataViewHolder>{
 
     public SwipeAdapter(Context context) {
         super(context);
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
-        configSwipeViewHolder(holder);
-        holder.bindView();
-        return holder;
     }
 
     @Override
@@ -47,6 +40,11 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
     @Override
     protected int getLeftLayout() {
         return R.layout.item_swipe_left_layout;
+    }
+
+    @Override
+    protected DataViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        return new DataViewHolder(getSwipeItemView(parent));
     }
 
     @Override
@@ -85,7 +83,7 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
             @Override
             public void onClick(View v) {
                 ToastUtils.showShort(getContext(), "新增 " + str);
-                smoothCloseMenu(holder);
+//                smoothCloseMenu(holder);
             }
         });
 
@@ -98,7 +96,7 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
         });
     }
 
-    class DataViewHolder extends SwipeViewHolder{
+    class DataViewHolder extends SwipeViewHolder {
 
         @BindView(R.id.content_txt)
         TextView contentTv;
@@ -115,12 +113,12 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String>{
         @BindView(R.id.delete_btn)
         Button rightDeleteBtn;
 
-        private DataViewHolder(View itemView) {
+        public DataViewHolder(View itemView) {
             super(itemView);
         }
 
         @Override
-        protected void bindView() {
+        public void bindView() {
             super.bindView();
             ButterKnife.bind(this, itemView);
         }
