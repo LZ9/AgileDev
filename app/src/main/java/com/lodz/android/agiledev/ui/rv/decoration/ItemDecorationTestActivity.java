@@ -109,9 +109,6 @@ public class ItemDecorationTestActivity extends BaseActivity{
 //        return RoundItemDecoration.createBottomDivider(getContext(), 1, R.color.color_3f51b5, 0, 15);
 
         // 网格分割线
-//        GridItemDecoration decoration = GridItemDecoration.create(getContext());
-//        decoration.setDividerRes(2, R.color.color_9a9a9a);
-//        return decoration;
         return GridItemDecoration.createDivider(getContext(), 1, R.color.color_00a0e9);
 
     }

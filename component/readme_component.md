@@ -617,6 +617,37 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
     }
 ```
 
+### 6）装饰器ItemDecoration
+#### a)装饰器基类BaseItemDecoration
+自定义装饰器时可以继承该基类
+
+#### b)外围分割线装饰器RoundItemDecoration
+该装饰器可以独立在item四周添加对应颜色的分割线，具体使用方法
+- 独立设置四周分割线，例如setTopDividerRes(dp,  color, bgColor, lrPaddingDp)，
+ 1. dp是分割线宽度（单位dp）
+ 2. color为分割线颜色
+ 3. bgColor为背景颜色（如果有设置lrPaddingDp时建议设置，不需要传0即可）
+ 4. lrPaddingDp是分割线与item两侧的间距
+```
+    RoundItemDecoration.create(getContext())
+        .setTopDividerRes(1, R.color.black, R.color.white, 15)
+        .setBottomDividerRes(1, R.color.black, R.color.white, 15)
+        .setLeftDividerRes(1, R.color.black, R.color.white, 5)
+        .setRightDividerRes(1, R.color.black, R.color.white, 5);
+```
+- 我增加了快速配置底部分割线的方法，如果只需要配置底部分割线可以调用
+```
+    RoundItemDecoration.createBottomDivider(getContext(), 1, R.color.black, 0, 0);
+```
+
+#### c)网格分割线装饰器GridItemDecoration
+该装饰器能在item四周加上均匀的网格分割线，具体使用方法
+```
+    GridItemDecoration.createDivider(context, dp, color)
+```
+- dp是分割线宽度（单位dp）
+- color为分割线颜色
+
 ## 7、Dialog相关
 ### 1）BaseDialog
 a）BaseDialog继承自Dialog，小伙伴继承BaseDialog后可以实现下面两个方法，分别传入布局layout和获取控件id
@@ -1016,10 +1047,11 @@ b）布局基本的使用方式如下：
 ### 3）在RecyclerView中使用SwipeMenuLayout
 #### 1>使用SwipeMenuRecyclerView来替代原本的RecyclerView
  **SwipeMenuRecyclerView** 解决了内嵌 **SwipeMenuLayout** 导致的滑动冲突，使用SwipeMenuRecyclerView可以解决滑动冲突问题
-#### 2>侧滑按钮适配器BaseSwipeRVAdapter
- - 如果你希望深度定制侧滑菜单的样式，可以继承BaseSwipeRVAdapter来开发
+#### 2>侧滑按钮适配器BaseSwipeRVAdapter<T, VH>
+ - 如果你希望深度定制侧滑菜单的样式，可以继承BaseSwipeRVAdapter<T, VH>来开发
+ - T为item里的数据类型，VH为继承SwipeViewHolder的ViewHolder对象
  - 重写getContentLayout()、getRightLayout()和getLeftLayout()方法将你自定义的主布局和左右菜单布局放入item，
- getContentLayout()必须要重写，getRightLayout()和getLeftLayout()根据你的需要选择性重写
+ getContentLayout()必须要重写，getRightLayout()和getLeftLayout()根据你的需要选择性重写，有重写则有侧滑菜单，没有重写则没有
 ```
      @Override
      protected int getContentLayout() {
@@ -1036,34 +1068,29 @@ b）布局基本的使用方式如下：
         return R.layout.left;
     }
 ```
- - 你自定义的ViewHolder需要继承SwipeViewHolder，然后再重写bindView()方法，在方法里去获取你的控件对象
- （如果你使用ButterKnife，你也可以在该方法里去绑定控件ButterKnife.bind(this, itemView);）
+ - 你自定义的ViewHolder需要继承SwipeViewHolder，然后再重写bindView()方法，在方法里去获取你的控件对象。如果你使用ButterKnife，你也可以在该方法里去绑定控件。
 ```
     protected class DataViewHolder extends SwipeViewHolder{
  
         private View customView;
        
-        protected DataViewHolder(View itemView) {
+        public DataViewHolder(View itemView) {
             super(itemView);
         }
  
         @Override
-        protected void bindView(){
+        public void bindView(){
             super.bindView();
             customView = itemView.findViewById(R.id.custom_view);
- 
+            // ButterKnife.bind(this, itemView);
         }
     }
 ```
- - 重写onCreateViewHolder()方法，new出你自定义的DataViewHolder对象，然后将对象传入configSwipeViewHolder()方法进行配置。
-然后调用对象的bindView()方法去绑定控件。
+ - 重写getViewHolder()方法，new出你自定义的DataViewHolder对象，传入getSwipeItemView(parent)方法即可。
 ```
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
-        configSwipeViewHolder(holder);
-        holder.bindView();
-        return holder;
+    protected DataViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        return new DataViewHolder(getSwipeItemView(parent));
     }
 ```
  - 重写onBind()方法，对你的控件进行操作
@@ -1073,8 +1100,9 @@ b）布局基本的使用方式如下：
         ...
     }
 ```
-#### 3>实现基础功能的侧滑按钮适配器SimpleSwipeRVAdapter
- - 如果你只需要用到基础的侧滑菜单功能，可以继承SimpleSwipeRVAdapter来开发
+#### 3>实现基础功能的侧滑按钮适配器SimpleSwipeRVAdapter<T, VH>
+ - 如果你只需要用到基础的侧滑菜单功能，可以继承SimpleSwipeRVAdapter<T, VH>来开发
+ - T为item里的数据类型，VH为继承SimpleSwipeViewHolder的ViewHolder对象
  - 重写getContentLayout()方法，将内容布局放入item
 ```
      @Override
@@ -1082,8 +1110,7 @@ b）布局基本的使用方式如下：
         return R.layout.content;
      }
 ```
- - 你自定义的ViewHolder需要继承SimpleSwipeViewHolder，然后再重写bindView()方法，在方法里去获取你的控件对象
- （如果你使用ButterKnife，你也可以在该方法里去绑定控件ButterKnife.bind(this, itemView);）
+ - 你自定义的ViewHolder需要继承SimpleSwipeViewHolder，然后再重写bindView()方法，在方法里去获取你的控件对象。如果你使用ButterKnife，你也可以在该方法里去绑定控件。
 ```
     protected class DataViewHolder extends SimpleSwipeViewHolder{
  
@@ -1097,26 +1124,21 @@ b）布局基本的使用方式如下：
         protected void bindView(){
             super.bindView();
             customView = itemView.findViewById(R.id.custom_view);
- 
+            // ButterKnife.bind(this, itemView);
         }
     }
 ```
- - 重写onCreateViewHolder()方法，new出你自定义的DataViewHolder对象，然后将对象传入configSwipeViewHolder()方法进行配置。
-然后调用对象的bindView()方法去绑定控件。
+ - 重写getViewHolder()方法，new出你自定义的DataViewHolder对象，传入getSwipeItemView(parent)方法即可。
 ```
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DataViewHolder holder = new DataViewHolder(getSwipeItemView(parent));
-        configSwipeViewHolder(holder);
-        holder.bindView();
-        return holder;
+    protected DataViewHolder getViewHolder(ViewGroup parent, int viewType) {
+        return new DataViewHolder(getSwipeItemView(parent));
     }
-
 ```
  - 重写onBindContent()方法，对你的控件进行操作
 ```
     @Override
-    protected void onBindContent(RecyclerView.ViewHolder holder, int position) {
+    protected void onBindContent(VH holder, int position) {
         ...
     }
 ```
