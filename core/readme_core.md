@@ -16,7 +16,7 @@
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
     dependencies {
-        compile 'com.android.support:appcompat-v7:26.1.0'
+        compile 'com.android.support:appcompat-v7:26.1.0' 
         compile 'com.android.support:design:26.1.0'
         compile 'com.android.support:recyclerview-v7:26.1.0'
         compile 'com.android.support:cardview-v7:26.1.0'
