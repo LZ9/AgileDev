@@ -175,7 +175,7 @@ public class PhotoPickerActivity extends AbsActivity{
                         return BitmapUtils.rotateBitmap(getArrowBitmap(colorRes), 90);
                     }
                 })
-                .compose(RxUtils.<Bitmap>io_main())
+                .compose(RxUtils.<Bitmap>ioToMainObservable())
                 .subscribe(new Consumer<Bitmap>() {
                     @Override
                     public void accept(Bitmap bitmap) throws Exception {
@@ -196,7 +196,7 @@ public class PhotoPickerActivity extends AbsActivity{
                         return getArrowBitmap(colorRes);
                     }
                 })
-                .compose(RxUtils.<Bitmap>io_main())
+                .compose(RxUtils.<Bitmap>ioToMainObservable())
                 .subscribe(new Consumer<Bitmap>() {
                     @Override
                     public void accept(Bitmap bitmap) throws Exception {

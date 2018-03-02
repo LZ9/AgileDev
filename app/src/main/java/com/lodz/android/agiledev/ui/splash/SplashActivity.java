@@ -2,6 +2,7 @@ package com.lodz.android.agiledev.ui.splash;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+import zlc.season.rxdownload3.core.DownloadConfig;
 
 /**
  * 启动页
@@ -145,6 +147,19 @@ public class SplashActivity extends AbsActivity{
         initCrashHandler();//初始化异常处理
         initACache();// 初始化缓存类
         jumpMainActivity();
+        initRxDownload(getContext());
+    }
+
+    private void initRxDownload(Context context) {
+        DownloadConfig.Builder builder = DownloadConfig.Builder.Companion.create(context.getApplicationContext())
+                .setFps(20) //设置更新频率
+                .setMaxMission(5)//设置同时下载数量
+                .enableAutoStart(true) //自动开始下载
+                .setDefaultPath(FileManager.getDownloadFolderPath()) //设置默认的下载地址
+                .enableDb(true) //启用数据库
+                .enableService(true) //启用Service
+                .enableNotification(true); //启用Notification
+        DownloadConfig.INSTANCE.init(builder);
     }
 
     /** 初始化异常处理 */

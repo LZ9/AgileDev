@@ -99,7 +99,7 @@ public class RetrofitTestActivity extends BaseActivity{
         ApiServiceImpl.get()// 本地数据
 //        ApiServiceManager.get().create(ApiService.class)// 网络数据
                 .postSpot("","")
-                .compose(RxUtils.<ResponseBean<SpotBean>>io_main())
+                .compose(RxUtils.<ResponseBean<SpotBean>>ioToMainObservable())
                 .compose(this.<ResponseBean<SpotBean>>bindUntilEvent(ActivityEvent.DESTROY))
 //                .compose(this.<ResponseBean>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new ProgressObserver<ResponseBean<SpotBean>>() {
@@ -131,7 +131,7 @@ public class RetrofitTestActivity extends BaseActivity{
         ApiServiceImpl.get()// 本地数据
 //        ApiServiceManager.get().create(ApiService.class)// 网络数据
                 .getSpot("","")
-                .compose(RxUtils.<ResponseBean<SpotBean>>io_main())
+                .compose(RxUtils.<ResponseBean<SpotBean>>ioToMainObservable())
                 .compose(this.<ResponseBean<SpotBean>>bindUntilEvent(ActivityEvent.DESTROY))
 //                .compose(this.<ResponseBean>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new ProgressObserver<ResponseBean<SpotBean>>() {
@@ -163,7 +163,7 @@ public class RetrofitTestActivity extends BaseActivity{
         ApiServiceImpl.get()// 本地数据
 //        ApiServiceManager.get().create(ApiService.class)// 网络数据
                 .querySpot(new SpotRequestBean("", "").createRequestBody())
-                .compose(RxUtils.<ResponseBean<List<SpotBean>>>io_main())
+                .compose(RxUtils.<ResponseBean<List<SpotBean>>>ioToMainObservable())
                 .compose(this.<ResponseBean<List<SpotBean>>>bindUntilEvent(ActivityEvent.DESTROY))
 //                .compose(this.<ResponseBean>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new ProgressObserver<ResponseBean<List<SpotBean>>>() {

@@ -335,7 +335,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
     }
 
     private Observable<List<String>> requestData(int page) {
-        return mDataModule.requestData(page).compose(RxUtils.<List<String>>io_main());
+        return mDataModule.requestData(page).compose(RxUtils.<List<String>>ioToMainObservable());
     }
 
     /** 显示布局的PopupWindow */

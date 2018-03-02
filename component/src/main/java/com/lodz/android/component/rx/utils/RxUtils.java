@@ -8,9 +8,13 @@ import com.lodz.android.component.rx.exception.RxException;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.BitmapUtils;
 
+import org.reactivestreams.Publisher;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -26,10 +30,19 @@ import io.reactivex.schedulers.Schedulers;
 public class RxUtils {
 
     /** 在异步线程发起，在主线程订阅 */
-    public static <T> ObservableTransformer<T, T> io_main() {
+    public static <T> ObservableTransformer<T, T> ioToMainObservable() {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    public static <T> FlowableTransformer<T, T> ioToMainFlowable() {
+        return new FlowableTransformer<T, T>() {
+            @Override
+            public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };

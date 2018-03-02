@@ -351,11 +351,18 @@ ProgressObserver继承RxObserver，增加了一个加载等待框的封装，如
 ### 4）RxUtils
 a）异步线程发起主线程订阅的方法
 ```
-    .compose(RxUtils.<T>io_main())
+    .compose(RxUtils.<T>ioToMainObservable())
+    .compose(RxUtils.<T>ioToMainFlowable())
 ```
 b）在订阅者的onError中去获取提示语
 ```
     RxUtils.getExceptionTips(throwable, isNetwork, defaultTips)
+    RxUtils.getNetworkExceptionTips(throwable, isNetwork, defaultTips)//只获取网络提示语
+```
+c）把图片路径转为base64
+```
+    Observable<String> decodePathToBase64(final String path, final int widthPx, final int heightPx)//转单张
+    Observable<List<String>> decodePathToBase64(final List<String> paths, final int widthPx, final int heightPx)//转多张
 ```
 
 ## 6、RecyclerView相关
