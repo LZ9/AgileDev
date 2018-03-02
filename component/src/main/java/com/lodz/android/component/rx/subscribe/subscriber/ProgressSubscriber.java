@@ -20,24 +20,25 @@ import org.reactivestreams.Subscription;
  * Created by zhouL on 2017/3/1.
  */
 public abstract class ProgressSubscriber<T> extends RxSubscriber<T>{
+
     @Override
-    public void onRxSubscribe(Subscription s) {
+    public final void onRxSubscribe(Subscription s) {
         showProgress();
         onPgSubscribe(s);
     }
 
     @Override
-    public void onRxNext(T t) {
+    public final void onRxNext(T t) {
         onPgNext(t);
     }
 
     @Override
-    public void onRxError(Throwable e, boolean isNetwork) {
+    public final void onRxError(Throwable e, boolean isNetwork) {
         onPgError(e, isNetwork);
     }
 
     @Override
-    public void onRxComplete() {
+    public final void onRxComplete() {
         dismissProgress();
         onPgComplete();
     }
@@ -172,24 +173,24 @@ public abstract class ProgressSubscriber<T> extends RxSubscriber<T>{
     }
 
     @Override
-    protected void onErrorEnd() {// 抛异常关闭
+    public void onErrorEnd() {// 抛异常关闭
         super.onErrorEnd();
         dismissProgress();
     }
 
     @Override
-    protected void onCancel() {// 开发者关闭
+    public void onCancel() {// 开发者关闭
         dismissProgress();
     }
 
-    public abstract void onPgSubscribe(Subscription s);
+    public void onPgSubscribe(Subscription s){}
 
     public abstract void onPgNext(T t);
 
     public abstract void onPgError(Throwable e, boolean isNetwork);
 
-    public abstract void onPgComplete();
+    public void onPgComplete(){}
 
     /** 用户取消回调 */
-    protected void onPgCancel() {}
+    public void onPgCancel() {}
 }

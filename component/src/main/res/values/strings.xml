@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name">Component</string>
 
-    <!-- 网络异常提示语 -->
-    <string name="component_exception_network_no_connect_tips">网络尚未连接，请检查您的网络状态</string>
-    <string name="component_exception_network_time_out_tips">网络连接超时，请稍后再试</string>
-    <string name="component_exception_api_error_tips">数据接口异常，请稍后再试</string>
-
     <!-- 数据状态提示语 -->
     <string name="component_loading">加载中…</string>
     <string name="component_no_data">暂无数据…</string>

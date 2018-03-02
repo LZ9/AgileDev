@@ -1,8 +1,7 @@
 package com.lodz.android.component.rx.subscribe.subscriber;
 
 import com.lodz.android.component.rx.exception.DataException;
-import com.lodz.android.component.rx.exception.NetworkNoConnException;
-import com.lodz.android.component.rx.exception.NetworkTimeOutException;
+import com.lodz.android.component.rx.exception.NetworkException;
 import com.lodz.android.component.rx.exception.RxException;
 import com.lodz.android.component.rx.exception.RxExceptionFactory;
 import com.lodz.android.component.rx.status.ResponseStatus;
@@ -14,39 +13,32 @@ import org.reactivestreams.Subscription;
  * Created by zhouL on 2017/2/6.
  */
 public abstract class RxSubscriber<T> extends BaseSubscriber<T> {
+
     @Override
-    public void onBaseSubscribe(Subscription s) {
+    public final void onBaseSubscribe(Subscription s) {
         onRxSubscribe(s);
     }
 
     @Override
-    public void onBaseNext(T t) {
+    public final void onBaseComplete() {
+        onRxComplete();
+    }
+
+    @Override
+    public final void onBaseError(Throwable t) {
+        RxException exception = RxExceptionFactory.create(t);
+        onRxError(exception, exception instanceof NetworkException);
+        onErrorEnd();
+    }
+
+    @Override
+    public final void onBaseNext(T t) {
         try {
             checkError(t);
             onRxNext(t);
         } catch (Exception e) {
-            e.printStackTrace();
             onError(e);
         }
-    }
-
-    @Override
-    public void onBaseError(Throwable t) {
-        try {
-            RxException exception = RxExceptionFactory.create(t);
-            exception.printStackTrace();
-            onRxError(exception, exception instanceof NetworkNoConnException || exception instanceof NetworkTimeOutException);
-        } catch (Exception e) {
-            e.printStackTrace();
-            onRxError(e, false);
-        } finally {
-            onErrorEnd();
-        }
-    }
-
-    @Override
-    public void onBaseComplete() {
-        onRxComplete();
     }
 
     /** 核对数据 */
@@ -65,14 +57,15 @@ public abstract class RxSubscriber<T> extends BaseSubscriber<T> {
         }
     }
 
-    public abstract void onRxSubscribe(Subscription s);
+    public void onRxSubscribe(Subscription s){}
 
     public abstract void onRxNext(T t);
 
     public abstract void onRxError(Throwable e, boolean isNetwork);
 
-    public abstract void onRxComplete();
+    public void onRxComplete(){}
 
     /** onError执行完后会调用该方法 */
-    protected void onErrorEnd() {}
+    public void onErrorEnd() {}
+
 }

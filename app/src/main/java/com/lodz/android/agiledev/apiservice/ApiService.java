@@ -5,6 +5,7 @@ import com.lodz.android.agiledev.bean.base.ResponseBean;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -33,4 +34,9 @@ public interface ApiService {
     /** 自定义方式获取景点数据 */
     @POST("spot")
     Observable<ResponseBean<List<SpotBean>>> querySpot(@Body RequestBody requestBody);
+
+    /** post方式获取景点数据 */
+    @FormUrlEncoded
+    @POST("spot")
+    Flowable<ResponseBean<SpotBean>> postSpotFlowable(@Field("id") String id, @Field("output") String output);
 }

@@ -15,6 +15,7 @@ import com.lodz.android.agiledev.bean.base.ResponseBean;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
+import com.lodz.android.component.rx.subscribe.subscriber.ProgressSubscriber;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -23,7 +24,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Retrofit测试类
@@ -46,11 +46,13 @@ public class RetrofitTestActivity extends BaseActivity{
     /** 自定义请求按钮 */
     @BindView(R.id.custom_btn)
     Button mCustomBtn;
+    /** 背压请求按钮 */
+    @BindView(R.id.flowable_btn)
+    Button mFlowableBtn;
 
     /** 数据结果 */
     @BindView(R.id.result)
     TextView mResultTv;
-
 
     @Override
     protected int getLayoutId() {
@@ -75,6 +77,7 @@ public class RetrofitTestActivity extends BaseActivity{
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearResult();
                 requestPost();
             }
         });
@@ -82,6 +85,7 @@ public class RetrofitTestActivity extends BaseActivity{
         mGetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearResult();
                 requestGet();
             }
         });
@@ -89,9 +93,24 @@ public class RetrofitTestActivity extends BaseActivity{
         mCustomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearResult();
                 requestCustom();
             }
         });
+
+        mFlowableBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearResult();
+                requestFlowableTest();
+            }
+        });
+    }
+
+
+    /** 清空结果 */
+    private void clearResult(){
+        mResultTv.setText("");
     }
 
     /** post请求 */
@@ -104,11 +123,6 @@ public class RetrofitTestActivity extends BaseActivity{
 //                .compose(this.<ResponseBean>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new ProgressObserver<ResponseBean<SpotBean>>() {
                     @Override
-                    public void onPgSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
                     public void onPgNext(ResponseBean<SpotBean> responseBean) {
                         SpotBean spotBean = responseBean.data;
                         mResultTv.setText(spotBean.spotName + "\n" + spotBean.star);
@@ -120,10 +134,11 @@ public class RetrofitTestActivity extends BaseActivity{
                     }
 
                     @Override
-                    public void onPgComplete() {
-
+                    public void onPgCancel() {
+                        super.onPgCancel();
+                        mResultTv.setText("取消请求");
                     }
-                }.create(getContext(), "正在查询", false));
+                }.create(getContext(), "正在查询", true));
     }
 
     /** get请求 */
@@ -136,11 +151,6 @@ public class RetrofitTestActivity extends BaseActivity{
 //                .compose(this.<ResponseBean>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new ProgressObserver<ResponseBean<SpotBean>>() {
                     @Override
-                    public void onPgSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
                     public void onPgNext(ResponseBean<SpotBean> responseBean) {
                         SpotBean spotBean = responseBean.data;
                         mResultTv.setText(spotBean.spotName + "\n" + spotBean.star);
@@ -148,11 +158,6 @@ public class RetrofitTestActivity extends BaseActivity{
 
                     @Override
                     public void onPgError(Throwable e, boolean isNetwork) {
-
-                    }
-
-                    @Override
-                    public void onPgComplete() {
 
                     }
                 }.create(getContext(), "正在查询", false));
@@ -167,11 +172,6 @@ public class RetrofitTestActivity extends BaseActivity{
                 .compose(this.<ResponseBean<List<SpotBean>>>bindUntilEvent(ActivityEvent.DESTROY))
 //                .compose(this.<ResponseBean>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new ProgressObserver<ResponseBean<List<SpotBean>>>() {
-                    @Override
-                    public void onPgSubscribe(Disposable d) {
-
-                    }
-
                     @Override
                     public void onPgNext(ResponseBean<List<SpotBean>> responseBean) {
                         List<SpotBean> list = responseBean.data;
@@ -188,14 +188,37 @@ public class RetrofitTestActivity extends BaseActivity{
                     public void onPgError(Throwable e, boolean isNetwork) {
 
                     }
-
-                    @Override
-                    public void onPgComplete() {
-
-                    }
                 }.create(getContext(), "正在查询", false));
     }
 
+    /** 背压请求 */
+    private void requestFlowableTest() {
+        ApiServiceImpl.get()
+                .postSpotFlowable("","")
+                .compose(RxUtils.<ResponseBean<SpotBean>>ioToMainFlowable())
+                .compose(this.<ResponseBean<SpotBean>>bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new ProgressSubscriber<ResponseBean<SpotBean>>() {
+
+                    @Override
+                    public void onPgNext(ResponseBean<SpotBean> responseBean) {
+                        SpotBean spotBean = responseBean.data;
+                        mResultTv.setText(spotBean.spotName + "\n" + spotBean.star);
+                    }
+
+                    @Override
+                    public void onPgError(Throwable e, boolean isNetwork) {
+                        mResultTv.setText(RxUtils.getExceptionTips(e, isNetwork, "测试失败"));
+                    }
+
+                    @Override
+                    public void onPgCancel() {
+                        super.onPgCancel();
+                        mResultTv.setText("取消请求");
+                    }
+                }.create(getContext(), "正在查询", true));
+
+
+    }
 
     @Override
     protected void initData() {

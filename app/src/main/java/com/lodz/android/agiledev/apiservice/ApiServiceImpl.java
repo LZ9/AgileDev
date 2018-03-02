@@ -7,9 +7,14 @@ import com.lodz.android.agiledev.bean.base.ResponseBean;
 import com.lodz.android.core.utils.ReflectUtils;
 import com.lodz.android.core.utils.UiHandler;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -61,17 +66,28 @@ public class ApiServiceImpl implements ApiService{
     }
 
     @Override
-    public Observable<ResponseBean<SpotBean>> postSpot(String id, String output) {
+    public Observable<ResponseBean<SpotBean>> postSpot(final String id, String output) {
         return Observable.create(new ObservableOnSubscribe<ResponseBean<SpotBean>>() {
             @Override
             public void subscribe(final ObservableEmitter<ResponseBean<SpotBean>> emitter) throws Exception {
                 if (emitter.isDisposed()){
                     return;
                 }
+                if (id.equals("network")){
+                    throw new SocketTimeoutException();
+                }
                 try {
                     UiHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            if (id.equals("fail")){
+                                ResponseBean<SpotBean> responseBean = new ResponseBean<>();
+                                responseBean.code = ResponseBean.Fail;
+                                responseBean.msg = "fail";
+                                emitter.onNext(responseBean);
+                                emitter.onComplete();
+                                return;
+                            }
                             ResponseBean<SpotBean> responseBean = new ResponseBean<>();
                             responseBean.code = ResponseBean.SUCCESS;
                             responseBean.msg = "success";
@@ -121,6 +137,48 @@ public class ApiServiceImpl implements ApiService{
         });
     }
 
+    @Override
+    public Flowable<ResponseBean<SpotBean>> postSpotFlowable(final String id, String output) {
+        return Flowable.create(new FlowableOnSubscribe<ResponseBean<SpotBean>>() {
+            @Override
+            public void subscribe(final FlowableEmitter<ResponseBean<SpotBean>> emitter) throws Exception {
+                if (emitter.isCancelled()){
+                    return;
+                }
+                if (id.equals("network")){
+                    throw new SocketTimeoutException();
+                }
+                try {
+                    UiHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (id.equals("fail")){
+                                ResponseBean<SpotBean> responseBean = new ResponseBean<>();
+                                responseBean.code = ResponseBean.Fail;
+                                responseBean.msg = "fail";
+                                emitter.onNext(responseBean);
+                                emitter.onComplete();
+                                return;
+                            }
+                            ResponseBean<SpotBean> responseBean = new ResponseBean<>();
+                            responseBean.code = ResponseBean.SUCCESS;
+                            responseBean.msg = "success";
+                            responseBean.data = new SpotBean();
+                            responseBean.data.spotName = "鼓浪屿";
+                            responseBean.data.star = "★★★★★";
+
+                            emitter.onNext(responseBean);
+                            emitter.onComplete();
+                        }
+                    }, 2000);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    emitter.onError(e);
+                }
+            }
+        }, BackpressureStrategy.BUFFER);
+    }
+
     /** 将RequestBody的请求内容取出 */
     private String getJsonByRequestBody(RequestBody requestBody) {
         try {
@@ -138,37 +196,4 @@ public class ApiServiceImpl implements ApiService{
         }
         return "";
     }
-
-//    /** 人员核查历史明细 */
-//    @Override
-//    public Observable<ResponseBean<PersonDetailBean>> getPersonHistoryDetail(@Body final RequestBody requestBody) {
-//        return Observable.create(new ObservableOnSubscribe<ResponseBean<PersonDetailBean>>() {
-//            @Override
-//            public void subscribe(@NonNull ObservableEmitter<ResponseBean<PersonDetailBean>> emitter) throws Exception {
-//                if (emitter.isDisposed()){
-//                    return;
-//                }
-//                try {
-//                    String reuslt = StRequestHelper.post(App.get(), StApiConstant.GET_PERSON_RECORD_APP, getJsonByRequestBody(requestBody));
-//                    ResponseBean<PersonDetailBean> responseBean = JSON.parseObject(reuslt, new TypeReference<ResponseBean<PersonDetailBean>>(){});
-//                    if (emitter.isDisposed()){
-//                        return;
-//                    }
-//                    if (responseBean == null || !responseBean.isSuccess()){
-//                        DataException dataException = new DataException("data error");
-//                        if (responseBean != null){
-//                            dataException.setData(responseBean);
-//                        }
-//                        emitter.onError(dataException);
-//                        return;
-//                    }
-//                    emitter.onNext(responseBean);
-//                    emitter.onComplete();
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                    emitter.onError(e);
-//                }
-//            }
-//        });
-//    }
 }

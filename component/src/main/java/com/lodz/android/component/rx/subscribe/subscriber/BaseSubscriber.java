@@ -20,29 +20,31 @@ public abstract class BaseSubscriber<T> implements Subscriber<T> {
     private Subscription mSubscription;
 
     @Override
-    public void onSubscribe(Subscription s) {
+    public final void onSubscribe(Subscription s) {
         mSubscription = s;
+        if (isAutoSubscribe()){
+            request(1);
+        }
         onBaseSubscribe(s);
     }
 
     @Override
-    public void onNext(T t) {
+    public final void onNext(T t) {
         onBaseNext(t);
     }
 
     @Override
-    public void onError(Throwable t) {
-        try {
-            printTagLog(t);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public final void onError(Throwable t) {
+        if (t != null){
+            t.printStackTrace();
         }
+        printTagLog(t);
         onBaseError(t);
     }
 
     /** 打印标签日志 */
     private void printTagLog(Throwable t) {
-        if (BaseApplication.get() == null){
+        if (BaseApplication.get() == null || t == null){
             return;
         }
         Object o = AppUtils.getMetaData(BaseApplication.get(), ERROR_TAG);
@@ -55,7 +57,7 @@ public abstract class BaseSubscriber<T> implements Subscriber<T> {
     }
 
     @Override
-    public void onComplete() {
+    public final void onComplete() {
         onBaseComplete();
     }
 
@@ -67,6 +69,7 @@ public abstract class BaseSubscriber<T> implements Subscriber<T> {
         mSubscription = null;
     }
 
+    /** 停止订阅 */
     public void cancel(){
         if (mSubscription != null){
             mSubscription.cancel();
@@ -74,19 +77,24 @@ public abstract class BaseSubscriber<T> implements Subscriber<T> {
         }
     }
 
+    /** 请求订阅 */
     public void request(long n){
         if (mSubscription != null){
             mSubscription.request(n);
         }
     }
 
-    public abstract void onBaseSubscribe(Subscription s);
+    public void onBaseSubscribe(Subscription s){}
 
     public abstract void onBaseNext(T t);
 
     public abstract void onBaseError(Throwable e);
 
-    public abstract void onBaseComplete();
+    public void onBaseComplete(){}
     /** 取消订阅时回调 */
-    protected void onCancel(){}
+    public void onCancel(){}
+    /** 是否自动订阅，默认是，否的时候需要自己调用request()方法订阅 */
+    public boolean isAutoSubscribe(){
+        return true;
+    }
 }

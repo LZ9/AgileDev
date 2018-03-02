@@ -20,29 +20,28 @@ public abstract class BaseObserver<T> implements Observer<T> {
     private Disposable mDisposable;
 
     @Override
-    public void onSubscribe(Disposable d) {
+    public final void onSubscribe(Disposable d) {
         this.mDisposable = d;
         onBaseSubscribe(d);
     }
 
     @Override
-    public void onNext(T t) {
+    public final void onNext(T t) {
         onBaseNext(t);
     }
 
     @Override
-    public void onError(Throwable t) {
-        try {
-            printTagLog(t);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public final void onError(Throwable t) {
+        if (t != null){
+            t.printStackTrace();
         }
+        printTagLog(t);
         onBaseError(t);
     }
 
     /** 打印标签日志 */
     private void printTagLog(Throwable t) {
-        if (BaseApplication.get() == null){
+        if (BaseApplication.get() == null || t == null){
             return;
         }
         Object o = AppUtils.getMetaData(BaseApplication.get(), ERROR_TAG);
@@ -54,7 +53,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
         }
     }
     @Override
-    public void onComplete() {
+    public final void onComplete() {
         onBaseComplete();
     }
 
@@ -66,6 +65,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
         mDisposable = null;
     }
 
+    /** 停止订阅 */
     public void dispose(){
         if (mDisposable != null){
             mDisposable.dispose();
@@ -73,13 +73,13 @@ public abstract class BaseObserver<T> implements Observer<T> {
         }
     }
 
-    public abstract void onBaseSubscribe(Disposable d);
+    public void onBaseSubscribe(Disposable d){}
 
     public abstract void onBaseNext(T t);
 
     public abstract void onBaseError(Throwable e);
 
-    public abstract void onBaseComplete();
+    public void onBaseComplete(){}
     /** 取消订阅时回调 */
-    protected void onDispose(){}
+    public void onDispose(){}
 }

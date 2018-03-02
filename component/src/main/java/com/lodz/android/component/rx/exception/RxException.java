@@ -1,6 +1,7 @@
 package com.lodz.android.component.rx.exception;
 
-import android.text.TextUtils;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 /**
  * RX异常基类
@@ -12,7 +13,6 @@ public class RxException extends Exception{
     private String mErrorMsg = "";
 
     public RxException(String errorMsg) {
-        super();
         this.mErrorMsg = errorMsg;
     }
 
@@ -21,7 +21,7 @@ public class RxException extends Exception{
         this.mErrorMsg = errorMsg;
     }
 
-    public RxException(String message, Throwable cause, String errorMsg) {
+    public RxException(String message, String errorMsg, Throwable cause) {
         super(message, cause);
         this.mErrorMsg = errorMsg;
     }
@@ -31,8 +31,14 @@ public class RxException extends Exception{
         this.mErrorMsg = errorMsg;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public RxException(String message, String errorMsg, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.mErrorMsg = errorMsg;
+    }
+
     /** 获取自定义异常信息 */
     public String getErrorMsg() {
-        return TextUtils.isEmpty(mErrorMsg) ? getMessage() : mErrorMsg;
+        return mErrorMsg;
     }
 }

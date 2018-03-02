@@ -22,23 +22,23 @@ import io.reactivex.disposables.Disposable;
 public abstract class ProgressObserver<T> extends RxObserver<T>{
 
     @Override
-    public void onRxSubscribe(Disposable d) {
+    public final void onRxSubscribe(Disposable d) {
         showProgress();
         onPgSubscribe(d);
     }
 
     @Override
-    public void onRxNext(T t) {
+    public final void onRxNext(T t) {
         onPgNext(t);
     }
 
     @Override
-    public void onRxError(Throwable e, boolean isNetwork) {
+    public final void onRxError(Throwable e, boolean isNetwork) {
         onPgError(e, isNetwork);
     }
 
     @Override
-    public void onRxComplete() {
+    public final void onRxComplete() {
         dismissProgress();
         onPgComplete();
     }
@@ -174,24 +174,24 @@ public abstract class ProgressObserver<T> extends RxObserver<T>{
     }
 
     @Override
-    protected void onErrorEnd() {// 抛异常关闭
+    public void onErrorEnd() {// 抛异常关闭
         super.onErrorEnd();
         dismissProgress();
     }
 
     @Override
-    protected void onDispose() {// 开发者取消
+    public void onDispose() {// 开发者取消
         dismissProgress();
     }
 
-    public abstract void onPgSubscribe(Disposable d);
+    public void onPgSubscribe(Disposable d){}
 
     public abstract void onPgNext(T t);
 
     public abstract void onPgError(Throwable e, boolean isNetwork);
 
-    public abstract void onPgComplete();
+    public void onPgComplete(){}
 
     /** 用户取消回调 */
-    protected void onPgCancel() {}
+    public void onPgCancel() {}
 }

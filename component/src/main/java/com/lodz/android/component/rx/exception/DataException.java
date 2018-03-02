@@ -1,6 +1,9 @@
 package com.lodz.android.component.rx.exception;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.lodz.android.component.rx.status.ResponseStatus;
 
 /**
@@ -21,12 +24,17 @@ public class DataException extends RxException {
         super(message, errorMsg);
     }
 
-    public DataException(String message, Throwable cause, String errorMsg) {
-        super(message, cause, errorMsg);
+    public DataException(String message, String errorMsg, Throwable cause) {
+        super(message, errorMsg, cause);
     }
 
     public DataException(Throwable cause, String errorMsg) {
         super(cause, errorMsg);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public DataException(String message, String errorMsg, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, errorMsg, cause, enableSuppression, writableStackTrace);
     }
 
     public ResponseStatus getData() {

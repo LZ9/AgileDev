@@ -55,6 +55,9 @@ public class RxUtils {
      * @param defaultTips 默认提示语
      */
     public static String getExceptionTips(Throwable e, boolean isNetwork, String defaultTips){
+        if (e == null){
+            return defaultTips;
+        }
         if (isNetwork && e instanceof RxException) {
             RxException exception = (RxException) e;
             return exception.getErrorMsg();
@@ -75,6 +78,9 @@ public class RxUtils {
      * @param defaultTips 默认提示语
      */
     public static String getNetworkExceptionTips(Throwable e, boolean isNetwork, String defaultTips){
+        if (e == null){
+            return defaultTips;
+        }
         if (isNetwork && e instanceof RxException) {
             RxException exception = (RxException) e;
             return exception.getErrorMsg();
