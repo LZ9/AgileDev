@@ -46,20 +46,36 @@ public class StringUtils {
     /**
      * 根据分隔符将字符串转为列表
      * @param source 字符串
-     * @param Separator 分隔符
+     * @param separator 分隔符
      */
-    public static List<String> getListBySeparator(String source, String Separator) {
+    public static List<String> getListBySeparator(String source, String separator) {
         List<String> list = new ArrayList<>();
-        while (source.contains(Separator)){
-            String value = source.substring(0, source.indexOf(Separator));
+        while (source.contains(separator)){
+            String value = source.substring(0, source.indexOf(separator));
             if (!TextUtils.isEmpty(value)){
                 list.add(value);
             }
-            source = source.substring(source.indexOf(Separator)+1, source.length());
+            source = source.substring(source.indexOf(separator)+1, source.length());
         }
         if (!TextUtils.isEmpty(source)){
             list.add(source);
         }
         return list;
+    }
+
+    /**
+     * 根据分隔符组装列表元素
+     * @param list 列表
+     * @param separator 分隔符
+     */
+    public static String getStringBySeparator(List<String> list, String separator) {
+        String result = "";
+        if (ArrayUtils.isEmpty(list)){
+            return result;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            result = result + list.get(i) + ((i == (list.size() -1)) ? "" : separator);
+        }
+        return result;
     }
 }
