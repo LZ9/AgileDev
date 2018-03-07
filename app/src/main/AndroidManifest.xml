@@ -295,6 +295,14 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.rxjava.RxTestActivity"
+            android:label="Rxjava测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
     </application>
 
 </manifest>

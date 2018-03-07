@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/get_cache_btn"
+        android:layout_width="wrap_content"
+        android:text="从磁盘、内存缓存中 获取缓存数据"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
