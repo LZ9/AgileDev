@@ -51,6 +51,7 @@ import com.lodz.android.core.utils.SelectorUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -535,7 +536,7 @@ public class PhotoPickerActivity extends AbsActivity{
         // 设置系统相机拍照后的输出路径
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(), mPickerBean.authority, FileUtils.createFile(mTempFilePath)));
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(), mPickerBean.authority, new File(mTempFilePath)));
             }catch (Exception e){
                 e.printStackTrace();
                 ToastUtils.showShort(getContext(), R.string.component_photo_temp_file_fail);

@@ -1,7 +1,11 @@
 package com.lodz.android.component.rx.utils;
 
 import android.graphics.Bitmap;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.TextView;
 
 import com.lodz.android.component.rx.exception.DataException;
 import com.lodz.android.component.rx.exception.RxException;
@@ -12,6 +16,7 @@ import org.reactivestreams.Publisher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
@@ -39,6 +44,7 @@ public class RxUtils {
         };
     }
 
+    /** 在异步线程发起，在主线程订阅 */
     public static <T> FlowableTransformer<T, T> ioToMainFlowable() {
         return new FlowableTransformer<T, T>() {
             @Override
@@ -174,6 +180,68 @@ public class RxUtils {
                     e.printStackTrace();
                     emitter.onError(e);
                 }
+            }
+        });
+    }
+
+    /**
+     * 防抖点击（默认1秒内）
+     * @param view 控件
+     */
+    public static Observable<View> viewClick(final View view){
+        return viewClick(view, 1, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 防抖点击
+     * @param view 控件
+     * @param windowDuration 某段时间内
+     * @param unit 时间单位
+     */
+    public static Observable<View> viewClick(final View view, long windowDuration, TimeUnit unit){
+        return Observable.create(new ObservableOnSubscribe<View>() {
+            @Override
+            public void subscribe(final ObservableEmitter<View> emitter) throws Exception {
+                if (emitter.isDisposed()){
+                    return;
+                }
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        emitter.onNext(v);
+                    }
+                });
+            }
+        }).throttleFirst(windowDuration, unit);
+    }
+
+    /**
+     * 文本变动
+     * @param textView 控件
+     */
+    public static Observable<CharSequence> textChanges(final TextView textView){
+        return Observable.create(new ObservableOnSubscribe<CharSequence>() {
+            @Override
+            public void subscribe(final ObservableEmitter<CharSequence> emitter) throws Exception {
+                if (emitter.isDisposed()){
+                    return;
+                }
+                textView.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        emitter.onNext(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
             }
         });
     }

@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/get_cache_btn"
-        android:layout_width="wrap_content"
-        android:text="从磁盘、内存缓存中 获取缓存数据"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/get_cache_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="从磁盘、内存缓存中 获取缓存数据" />
+
+        <Button
+            android:id="@+id/quick_click_btn"
+            android:layout_width="wrap_content"
+            android:text="快速点击"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/search_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入搜索字段"
+            android:inputType="text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/associate_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</ScrollView>
