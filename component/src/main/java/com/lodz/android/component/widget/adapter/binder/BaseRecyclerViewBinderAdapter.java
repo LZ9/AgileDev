@@ -1,6 +1,7 @@
 package com.lodz.android.component.widget.adapter.binder;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -12,6 +13,9 @@ import java.util.List;
  * Created by zhouL on 2017/1/17.
  */
 public class BaseRecyclerViewBinderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    /** 默认的Binder类型 */
+    private static final int DEFAULT_BINDER_TYPE = -1;
 
     /** RecyclerBinder列表 */
     private List<RecyclerBinder> mBinderList = new ArrayList<>();
@@ -31,20 +35,18 @@ public class BaseRecyclerViewBinderAdapter extends RecyclerView.Adapter<Recycler
         return getViewTypeByPosition(position);
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerBinder binder = getBinderByViewType(viewType);
         if (binder == null){
-            return null;
+            return new DefaultRecyclerBinder(getContext(), DEFAULT_BINDER_TYPE).onCreateViewHolder(parent);
         }
         return binder.onCreateViewHolder(parent);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder == null){
-            return;
-        }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         RecyclerBinder binder = getBinderByViewType(getItemViewType(position));
         if (binder == null){
             return;
@@ -98,7 +100,7 @@ public class BaseRecyclerViewBinderAdapter extends RecyclerView.Adapter<Recycler
                 return binder.getViewType();
             }
         }
-        return -1;
+        return DEFAULT_BINDER_TYPE;
     }
 
     /**

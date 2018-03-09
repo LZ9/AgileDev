@@ -1,6 +1,7 @@
 package com.lodz.android.component.widget.adapter.recycler;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -54,8 +55,9 @@ public abstract class BaseHeaderFooterRVAdapter<H, T, F> extends BaseRecyclerVie
         return VIEW_TYPE_ITEM;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_HEADER){
             return getHeaderViewHolder(parent);
         }
@@ -269,7 +271,7 @@ public abstract class BaseHeaderFooterRVAdapter<H, T, F> extends BaseRecyclerVie
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
         if(manager instanceof GridLayoutManager) {// 网格布局时要优化加载排版
@@ -301,8 +303,9 @@ public abstract class BaseHeaderFooterRVAdapter<H, T, F> extends BaseRecyclerVie
         });
     }
 
+
     @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         adapterStaggeredGridLayoutManager(holder);
     }

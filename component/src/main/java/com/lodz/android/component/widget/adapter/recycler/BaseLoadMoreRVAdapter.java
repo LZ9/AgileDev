@@ -2,6 +2,7 @@ package com.lodz.android.component.widget.adapter.recycler;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -94,8 +95,9 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
         return false;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_LOAD_FAIL){
             return getLoadFailViewHolder(parent);
         }
@@ -144,7 +146,7 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     protected abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof BaseLoadMoreRVAdapter.LoadFinishViewHolder){
             showLoadFinish(holder);
         }else if (holder instanceof BaseLoadMoreRVAdapter.LoadingMoreViewHolder){
@@ -353,7 +355,7 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
         isGridLayoutManager = manager instanceof GridLayoutManager;// 网格布局时要优化加载排版
@@ -381,7 +383,7 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     }
 
     @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         adapterStaggeredGridLayoutManager(holder);
     }

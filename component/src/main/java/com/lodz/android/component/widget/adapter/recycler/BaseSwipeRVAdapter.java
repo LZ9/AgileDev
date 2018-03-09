@@ -2,6 +2,7 @@ package com.lodz.android.component.widget.adapter.recycler;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,9 @@ public abstract class BaseSwipeRVAdapter<T, VH extends SwipeViewHolder> extends 
         return 0;
     }
 
+    @NonNull
     @Override
-    public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         VH holder = getViewHolder(parent, viewType);
         configSwipeViewHolder(holder);
         holder.bindView();
