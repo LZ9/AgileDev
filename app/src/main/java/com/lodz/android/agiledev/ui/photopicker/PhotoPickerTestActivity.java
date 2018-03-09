@@ -328,7 +328,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
             @Override
             public void onDeletePic(String data, int position) {
                 mPicList.remove(data);
-                mNineGridView.setData(mPicList);
+                mNineGridView.removeData(position);
             }
 
             @Override

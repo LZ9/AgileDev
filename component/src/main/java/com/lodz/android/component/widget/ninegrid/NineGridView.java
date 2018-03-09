@@ -18,7 +18,7 @@ import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
 import com.lodz.android.component.R;
-import com.lodz.android.component.widget.adapter.decoration.RoundItemDecoration;
+import com.lodz.android.component.widget.adapter.decoration.GridItemDecoration;
 import com.lodz.android.core.utils.ArrayUtils;
 
 import java.util.ArrayList;
@@ -93,11 +93,7 @@ public class NineGridView extends FrameLayout{
 
     /** 设置装饰器 */
     private RecyclerView.ItemDecoration getItemDecoration() {
-        return RoundItemDecoration.create(getContext())
-                .setLeftDividerInt(1, Color.TRANSPARENT, Color.TRANSPARENT, 0)
-                .setTopDividerInt(1, Color.TRANSPARENT, Color.TRANSPARENT, 0)
-                .setRightDividerInt(1, Color.TRANSPARENT, Color.TRANSPARENT, 0)
-                .setBottomDividerInt(1, Color.TRANSPARENT, Color.TRANSPARENT, 0);
+        return GridItemDecoration.createDividerInt(getContext(), 1, Color.TRANSPARENT);
     }
 
     private void configLayout(AttributeSet attrs) {
@@ -213,6 +209,14 @@ public class NineGridView extends FrameLayout{
         }
         mAdapter.setData(mDataList);
         mAdapter.notifyDataSetChanged();
+    }
+
+    /** 删除数据 */
+    public void removeData(int position) {
+        if (mAdapter == null || position >= mDataList.size()){
+            return;
+        }
+        mAdapter.notifyItemRemovedChanged(position);
     }
 
     /** 设置监听器 */

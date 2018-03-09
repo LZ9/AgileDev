@@ -38,9 +38,21 @@ public class GridItemDecoration extends BaseItemDecoration{
      * @param dp 间距
      * @param color 分割线颜色
      */
-    public static GridItemDecoration createDivider(Context context, @IntRange(from = 1) int dp, @ColorRes int color){
+    public static GridItemDecoration createDividerRes(Context context, @IntRange(from = 1) int dp, @ColorRes int color){
         GridItemDecoration decoration = new GridItemDecoration(context);
         decoration.setDividerRes(dp, color);
+        return decoration;
+    }
+
+    /**
+     * 创建网格分割线
+     * @param context 上下文
+     * @param dp 间距
+     * @param color 分割线颜色
+     */
+    public static GridItemDecoration createDividerInt(Context context, @IntRange(from = 1) int dp, @ColorInt int color){
+        GridItemDecoration decoration = new GridItemDecoration(context);
+        decoration.setDividerInt(dp, color);
         return decoration;
     }
 
