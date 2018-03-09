@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -73,5 +74,18 @@
         android:textColor="@color/color_00a0e9"
         android:textSize="15sp"
         tools:text="" />
+
+    <com.lodz.android.component.widget.ninegrid.NineGridView
+        android:id="@+id/nine_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isNeedAddBtn="true"
+        app:isShowDeleteBtn="true"
+        app:itemHigh="100dp"
+        app:maxPic="9"
+        app:spanCount="3">
+
+    </com.lodz.android.component.widget.ninegrid.NineGridView>
+
 
 </LinearLayout>

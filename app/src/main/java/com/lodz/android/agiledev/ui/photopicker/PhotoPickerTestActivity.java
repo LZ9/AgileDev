@@ -26,11 +26,14 @@ import com.lodz.android.component.photopicker.picker.PickerManager;
 import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.component.widget.ninegrid.NineGridView;
+import com.lodz.android.component.widget.ninegrid.OnNineGridViewListener;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.glide.impl.GlideBuilderBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,6 +77,12 @@ public class PhotoPickerTestActivity extends BaseActivity{
     /** 拍照 */
     @BindView(R.id.take_photo_btn)
     TextView mTakePhotoBtn;
+
+    /** 九宫格 */
+    @BindView(R.id.nine_grid_view)
+    NineGridView mNineGridView;
+    /** 图片数据 */
+    private List<String> mPicList = new ArrayList<>();
 
     /** 选择结果 */
     @BindView(R.id.pick_result)
@@ -259,6 +268,102 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setAuthority("com.lodz.android.agiledev.fileprovider")
                         .build()
                         .takePhoto(getContext());
+            }
+        });
+
+        // 九宫格
+        mNineGridView.setOnNineGridViewListener(new OnNineGridViewListener() {
+            @Override
+            public void onAddPic(int addCount) {
+                PickerManager
+                        .create()
+                        .setImgLoader(new PhotoLoader<String>() {
+                            @Override
+                            public void displayImg(Context context, String source, ImageView imageView) {
+                                ImageLoader.create(context)
+                                        .load(source)
+                                        .joinGlide()
+                                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                                        .setCenterCrop()
+                                        .into(imageView);
+                            }
+                        })
+                        .setPreviewImgLoader(new PhotoLoader<String>() {
+                            @Override
+                            public void displayImg(Context context, String source, ImageView imageView) {
+                                ImageLoader.create(context)
+                                        .load(source)
+                                        .joinGlide()
+                                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                                        .into(imageView);
+                            }
+                        })
+                        .setOnPhotoPickerListener(new OnPhotoPickerListener() {
+                            @Override
+                            public void onPickerSelected(List<String> photos) {
+                                mPicList.addAll(photos);
+                                mNineGridView.addData(photos);
+                            }
+                        })
+                        .setMaxCount(addCount)
+                        .setNeedCamera(true)
+                        .setNeedItemPreview(true)
+                        .setCameraSavePath(FileManager.getCacheFolderPath())
+                        .setPickerUIConfig(PickerUIConfig.createDefault())
+                        .setAuthority("com.lodz.android.agiledev.fileprovider")
+                        .build()
+                        .open(getContext());
+            }
+
+            @Override
+            public void onDisplayImg(Context context, String data, ImageView imageView) {
+                ImageLoader.create(context)
+                        .load(data)
+                        .joinGlide()
+                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                        .setCenterCrop()
+                        .into(imageView);
+            }
+
+            @Override
+            public void onDeletePic(String data, int position) {
+                mPicList.remove(data);
+                mNineGridView.setData(mPicList);
+            }
+
+            @Override
+            public void onClickPic(String data, int position) {
+                PreviewManager
+                        .<String>create()
+                        .setPosition(position)
+                        .setPageLimit(2)
+                        .setScale(true)
+                        .setBackgroundColor(R.color.black)
+                        .setStatusBarColor(R.color.black)
+//                        .setNavigationBarColor(R.color.black)
+                        .setPagerTextColor(R.color.white)
+                        .setPagerTextSize(14)
+                        .setShowPagerText(true)
+                        .setOnClickListener(new OnClickListener<String>() {
+                            @Override
+                            public void onClick(Context context, String source, int position, PreviewController controller) {
+                                controller.close();
+                            }
+                        })
+                        .setOnLongClickListener(new OnLongClickListener<String>() {
+                            @Override
+                            public void onLongClick(Context context, String source, int position, PreviewController controller) {
+                                ToastUtils.showShort(context, "long click " + position);
+                            }
+                        })
+                        .setImgLoader(new PhotoLoader<String>() {
+                            @Override
+                            public void displayImg(Context context, String source, ImageView imageView) {
+                                ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
+                            }
+                        })
+                        .build(mPicList)
+                        .open(getContext());
             }
         });
     }

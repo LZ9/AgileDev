@@ -17,6 +17,7 @@ import com.lodz.android.component.widget.adapter.animation.ScaleInAnimation;
 import com.lodz.android.component.widget.adapter.animation.SlideInBottomAnimation;
 import com.lodz.android.component.widget.adapter.animation.SlideInLeftAnimation;
 import com.lodz.android.component.widget.adapter.animation.SlideInRightAnimation;
+import com.lodz.android.core.utils.ArrayUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -218,18 +219,12 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemCount() {
-        if (mData == null){
-            return 0;
-        }
-        return mData.size();
+        return getDataSize();
     }
 
     /** 获取数据长度 */
     protected int getDataSize(){
-        if (mData == null){
-            return 0;
-        }
-        return mData.size();
+        return ArrayUtils.getSize(mData);
     }
 
     /**
