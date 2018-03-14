@@ -6,16 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:padding="10dp"
+        app:flexWrap="wrap"
+        app:justifyContent="space_around">
 
         <TextView
             android:id="@+id/pick_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@drawable/bg_3981ef_corners_8"
             android:elevation="8dp"
             android:gravity="center"
@@ -26,12 +28,14 @@
             android:text="@string/photo_picker_take"
             android:textColor="@color/white"
             android:textSize="16sp"
+            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
         <TextView
             android:id="@+id/preview_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_3981ef_corners_8"
@@ -44,12 +48,14 @@
             android:text="@string/photo_picker_preview"
             android:textColor="@color/white"
             android:textSize="16sp"
+            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
         <TextView
             android:id="@+id/take_photo_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_3981ef_corners_8"
@@ -62,18 +68,45 @@
             android:text="@string/photo_picker_take_photo"
             android:textColor="@color/white"
             android:textSize="16sp"
+            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/get_nine_pic_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_3981ef_corners_8"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:text="@string/photo_picker_get_nine_pic"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_flexGrow="1"
+            tools:targetApi="lollipop" />
 
-    <TextView
-        android:id="@+id/pick_result"
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="@color/color_00a0e9"
-        android:textSize="15sp"
-        tools:text="" />
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/pick_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/color_00a0e9"
+            android:textSize="15sp"
+            tools:text="" />
+
+    </ScrollView>
 
     <com.lodz.android.component.widget.ninegrid.NineGridView
         android:id="@+id/nine_grid_view"

@@ -77,6 +77,10 @@ public class PhotoPickerTestActivity extends BaseActivity{
     /** 拍照 */
     @BindView(R.id.take_photo_btn)
     TextView mTakePhotoBtn;
+    /** 获取九宫格数据 */
+    @BindView(R.id.get_nine_pic_btn)
+    TextView mGetNinePicBtn;
+
 
     /** 九宫格 */
     @BindView(R.id.nine_grid_view)
@@ -268,6 +272,17 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setAuthority("com.lodz.android.agiledev.fileprovider")
                         .build()
                         .takePhoto(getContext());
+            }
+        });
+
+        mGetNinePicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String photo : mPicList) {
+                    stringBuilder.append(photo).append("\n");
+                }
+                mPickResultTv.setText(stringBuilder.toString());
             }
         });
 

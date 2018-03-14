@@ -93,7 +93,7 @@
     <string name="photo_picker_take">选择照片</string>
     <string name="photo_picker_preview">预览图片</string>
     <string name="photo_picker_take_photo">拍照</string>
-    <string name="photo_picker_show_delete">显示删除按钮</string>
+    <string name="photo_picker_get_nine_pic">获取九宫格数据</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
