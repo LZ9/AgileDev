@@ -69,9 +69,7 @@ public class NineGridView extends FrameLayout{
 
     private void init(AttributeSet attrs) {
         findViews();
-        if (!isInEditMode()){
-            initRecyclerView();
-        }
+        initRecyclerView();
         configLayout(attrs);
     }
 

@@ -112,6 +112,7 @@
         android:id="@+id/nine_grid_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:isNeedAddBtn="true"
         app:isShowDeleteBtn="true"
         app:itemHigh="100dp"
@@ -119,6 +120,18 @@
         app:spanCount="3">
 
     </com.lodz.android.component.widget.ninegrid.NineGridView>
+
+    <com.lodz.android.component.widget.ninegrid.SimpleNineGridView
+        android:id="@+id/simple_nine_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isNeedAddBtn="true"
+        app:isShowDeleteBtn="true"
+        app:itemHigh="100dp"
+        app:maxPic="9"
+        app:spanCount="3">
+
+    </com.lodz.android.component.widget.ninegrid.SimpleNineGridView>
 
 
 </LinearLayout>

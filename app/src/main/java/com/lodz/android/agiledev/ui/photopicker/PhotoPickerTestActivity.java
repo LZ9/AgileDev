@@ -28,6 +28,8 @@ import com.lodz.android.component.photopicker.preview.PreviewManager;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.component.widget.ninegrid.NineGridView;
 import com.lodz.android.component.widget.ninegrid.OnNineGridViewListener;
+import com.lodz.android.component.widget.ninegrid.OnSimpleNineGridViewListener;
+import com.lodz.android.component.widget.ninegrid.SimpleNineGridView;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
@@ -87,6 +89,11 @@ public class PhotoPickerTestActivity extends BaseActivity{
     NineGridView mNineGridView;
     /** 图片数据 */
     private List<String> mPicList = new ArrayList<>();
+
+    /** 简单的九宫格实现 */
+    @BindView(R.id.simple_nine_grid_view)
+    SimpleNineGridView mSimpleNineGridView;
+
 
     /** 选择结果 */
     @BindView(R.id.pick_result)
@@ -275,11 +282,12 @@ public class PhotoPickerTestActivity extends BaseActivity{
             }
         });
 
+        // 获取九宫格数据
         mGetNinePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StringBuilder stringBuilder = new StringBuilder();
-                for (String photo : mPicList) {
+                for (String photo : mSimpleNineGridView.getPicData()) {
                     stringBuilder.append(photo).append("\n");
                 }
                 mPickResultTv.setText(stringBuilder.toString());
@@ -379,6 +387,38 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         })
                         .build(mPicList)
                         .open(getContext());
+            }
+        });
+
+        // 简单的九宫格实现
+        mSimpleNineGridView.setOnSimpleNineGridViewListener(new OnSimpleNineGridViewListener() {
+            @Override
+            public void onDisplayNineGridImg(Context context, String data, ImageView imageView) {
+                ImageLoader.create(context)
+                        .load(data)
+                        .joinGlide()
+                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                        .setCenterCrop()
+                        .into(imageView);
+            }
+
+            @Override
+            public void onDisplayPreviewImg(Context context, String data, ImageView imageView) {
+                ImageLoader.create(context)
+                        .load(data)
+                        .joinGlide()
+                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                        .into(imageView);
+            }
+
+            @Override
+            public void onDisplayPickerImg(Context context, String data, ImageView imageView) {
+                ImageLoader.create(context)
+                        .load(data)
+                        .joinGlide()
+                        .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
+                        .setCenterCrop()
+                        .into(imageView);
             }
         });
     }
