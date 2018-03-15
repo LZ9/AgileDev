@@ -16,13 +16,13 @@
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
     dependencies {
-        compile 'com.android.support:appcompat-v7:26.1.0' 
-        compile 'com.android.support:design:26.1.0'
-        compile 'com.android.support:recyclerview-v7:26.1.0'
-        compile 'com.android.support:cardview-v7:26.1.0'
-        compile 'com.android.support:support-annotations:27.0.2'
+        compile 'com.android.support:appcompat-v7:27.1.0'
+        compile 'com.android.support:design:27.1.0'
+        compile 'com.android.support:recyclerview-v7:27.1.0'
+        compile 'com.android.support:cardview-v7:27.1.0'
+        compile 'com.android.support:support-annotations:27.1.0'
         compile 'com.android.support.constraint:constraint-layout:1.0.2'
-        compile 'com.google.android:flexbox:0.3.1'
+        compile 'com.google.android:flexbox:0.3.2'
     }
 ```
 
@@ -89,12 +89,26 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 - SHA1
 
 ## 5、线程池ThreadPoolManager
-我为大家准备了3个优先级的线程池（高、中、低），当执行该线程池时才会创建对应的线程池对象，调用方法分别如下：
+1)我为大家准备了3个优先级的线程池（高、中、低），当执行该线程池时才会创建对应的线程池对象，调用方法分别如下：
 ```
     ThreadPoolManager.get().executeHighest(Runnable);
     ThreadPoolManager.get().executeNormal(Runnable);
     ThreadPoolManager.get().executeLowest(Runnable);
 ```
+
+2)如果希望订制线程池的配置，可以使用下面的方法（）
+```
+    ThreadPoolManager.get().newBuilder()
+        .setAwaitTime(50)// 设置线程结束等待时间
+        .setAwaitTimeUnit(TimeUnit.MILLISECONDS)// 设置线程结束等待时间单位
+        .setKeepAliveTime(1)// 设置线程数空闲时间
+        .setKeepAliveTimeUnit(TimeUnit.SECONDS)// 设置线程数空闲时间单位
+        .setCorePoolSize(4)// 设置线程数
+        .setMaximumPoolSize(8)// 设置最大线程数
+        .setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy())// 设置拒绝策略
+        .build();
+```
+
 
 ## 6、各种通用工具类
 1. AlbumUtils 系统相册工具类，你可以通过里面的方法获取系统相册的图片和图片的文件夹信息

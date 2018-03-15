@@ -122,6 +122,15 @@ public class ThreadPoolActivity extends BaseActivity{
     @Override
     protected void initData() {
         super.initData();
+//        ThreadPoolManager.get().newBuilder()
+//                .setAwaitTime(50)// 设置线程结束等待时间
+//                .setAwaitTimeUnit(TimeUnit.MILLISECONDS)// 设置线程结束等待时间单位
+//                .setKeepAliveTime(1)// 设置线程数空闲时间
+//                .setKeepAliveTimeUnit(TimeUnit.SECONDS)// 设置线程数空闲时间单位
+//                .setCorePoolSize(4)// 设置线程数
+//                .setMaximumPoolSize(8)// 设置最大线程数
+//                .setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy())// 设置拒绝策略
+//                .build();
         showStatusCompleted();
     }
 
