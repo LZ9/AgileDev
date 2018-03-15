@@ -435,6 +435,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
 
     /** 初始化 */
     private void init(){
+        mSimpleNineGridView.config(FileManager.getCacheFolderPath(), "com.lodz.android.agiledev.fileprovider");
         showStatusCompleted();
     }
 

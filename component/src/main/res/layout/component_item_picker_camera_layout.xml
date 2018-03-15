@@ -6,4 +6,5 @@
     android:layout_gravity="center"
     android:background="@android:color/black"
     android:contentDescription="@string/app_name"
-    android:scaleType="center" />
+    android:scaleType="center"
+    android:src="@drawable/component_ic_camera" />

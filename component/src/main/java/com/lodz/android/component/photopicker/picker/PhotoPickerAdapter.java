@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -66,8 +67,9 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
         return isNeedCamera ? super.getItemCount() + 1 : super.getItemCount();
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return viewType == VIEW_TYPE_CAMERA ?
                 new PickerCameraViewHolder(getLayoutView(parent, R.layout.component_item_picker_camera_layout)) :
                 new PickerViewHolder(getLayoutView(parent, R.layout.component_item_picker_layout));
