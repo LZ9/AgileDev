@@ -25,15 +25,15 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        compile 'cn.lodz:core:1.1.6'
+        compile 'cn.lodz:core:1.1.8'
     
-        compile 'io.reactivex.rxjava2:rxjava:2.1.8'
-        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        compile 'io.reactivex.rxjava2:rxjava:2.1.10'
+        compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
         
-        compile 'com.squareup.retrofit2:retrofit:2.3.0'
-        compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+        compile 'com.squareup.retrofit2:retrofit:2.4.0'
+        compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
         
-        compile 'com.alibaba:fastjson:1.2.44'
+        compile 'com.alibaba:fastjson:1.2.46'
         
         compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
         compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
@@ -364,6 +364,15 @@ c）把图片路径转为base64
     Observable<String> decodePathToBase64(final String path, final int widthPx, final int heightPx)//转单张
     Observable<List<String>> decodePathToBase64(final List<String> paths, final int widthPx, final int heightPx)//转多张
 ```
+d）控件防抖点击
+```
+    Observable<View> viewClick(View view)
+    Observable<View> viewClick(View view, long windowDuration, TimeUnit unit)
+```
+e）文本变动
+```
+    Observable<CharSequence> textChanges(TextView textView)
+```
 
 ## 6、RecyclerView相关
 ### 1）BaseRecyclerViewAdapter
@@ -648,9 +657,10 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
 ```
 
 #### c)网格分割线装饰器GridItemDecoration
-该装饰器能在item四周加上均匀的网格分割线，具体使用方法
+1)该装饰器能在item四周加上均匀的网格分割线，具体使用方法
 ```
-    GridItemDecoration.createDivider(context, dp, color)
+    GridItemDecoration.createDividerRes(context, dp, color)
+    GridItemDecoration.createDividerInt(context, dp, color)
 ```
 - dp是分割线宽度（单位dp）
 - color为分割线颜色
@@ -704,10 +714,28 @@ c）初始化的代码都写在构造函数内，如果你的数据是通过构�
 
 ## 8、自定义widget
 ### 1）MmsTabLayout
-自定义的TabLayout，可以通过设置下面的方法来控制底线的宽度
+- 自定义的TabLayout，可以通过设置下面的方法来控制底线的宽度
 ```
     setTabIndicatorMargin(int leftDp, int rightDp)
 ```
+- xml调用方法
+```
+    <com.lodz.android.component.widget.MmsTabLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:tabIndicatorColor="@color/color_00a0e9"
+       app:tabIndicatorHeight="2dp"
+       app:tabMargin="20dp"
+       app:tabMode="fixed"
+       app:tabTextAppearance="@style/TabLayoutTextStyle"
+       app:tabSelectedTextColor="@color/color_00a0e9"
+       app:tabTextColor="@color/black">
+```
+- 属性列表
+
+属性|描述|参数用例
+:---:|:---:|:---:
+app:tabMargin|设置每个tab的左右间距|10dp
 
 ### 2）NoScrollViewPager
 自定义的ViewPager，默认用户通过滑动来切换，如果需要动态设置滑动拦截，可以调用下面的方法
@@ -1199,7 +1227,6 @@ b）布局基本的使用方式如下：
         }
     });
 ```
-
 
 ## 扩展
 
