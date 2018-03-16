@@ -87,6 +87,8 @@
 
     <!--图片九宫格-->
     <declare-styleable name="NineGridView">
+        <attr name="isNeedDrag" format="boolean" />
+        <attr name="isNeedDragVibrate" format="boolean" />
         <attr name="isNeedAddBtn" format="boolean" />
         <attr name="addBtnDrawable" format="reference" />
         <attr name="isShowDeleteBtn" format="boolean" />

@@ -13,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
@@ -20,8 +21,10 @@ import android.widget.FrameLayout;
 import com.lodz.android.component.R;
 import com.lodz.android.component.widget.adapter.decoration.GridItemDecoration;
 import com.lodz.android.core.utils.ArrayUtils;
+import com.lodz.android.core.utils.VibratorUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -45,6 +48,10 @@ public class NineGridView extends FrameLayout{
 
     /** 数据列表 */
     private List<String> mDataList;
+    /** 是否需要拖拽 */
+    private boolean isNeedDrag = false;
+    /** 是否需要拖拽震动提醒 */
+    private boolean isNeedDragVibrate = true;
 
     public NineGridView(@NonNull Context context) {
         super(context);
@@ -87,6 +94,8 @@ public class NineGridView extends FrameLayout{
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(getItemDecoration());
         mRecyclerView.setAdapter(mAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(mItemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     /** 设置装饰器 */
@@ -94,11 +103,17 @@ public class NineGridView extends FrameLayout{
         return GridItemDecoration.createDividerInt(getContext(), 1, Color.TRANSPARENT);
     }
 
+    /** 配置属性 */
     private void configLayout(AttributeSet attrs) {
         TypedArray typedArray = null;
         if (attrs != null){
             typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.NineGridView);
         }
+
+        isNeedDrag = typedArray == null || typedArray.getBoolean(R.styleable.NineGridView_isNeedDrag, false);
+
+        isNeedDragVibrate = typedArray == null || typedArray.getBoolean(R.styleable.NineGridView_isNeedDragVibrate, true);
+
         mAdapter.setNeedAddBtn(typedArray == null || typedArray.getBoolean(R.styleable.NineGridView_isNeedAddBtn, true));
 
         Drawable add = typedArray == null ? null : typedArray.getDrawable(R.styleable.NineGridView_addBtnDrawable);
@@ -127,6 +142,78 @@ public class NineGridView extends FrameLayout{
             typedArray.recycle();
         }
     }
+
+    /** 拖拽回调 */
+    private ItemTouchHelper.Callback mItemTouchHelperCallback = new ItemTouchHelper.Callback() {
+
+        // 配置拖拽类型
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            int dragFlags = isNeedDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
+            int swipeFlags = 0;
+            return makeMovementFlags(dragFlags, swipeFlags);
+        }
+
+        // 拖拽
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            if (ArrayUtils.isEmpty(mDataList)){
+                return false;
+            }
+            if (!(viewHolder instanceof NineGridAdapter.NineGridViewHolder) || !(target instanceof NineGridAdapter.NineGridViewHolder)){
+                return false;
+            }
+
+            // 得到拖动ViewHolder的Position
+            int fromPosition = viewHolder.getAdapterPosition();
+            // 得到目标ViewHolder的Position
+            int toPosition = target.getAdapterPosition();
+
+            if (fromPosition < toPosition){//顺序小到大
+                for (int i = fromPosition; i < toPosition; i++){
+                    Collections.swap(mDataList, i, i + 1);
+                }
+            }else {//顺序大到小
+                for (int i = fromPosition; i > toPosition; i--){
+                    Collections.swap(mDataList, i, i - 1);
+                }
+            }
+            mAdapter.notifyItemMoved(fromPosition, toPosition);
+            return true;
+        }
+
+        // 滑动
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        }
+
+        // 当长按选中item时（拖拽开始时）调用
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE && isNeedDragVibrate){
+                VibratorUtil.vibrate(getContext(), 100);
+            }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        // 当手指松开时（拖拽完成时）调用
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            // do something
+        }
+
+        // 是否启用长按拖拽效果
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return false;
+        }
+    };
 
     /**
      * 设置是否需要添加图标
@@ -201,6 +288,7 @@ public class NineGridView extends FrameLayout{
         if (ArrayUtils.isEmpty(mDataList)){
             mDataList = new ArrayList<>();
         }
+        // 判断添加的数据长度和已有数据长度之和是否超过总长度
         int length = (data.size() + mDataList.size()) > mAdapter.getMaxPic() ? (mAdapter.getMaxPic() - mDataList.size()) : data.size();
         for (int i = 0; i < length; i++) {
             mDataList.add(data.get(i));
@@ -217,11 +305,28 @@ public class NineGridView extends FrameLayout{
         mAdapter.notifyItemRemovedChanged(position);
     }
 
+    /** 获取图片数据 */
+    public List<String> getPicData(){
+        if (mDataList == null){
+            return new ArrayList<>();
+        }
+        return mDataList;
+    }
+
+    /** 是否允许拖拽 */
+    public void setNeedDrag(boolean isNeedDrag) {
+        this.isNeedDrag = isNeedDrag;
+    }
+
+    /** 是否允许拖拽震动提醒 */
+    public void setNeedDragVibrate(boolean isNeedDragVibrate) {
+        this.isNeedDragVibrate = isNeedDragVibrate;
+    }
+
     /** 设置监听器 */
     public void setOnNineGridViewListener(OnNineGridViewListener listener){
         if (mAdapter != null){
             mAdapter.setOnNineGridViewListener(listener);
         }
     }
-
 }

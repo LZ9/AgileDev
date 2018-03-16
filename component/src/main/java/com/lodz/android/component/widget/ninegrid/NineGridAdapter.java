@@ -149,7 +149,7 @@ public class NineGridAdapter extends BaseRecyclerViewAdapter<String>{
         if (TextUtils.isEmpty(data)) {
             return;
         }
-        showItem((NineGridViewHolder) holder, data, position);
+        showItem((NineGridViewHolder) holder, data);
     }
 
     private void showAddItem(NineGridAddViewHolder holder) {
@@ -168,7 +168,7 @@ public class NineGridAdapter extends BaseRecyclerViewAdapter<String>{
         });
     }
 
-    private void showItem(NineGridViewHolder holder, final String data, final int position) {
+    private void showItem(final NineGridViewHolder holder, String data) {
         if (mListener != null){
             mListener.onDisplayImg(getContext(), data, holder.img);
         }
@@ -176,7 +176,7 @@ public class NineGridAdapter extends BaseRecyclerViewAdapter<String>{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onClickPic(data, position);
+                    mListener.onClickPic(getItem(holder.getAdapterPosition()), holder.getAdapterPosition());
                 }
             }
         });
@@ -191,7 +191,7 @@ public class NineGridAdapter extends BaseRecyclerViewAdapter<String>{
             @Override
             public void onClick(View v) {
                 if (mListener != null){
-                    mListener.onDeletePic(data, position);
+                    mListener.onDeletePic(getItem(holder.getAdapterPosition()), holder.getAdapterPosition());
                 }
             }
         });
@@ -208,7 +208,7 @@ public class NineGridAdapter extends BaseRecyclerViewAdapter<String>{
         }
     }
 
-    private class NineGridViewHolder extends RecyclerView.ViewHolder{
+    protected class NineGridViewHolder extends RecyclerView.ViewHolder{
 
         /** 图片 */
         private ImageView img;

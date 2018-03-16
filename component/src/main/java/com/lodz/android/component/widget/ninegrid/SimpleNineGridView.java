@@ -7,13 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.photopicker.picker.PickerManager;
 import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -23,8 +24,6 @@ import java.util.List;
 
 public class SimpleNineGridView extends NineGridView{
 
-    /** 图片数据 */
-    private List<String> mPicList = new ArrayList<>();
     /** 接口 */
     private OnSimpleNineGridViewListener mListener;
     /** 照片保存地址 */
@@ -79,7 +78,6 @@ public class SimpleNineGridView extends NineGridView{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                mPicList.addAll(photos);
                                 addData(photos);
                             }
                         })
@@ -102,7 +100,6 @@ public class SimpleNineGridView extends NineGridView{
 
             @Override
             public void onDeletePic(String data, int position) {
-                mPicList.remove(data);
                 removeData(position);
             }
 
@@ -132,7 +129,7 @@ public class SimpleNineGridView extends NineGridView{
                                 }
                             }
                         })
-                        .build(mPicList)
+                        .build(getPicData())
                         .open(getContext());
             }
         });
@@ -146,11 +143,6 @@ public class SimpleNineGridView extends NineGridView{
     public void config(@NonNull String savePath, @NonNull String authority){
         mCameraSavePath = savePath;
         mAuthority = authority;
-    }
-
-    /** 获取图片数据 */
-    public List<String> getPicData(){
-        return mPicList;
     }
 
     /**

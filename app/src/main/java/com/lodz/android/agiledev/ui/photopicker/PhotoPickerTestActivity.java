@@ -35,7 +35,6 @@ import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.glide.impl.GlideBuilderBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -87,8 +86,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
     /** 九宫格 */
     @BindView(R.id.nine_grid_view)
     NineGridView mNineGridView;
-    /** 图片数据 */
-    private List<String> mPicList = new ArrayList<>();
 
     /** 简单的九宫格实现 */
     @BindView(R.id.simple_nine_grid_view)
@@ -286,6 +283,12 @@ public class PhotoPickerTestActivity extends BaseActivity{
         mGetNinePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                StringBuilder stringBuilder = new StringBuilder();
+//                for (String photo : mNineGridView.getPicData()) {
+//                    stringBuilder.append(photo).append("\n");
+//                }
+//                mPickResultTv.setText(stringBuilder.toString());
+
                 StringBuilder stringBuilder = new StringBuilder();
                 for (String photo : mSimpleNineGridView.getPicData()) {
                     stringBuilder.append(photo).append("\n");
@@ -324,7 +327,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                mPicList.addAll(photos);
                                 mNineGridView.addData(photos);
                             }
                         })
@@ -350,7 +352,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
 
             @Override
             public void onDeletePic(String data, int position) {
-                mPicList.remove(data);
                 mNineGridView.removeData(position);
             }
 
@@ -385,7 +386,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                                 ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
                             }
                         })
-                        .build(mPicList)
+                        .build(mNineGridView.getPicData())
                         .open(getContext());
             }
         });
