@@ -731,20 +731,380 @@ c）初始化的代码都写在构造函数内，如果你的数据是通过构�
        app:tabSelectedTextColor="@color/color_00a0e9"
        app:tabTextColor="@color/black">
 ```
-- 属性列表
+- 自定义属性列表
 
 属性|描述|参数用例
 :---:|:---:|:---:
 app:tabMargin|设置每个tab的左右间距|10dp
 
 ### 2）NoScrollViewPager
-自定义的ViewPager，默认用户通过滑动来切换，如果需要动态设置滑动拦截，可以调用下面的方法
+自定义的ViewPager，默认用户不能通过滑动来切换，可以通过下面的方法来设置是否滑动
 ```
     setScroll(boolean isScroll)
+```
+- xml调用方法
+```
+    <com.lodz.android.component.widget.NoScrollViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    
+    </com.lodz.android.component.widget.NoScrollViewPager>
 ```
 
 ### 3）PhotoView
 由于引用还需要配置maven地址，所以就直接把view集成进来了，有需要用到的可以直接调用
+
+### 4）TitleBarLayout
+- 自定义的标题栏TitleBarLayout，可以通过下面的方法来订制
+```
+    // 是否需要显示返回按钮
+    needBackButton(boolean isNeed)
+    // 请重写实现返回按钮监听
+    setOnBackBtnClickListener(OnClickListener listener)
+    // 替换默认的返回按钮
+    replaceBackBtn(View view)
+    // 设置返回按钮文字
+    setBackBtnName(String str)
+    // 设置返回按钮文字
+    setBackBtnName(@StringRes int strResId)
+    // 设置返回按钮文字颜色
+    setBackBtnTextColor(@ColorRes int colorRes)
+    // 设置返回按钮文字颜色
+    setBackBtnTextColor(ColorStateList colorStateList)
+    // 设置返回按钮文字大小
+    setBackBtnTextSize(float size)
+    // 设置标题名
+    setTitleName(String title)
+    // 设置标题名
+    setTitleName(@StringRes int strResId)
+    // 设置标题文字颜色
+    setTitleTextColor(@ColorRes int colorRes)
+    // 设置文字颜色
+    setTitleTextColor(ColorStateList colorStateList)
+    // 设置标题文字大小
+    setTitleTextSize(float size)
+    // 需要右侧扩展区
+    needExpandView(boolean isNeed)
+    // 添加扩展区域的View
+    addExpandView(View view)
+    // 获取扩展区域的View
+    getExpandView()
+    // 隐藏分割线
+    goneDivideLine()
+    // 设置分割线颜色
+    setDivideLineColor(@ColorRes int colorRes)
+    // 设置分割线颜色
+    setDivideLineColor(Drawable drawable)
+    // 设置分割线高度
+    setDivideLineHeight(float height)
+```
+
+- xml调用方法
+```
+    <com.lodz.android.component.widget.base.TitleBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backDrawable="@drawable/ic_launcher"
+        app:backText="返回"
+        app:backTextColor="@color/white"
+        app:backTextSize="16sp"
+        app:divideLineColor="@color/color_d28928"
+        app:divideLineHeight="10dp"
+        app:elevationVale="15dp"
+        app:expandViewId="@layout/view_config_expand_layout"
+        app:isNeedBackBtn="true"
+        app:isNeedElevation="true"
+        app:isNeedExpandView="false"
+        app:isShowDivideLine="false"
+        app:titleBarBackground="@color/color_ea8380"
+        app:titleText="测试"
+        app:titleTextColor="@color/color_00a0e9"
+        app:titleTextSize="15sp">
+
+    </com.lodz.android.component.widget.base.TitleBarLayout>
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---:|:---:|:---:
+app:isNeedBackBtn|是否需要显示返回按钮|true
+app:backDrawable|返回按钮的资源图片|@drawable/ic_launcher
+app:backText|返回按钮文字|@string/test
+app:backTextColor|返回按钮文字颜色|@color/white
+app:backTextSize|返回按钮文字大小|16sp
+app:titleText|标题文字|@string/test
+app:titleTextColor|标题文字颜色|@color/color_00a0e9
+app:titleTextSize|标题文字大小|15sp
+app:isNeedElevation|是否需要阴影|true
+app:elevationVale|显示阴影|6dp
+app:isShowDivideLine|是否显示底部分割线|false
+app:divideLineColor|底部分割线颜色|@color/color_d28928
+app:divideLineHeight|底部分割线高度|10dp
+app:titleBarBackground|标题栏背景色|@color/color_ea8380
+app:isNeedExpandView|是否需要右侧扩展布局|false
+app:expandViewId|右侧扩展布局资源id|@layout/view_expand_layout
+
+### 5）LoadingLayout
+- 数据加载页LoadingLayout，可以通过下面的方法来订制
+```
+    // 需要提示文字
+    needTips(boolean isNeed)
+    // 设置提示文字
+    setTips(String str)
+    // 设置提示文字
+    setTips(@StringRes int strResId)
+    // 设置文字颜色
+    setTipsTextColor(@ColorRes int colorRes)
+    // 设置文字颜色
+    setTipsTextColor(ColorStateList colorStateList)
+    // 设置文字大小
+    setTipsTextSize(float size)
+    // 设置进度条控件
+    setProgressBar(@NonNull ProgressBar progressBar)
+    // 获取进度条控件
+    getProgressBar()
+    // 设置加载页面的布局方向
+    setLayoutOrientation(@BaseLayoutConfig.OrientationType int orientation)
+```
+
+- xml调用方法
+```
+    <com.lodz.android.component.widget.base.LoadingLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:contentBackground="@color/color_ff4081"
+        app:contentOrientation="horizontal"
+        app:indeterminateDrawable="@drawable/anims_custom_progress"
+        app:isIndeterminate="true"
+        app:isNeedTips="true"
+        app:pbHeight="50dp"
+        app:pbWidth="50dp"
+        app:tips="@string/config_base_loading_tips"
+        app:tipsColor="@color/white"
+        app:tipsSize="15sp">
+    
+    </com.lodz.android.component.widget.base.LoadingLayout>
+
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---:|:---:|:---:
+app:contentOrientation|内容的方向|horizontal
+app:contentBackground|内容的背景色|@color/color_ff4081
+app:isNeedTips|是否需要展示提示语|true
+app:tips|提示语文字|@string/tips
+app:tipsColor|提示语文字颜色|@color/white
+app:tipsSize|提示语文字大小|15sp
+app:indeterminateDrawable|进度动画资源|@drawable/anims_custom_progress
+app:isIndeterminate|是否持续进度|true
+app:pbHeight|进度条的高度|50dp
+app:pbWidth|进度条的宽度|50dp
+
+### 6）NoDataLayout
+- 无数据页面NoDataLayout，可以通过下面的方法来订制
+```
+    // 需要提示图片
+    needImg(boolean isNeed)
+    // 需要提示文字
+    needTips(boolean isNeed)
+    // 设置无数据图片
+    setImg(@DrawableRes int drawableResId)
+    // 设置无数据图片
+    setImg(Drawable drawable)
+    // 设置提示文字
+    setTips(String str)
+    // 设置提示文字
+    setTips(@StringRes int strResId)
+    // 设置文字颜色
+    setTipsTextColor(@ColorRes int colorRes)
+    // 设置文字颜色
+    setTipsTextColor(ColorStateList colorStateList)
+    // 设置文字大小
+    setTipsTextSize(float size)
+    // 设置无数据页面的布局方向
+    setLayoutOrientation(@BaseLayoutConfig.OrientationType int orientation)
+```
+
+- xml调用方法
+```
+<com.lodz.android.component.widget.base.NoDataLayout
+     android:id="@+id/no_data_layout"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:visibility="gone"
+     app:contentBackground="@color/color_ea8380"
+     app:contentOrientation="horizontal"
+     app:isNeedImg="true"
+     app:isNeedTips="true"
+     app:src="@drawable/ic_launcher"
+     app:tips="@string/config_base_no_data_tips"
+     app:tipsColor="@color/color_ffa630"
+     app:tipsSize="22sp">
+
+</com.lodz.android.component.widget.base.NoDataLayout>
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---:|:---:|:---:
+app:isNeedImg|是否需要图片|true
+app:src|资源图片|@drawable/ic_launcher
+app:isNeedTips|是否需要提示语|true
+app:tips|提示语文字|@string/tips
+app:tipsColor|提示语文字颜色|@color/color_ffa630
+app:tipsSize|提示语文字大小|22sp
+app:contentOrientation|内容的方向|horizontal
+app:contentBackground|内容背景色|@color/color_ea8380
+
+
+### 7）ErrorLayout
+- 错误页面NoDataLayout，可以通过下面的方法来订制
+```
+    // 需要提示图片
+    needImg(boolean isNeed)
+    // 需要提示文字
+    needTips(boolean isNeed)
+    // 设置界面错误图片
+    setImg(@DrawableRes int drawableResId)
+    // 设置无数据图片
+    setImg(Drawable drawable)
+    // 设置提示文字
+    setTips(String str)
+    // 设置提示文字
+    setTips(@StringRes int strResId)
+    // 设置文字颜色
+    setTipsTextColor(@ColorRes int colorRes)
+    // 设置文字颜色
+    setTipsTextColor(ColorStateList colorStateList)
+    // 设置文字大小
+    setTipsTextSize(float size)
+    // 设置重载监听器
+    setReloadListener(OnClickListener listener)
+    // 设置错误页面的布局方向
+    setLayoutOrientation(int orientation)
+```
+
+- xml调用方法
+```
+    <com.lodz.android.component.widget.base.ErrorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:contentBackground="@color/color_ffa630"
+        app:contentOrientation="vertical"
+        app:isNeedImg="true"
+        app:isNeedTips="true"
+        app:src="@drawable/ic_launcher"
+        app:tips="@string/config_base_fail_tips"
+        app:tipsColor="@color/color_ea413c"
+        app:tipsSize="18sp">
+    
+    </com.lodz.android.component.widget.base.ErrorLayout>
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---:|:---:|:---:
+app:isNeedImg|是否需要图片|true
+app:src|资源图片|@drawable/ic_launcher
+app:contentOrientation|内容的方向|horizontal
+app:contentBackground|内容背景色|@color/color_ea8380
+app:isNeedTips|是否需要提示语|true
+app:tips|提示语文字|@string/tips
+app:tipsColor|提示语文字颜色|@color/color_ffa630
+app:tipsSize|提示语文字大小|22sp
+
+### 8）九宫格
+#### <1>NineGridView
+- 九宫格NineGridView，可以通过下面的方法来订制
+```
+    // 设置是否需要添加图标
+    setNeedAddBtn(boolean needAddBtn)}
+    // 设置添加图标
+    setAddBtnDrawable(@DrawableRes int resId)
+    // 设置是否显示删除按钮
+    setShowDelete(boolean isShowDelete)
+    // 设置删除图标
+    setDeleteBtnDrawable(@DrawableRes int resId) 
+    // 设置最大图片数
+    setMaxPic(@IntRange(from = 1) int count)
+    // 设置数据
+    setData(@NonNull List<String> data)
+    // 添加数据
+    addData(@NonNull List<String> data)
+    // 删除数据
+    removeData(int position) 
+    // 设置监听器
+    setOnNineGridViewListener(OnNineGridViewListener listener)
+```
+
+- xml调用方法
+```
+    <com.lodz.android.component.widget.ninegrid.NineGridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:isNeedAddBtn="true"
+        app:isShowDeleteBtn="true"
+        app:itemHigh="100dp"
+        app:maxPic="9"
+        app:spanCount="3">
+
+    </com.lodz.android.component.widget.ninegrid.NineGridView>
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---:|:---:|:---:
+app:isNeedAddBtn|是否需要添加图片按钮|true
+app:addBtnDrawable|资源图片|@drawable/ic_launcher
+app:isShowDeleteBtn|是否显示删除图标|true
+app:deleteDrawable|删除图标资源图片|@drawable/ic_launcher
+app:maxPic|最大展示数量|9
+app:spanCount|最大列数|3
+app:itemHigh|图片的高度|100dp
+
+#### <2>SimpleNineGridView
+- 简单实现的九宫格SimpleNineGridView，可以通过下面的方法来订制
+```
+    // 配置数据
+    config(@NonNull String savePath, @NonNull String authority)
+    // 获取图片数据
+    getPicData()
+    // 设置监听器
+    setOnSimpleNineGridViewListener(OnSimpleNineGridViewListener listener)
+ 
+    //以下的方法已经在控件内部进行了实现，不建议外部再调用使用
+     @Override
+     addData(@NonNull List<String> data)
+     @Deprecated
+     removeData(int position)
+     @Deprecated
+     setOnNineGridViewListener(OnNineGridViewListener listener)
+```
+
+- xml调用方法
+```
+   <com.lodz.android.component.widget.ninegrid.SimpleNineGridView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:isNeedAddBtn="true"
+         app:isShowDeleteBtn="true"
+         app:itemHigh="100dp"
+         app:maxPic="9"
+         app:spanCount="3">
+ 
+     </com.lodz.android.component.widget.ninegrid.SimpleNineGridView>
+```
+
+- 自定义属性列表与NineGridView一致
 
 ## 9、MVP相关
 ### 1）基础的Activity实现

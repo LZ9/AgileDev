@@ -161,18 +161,21 @@ public class SimpleNineGridView extends NineGridView{
         mListener = listener;
     }
 
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Override
     @Deprecated
     public void addData(@NonNull List<String> data) {
         super.addData(data);
     }
 
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Override
     @Deprecated
     public void removeData(int position) {
         super.removeData(position);
     }
 
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Override
     @Deprecated
     public void setOnNineGridViewListener(OnNineGridViewListener listener) {

@@ -22,6 +22,7 @@
     <attr name="isNeedImg" format="boolean" />
     <attr name="src" format="reference" />
 
+    <!--加载页-->
     <declare-styleable name="LoadingLayout">
         <attr name="contentOrientation" />
         <attr name="isNeedTips" />
@@ -35,6 +36,7 @@
         <attr name="pbHeight" format="dimension" />
     </declare-styleable>
 
+    <!--无数据页-->
     <declare-styleable name="NoDataLayout">
         <attr name="isNeedImg" />
         <attr name="src" />
@@ -46,6 +48,7 @@
         <attr name="contentBackground" />
     </declare-styleable>
 
+    <!--错误页-->
     <declare-styleable name="ErrorLayout">
         <attr name="isNeedImg" />
         <attr name="src" />
@@ -57,6 +60,7 @@
         <attr name="contentBackground" />
     </declare-styleable>
 
+    <!--标题栏-->
     <declare-styleable name="TitleBarLayout">
         <attr name="isNeedBackBtn" format="boolean" />
         <attr name="backDrawable" format="reference" />
