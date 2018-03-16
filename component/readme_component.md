@@ -734,7 +734,7 @@ c）初始化的代码都写在构造函数内，如果你的数据是通过构�
 - 自定义属性列表
 
 属性|描述|参数用例
-:---:|:---:|:---:
+:---|:---|:---
 app:tabMargin|设置每个tab的左右间距|10dp
 
 ### 2）NoScrollViewPager
@@ -827,7 +827,7 @@ app:tabMargin|设置每个tab的左右间距|10dp
 - 自定义属性列表
 
 属性|描述|参数用例
-:---:|:---:|:---:
+:---|:---|:---
 app:isNeedBackBtn|是否需要显示返回按钮|true
 app:backDrawable|返回按钮的资源图片|@drawable/ic_launcher
 app:backText|返回按钮文字|@string/test
@@ -892,7 +892,7 @@ app:expandViewId|右侧扩展布局资源id|@layout/view_expand_layout
 - 自定义属性列表
 
 属性|描述|参数用例
-:---:|:---:|:---:
+:---|:---|:---
 app:contentOrientation|内容的方向|horizontal
 app:contentBackground|内容的背景色|@color/color_ff4081
 app:isNeedTips|是否需要展示提示语|true
@@ -951,7 +951,7 @@ app:pbWidth|进度条的宽度|50dp
 - 自定义属性列表
 
 属性|描述|参数用例
-:---:|:---:|:---:
+:---|:---|:---
 app:isNeedImg|是否需要图片|true
 app:src|资源图片|@drawable/ic_launcher
 app:isNeedTips|是否需要提示语|true
@@ -1010,7 +1010,7 @@ app:contentBackground|内容背景色|@color/color_ea8380
 - 自定义属性列表
 
 属性|描述|参数用例
-:---:|:---:|:---:
+:---|:---|:---
 app:isNeedImg|是否需要图片|true
 app:src|资源图片|@drawable/ic_launcher
 app:contentOrientation|内容的方向|horizontal
@@ -1062,7 +1062,7 @@ app:tipsSize|提示语文字大小|22sp
 - 自定义属性列表
 
 属性|描述|参数用例
-:---:|:---:|:---:
+:---|:---|:---
 app:isNeedAddBtn|是否需要添加图片按钮|true
 app:addBtnDrawable|资源图片|@drawable/ic_launcher
 app:isShowDeleteBtn|是否显示删除图标|true
@@ -1080,14 +1080,15 @@ app:itemHigh|图片的高度|100dp
     getPicData()
     // 设置监听器
     setOnSimpleNineGridViewListener(OnSimpleNineGridViewListener listener)
- 
-    //以下的方法已经在控件内部进行了实现，不建议外部再调用使用
-     @Override
-     addData(@NonNull List<String> data)
-     @Deprecated
-     removeData(int position)
-     @Deprecated
-     setOnNineGridViewListener(OnNineGridViewListener listener)
+ ```
+- 以下的方法已经在控件内部进行了实现，不建议外部再调用使用
+```
+    @Deprecated
+    addData(@NonNull List<String> data)
+    @Deprecated
+    removeData(int position)
+    @Deprecated
+    setOnNineGridViewListener(OnNineGridViewListener listener)
 ```
 
 - xml调用方法
