@@ -1042,6 +1042,12 @@ app:tipsSize|提示语文字大小|22sp
     removeData(int position) 
     // 设置监听器
     setOnNineGridViewListener(OnNineGridViewListener listener)
+    // 是否允许拖拽
+    setNeedDrag(boolean isNeedDrag)
+    // 是否允许拖拽震动提醒
+    setNeedDragVibrate(boolean isNeedDragVibrate)
+    // 获取图片数据
+    getPicData()
 ```
 
 - xml调用方法
@@ -1049,8 +1055,9 @@ app:tipsSize|提示语文字大小|22sp
     <com.lodz.android.component.widget.ninegrid.NineGridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:isNeedAddBtn="true"
+        app:isNeedDrag="false"
+        app:isNeedDragVibrate="false"
         app:isShowDeleteBtn="true"
         app:itemHigh="100dp"
         app:maxPic="9"
@@ -1070,14 +1077,14 @@ app:deleteDrawable|删除图标资源图片|@drawable/ic_launcher
 app:maxPic|最大展示数量|9
 app:spanCount|最大列数|3
 app:itemHigh|图片的高度|100dp
+app:isNeedDrag|是否允许拖拽|true
+app:isNeedDragVibrate|是否允许拖拽震动提示|true
 
 #### <2>SimpleNineGridView
 - 简单实现的九宫格SimpleNineGridView，可以通过下面的方法来订制
 ```
     // 配置数据
     config(@NonNull String savePath, @NonNull String authority)
-    // 获取图片数据
-    getPicData()
     // 设置监听器
     setOnSimpleNineGridViewListener(OnSimpleNineGridViewListener listener)
  ```
@@ -1093,16 +1100,18 @@ app:itemHigh|图片的高度|100dp
 
 - xml调用方法
 ```
-   <com.lodz.android.component.widget.ninegrid.SimpleNineGridView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         app:isNeedAddBtn="true"
-         app:isShowDeleteBtn="true"
-         app:itemHigh="100dp"
-         app:maxPic="9"
-         app:spanCount="3">
- 
-     </com.lodz.android.component.widget.ninegrid.SimpleNineGridView>
+    <com.lodz.android.component.widget.ninegrid.SimpleNineGridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isNeedAddBtn="true"
+        app:isNeedDrag="true"
+        app:isNeedDragVibrate="true"
+        app:isShowDeleteBtn="true"
+        app:itemHigh="100dp"
+        app:maxPic="9"
+        app:spanCount="3">
+
+    </com.lodz.android.component.widget.ninegrid.SimpleNineGridView>
 ```
 
 - 自定义属性列表与NineGridView一致

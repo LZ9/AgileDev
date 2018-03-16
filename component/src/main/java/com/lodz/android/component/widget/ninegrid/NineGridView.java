@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.widget.adapter.decoration.GridItemDecoration;
+import com.lodz.android.core.utils.AnimUtils;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.VibratorUtil;
 
@@ -149,7 +150,8 @@ public class NineGridView extends FrameLayout{
         // 配置拖拽类型
         @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            int dragFlags = isNeedDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
+            int dragFlags = (isNeedDrag && viewHolder instanceof NineGridAdapter.NineGridViewHolder)
+                    ? ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT : 0;
             int swipeFlags = 0;
             return makeMovementFlags(dragFlags, swipeFlags);
         }
@@ -190,8 +192,12 @@ public class NineGridView extends FrameLayout{
         // 当长按选中item时（拖拽开始时）调用
         @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+
             if (actionState != ItemTouchHelper.ACTION_STATE_IDLE && isNeedDragVibrate){
                 VibratorUtil.vibrate(getContext(), 100);
+            }
+            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder != null && viewHolder.itemView != null){//开始拖拽
+                AnimUtils.startScaleSelf(viewHolder.itemView,1.0f, 1.05f, 1.0f, 1.05f, 50, true);
             }
             super.onSelectedChanged(viewHolder, actionState);
         }
@@ -199,8 +205,10 @@ public class NineGridView extends FrameLayout{
         // 当手指松开时（拖拽完成时）调用
         @Override
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            if (viewHolder != null && viewHolder.itemView != null){
+                AnimUtils.startScaleSelf(viewHolder.itemView,1.05f, 1.0f, 1.05f, 1.0f, 50, true);
+            }
             super.clearView(recyclerView, viewHolder);
-            // do something
         }
 
         // 是否启用长按拖拽效果
@@ -303,6 +311,7 @@ public class NineGridView extends FrameLayout{
             return;
         }
         mAdapter.notifyItemRemovedChanged(position);
+        mRecyclerView.requestLayout();
     }
 
     /** 获取图片数据 */
