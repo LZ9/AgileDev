@@ -1,5 +1,7 @@
 package com.lodz.android.agiledev.ui.mvp.abs.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,11 @@ import butterknife.ButterKnife;
  */
 
 public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpTestAbsViewContract> implements MvpTestAbsViewContract {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, MvpTestAbsActivity.class);
+        context.startActivity(starter);
+    }
 
     @BindView(R.id.result)
     TextView mResult;
@@ -70,5 +77,10 @@ public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpT
     @Override
     public void setResult(String result) {
         mResult.setText(result);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
     }
 }

@@ -1,6 +1,11 @@
 package com.lodz.android.component.mvp.contract.abs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * Presenter接口
@@ -10,22 +15,22 @@ import android.content.Context;
 public interface PresenterContract<VC extends ViewContract> {
 
     /**
-     * onCreate
+     * 连接
      * @param context 上下文
      * @param view View接口
      */
-    void onCreate(Context context, VC view);
+    void attach(Context context, VC view);
 
-    /** onDestroy */
-    void onDestroy();
+    /** 分离 */
+    void detach();
 
-    /** onPause */
-    void onPause();
+    /** 是否已分离 */
+    boolean isDetach();
 
-    /** onResume */
-    void onResume();
+    /** 在Activity里绑定Rx生命周期 */
+    <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event);
 
-    /** 界面是否被回收 */
-    boolean isDestroy();
-
+    /** 在Fragment里绑定Rx生命周期 */
+    <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event);
 }
+

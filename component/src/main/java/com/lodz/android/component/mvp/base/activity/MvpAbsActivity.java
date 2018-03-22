@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.abs.ViewContract;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * MVP基础Activity
@@ -22,14 +25,14 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
         super.startCreate();
         mPresenterContract = createMainPresenter();
         if (mPresenterContract != null){
-            mPresenterContract.onCreate(this, (VC) this);
+            mPresenterContract.attach(this, (VC) this);
         }
     }
 
     protected abstract PC createMainPresenter();
 
     @NonNull
-    protected PC getPresenterContract(){
+    protected final PC getPresenterContract(){
         return mPresenterContract;
     }
 
@@ -37,23 +40,25 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenterContract != null){
-            mPresenterContract.onDestroy();
+            mPresenterContract.detach();
         }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    public void finish() {
+        super.finish();
         if (mPresenterContract != null){
-            mPresenterContract.onPause();
+            mPresenterContract.detach();
         }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (mPresenterContract != null){
-            mPresenterContract.onResume();
-        }
+    public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+        return bindUntilEvent(event);
+    }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
+        throw new IllegalArgumentException("you bind activity but call fragment event");
     }
 }

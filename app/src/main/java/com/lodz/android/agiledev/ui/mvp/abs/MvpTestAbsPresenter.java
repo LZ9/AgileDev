@@ -1,10 +1,10 @@
 package com.lodz.android.agiledev.ui.mvp.abs;
 
-import android.support.v7.app.AlertDialog;
-
 import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.mvp.presenter.AbsPresenter;
-import com.lodz.android.component.utils.ProgressDialogHelper;
+import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
+import com.lodz.android.component.rx.utils.RxUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * 测试Presenter
@@ -13,23 +13,22 @@ import com.lodz.android.component.utils.ProgressDialogHelper;
 
 public class MvpTestAbsPresenter extends AbsPresenter<MvpTestAbsViewContract> {
 
-    /** 数据来源 */
-    private ApiModule mApiModule;
-
-    public MvpTestAbsPresenter() {
-        this.mApiModule = new ApiModule();
-    }
 
     public void getResult(){
-        final AlertDialog dialog = ProgressDialogHelper.getProgressDialog(getContext(), "loading", true, true);
-        dialog.show();
-        mApiModule.requestResult(new ApiModule.Listener() {
-            @Override
-            public void onCallback(String response) {
-                getViewContract().showResult();
-                getViewContract().setResult(response);
-                dialog.dismiss();
-            }
-        });
+        ApiModule.requestResult()
+                .compose(RxUtils.<String>ioToMainObservable())
+                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .subscribe(new ProgressObserver<String>() {
+                    @Override
+                    public void onPgNext(String s) {
+                        getViewContract().showResult();
+                        getViewContract().setResult(s);
+                    }
+
+                    @Override
+                    public void onPgError(Throwable e, boolean isNetwork) {
+                        getViewContract().setResult("fail");
+                    }
+                }.create(getContext(), "加载中...", false));
     }
 }

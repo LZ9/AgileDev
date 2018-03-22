@@ -95,6 +95,14 @@
     <string name="photo_picker_take_photo">拍照</string>
     <string name="photo_picker_get_nine_pic">获取九宫格数据</string>
 
+    <!-- MVP模式 -->
+    <string name="mvp_demo_abs">基础Activity</string>
+    <string name="mvp_demo_base">带基础状态控件Activity</string>
+    <string name="mvp_demo_refresh">带基础状态控件和下来刷新控件Activity</string>
+    <string name="mvp_demo_fragment">Fragment用例</string>
+
+
+
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
     <string name="lesson_detail_tab_video">视频</string>

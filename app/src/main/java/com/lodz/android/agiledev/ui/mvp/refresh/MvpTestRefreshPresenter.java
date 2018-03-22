@@ -2,6 +2,9 @@ package com.lodz.android.agiledev.ui.mvp.refresh;
 
 import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.mvp.presenter.BaseRefreshPresenter;
+import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
+import com.lodz.android.component.rx.utils.RxUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * 测试Presenter
@@ -18,27 +21,41 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
     }
 
     public void getResult(){
-        mApiModule.requestResult(new ApiModule.Listener() {
-            @Override
-            public void onCallback(String response) {
-                getViewContract().showResult();
-                getViewContract().setResult(response);
-                getViewContract().showStatusCompleted();
-            }
-        });
+        ApiModule.requestResult()
+                .compose(RxUtils.<String>ioToMainObservable())
+                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onBaseNext(String s) {
+                        getViewContract().showResult();
+                        getViewContract().setResult(s);
+                        getViewContract().showStatusCompleted();
+                    }
+
+                    @Override
+                    public void onBaseError(Throwable e) {
+                        getViewContract().showStatusError();
+                    }
+                });
     }
 
     public void getRefreshData(){
-        mApiModule.requestResult(new ApiModule.Listener() {
-            @Override
-            public void onCallback(String response) {
-                getViewContract().setSwipeRefreshFinish();
-//                getViewContract().refreshFail("刷新数据失败");
-                getViewContract().showResult();
-                getViewContract().setResult(response);
+        ApiModule.requestResult()
+                .compose(RxUtils.<String>ioToMainObservable())
+                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onBaseNext(String s) {
+                        getViewContract().setSwipeRefreshFinish();
+//                        getViewContract().refreshFail("刷新数据失败");
+                        getViewContract().showResult();
+                        getViewContract().setResult(s);
+                    }
 
-
-            }
-        });
+                    @Override
+                    public void onBaseError(Throwable e) {
+                        getViewContract().showStatusError();
+                    }
+                });
     }
 }

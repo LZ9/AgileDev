@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.fragment.LazyFragment;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.abs.ViewContract;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * MVP懒加载的fragment
@@ -22,7 +25,7 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
         super.startCreate();
         mPresenterContract = createMainPresenter();
         if (mPresenterContract != null){
-            mPresenterContract.onCreate(getContext(), (VC) this);
+            mPresenterContract.attach(getContext(), (VC) this);
         }
     }
 
@@ -37,24 +40,25 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
     public void onDestroyView() {
         super.onDestroyView();
         if (mPresenterContract != null){
-            mPresenterContract.onDestroy();
+            mPresenterContract.detach();
         }
     }
 
     @Override
-    protected void onFragmentResume() {
-        super.onFragmentResume();
+    public void onDestroy() {
+        super.onDestroy();
         if (mPresenterContract != null){
-            mPresenterContract.onResume();
+            mPresenterContract.detach();
         }
     }
 
     @Override
-    protected void onFragmentPause() {
-        super.onFragmentPause();
-        if (mPresenterContract != null){
-            mPresenterContract.onPause();
-        }
+    public <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+        throw new IllegalArgumentException("you bind fragment but call activity event");
     }
 
+    @Override
+    public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
+        return bindUntilEvent(event);
+    }
 }

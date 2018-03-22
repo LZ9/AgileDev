@@ -1,5 +1,7 @@
 package com.lodz.android.agiledev.ui.mvp.refresh.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,11 @@ import butterknife.ButterKnife;
  */
 
 public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefreshPresenter, MvpTestRefreshViewContract> implements MvpTestRefreshViewContract{
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, MvpTestRefreshActivity.class);
+        context.startActivity(starter);
+    }
 
     @BindView(R.id.result)
     TextView mResult;

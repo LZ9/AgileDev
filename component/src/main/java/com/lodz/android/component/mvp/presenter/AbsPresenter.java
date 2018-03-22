@@ -1,9 +1,13 @@
 package com.lodz.android.component.mvp.presenter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.abs.ViewContract;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * 基类Presenter
@@ -17,12 +21,12 @@ public class AbsPresenter<VC extends ViewContract> implements PresenterContract<
     /** 上下文 */
     private Context mContext;
 
-    public Context getContext(){
+    public final Context getContext(){
         return mContext;
     }
 
     @Override
-    public void onCreate(Context context, VC view) {
+    public final void attach(Context context, VC view) {
         if (mViewContract != null){
             mViewContract = null;
         }
@@ -31,30 +35,31 @@ public class AbsPresenter<VC extends ViewContract> implements PresenterContract<
     }
 
     @Override
-    public void onPause() {
-
+    public final void detach() {
+        mContext = null;
+        mViewContract = null;
     }
 
     @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public boolean isDestroy() {
+    public final boolean isDetach(){
         return mContext == null || mViewContract == null;
     }
 
-    public VC getViewContract(){
-        if (mViewContract == null){
-            throw new NullPointerException("the view already destroy , please use isDestroy() before getViewContract()");
-        }
-        return mViewContract;
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+        return getViewContract().bindUntilActivityEvent(event);
     }
 
     @Override
-    public void onDestroy() {
-        mContext = null;
-        mViewContract = null;
+    public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
+        return getViewContract().bindUntilFragmentEvent(event);
+    }
+
+    /** 获取View接口对象 */
+    public final VC getViewContract(){
+        if (mViewContract == null){
+            throw new NullPointerException("the view already detach , your code maybe have memory leak");
+        }
+        return mViewContract;
     }
 }

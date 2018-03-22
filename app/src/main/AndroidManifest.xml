@@ -177,6 +177,13 @@
         </activity>
 
         <activity
+            android:name=".ui.mvp.MvpDemoActivity"
+            android:label="MVP模式测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".ui.mvp.abs.activity.MvpTestAbsActivity"
             android:screenOrientation="portrait">
 

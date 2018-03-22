@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.fragment.BaseFragment;
 import com.lodz.android.component.mvp.contract.base.BasePresenterContract;
 import com.lodz.android.component.mvp.contract.base.BaseViewContract;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * MVP基类Fragment（带基础状态控件）
@@ -22,14 +25,14 @@ public abstract class MvpBaseFragment<PC extends BasePresenterContract<VC>, VC e
         super.startCreate();
         mPresenterContract = createMainPresenter();
         if (mPresenterContract != null){
-            mPresenterContract.onCreate(getContext(), (VC) this);
+            mPresenterContract.attach(getContext(), (VC) this);
         }
     }
 
     protected abstract PC createMainPresenter();
 
     @NonNull
-    protected PC getPresenterContract(){
+    protected final PC getPresenterContract(){
         return mPresenterContract;
     }
 
@@ -37,23 +40,15 @@ public abstract class MvpBaseFragment<PC extends BasePresenterContract<VC>, VC e
     public void onDestroyView() {
         super.onDestroyView();
         if (mPresenterContract != null){
-            mPresenterContract.onDestroy();
+            mPresenterContract.detach();
         }
     }
 
     @Override
-    protected void onFragmentResume() {
-        super.onFragmentResume();
+    public void onDestroy() {
+        super.onDestroy();
         if (mPresenterContract != null){
-            mPresenterContract.onResume();
-        }
-    }
-
-    @Override
-    protected void onFragmentPause() {
-        super.onFragmentPause();
-        if (mPresenterContract != null){
-            mPresenterContract.onPause();
+            mPresenterContract.detach();
         }
     }
 
@@ -103,4 +98,13 @@ public abstract class MvpBaseFragment<PC extends BasePresenterContract<VC>, VC e
         super.showTitleBar();
     }
 
+    @Override
+    public <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+        throw new IllegalArgumentException("you bind fragment but call activity event");
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
+        return bindUntilEvent(event);
+    }
 }

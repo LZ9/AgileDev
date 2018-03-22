@@ -2,6 +2,9 @@ package com.lodz.android.agiledev.ui.mvp.base;
 
 import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.mvp.presenter.BasePresenter;
+import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
+import com.lodz.android.component.rx.utils.RxUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * 测试Presenter
@@ -10,23 +13,22 @@ import com.lodz.android.component.mvp.presenter.BasePresenter;
 
 public class MvpTestBasePresenter extends BasePresenter<MvpTestBaseViewContract> {
 
-    /** 数据来源 */
-    private ApiModule mApiModule;
-
-    public MvpTestBasePresenter() {
-        this.mApiModule = new ApiModule();
-    }
-
     public void getResult(){
-        mApiModule.requestResult(new ApiModule.Listener() {
-            @Override
-            public void onCallback(String response) {
-                if (!isDestroy()){
-                    getViewContract().showResult();
-                    getViewContract().setResult(response);
-                    getViewContract().showStatusCompleted();
-                }
-            }
-        });
+        ApiModule.requestResult()
+                .compose(RxUtils.<String>ioToMainObservable())
+                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onBaseNext(String s) {
+                        getViewContract().showResult();
+                        getViewContract().setResult(s);
+                        getViewContract().showStatusCompleted();
+                    }
+
+                    @Override
+                    public void onBaseError(Throwable e) {
+                        getViewContract().showStatusError();
+                    }
+                });
     }
 }

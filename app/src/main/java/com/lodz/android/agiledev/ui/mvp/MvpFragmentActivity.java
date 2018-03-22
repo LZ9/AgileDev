@@ -1,5 +1,7 @@
 package com.lodz.android.agiledev.ui.mvp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,11 @@ import butterknife.ButterKnife;
  */
 
 public class MvpFragmentActivity extends AbsActivity{
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, MvpFragmentActivity.class);
+        context.startActivity(starter);
+    }
 
     /** 主页tab名称 */
     private String[] tabNameResId = {"普通", "状态", "刷新"};

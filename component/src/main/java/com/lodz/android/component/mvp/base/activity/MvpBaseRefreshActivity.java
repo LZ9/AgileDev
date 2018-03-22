@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.activity.BaseRefreshActivity;
 import com.lodz.android.component.mvp.contract.refresh.BaseRefreshPresenterContract;
 import com.lodz.android.component.mvp.contract.refresh.BaseRefreshViewContract;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
  * MVP基类Activity（带基础状态控件和下来刷新控件）
@@ -22,14 +25,14 @@ public abstract class MvpBaseRefreshActivity<PC extends BaseRefreshPresenterCont
         super.startCreate();
         mPresenterContract = createMainPresenter();
         if (mPresenterContract != null){
-            mPresenterContract.onCreate(this, (VC) this);
+            mPresenterContract.attach(this, (VC) this);
         }
     }
 
     protected abstract PC createMainPresenter();
 
     @NonNull
-    protected PC getPresenterContract(){
+    protected final PC getPresenterContract(){
         return mPresenterContract;
     }
 
@@ -37,23 +40,15 @@ public abstract class MvpBaseRefreshActivity<PC extends BaseRefreshPresenterCont
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenterContract != null){
-            mPresenterContract.onDestroy();
+            mPresenterContract.detach();
         }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    public void finish() {
+        super.finish();
         if (mPresenterContract != null){
-            mPresenterContract.onPause();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mPresenterContract != null){
-            mPresenterContract.onResume();
+            mPresenterContract.detach();
         }
     }
 
@@ -111,5 +106,15 @@ public abstract class MvpBaseRefreshActivity<PC extends BaseRefreshPresenterCont
     @Override
     public void setSwipeRefreshEnabled(boolean enabled) {
         super.setSwipeRefreshEnabled(enabled);
+    }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+        return bindUntilEvent(event);
+    }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
+        throw new IllegalArgumentException("you bind activity but call fragment event");
     }
 }
