@@ -100,6 +100,8 @@
     <string name="mvp_demo_base">带基础状态控件Activity</string>
     <string name="mvp_demo_refresh">带基础状态控件和下来刷新控件Activity</string>
     <string name="mvp_demo_fragment">Fragment用例</string>
+    <string name="mvp_demo_request_data">获取数据</string>
+
 
 
 

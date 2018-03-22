@@ -55,6 +55,11 @@ public class AbsPresenter<VC extends ViewContract> implements PresenterContract<
         return getViewContract().bindUntilFragmentEvent(event);
     }
 
+    @Override
+    public <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return getViewContract().bindUntilDetachEvent();
+    }
+
     /** 获取View接口对象 */
     public final VC getViewContract(){
         if (mViewContract == null){

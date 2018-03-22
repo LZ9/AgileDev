@@ -107,4 +107,9 @@ public abstract class MvpBaseActivity<PC extends BasePresenterContract<VC>, VC e
     public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         throw new IllegalArgumentException("you bind activity but call fragment event");
     }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return bindUntilEvent(ActivityEvent.DESTROY);
+    }
 }

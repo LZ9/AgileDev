@@ -117,4 +117,9 @@ public abstract class MvpBaseRefreshActivity<PC extends BaseRefreshPresenterCont
     public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         throw new IllegalArgumentException("you bind activity but call fragment event");
     }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return bindUntilEvent(ActivityEvent.DESTROY);
+    }
 }

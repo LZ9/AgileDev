@@ -5,16 +5,10 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/show_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="show result" />
-
-    <Button
         android:id="@+id/get_reuslt_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="get result" />
+        android:text="@string/mvp_demo_request_data" />
 
     <TextView
         android:id="@+id/result"

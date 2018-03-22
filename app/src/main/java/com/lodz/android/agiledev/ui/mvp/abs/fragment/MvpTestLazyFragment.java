@@ -27,9 +27,6 @@ public class MvpTestLazyFragment extends MvpLazyFragment<MvpTestAbsPresenter, Mv
     @BindView(R.id.result)
     TextView mResult;
 
-    @BindView(R.id.show_btn)
-    Button mShowBtn;
-
     @BindView(R.id.get_reuslt_btn)
     Button mGetResultBtn;
 
@@ -51,12 +48,6 @@ public class MvpTestLazyFragment extends MvpLazyFragment<MvpTestAbsPresenter, Mv
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
-        mShowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mResult.setVisibility(mResult.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-            }
-        });
 
         mGetResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override

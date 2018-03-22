@@ -18,4 +18,7 @@ public interface ViewContract {
 
     /** 在Fragment里绑定Rx生命周期 */
     <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event);
+
+    /** 自动绑定Rx生命周期 */
+    <T> LifecycleTransformer<T> bindUntilDetachEvent();
 }

@@ -4,7 +4,6 @@ import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.mvp.presenter.BasePresenter;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * 测试Presenter
@@ -16,7 +15,7 @@ public class MvpTestBasePresenter extends BasePresenter<MvpTestBaseViewContract>
     public void getResult(){
         ApiModule.requestResult()
                 .compose(RxUtils.<String>ioToMainObservable())
-                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {

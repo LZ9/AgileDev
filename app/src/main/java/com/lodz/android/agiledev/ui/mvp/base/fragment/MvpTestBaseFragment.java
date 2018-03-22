@@ -29,9 +29,6 @@ public class MvpTestBaseFragment extends MvpBaseFragment<MvpTestBasePresenter, M
     @BindView(result)
     TextView mResult;
 
-    @BindView(R.id.show_btn)
-    Button mShowBtn;
-
     @BindView(R.id.get_reuslt_btn)
     Button mGetResultBtn;
 

@@ -31,9 +31,6 @@ public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefres
     @BindView(R.id.result)
     TextView mResult;
 
-    @BindView(R.id.show_btn)
-    Button mShowBtn;
-
     @BindView(R.id.get_reuslt_btn)
     Button mGetResultBtn;
 

@@ -61,4 +61,9 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
     public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         return bindUntilEvent(event);
     }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return bindUntilEvent(FragmentEvent.DESTROY_VIEW);
+    }
 }

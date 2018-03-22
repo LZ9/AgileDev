@@ -107,4 +107,9 @@ public abstract class MvpBaseFragment<PC extends BasePresenterContract<VC>, VC e
     public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         return bindUntilEvent(event);
     }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return bindUntilEvent(FragmentEvent.DESTROY_VIEW);
+    }
 }

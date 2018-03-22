@@ -61,4 +61,9 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
     public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         throw new IllegalArgumentException("you bind activity but call fragment event");
     }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return bindUntilEvent(ActivityEvent.DESTROY);
+    }
 }

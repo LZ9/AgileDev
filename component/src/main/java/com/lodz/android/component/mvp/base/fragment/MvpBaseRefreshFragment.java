@@ -117,4 +117,9 @@ public abstract class MvpBaseRefreshFragment<PC extends BaseRefreshPresenterCont
     public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         return bindUntilEvent(event);
     }
+
+    @Override
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+        return bindUntilEvent(FragmentEvent.DESTROY_VIEW);
+    }
 }

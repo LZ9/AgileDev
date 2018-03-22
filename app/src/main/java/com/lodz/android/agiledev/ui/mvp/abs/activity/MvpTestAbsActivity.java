@@ -30,9 +30,6 @@ public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpT
     @BindView(R.id.result)
     TextView mResult;
 
-    @BindView(R.id.show_btn)
-    Button mShowBtn;
-
     @BindView(R.id.get_reuslt_btn)
     Button mGetResultBtn;
 
@@ -54,13 +51,6 @@ public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpT
     @Override
     protected void setListeners() {
         super.setListeners();
-        mShowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mResult.setVisibility(mResult.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-            }
-        });
-
         mGetResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

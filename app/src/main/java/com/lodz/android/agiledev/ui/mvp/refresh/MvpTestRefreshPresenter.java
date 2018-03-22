@@ -4,7 +4,6 @@ import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.mvp.presenter.BaseRefreshPresenter;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 /**
  * 测试Presenter
@@ -23,7 +22,7 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
     public void getResult(){
         ApiModule.requestResult()
                 .compose(RxUtils.<String>ioToMainObservable())
-                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
@@ -42,7 +41,7 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
     public void getRefreshData(){
         ApiModule.requestResult()
                 .compose(RxUtils.<String>ioToMainObservable())
-                .compose(this.<String>bindUntilActivityEvent(ActivityEvent.DESTROY))
+                .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
