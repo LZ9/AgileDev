@@ -13,8 +13,8 @@ import com.lodz.android.component.rx.utils.RxUtils;
 public class MvpTestAbsPresenter extends AbsPresenter<MvpTestAbsViewContract> {
 
 
-    public void getResult(){
-        ApiModule.requestResult()
+    public void getResult(boolean isSuccess){
+        ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
                 .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new ProgressObserver<String>() {
@@ -28,6 +28,6 @@ public class MvpTestAbsPresenter extends AbsPresenter<MvpTestAbsViewContract> {
                     public void onPgError(Throwable e, boolean isNetwork) {
                         getViewContract().setResult("fail");
                     }
-                }.create(getContext(), "加载中...", false));
+                }.create(getContext(), "加载中...", true));
     }
 }

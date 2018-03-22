@@ -1,5 +1,6 @@
 package com.lodz.android.agiledev.ui.mvp;
 
+import com.lodz.android.component.rx.exception.DataException;
 import com.lodz.android.core.utils.UiHandler;
 
 import io.reactivex.Observable;
@@ -13,7 +14,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class ApiModule {
 
-    public static Observable<String> requestResult(){
+    public static Observable<String> requestResult(final boolean isSuccess){
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
@@ -24,10 +25,17 @@ public class ApiModule {
                     UiHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            if (emitter.isDisposed()){
+                                return;
+                            }
+                            if (!isSuccess){
+                                emitter.onError(new DataException("request fail"));
+                                return;
+                            }
                             emitter.onNext("result is " + System.currentTimeMillis());
                             emitter.onComplete();
                         }
-                    }, 2000);
+                    }, 1000);
                 }catch (Exception e){
                     e.printStackTrace();
                     emitter.onError(e);

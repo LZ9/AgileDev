@@ -12,8 +12,8 @@ import com.lodz.android.component.rx.utils.RxUtils;
 
 public class MvpTestBasePresenter extends BasePresenter<MvpTestBaseViewContract> {
 
-    public void getResult(){
-        ApiModule.requestResult()
+    public void getResult(boolean isSuccess){
+        ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
                 .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new BaseObserver<String>() {

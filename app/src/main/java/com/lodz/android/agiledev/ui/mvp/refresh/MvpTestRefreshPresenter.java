@@ -19,8 +19,8 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
         this.mApiModule = new ApiModule();
     }
 
-    public void getResult(){
-        ApiModule.requestResult()
+    public void getResult(boolean isSuccess){
+        ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
                 .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new BaseObserver<String>() {
@@ -38,22 +38,22 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
                 });
     }
 
-    public void getRefreshData(){
-        ApiModule.requestResult()
+    public void getRefreshData(boolean isSuccess){
+        ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
                 .compose(this.<String>bindUntilDetachEvent())
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
                         getViewContract().setSwipeRefreshFinish();
-//                        getViewContract().refreshFail("刷新数据失败");
                         getViewContract().showResult();
                         getViewContract().setResult(s);
                     }
 
                     @Override
                     public void onBaseError(Throwable e) {
-                        getViewContract().showStatusError();
+                        getViewContract().setSwipeRefreshFinish();
+                        getViewContract().refreshFail("刷新数据失败");
                     }
                 });
     }

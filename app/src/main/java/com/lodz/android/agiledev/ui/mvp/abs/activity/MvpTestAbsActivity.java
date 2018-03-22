@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
  * MVP测试Activity
  * Created by zhouL on 2017/7/7.
  */
-
 public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpTestAbsViewContract> implements MvpTestAbsViewContract {
 
     public static void start(Context context) {
@@ -27,11 +26,15 @@ public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpT
         context.startActivity(starter);
     }
 
+    /** 结果 */
     @BindView(R.id.result)
     TextView mResult;
-
-    @BindView(R.id.get_reuslt_btn)
-    Button mGetResultBtn;
+    /** 获取成功数据按钮 */
+    @BindView(R.id.get_success_reuslt_btn)
+    Button mGetSuccessResultBtn;
+    /** 获取失败数据按钮 */
+    @BindView(R.id.get_fail_reuslt_btn)
+    Button mGetFailResultBtn;
 
     @Override
     protected MvpTestAbsPresenter createMainPresenter() {
@@ -51,10 +54,17 @@ public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpT
     @Override
     protected void setListeners() {
         super.setListeners();
-        mGetResultBtn.setOnClickListener(new View.OnClickListener() {
+        mGetSuccessResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPresenterContract().getResult();
+                getPresenterContract().getResult(true);
+            }
+        });
+
+        mGetFailResultBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPresenterContract().getResult(false);
             }
         });
     }
@@ -69,8 +79,4 @@ public class MvpTestAbsActivity extends MvpAbsActivity<MvpTestAbsPresenter, MvpT
         mResult.setText(result);
     }
 
-    @Override
-    protected void initData() {
-        super.initData();
-    }
 }

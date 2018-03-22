@@ -25,11 +25,15 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
         return new MvpTestRefreshFragment();
     }
 
+    /** 结果 */
     @BindView(R.id.result)
     TextView mResult;
-
-    @BindView(R.id.get_reuslt_btn)
-    Button mGetResultBtn;
+    /** 获取成功数据按钮 */
+    @BindView(R.id.get_success_reuslt_btn)
+    Button mGetSuccessResultBtn;
+    /** 获取失败数据按钮 */
+    @BindView(R.id.get_fail_reuslt_btn)
+    Button mGetFailResultBtn;
 
     @Override
     protected MvpTestRefreshPresenter createMainPresenter() {
@@ -48,17 +52,25 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
 
     @Override
     protected void onDataRefresh() {
-        getPresenterContract().getRefreshData();
+        getPresenterContract().getRefreshData(false);
     }
 
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
-        mGetResultBtn.setOnClickListener(new View.OnClickListener() {
+        mGetSuccessResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showStatusLoading();
-                getPresenterContract().getResult();
+                getPresenterContract().getResult(true);
+            }
+        });
+
+        mGetFailResultBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatusLoading();
+                getPresenterContract().getResult(false);
             }
         });
     }
@@ -67,7 +79,7 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     protected void initData(View view) {
         super.initData(view);
         showStatusLoading();
-        getPresenterContract().getResult();
+        getPresenterContract().getResult(true);
     }
 
     @Override
@@ -89,6 +101,6 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     protected void clickReload() {
         super.clickReload();
         showStatusLoading();
-        getPresenterContract().getResult();
+        getPresenterContract().getResult(true);
     }
 }
