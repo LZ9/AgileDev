@@ -13,6 +13,7 @@ import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.config.ConfigLayoutActivity;
 import com.lodz.android.agiledev.ui.crash.CrashTestActivity;
+import com.lodz.android.agiledev.ui.design.coordinator.CoordinatorTestActivity;
 import com.lodz.android.agiledev.ui.dialog.DialogTestActivity;
 import com.lodz.android.agiledev.ui.location.LocationActivity;
 import com.lodz.android.agiledev.ui.media.RecordActivity;
@@ -60,13 +61,13 @@ public class MainActivity extends BaseActivity{
             "RV动画测试", "带头/底部RV测试", "刷新/加载更多测试", "RV侧滑菜单测试",
             "崩溃测试", "基础控件配置", "照片选择器测试", "定位测试",
             "通知测试", "Retrofit测试", "RV装饰器测试类", "线程池测试类",
-            "Rxjava测试类", "MVP模式测试类");
+            "Rxjava测试类", "MVP模式测试类", "Coordinator测试类");
     /** 功能的activity */
     private static final Class<?>[] mClassList = {DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class,
             AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class, RefreshTestActivity.class, SwipeRecyclerViewActivity.class,
             CrashTestActivity.class, ConfigLayoutActivity.class, PhotoPickerTestActivity.class, LocationActivity.class,
             NotificationActivity.class, RetrofitTestActivity.class, ItemDecorationTestActivity.class, ThreadPoolActivity.class,
-            RxTestActivity.class, MvpDemoActivity.class};
+            RxTestActivity.class, MvpDemoActivity.class, CoordinatorTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

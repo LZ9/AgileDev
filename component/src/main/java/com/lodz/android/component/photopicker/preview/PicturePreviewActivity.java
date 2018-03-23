@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
@@ -22,6 +18,7 @@ import com.lodz.android.component.widget.photoview.PhotoView;
 import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
 import com.lodz.android.component.widget.photoview.PhotoViewPager;
 import com.lodz.android.core.utils.ArrayUtils;
+import com.lodz.android.core.utils.DeviceUtils;
 
 /**
  * 图片预览页面
@@ -82,7 +79,8 @@ public class PicturePreviewActivity extends AbsActivity{
         super.initData();
         mRootView.setBackgroundColor(ContextCompat.getColor(getContext(), mPreviewBean.backgroundColor));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSystemBarColor(mPreviewBean.statusBarColor, mPreviewBean.navigationBarColor);
+            DeviceUtils.setStatusBarColor(getContext(), getWindow(), mPreviewBean.statusBarColor);
+            DeviceUtils.setNavigationBarColor(getContext(), getWindow(), mPreviewBean.navigationBarColor);
         }
         setPagerNum(mPreviewBean.showPosition);
         mPagerTipsTv.setVisibility(mPreviewBean.isShowPagerText ? View.VISIBLE : View.GONE);
@@ -137,31 +135,6 @@ public class PicturePreviewActivity extends AbsActivity{
     /** 设置页码 */
     private void setPagerNum(int position){
         mPagerTipsTv.setText(new StringBuffer().append(position + 1).append(" / ").append(ArrayUtils.getSize(mPreviewBean.sourceList)));
-    }
-
-    /**
-     * 设置系统颜色
-     * @param statusBarColor 状态栏颜色
-     * @param navigationBarColor 导航栏颜色
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void setSystemBarColor(@ColorRes int statusBarColor, @ColorRes int navigationBarColor) {
-        if (statusBarColor == 0 && navigationBarColor == 0){
-            return;
-        }
-
-        try {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (statusBarColor != 0){
-                window.setStatusBarColor(ContextCompat.getColor(getContext(), statusBarColor));
-            }
-            if (navigationBarColor != 0){
-                window.setNavigationBarColor(ContextCompat.getColor(getContext(), navigationBarColor));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

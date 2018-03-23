@@ -106,6 +106,10 @@
     <string name="mvp_demo_refresh_title">带下拉刷新控件</string>
     <string name="mvp_demo_fragment_title">MVP模式Fragment测试</string>
 
+    <!-- CoordinatorLayout测试 -->
+    <string name="coordinator_collapsing">折叠</string>
+
+
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

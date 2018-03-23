@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.ColorRes;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,8 +22,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +42,7 @@ import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.DateUtils;
 import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.DeviceUtils;
 import com.lodz.android.core.utils.DrawableUtils;
 import com.lodz.android.core.utils.FileUtils;
 import com.lodz.android.core.utils.SelectorUtils;
@@ -150,7 +148,8 @@ public class PhotoPickerActivity extends AbsActivity{
         mConfirmBtn.setEnabled(false);
         mPreviewBtn.setEnabled(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSystemBarColor(mPickerBean.pickerUIConfig.getStatusBarColor(), mPickerBean.pickerUIConfig.getNavigationBarColor());
+            DeviceUtils.setStatusBarColor(getContext(), getWindow(), mPickerBean.pickerUIConfig.getStatusBarColor());
+            DeviceUtils.setNavigationBarColor(getContext(), getWindow(), mPickerBean.pickerUIConfig.getNavigationBarColor());
         }
     }
 
@@ -488,32 +487,6 @@ public class PhotoPickerActivity extends AbsActivity{
         canvas.drawCircle(centerPoint, centerPoint + DensityUtils.dp2px(getContext(), 3), 3, paint);
         return bitmap;
     }
-
-    /**
-     * 设置系统颜色
-     * @param statusBarColor 状态栏颜色
-     * @param navigationBarColor 导航栏颜色
-     */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void setSystemBarColor(@ColorRes int statusBarColor, @ColorRes int navigationBarColor) {
-        if (statusBarColor == 0 && navigationBarColor == 0){
-            return;
-        }
-
-        try {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (statusBarColor != 0){
-                window.setStatusBarColor(ContextCompat.getColor(getContext(), statusBarColor));
-            }
-            if (navigationBarColor != 0){
-                window.setNavigationBarColor(ContextCompat.getColor(getContext(), navigationBarColor));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     /** 拍照 */
     private void takePhoto() {

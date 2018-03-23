@@ -13,4 +13,17 @@
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
     </style>
 
+    <!-- 折叠后标题 -->
+    <style name="TitleCollapsedStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- 展开后标题 -->
+    <style name="TitleExpandedStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
