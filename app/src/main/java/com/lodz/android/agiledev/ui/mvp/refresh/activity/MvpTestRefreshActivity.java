@@ -11,6 +11,7 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshPresenter;
 import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshViewContract;
 import com.lodz.android.component.mvp.base.activity.MvpBaseRefreshActivity;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -51,11 +52,29 @@ public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefres
     @Override
     protected void findViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        initTitleBarLayout(getTitleBarLayout());
+    }
+
+    private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
+        titleBarLayout.setTitleName(R.string.mvp_demo_refresh_title);
     }
 
     @Override
     protected void onDataRefresh() {
         getPresenterContract().getRefreshData(true);
+    }
+
+    @Override
+    protected void clickReload() {
+        super.clickReload();
+        showStatusLoading();
+        getPresenterContract().getResult(true);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     @Override
@@ -101,10 +120,4 @@ public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefres
         mResult.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected void clickReload() {
-        super.clickReload();
-        showStatusLoading();
-        getPresenterContract().getResult(true);
-    }
 }

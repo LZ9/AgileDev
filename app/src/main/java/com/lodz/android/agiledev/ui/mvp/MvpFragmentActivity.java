@@ -13,7 +13,8 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.mvp.abs.fragment.MvpTestLazyFragment;
 import com.lodz.android.agiledev.ui.mvp.base.fragment.MvpTestBaseFragment;
 import com.lodz.android.agiledev.ui.mvp.refresh.fragment.MvpTestRefreshFragment;
-import com.lodz.android.component.base.activity.AbsActivity;
+import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2017/7/12.
  */
 
-public class MvpFragmentActivity extends AbsActivity{
+public class MvpFragmentActivity extends BaseActivity{
 
     public static void start(Context context) {
         Intent starter = new Intent(context, MvpFragmentActivity.class);
@@ -39,16 +40,20 @@ public class MvpFragmentActivity extends AbsActivity{
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-
     @Override
-    protected int getAbsLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_fragment_life_test_layout;
     }
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        initTitleBarLayout(getTitleBarLayout());
         initViewPager();
+    }
+
+    private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
+        titleBarLayout.setTitleName(R.string.mvp_demo_fragment_title);
     }
 
     private void initViewPager() {
@@ -88,4 +93,15 @@ public class MvpFragmentActivity extends AbsActivity{
         }
     }
 
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        showStatusCompleted();
+    }
 }

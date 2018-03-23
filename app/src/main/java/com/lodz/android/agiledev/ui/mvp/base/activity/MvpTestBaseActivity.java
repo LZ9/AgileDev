@@ -11,6 +11,7 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.mvp.base.MvpTestBasePresenter;
 import com.lodz.android.agiledev.ui.mvp.base.MvpTestBaseViewContract;
 import com.lodz.android.component.mvp.base.activity.MvpBaseActivity;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +51,24 @@ public class MvpTestBaseActivity extends MvpBaseActivity<MvpTestBasePresenter, M
     @Override
     protected void findViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        initTitleBarLayout(getTitleBarLayout());
+    }
+
+    private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
+        titleBarLayout.setTitleName(R.string.mvp_demo_base_title);
+    }
+
+    @Override
+    protected void clickReload() {
+        super.clickReload();
+        showStatusLoading();
+        getPresenterContract().getResult(true);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     @Override
@@ -89,10 +108,4 @@ public class MvpTestBaseActivity extends MvpBaseActivity<MvpTestBasePresenter, M
         mResult.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    protected void clickReload() {
-        super.clickReload();
-        showStatusLoading();
-        getPresenterContract().getResult(true);
-    }
 }

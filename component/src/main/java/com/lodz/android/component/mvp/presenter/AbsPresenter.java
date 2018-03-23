@@ -56,7 +56,7 @@ public class AbsPresenter<VC extends ViewContract> implements PresenterContract<
     }
 
     @Override
-    public <T> LifecycleTransformer<T> bindUntilDetachEvent() {
+    public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
         return getViewContract().bindUntilDetachEvent();
     }
 
