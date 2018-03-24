@@ -312,8 +312,7 @@
         <activity
             android:name=".ui.design.coordinator.CoordinatorTestActivity"
             android:label="CoordinatorLayout测试类"
-            android:screenOrientation="portrait"
-            android:theme="@style/CoordinatorTheme">
+            android:screenOrientation="portrait">
 
         </activity>
 
