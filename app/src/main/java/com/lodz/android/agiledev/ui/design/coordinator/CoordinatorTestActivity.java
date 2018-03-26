@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.component.widget.contract.OnAppBarStateChangeListener;
+import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.SnackbarUtils;
 import com.lodz.android.core.utils.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -43,6 +49,13 @@ public class CoordinatorTestActivity extends AbsActivity{
     /** 标题栏 */
     @BindView(R.id.title_bar_layout)
     TitleBarLayout mTitleBarLayout;
+    /** 右侧按钮 */
+    @BindView(R.id.right_btn)
+    ImageView mRightBtn;
+    /** 浮动按钮 */
+    @BindView(R.id.fa_btn)
+    FloatingActionButton mFloatingActionBtn;
+
     /** 数据列表 */
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -84,28 +97,81 @@ public class CoordinatorTestActivity extends AbsActivity{
             }
         });
 
+        // 右侧按钮
+        mRightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-//        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() { //barLayout偏移量的监听
+        // 浮动按钮
+        mFloatingActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SnackbarUtils.createShort(mRecyclerView, "测试")
+                        .setTextColor(R.color.white)
+                        .addLeftImage(R.drawable.ic_launcher, DensityUtils.dp2px(getContext(), 5))
+                        .getSnackbar()
+                        .setActionTextColor(ContextCompat.getColor(getContext(), R.color.color_ea5e5e))
+                        .setAction("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .show();
+
+//                Snackbar snackbar = SnackbarUtils.createShort(mRecyclerView, "123")
+//                        .replaceLayoutView(R.layout.view_custom_snackbar_layout)
+//                        .getSnackbar();
+//                TextView textView = snackbar.getView().findViewById(R.id.content_txt);
+//                textView.setText("自定义测试");
+//                Button button = snackbar.getView().findViewById(R.id.btn);
+//                button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ToastUtils.showShort(getContext(), R.string.coordinator_collapsing);
+//                    }
+//                });
+//                snackbar.show();
+            }
+        });
+
+        // AppBarLayout偏移量的监听
+        mAppBarLayout.addOnOffsetChangedListener(new OnAppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, int state, double delta) {
+                if (state == OnAppBarStateChangeListener.EXPANDED){// 完全展开
+                    mRightBtn.setVisibility(View.VISIBLE);
+                    mRightBtn.setAlpha(1f);
+                    mTitleBarLayout.setVisibility(View.GONE);
+                } else if (state == OnAppBarStateChangeListener.COLLAPSED){// 完全折叠
+                    mRightBtn.setVisibility(View.GONE);
+                    mTitleBarLayout.setVisibility(View.VISIBLE);
+                    mTitleBarLayout.setAlpha(1f);
+                }else {// 滑动中
+                    mRightBtn.setAlpha((float) (1f - delta));
+                    mTitleBarLayout.setAlpha((float) delta);
+                    mRightBtn.setVisibility(View.VISIBLE);
+                    mTitleBarLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        // 修复底部RV无法展示所有item的问题
+//        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
 //            @Override
 //            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                if (verticalOffset == 0) {
-//                    //张开
-//                    mDetailMaxTitleTextView.setVisibility(View.VISIBLE);
-//                    mDetailMinTitleTextView.setVisibility(View.INVISIBLE);
-//                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
-//                    //收缩
-//                    mDetailMaxTitleTextView.setVisibility(View.GONE);
-//                    mDetailMinTitleTextView.setVisibility(View.VISIBLE);
-//                } else {
-//                    double percent = (double) Math.abs(verticalOffset) / (double) appBarLayout.getTotalScrollRange();
-//                    mDetailMaxTitleTextView.setAlpha((float) (1f - percent));
-//                    mDetailMinTitleTextView.setAlpha((float) percent);
-//                    mDetailMaxTitleTextView.setVisibility(View.VISIBLE);
-//                    mDetailMinTitleTextView.setVisibility(View.VISIBLE);
+//                if (state == OnAppBarStateChangeListener.EXPANDED) {//张开
+//                    mTitleBarLayout.setVisibility(View.GONE);
+//                    mTitleBarLayout.setVisibility(View.VISIBLE);
+//                }else if (state == OnAppBarStateChangeListener.COLLAPSED) {//收缩
+//                    mTitleBarLayout.setVisibility(View.GONE);
+//                    mTitleBarLayout.setVisibility(View.VISIBLE);
 //                }
 //            }
 //        });
-
     }
 
     @Override

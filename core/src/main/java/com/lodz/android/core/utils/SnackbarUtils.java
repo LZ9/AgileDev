@@ -1,6 +1,7 @@
 package com.lodz.android.core.utils;
 
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -80,6 +81,34 @@ public class SnackbarUtils {
     }
 
     /**
+     * 添加文字左侧图片
+     * @param resId 图片资源id
+     * @param drawablePadding 间距
+     */
+    public SnackbarUtils addLeftImage(@DrawableRes int resId, int drawablePadding) {
+        View view = mSnackbar.getView();
+        TextView textView = view.findViewById(R.id.snackbar_text);
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+        textView.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0);
+        textView.setCompoundDrawablePadding(drawablePadding);
+        return this;
+    }
+
+    /**
+     * 添加文字右侧图片
+     * @param resId 图片资源id
+     * @param drawablePadding 间距
+     */
+    public SnackbarUtils addRightImage(@DrawableRes int resId, int drawablePadding) {
+        View view = mSnackbar.getView();
+        TextView textView = view.findViewById(R.id.snackbar_text);
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0);
+        textView.setCompoundDrawablePadding(drawablePadding);
+        return this;
+    }
+
+    /**
      * 设置背景色
      * @param backgroundColor 背景色
      */
@@ -92,15 +121,17 @@ public class SnackbarUtils {
     }
 
     /**
-     * 添加左侧布局
+     * 替换内容布局
      * @param layoutId 布局id
      */
-    public SnackbarUtils addLeftView(@LayoutRes int layoutId) {
+    public SnackbarUtils replaceLayoutView(@LayoutRes int layoutId) {
         View snackbarview = mSnackbar.getView();
         Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
+        snackbarLayout.removeAllViews();
         View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         p.gravity = Gravity.CENTER_VERTICAL;
+        snackbarLayout.setPadding(0, 0, 0, 0);
         snackbarLayout.addView(add_view, 0, p);
         return this;
     }
