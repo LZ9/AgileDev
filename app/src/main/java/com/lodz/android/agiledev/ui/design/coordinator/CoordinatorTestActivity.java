@@ -2,15 +2,19 @@ package com.lodz.android.agiledev.ui.design.coordinator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.core.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,12 @@ public class CoordinatorTestActivity extends AbsActivity{
         context.startActivity(starter);
     }
 
+    /** AppBarLayout */
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
+    /** Toolbar */
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     /** 标题栏 */
     @BindView(R.id.title_bar_layout)
     TitleBarLayout mTitleBarLayout;
@@ -49,6 +59,7 @@ public class CoordinatorTestActivity extends AbsActivity{
         ButterKnife.bind(this);
         mTitleBarLayout.setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
         initRecyclerView();
+        StatusBarUtil.setTranslucentForImageView(this, Color.TRANSPARENT, mToolbar);
     }
 
     private void initRecyclerView() {
@@ -72,6 +83,29 @@ public class CoordinatorTestActivity extends AbsActivity{
                 finish();
             }
         });
+
+
+//        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() { //barLayout偏移量的监听
+//            @Override
+//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//                if (verticalOffset == 0) {
+//                    //张开
+//                    mDetailMaxTitleTextView.setVisibility(View.VISIBLE);
+//                    mDetailMinTitleTextView.setVisibility(View.INVISIBLE);
+//                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+//                    //收缩
+//                    mDetailMaxTitleTextView.setVisibility(View.GONE);
+//                    mDetailMinTitleTextView.setVisibility(View.VISIBLE);
+//                } else {
+//                    double percent = (double) Math.abs(verticalOffset) / (double) appBarLayout.getTotalScrollRange();
+//                    mDetailMaxTitleTextView.setAlpha((float) (1f - percent));
+//                    mDetailMinTitleTextView.setAlpha((float) percent);
+//                    mDetailMaxTitleTextView.setVisibility(View.VISIBLE);
+//                    mDetailMinTitleTextView.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+
     }
 
     @Override
