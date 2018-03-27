@@ -170,6 +170,13 @@
         </activity>
 
         <activity
+            android:name=".ui.dialogfragment.DialogFragmentTestActivity"
+            android:label="DialogFragment测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".ui.config.ConfigLayoutActivity"
             android:label="基础控件配置测试类"
             android:screenOrientation="portrait">

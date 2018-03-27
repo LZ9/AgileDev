@@ -19,6 +19,7 @@
     <!-- 弹框测试 -->
     <string name="dialog_test_middle">中间弹框</string>
     <string name="dialog_test_middle_scale">中间弹框（缩放动画）</string>
+    <string name="dialog_test_right_in">右侧弹框</string>
     <string name="dialog_test_right">右侧弹框（无灰色背景、带阴影、空白不消失）</string>
     <string name="dialog_test_left">左侧弹框</string>
     <string name="dialog_test_bottom">底部弹框</string>
@@ -39,6 +40,11 @@
 
     <string name="dialog_test_bottom_txt">他把我叫过来，他把我玩了，连一百块都不给我，这种人好恶心的，好坏的！</string>
     <string name="dialog_test_bottom_txt_sure">给他100块</string>
+
+    <string name="dialog_test_tags_mun">曼联</string>
+    <string name="dialog_test_tags_ars">阿森纳</string>
+    <string name="dialog_test_tags_che">切尔西</string>
+    <string name="dialog_test_tags_liv">利物浦</string>
 
     <!-- 视频录制 -->
     <string name="record_start">开始录像</string>
