@@ -61,31 +61,31 @@ android {
 }
 
 dependencies {
-    compile project(':component')
-    compile project(':imageloader')
+    implementation project(':component')
+    implementation project(':imageloader')
 
     // 权限申请
-    compile 'com.github.hotchemi:permissionsdispatcher:3.1.0'
+    implementation 'com.github.hotchemi:permissionsdispatcher:3.1.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     // butterknife
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // fresco
-//    compile 'com.facebook.fresco:fresco:1.8.1'
-//    compile 'com.facebook.fresco:animated-gif:1.8.1'// 支持 GIF 动图，需要添加
-//    compile 'com.facebook.fresco:animated-webp:1.8.1'// 在 API < 14 上的机器支持 WebP 时，需要添加
-//    compile 'com.facebook.fresco:animated-base-support:1.3.0'// 支持 WebP 动图，需要添加
-//    compile 'com.facebook.fresco:webpsupport:1.8.1'// 支持 WebP 静态图，需要添加
-//    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.8.1'// 支持 OkHttp3，需要添加
+//    implementation 'com.facebook.fresco:fresco:1.8.1'
+//    implementation 'com.facebook.fresco:animated-gif:1.8.1'// 支持 GIF 动图，需要添加
+//    implementation 'com.facebook.fresco:animated-webp:1.8.1'// 在 API < 14 上的机器支持 WebP 时，需要添加
+//    implementation 'com.facebook.fresco:animated-base-support:1.3.0'// 支持 WebP 动图，需要添加
+//    implementation 'com.facebook.fresco:webpsupport:1.8.1'// 支持 WebP 静态图，需要添加
+//    implementation 'com.facebook.fresco:imagepipeline-okhttp3:1.8.1'// 支持 OkHttp3，需要添加
 
     // glide
-    compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.5.0@aar'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.5.0@aar'
 
     // 下载
-//    compile 'zlc.season:rxdownload2:2.0.4'
-    compile 'zlc.season:rxdownload3:1.2.2'
+//    implementation 'zlc.season:rxdownload2:2.0.4'
+    implementation 'zlc.season:rxdownload3:1.2.2'
 
     // leakcanary
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'

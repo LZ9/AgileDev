@@ -26,25 +26,25 @@ android {
 
 dependencies {
     // 引用的库
-//    compile 'cn.lodz:core:1.1.8'
-    compile project(':core')
+//    api 'cn.lodz:core:1.1.8'
+    api project(':core')
 
     // RxJava
-    compile ('io.reactivex.rxjava2:rxjava:2.1.12'){
+    api ('io.reactivex.rxjava2:rxjava:2.1.12'){
         exclude group: 'android.arch.core'
     }
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.4.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    compile 'com.alibaba:fastjson:1.2.46'
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    api 'com.alibaba:fastjson:1.2.46'
     // RxJava生命周期
-    compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
-    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    api 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
     // EventBus
-    compile 'org.greenrobot:eventbus:3.1.1'
+    api 'org.greenrobot:eventbus:3.1.1'
 
-//    compile 'com.hannesdorfmann.mosby3:mvp:3.0.4'
+//    api 'com.hannesdorfmann.mosby3:mvp:3.0.4'
 }
 
 //publish {
