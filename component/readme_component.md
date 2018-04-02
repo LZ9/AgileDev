@@ -25,20 +25,20 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        compile 'cn.lodz:core:1.1.8'
+        api 'cn.lodz:core:1.1.9'
     
-        compile 'io.reactivex.rxjava2:rxjava:2.1.10'
-        compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+        api 'io.reactivex.rxjava2:rxjava:2.1.12'
+        api 'io.reactivex.rxjava2:rxandroid:2.0.2'
         
-        compile 'com.squareup.retrofit2:retrofit:2.4.0'
-        compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+        api 'com.squareup.retrofit2:retrofit:2.4.0'
+        api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
         
-        compile 'com.alibaba:fastjson:1.2.46'
+        api 'com.alibaba:fastjson:1.2.46'
         
-        compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
-        compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+        api 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+        api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
         
-        compile 'org.greenrobot:eventbus:3.1.1'
+        api 'org.greenrobot:eventbus:3.1.1'
     }
 ```
 
@@ -1048,6 +1048,12 @@ app:tipsSize|提示语文字大小|22sp
     setNeedDragVibrate(boolean isNeedDragVibrate)
     // 获取图片数据
     getPicData()
+    // 是否允许拖拽
+    setNeedDrag(boolean isNeedDrag)
+    // 是否允许拖拽震动提醒
+    setNeedDragVibrate(boolean isNeedDragVibrate)
+    // 设置监听器
+    setOnNineGridViewListener(OnNineGridViewListener listener)
 ```
 
 - xml调用方法

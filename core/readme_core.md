@@ -10,19 +10,20 @@
 - [6、各种通用工具类](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#6各种通用工具类)
 - [7、缓存Cache](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#7缓存cache)
 - [8、通知帮助类NotificationUtils](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#8通知帮助类notificationutils)
+- [8、状态栏帮助类StatusBarUtil](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#9状态栏帮助类StatusBarUtil)
 - [扩展](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md#扩展)
 
 ## 1、涉及的support依赖
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
     dependencies {
-        compile 'com.android.support:appcompat-v7:27.1.0'
-        compile 'com.android.support:design:27.1.0'
-        compile 'com.android.support:recyclerview-v7:27.1.0'
-        compile 'com.android.support:cardview-v7:27.1.0'
-        compile 'com.android.support:support-annotations:27.1.0'
-        compile 'com.android.support.constraint:constraint-layout:1.0.2'
-        compile 'com.google.android:flexbox:0.3.2'
+        api 'com.android.support:appcompat-v7:27.1.0'
+        api 'com.android.support:design:27.1.0'
+        api 'com.android.support:recyclerview-v7:27.1.0'
+        api 'com.android.support:cardview-v7:27.1.0'
+        api 'com.android.support:support-annotations:27.1.0'
+        api 'com.android.support.constraint:constraint-layout:1.0.2'
+        api 'com.google.android:flexbox:0.3.2'
     }
 ```
 
@@ -221,6 +222,10 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 ```
 - 如果你希望随机生成id来发送，你可以在send()方法里直接传入Notification
 - 如果你希望指定id来发送，你可以在send()方法里传入id和Notification
+
+## 9、状态栏帮助类StatusBarUtil
+我这里直接使用了[laobie](https://github.com/laobie)的[StatusBarUtil](https://github.com/laobie/StatusBarUtil)，主要是对状态栏的颜色进行控制。
+有兴趣了解的小伙伴可以直接到他的github里围观。
 
 
 ## 扩展
