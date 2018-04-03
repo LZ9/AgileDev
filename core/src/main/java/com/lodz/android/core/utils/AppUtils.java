@@ -245,4 +245,22 @@ public class AppUtils {
         return TextUtils.isEmpty(str) || (!TextUtils.isEmpty(str) && str.equals("0"));
     }
 
+    /**
+     * 跳转到WIFI设置页
+     * @param context 上下文
+     */
+    public static void jumpWifiSetting(Context context){
+        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 跳转到数据流量设置页
+     * @param context 上下文
+     */
+    public static void jumpDataRoamingSetting(Context context){
+        Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+        context.startActivity(intent);
+    }
+
 }
