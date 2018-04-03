@@ -193,6 +193,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                     mSaveFolderPath += File.separator;
                 }
             }
+            if (TextUtils.isEmpty(mSaveFolderPath)) {//保存路径为空时不保存数据
+                return false;
+            }
 
             if (TextUtils.isEmpty(mLogFileName)){
                 long timestamp = System.currentTimeMillis();

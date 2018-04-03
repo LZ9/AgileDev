@@ -174,9 +174,9 @@ public class ApiServiceManager {
                     end = log.length();
                 }
                 if (isResponse){
-                    PrintLog.d(TAG, "[" + tag + "] <--- " + log.substring(start, end));
+                    PrintLog.d(TAG, i == 0 ? "[" + tag + "] <--- " + log.substring(start, end) : log.substring(start, end));
                 }else {
-                    PrintLog.i(TAG, "[" + tag + "] ---> " + log.substring(start, end));
+                    PrintLog.i(TAG, i == 0 ? "[" + tag + "] ---> " + log.substring(start, end) : log.substring(start, end));
                 }
                 if (end == log.length()){
                     return;
