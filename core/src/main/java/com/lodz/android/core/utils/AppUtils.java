@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -127,22 +128,28 @@ public class AppUtils {
      * @param pkgName 包名
      */
     public static boolean isPkgInstalled(Context context, String pkgName) {
-        if (TextUtils.isEmpty(pkgName)) {
+        if (context == null || TextUtils.isEmpty(pkgName)) {
             return false;
         }
-
-        List<PackageInfo> pinfo = context.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
-        if (pinfo == null) {
-            return false;
-        }
-
-        for (int i = 0; i < pinfo.size(); i++) {
-            String pn = pinfo.get(i).packageName;
-            if (pn.equals(pkgName)) {
-                return true;
-            }
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(pkgName, PackageManager.GET_ACTIVITIES | PackageManager.GET_SERVICES);
+            return packageInfo != null;
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 获取已安装的PackageInfo列表
+     * @param context 上下文
+     */
+    public static List<PackageInfo> getInstalledPackages(Context context){
+        if (context == null) {
+            return new ArrayList<>();
+        }
+        List<PackageInfo> packageInfos = context.getPackageManager().getInstalledPackages(PackageManager.GET_ACTIVITIES | PackageManager.GET_SERVICES);
+        return packageInfos == null ? new ArrayList<PackageInfo>() : packageInfos;
     }
 
     /**
@@ -151,14 +158,15 @@ public class AppUtils {
      * @param pkgName 包名
      */
     public static PackageInfo getPackageInfo(Context context, String pkgName) {
-        PackageManager manager = context.getPackageManager();
-        PackageInfo info = null;
+        if (context == null || TextUtils.isEmpty(pkgName)) {
+            return null;
+        }
         try {
-            info = manager.getPackageInfo(pkgName, 0);
+            return context.getPackageManager().getPackageInfo(pkgName, PackageManager.GET_ACTIVITIES | PackageManager.GET_SERVICES);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return info;
+        return null;
     }
 
     /**
