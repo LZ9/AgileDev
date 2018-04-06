@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lodz.android.agiledev">
 
     <!-- 联网 -->
@@ -19,7 +20,9 @@
     <!-- 读存储 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 在SDCard中创建与删除文件权限 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <!-- 录制音频 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -140,6 +143,7 @@
 
         <activity
             android:name=".ui.image.GlideActivity"
+            android:label="Glide测试"
             android:screenOrientation="portrait">
 
         </activity>

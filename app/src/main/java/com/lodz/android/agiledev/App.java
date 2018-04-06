@@ -62,7 +62,7 @@ public class App extends BaseApplication{
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setImg(R.drawable.ic_launcher);
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setTips(getString(R.string.config_base_no_data_tips));
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setTipsTextColor(R.color.color_ffa630);
-//        getBaseLayoutConfig().getNoDataLayoutConfig().setTipsTextSize(22);
+//         getBaseLayoutConfig().getNoDataLayoutConfig().setTipsTextSize(22);
 //        getBaseLayoutConfig().getNoDataLayoutConfig().setBackgroundColor(R.color.color_ea8380);
     }
 

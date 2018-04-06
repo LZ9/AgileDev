@@ -2,31 +2,36 @@ package com.lodz.android.agiledev.ui.image;
 
 import android.animation.ObjectAnimator;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.NotificationTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.utils.file.FileManager;
-import com.lodz.android.component.base.activity.AbsActivity;
-import com.lodz.android.core.utils.DensityUtils;
-import com.lodz.android.core.utils.ScreenUtils;
+import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.core.log.PrintLog;
+import com.lodz.android.core.utils.NotificationUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
-import com.lodz.android.imageloader.utils.UriUtils;
+import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
 import java.io.File;
 
@@ -34,23 +39,100 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Glide展示类
+ * Glide测试
  * Created by zhouL on 2017/4/7.
  */
 
-public class GlideActivity extends AbsActivity{
+public class GlideActivity extends BaseActivity{
 
-    @BindView(R.id.img_view)
-    ImageView mImageView;
+    public static void start(Context context) {
+        Intent starter = new Intent(context, GlideActivity.class);
+        context.startActivity(starter);
+    }
+
+    /** 主频道id */
+    private static final String NOTIFI_CHANNEL_MAIN_ID = "c0001";
+    /** 网络图片地址 */
+    private static final String IMG_URL = "http://hiphotos.baidu.com/zhidao/pic/item/d439b6003af33a87dd932ba4cd5c10385243b595.jpg";
+    /** 网络gif地址 */
+    private static final String GIF_URL = "http://image2.sina.com.cn/gm/ol/cross/tujian/446034.gif";
+
+    /** 本地图片 */
+    @BindView(R.id.local_img)
+    ImageView mLocalImg;
+    /** 本地居中剪切图片 */
+    @BindView(R.id.local_crop_img)
+    ImageView mLocalCropImg;
+    /** 网络图片 */
+    @BindView(R.id.url_img)
+    ImageView mUrlImg;
+    /** 动画显示 */
+    @BindView(R.id.anim_img)
+    ImageView mAnimImg;
+    /** 网络gif */
+    @BindView(R.id.url_gif_img)
+    ImageView mUrlGifImg;
+    /** 本地gif */
+    @BindView(R.id.local_gif_img)
+    ImageView mLocalGifImg;
+    /** 毛玻璃 */
+    @BindView(R.id.blur_img)
+    ImageView mBlurImg;
+    /** 覆盖颜色 */
+    @BindView(R.id.filter_color_img)
+    ImageView mFilterColorImg;
+    /** 全圆角 */
+    @BindView(R.id.corners_all_img)
+    ImageView mCornersAllImg;
+    /** 顶部圆角 */
+    @BindView(R.id.corners_top_img)
+    ImageView mCornersTopImg;
+    /** 灰度化 */
+    @BindView(R.id.grayscale_img)
+    ImageView mGrayscaleImg;
+    /** 圆角/灰度化 */
+    @BindView(R.id.corners_grayscale_img)
+    ImageView mCornersGrayscaleImg;
+    /** 圆形 */
+    @BindView(R.id.circle_img)
+    ImageView mCircleImg;
+    /** 圆形/毛玻璃 */
+    @BindView(R.id.circle_blur_img)
+    ImageView mCircleBlurImg;
+    /** 圆形/灰度化/毛玻璃 */
+    @BindView(R.id.circle_grayscale_blur_img)
+    ImageView mCircleGrayscaleBlurImg;
+    /** 蒙板效果 */
+    @BindView(R.id.mask_img)
+    ImageView mMaskImg;
+    /** 正方形 */
+    @BindView(R.id.square_img)
+    ImageView mSquareImg;
+    /** 正方形/毛玻璃 */
+    @BindView(R.id.square_blur_img)
+    ImageView mSquareBlurImg;
+    /** 本地webp */
+    @BindView(R.id.local_webp_img)
+    ImageView mLocalWebpImg;
+    /** 本地视频 */
+    @BindView(R.id.local_video_img)
+    ImageView mLocalVideoImg;
 
     @Override
-    protected int getAbsLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_glide_layout;
     }
 
     @Override
     protected void findViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+        getTitleBarLayout().setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     @Override
@@ -61,36 +143,25 @@ public class GlideActivity extends AbsActivity{
         findViewById(R.id.custom_notification_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RemoteViews remoteViews = getRemoteViews(getContext());
-                Notification notification =
-                        new NotificationCompat.Builder(getContext())
-                                .setSmallIcon(R.drawable.ic_launcher)
-                                .setContent(remoteViews)
-                                .setPriority( NotificationCompat.PRIORITY_MIN)
-                                .build();
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
+                builder.setTicker("");// 通知栏显示的文字
+                builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
+                builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
+                builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
+                builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
 
-                NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(1235, notification);
-
-                NotificationTarget notificationTarget = new NotificationTarget(
-                        getContext(),
-                        remoteViews,
-                        R.id.remoteview_icon,
-                        notification,
-                        1235);
-
-                ImageLoader.create(getContext())
-                        .load(UriUtils.parseResId(R.drawable.ic_launcher))
-                        .joinGlide()
-                        .asBitmapInto(notificationTarget);
-            }
-
-            private RemoteViews getRemoteViews(Context context) {
-                final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.view_remote_notification);
+                RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.view_remote_notification);
                 remoteViews.setImageViewResource(R.id.remoteview_icon, R.drawable.ic_launcher);
                 remoteViews.setTextViewText(R.id.remoteview_title, "耿鬼");
                 remoteViews.setTextViewText(R.id.remoteview_msg, "鬼斯-鬼斯通-耿鬼");
-                return remoteViews;
+                builder.setContent(remoteViews);
+
+                ImageLoader.create(getContext())
+                        .load(IMG_URL)
+                        .joinGlide()
+                        .setCenterCrop()
+                        .asBitmapInto(new NotificationTarget(getContext()
+                                , remoteViews, R.id.remoteview_icon, builder.build(), 1235));
             }
         });
 
@@ -98,297 +169,318 @@ public class GlideActivity extends AbsActivity{
         findViewById(R.id.notification_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notification notification =
-                        new NotificationCompat.Builder(getContext())
-                                .setSmallIcon(R.drawable.ic_launcher)
-                                .setColor(Color.YELLOW)
-                                .setContentTitle("胡地")
-                                .setContentText("凯西-勇吉拉-胡地")
-                                .setPriority(NotificationCompat.PRIORITY_MIN)
-                                .build();
-                NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(1234, notification);
-            }
-        });
 
-        // 本地图片
-        findViewById(R.id.local_image_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 ImageLoader.create(getContext())
-                        .load(R.drawable.ic_large_img)
+                        .load(IMG_URL)
                         .joinGlide()
-                        .setRequestListener(new RequestListener<Object, GlideDrawable>() {
+                        .setFitCenter()
+                        .asBitmapInto(new SimpleTarget<Bitmap>() {
                             @Override
-                            public boolean onException(Exception e, Object model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                return false;
+                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                if (resource == null){
+                                    return;
+                                }
+
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
+                                builder.setTicker("震惊！谁是超能力霸主");// 通知栏显示的文字
+                                builder.setContentTitle("胡地");// 通知栏通知的标题
+                                builder.setContentText("凯西-勇吉拉-胡地");// 通知栏通知的详细内容（只有一行）
+                                builder.setAutoCancel(true);// 设置为true，点击该条通知会自动删除，false时只能通过滑动来删除（一般都是true）
+                                builder.setLargeIcon(resource);
+                                builder.setSmallIcon(R.mipmap.ic_launcher);//通知上面的小图标（必传）
+                                builder.setDefaults(NotificationCompat.DEFAULT_ALL);//通知默认的声音 震动 呼吸灯
+                                builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);//设置优先级，级别高的排在前面
+                                Notification notification = builder.build();//构建通知
+                                NotificationUtils.create(getContext()).send(notification);
                             }
-
-                            @Override
-                            public boolean onResourceReady(GlideDrawable resource, Object model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                int imgW = resource.getIntrinsicWidth();
-                                int imgH = resource.getIntrinsicHeight();
-                                ViewGroup.LayoutParams layoutParams = mImageView.getLayoutParams();
-                                layoutParams.width = ScreenUtils.getScreenWidth(getContext());
-                                layoutParams.height = imgH;
-                                mImageView.setLayoutParams(layoutParams);
-
-
-
-                                return false;
-                            }
-                        })
-                        .into(mImageView);
+                        });
             }
         });
 
-        // 网络图片
-        findViewById(R.id.url_image_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .joinGlide()
-                        .setFitCenter()
-                        .setRequestListener(new RequestListener<Object, GlideDrawable>() {
-                            @Override
-                            public boolean onException(Exception e, Object model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                ToastUtils.showShort(getContext(), model.toString());
-                                return false;
-                            }
+    }
 
-                            @Override
-                            public boolean onResourceReady(GlideDrawable resource, Object model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                ToastUtils.showShort(getContext(), model.toString());
-                                return false;
-                            }
-                        })
-                        .into(mImageView);
-            }
-        });
+    @Override
+    protected void initData() {
+        super.initData();
+        initNotificationChannel();
+        showStatusCompleted();
+        showLocalImg();// 本地图片
+        showLocalCropImg();// 本地居中剪切图片
+        showUrlImg();// 网络图片
+        showAnimImg();// 动画显示
+        showUrlGifImg();// 网络gif
+        showLocalGifImg();// 本地gif
+        showBlurImg();// 毛玻璃
+        showFilterColorImg();// 覆盖颜色
+        showCornersAllImg();// 全圆角
+        showCornersTopImg();// 顶部圆角
+        showGrayscaleImg();// 灰度化
+        showCornersGrayscaleImg();// 圆角/灰度化
+        showCircleImg();// 圆形
+        showCircleBlurImg();// 圆形/毛玻璃
+        showCircleGrayscaleBlurImg();// 圆形/灰度化/毛玻璃
+        showMaskImg();// 蒙板效果
+        showSquareImg();// 正方形
+        showSquareBlurImg();// 正方形/毛玻璃
+        showLocalWebpImg();// 本地webp
+        showLocalVideoImg();// 本地视频
+    }
 
-        // 网络gif
-        findViewById(R.id.url_gif_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://image2.sina.com.cn/gm/ol/cross/tujian/446034.gif")
-                        .joinGlide()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 初始化通知通道 */
+    private void initNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationUtils.create(getContext()).createNotificationChannel(getMainChannel());// 设置频道
+        }
+    }
 
-        // 动画显示
-        findViewById(R.id.anim_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .joinGlide()
-                        .setAnim(new ViewPropertyAnimation.Animator() {
-                            @Override
-                            public void animate(View view) {
-                                view.setAlpha(0.7f);
-                                ObjectAnimator fadeAnim = ObjectAnimator.ofFloat(view, "alpha", 0.7f, 1f);
-                                fadeAnim.setDuration(1500);
-                                fadeAnim.start();
-                            }
-                        })
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 获取主通道 */
+    private NotificationChannel getMainChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(NOTIFI_CHANNEL_MAIN_ID, "主通知", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableLights(true);// 开启指示灯，如果设备有的话。
+            channel.setLightColor(Color.GREEN);// 设置指示灯颜色
+            channel.setDescription("应用主通知频道");// 通道描述
+            channel.enableVibration(true);// 开启震动
+            channel.setVibrationPattern(new long[]{100, 200, 400, 300, 100});// 设置震动频率
+            channel.canBypassDnd();// 检测是否绕过免打扰模式
+            channel.setBypassDnd(true);// 设置绕过免打扰模式
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+            channel.canShowBadge();// 检测是否显示角标
+            channel.setShowBadge(true);// 设置是否显示角标
+            return channel;
+        }
+        return null;
+    }
 
-        // 毛玻璃
-        findViewById(R.id.url_blur).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .useBlur()
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 本地图片 */
+    private void showLocalImg() {
+        ImageLoader.create(getContext())
+                .load(R.drawable.bg_pokemon)
+                .joinGlide()
+                .setFitCenter()
+                .into(mLocalImg);
+    }
 
-        // 覆盖颜色
-        findViewById(R.id.url_filter_color).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .setFitCenter()
-                        .setFilterColor(ContextCompat.getColor(getContext(), R.color.color_60ea413c))
-                        .useFilterColor()
-                        .into(mImageView);
-            }
-        });
+    /** 本地居中剪切图片 */
+    private void showLocalCropImg() {
+        ImageLoader.create(getContext())
+                .load(R.drawable.bg_pokemon)
+                .joinGlide()
+                .setCenterCrop()
+                .into(mLocalCropImg);
+    }
 
-        // 圆角
-        findViewById(R.id.url_rounded_corners).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .useRoundCorner()
-                        .setRoundCorner(10f)
-                        .joinGlide()
-//                        .setRoundedCornerType(RoundedCornersTransformation.CornerType.LEFT)
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 网络图片 */
+    private void showUrlImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .joinGlide()
+                .setFitCenter()
+                .setRequestListener(new RequestListener<Object, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, Object model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        PrintLog.e("testtag", model == null ? "" : model.toString(), e);
+                        return false;
+                    }
 
-        // 灰度化
-        findViewById(R.id.url_grayscale).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .setFitCenter()
-                        .useGrayscale()
-                        .into(mImageView);
-            }
-        });
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, Object model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        PrintLog.d("testtag", model == null ? "" : model.toString());
+                        return false;
+                    }
+                })
+                .into(mUrlImg);
+    }
 
-        // 圆形
-        findViewById(R.id.url_crop_circle).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .useCircle()
-                        .joinGlide()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 动画显示 */
+    private void showAnimImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .joinGlide()
+                .setAnim(new ViewPropertyAnimation.Animator() {
+                    @Override
+                    public void animate(View view) {
+                        view.setAlpha(0.5f);
+                        ObjectAnimator fadeAnim = ObjectAnimator.ofFloat(view, "alpha", 0.5f, 1f);
+                        fadeAnim.setDuration(5000);
+                        fadeAnim.start();
+                    }
+                })
+                .setFitCenter()
+                .into(mAnimImg);
+    }
 
-        // 正方形
-        findViewById(R.id.url_crop_square).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .setFitCenter()
-                        .useCropSquare()
-                        .into(mImageView);
-            }
-        });
+    /** 网络gif */
+    private void showUrlGifImg() {
+        ImageLoader.create(getContext())
+                .load(GIF_URL)
+                .joinGlide()
+                .setFitCenter()
+                .into(mUrlGifImg);
+    }
 
-        // 圆形/毛玻璃
-        findViewById(R.id.url_circle_blur).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .useBlur()
-                        .useCircle()
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 本地gif */
+    private void showLocalGifImg() {
+        ImageLoader.create(getContext())
+                .load(R.drawable.ic_gif)
+                .joinGlide()
+                .setFitCenter()
+                .into(mLocalGifImg);
+    }
 
-        // 圆角/灰度化
-        findViewById(R.id.url_rounded_corners_grayscale).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .useRoundCorner()
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .useGrayscale()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 毛玻璃 */
+    private void showBlurImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useBlur()
+                .joinGlide()
+                .setFitCenter()
+                .into(mBlurImg);
+    }
 
-        // 圆形/灰度化/毛玻璃
-        findViewById(R.id.url_circle_grayscale_blur).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .useCircle()
-                        .useBlur()
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .useGrayscale()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 覆盖颜色 */
+    private void showFilterColorImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .joinGlide()
+                .setFitCenter()
+                .setFilterColor(ContextCompat.getColor(getContext(), R.color.color_60ea413c))
+                .useFilterColor()
+                .into(mFilterColorImg);
+    }
 
-        // 蒙板效果
-        findViewById(R.id.url_mask).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load("http://i0.hdslb.com/group1/M00/44/5B/oYYBAFbRLIuARLeSAAJAaSQWy9s392.jpg")
-                        .setImageSize(DensityUtils.dp2px(getContext(), 100), DensityUtils.dp2px(getContext(), 100))// 如果不设置宽高会导致图片拉伸
-                        .joinGlide()
-                        .useMask()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 全圆角 */
+    private void showCornersAllImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useRoundCorner()
+                .setRoundCorner(10f)
+                .joinGlide()
+                .setFitCenter()
+                .into(mCornersAllImg);
+    }
 
-        // 本地webp
-        findViewById(R.id.local_webp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load(R.drawable.ic_webp)
-                        .joinGlide()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 顶部圆角 */
+    private void showCornersTopImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useRoundCorner()
+                .setRoundCorner(10f)
+                .joinGlide()
+                .setRoundedCornerType(RoundedCornersTransformation.CornerType.TOP)
+                .setFitCenter()
+                .into(mCornersTopImg);
+    }
 
-        // 本地gif
-        findViewById(R.id.local_gif).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageLoader.create(getContext())
-                        .load(R.drawable.ic_gif)
-                        .joinGlide()
-                        .setFitCenter()
-                        .into(mImageView);
-            }
-        });
+    /** 灰度化 */
+    private void showGrayscaleImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .joinGlide()
+                .setFitCenter()
+                .useGrayscale()
+                .into(mGrayscaleImg);
+    }
 
-        // 本地视频
-        findViewById(R.id.local_video).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String filePath = FileManager.getDownloadFolderPath() + "20170422.mp4";
-                File file = new File(filePath);
-                if (!file.exists()){
-                    ToastUtils.showShort(getContext(), "文件不存在");
-                    return;
-                }
-                ImageLoader.create(getContext())
-                        .load(Uri.fromFile(file))
-                        .joinGlide()
-                        .setVideo()
-                        .into(mImageView);
-            }
-        });
+    /** 圆角/灰度化 */
+    private void showCornersGrayscaleImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useRoundCorner()
+                .setRoundCorner(10f)
+                .joinGlide()
+                .useGrayscale()
+                .setFitCenter()
+                .into(mCornersGrayscaleImg);
+    }
 
+    /** 圆形 */
+    private void showCircleImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useCircle()
+                .joinGlide()
+                .setFitCenter()
+                .into(mCircleImg);
+    }
 
+    /** 圆形/毛玻璃 */
+    private void showCircleBlurImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useBlur()
+                .useCircle()
+                .joinGlide()
+                .setFitCenter()
+                .into(mCircleBlurImg);
+    }
+
+    /** 圆形/灰度化/毛玻璃 */
+    private void showCircleGrayscaleBlurImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useCircle()
+                .useBlur()
+                .joinGlide()
+                .useGrayscale()
+                .setFitCenter()
+                .into(mCircleGrayscaleBlurImg);
+    }
+
+    /** 蒙板效果 */
+    private void showMaskImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .joinGlide()
+                .useMask()
+                .setFitCenter()
+                .into(mMaskImg);
+    }
+
+    /** 正方形 */
+    private void showSquareImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .joinGlide()
+                .setCenterCrop()
+                .useCropSquare()
+                .into(mSquareImg);
+    }
+
+    /** 正方形/毛玻璃 */
+    private void showSquareBlurImg() {
+        ImageLoader.create(getContext())
+                .load(IMG_URL)
+                .useBlur()
+                .useRoundCorner()
+                .setRoundCorner(10f)
+                .joinGlide()
+                .setCenterCrop()
+                .useCropSquare()
+                .into(mSquareBlurImg);
+    }
+
+    /** 本地webp */
+    private void showLocalWebpImg() {
+        ImageLoader.create(getContext())
+                .load(R.drawable.ic_webp)
+                .joinGlide()
+                .setFitCenter()
+                .into(mLocalWebpImg);
+    }
+
+    /** 本地视频 */
+    private void showLocalVideoImg() {
+        String filePath = FileManager.getDownloadFolderPath() + "20170422.mp4";
+        File file = new File(filePath);
+        if (!file.exists()){
+            ToastUtils.showShort(getContext(), "文件不存在");
+            return;
+        }
+        ImageLoader.create(getContext())
+                .load(Uri.fromFile(file))
+                .joinGlide()
+                .setVideo()
+                .into(mLocalVideoImg);
     }
 }
