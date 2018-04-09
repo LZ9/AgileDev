@@ -41,7 +41,7 @@ import java.util.UUID;
  * Glide图片加载库
  * Created by zhouL on 2017/4/7.
  */
-public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContract.GlideContract{
+public class GlideImageLoader implements ImageLoaderContract{
 
     private Context mContext;
     /** 构造对象实体 */
@@ -157,124 +157,114 @@ public class GlideImageLoader implements ImageLoaderContract, ImageLoaderContrac
     }
 
     @Override
-    public FrescoContract joinFresco() {
-        throw new RuntimeException("您已选择依赖Glide，请勿调用joinFresco()");
-    }
-
-    @Override
-    public GlideContract joinGlide() {
-        return this;
-    }
-
-    @Override
-    public GlideContract skipMemoryCache() {
+    public ImageLoaderContract skipMemoryCache() {
         mGlideBuilderBean.saveToMemoryCache = false;
         return this;
     }
 
     @Override
-    public GlideContract diskCacheStrategy(int diskCacheStrategy) {
+    public ImageLoaderContract diskCacheStrategy(int diskCacheStrategy) {
         mGlideBuilderBean.diskCacheStrategy = diskCacheStrategy;
         return this;
     }
 
     @Override
-    public GlideContract setCenterCrop() {
+    public ImageLoaderContract setCenterCrop() {
         mGlideBuilderBean.centerCrop = true;
         return this;
     }
 
     @Override
-    public GlideContract setFitCenter() {
+    public ImageLoaderContract setFitCenter() {
         mGlideBuilderBean.fitCenter = true;
         return this;
     }
 
     @Override
-    public GlideContract useAnimate() {
+    public ImageLoaderContract useAnimate() {
         mGlideBuilderBean.dontAnimate = false;
         return this;
     }
 
     @Override
-    public GlideContract userCrossFade() {
+    public ImageLoaderContract userCrossFade() {
         mGlideBuilderBean.crossFade = true;
         useAnimate();
         return this;
     }
 
     @Override
-    public GlideContract setAnimResId(@AnimRes int animResId) {
+    public ImageLoaderContract setAnimResId(@AnimRes int animResId) {
         mGlideBuilderBean.animResId = animResId;
         useAnimate();
         return this;
     }
 
     @Override
-    public GlideContract setAnim(ViewPropertyAnimation.Animator animator) {
+    public ImageLoaderContract setAnim(ViewPropertyAnimation.Animator animator) {
         mGlideBuilderBean.animator = animator;
         useAnimate();
         return this;
     }
 
     @Override
-    public GlideContract useFilterColor() {
+    public ImageLoaderContract useFilterColor() {
         mGlideBuilderBean.useFilterColor = true;
         return this;
     }
 
     @Override
-    public GlideContract setFilterColor(@ColorInt int color) {
+    public ImageLoaderContract setFilterColor(@ColorInt int color) {
         useFilterColor();
         mGlideBuilderBean.filterColor = color;
         return this;
     }
 
     @Override
-    public GlideContract setRoundedCornersMargin(int margin) {
+    public ImageLoaderContract setRoundedCornersMargin(int margin) {
         mGlideBuilderBean.roundedCornersMargin = margin;
         return this;
     }
 
     @Override
-    public GlideContract setRoundedCornerType(RoundedCornersTransformation.CornerType type) {
+    public ImageLoaderContract setRoundedCornerType(RoundedCornersTransformation.CornerType type) {
         mGlideBuilderBean.cornerType = type;
         return this;
     }
 
     @Override
-    public GlideContract useGrayscale() {
+    public ImageLoaderContract useGrayscale() {
         mGlideBuilderBean.useGrayscale = true;
         return this;
     }
 
     @Override
-    public GlideContract useCropSquare() {
+    public ImageLoaderContract useCropSquare() {
         mGlideBuilderBean.useCropSquare = true;
         return this;
     }
 
     @Override
-    public GlideContract useMask() {
+    public ImageLoaderContract useMask() {
         mGlideBuilderBean.useMask = true;
         return this;
     }
 
     @Override
-    public GlideContract setMaskResId(@DrawableRes int maskResId) {
+    public ImageLoaderContract setMaskResId(@DrawableRes int maskResId) {
         useMask();
         mGlideBuilderBean.maskResId = maskResId;
         return this;
     }
 
     @Override
-    public GlideContract setVideo() {
+    public ImageLoaderContract setVideo() {
         mGlideBuilderBean.isVideo = true;
         return this;
     }
 
     @Override
-    public GlideContract setRequestListener(RequestListener<Object, GlideDrawable> listener) {
+    public ImageLoaderContract setRequestListener(RequestListener<Object, GlideDrawable> listener) {
         mGlideBuilderBean.requestListener = listener;
         return this;
     }

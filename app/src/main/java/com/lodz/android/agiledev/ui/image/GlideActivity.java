@@ -158,7 +158,6 @@ public class GlideActivity extends BaseActivity{
 
                 ImageLoader.create(getContext())
                         .load(IMG_URL)
-                        .joinGlide()
                         .setCenterCrop()
                         .asBitmapInto(new NotificationTarget(getContext()
                                 , remoteViews, R.id.remoteview_icon, builder.build(), 1235));
@@ -172,7 +171,6 @@ public class GlideActivity extends BaseActivity{
 
                 ImageLoader.create(getContext())
                         .load(IMG_URL)
-                        .joinGlide()
                         .setFitCenter()
                         .asBitmapInto(new SimpleTarget<Bitmap>() {
                             @Override
@@ -256,7 +254,6 @@ public class GlideActivity extends BaseActivity{
     private void showLocalImg() {
         ImageLoader.create(getContext())
                 .load(R.drawable.bg_pokemon)
-                .joinGlide()
                 .setFitCenter()
                 .into(mLocalImg);
     }
@@ -265,7 +262,6 @@ public class GlideActivity extends BaseActivity{
     private void showLocalCropImg() {
         ImageLoader.create(getContext())
                 .load(R.drawable.bg_pokemon)
-                .joinGlide()
                 .setCenterCrop()
                 .into(mLocalCropImg);
     }
@@ -274,7 +270,6 @@ public class GlideActivity extends BaseActivity{
     private void showUrlImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .joinGlide()
                 .setFitCenter()
                 .setRequestListener(new RequestListener<Object, GlideDrawable>() {
                     @Override
@@ -296,7 +291,6 @@ public class GlideActivity extends BaseActivity{
     private void showAnimImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .joinGlide()
                 .setAnim(new ViewPropertyAnimation.Animator() {
                     @Override
                     public void animate(View view) {
@@ -314,7 +308,6 @@ public class GlideActivity extends BaseActivity{
     private void showUrlGifImg() {
         ImageLoader.create(getContext())
                 .load(GIF_URL)
-                .joinGlide()
                 .setFitCenter()
                 .into(mUrlGifImg);
     }
@@ -323,7 +316,6 @@ public class GlideActivity extends BaseActivity{
     private void showLocalGifImg() {
         ImageLoader.create(getContext())
                 .load(R.drawable.ic_gif)
-                .joinGlide()
                 .setFitCenter()
                 .into(mLocalGifImg);
     }
@@ -333,7 +325,6 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .useBlur()
-                .joinGlide()
                 .setFitCenter()
                 .into(mBlurImg);
     }
@@ -342,7 +333,6 @@ public class GlideActivity extends BaseActivity{
     private void showFilterColorImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .joinGlide()
                 .setFitCenter()
                 .setFilterColor(ContextCompat.getColor(getContext(), R.color.color_60ea413c))
                 .useFilterColor()
@@ -355,7 +345,6 @@ public class GlideActivity extends BaseActivity{
                 .load(IMG_URL)
                 .useRoundCorner()
                 .setRoundCorner(10f)
-                .joinGlide()
                 .setFitCenter()
                 .into(mCornersAllImg);
     }
@@ -366,7 +355,6 @@ public class GlideActivity extends BaseActivity{
                 .load(IMG_URL)
                 .useRoundCorner()
                 .setRoundCorner(10f)
-                .joinGlide()
                 .setRoundedCornerType(RoundedCornersTransformation.CornerType.TOP)
                 .setFitCenter()
                 .into(mCornersTopImg);
@@ -376,7 +364,6 @@ public class GlideActivity extends BaseActivity{
     private void showGrayscaleImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .joinGlide()
                 .setFitCenter()
                 .useGrayscale()
                 .into(mGrayscaleImg);
@@ -388,7 +375,6 @@ public class GlideActivity extends BaseActivity{
                 .load(IMG_URL)
                 .useRoundCorner()
                 .setRoundCorner(10f)
-                .joinGlide()
                 .useGrayscale()
                 .setFitCenter()
                 .into(mCornersGrayscaleImg);
@@ -399,7 +385,6 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .useCircle()
-                .joinGlide()
                 .setFitCenter()
                 .into(mCircleImg);
     }
@@ -410,7 +395,6 @@ public class GlideActivity extends BaseActivity{
                 .load(IMG_URL)
                 .useBlur()
                 .useCircle()
-                .joinGlide()
                 .setFitCenter()
                 .into(mCircleBlurImg);
     }
@@ -421,7 +405,6 @@ public class GlideActivity extends BaseActivity{
                 .load(IMG_URL)
                 .useCircle()
                 .useBlur()
-                .joinGlide()
                 .useGrayscale()
                 .setFitCenter()
                 .into(mCircleGrayscaleBlurImg);
@@ -431,7 +414,6 @@ public class GlideActivity extends BaseActivity{
     private void showMaskImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .joinGlide()
                 .useMask()
                 .setFitCenter()
                 .into(mMaskImg);
@@ -441,7 +423,6 @@ public class GlideActivity extends BaseActivity{
     private void showSquareImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .joinGlide()
                 .setCenterCrop()
                 .useCropSquare()
                 .into(mSquareImg);
@@ -454,7 +435,6 @@ public class GlideActivity extends BaseActivity{
                 .useBlur()
                 .useRoundCorner()
                 .setRoundCorner(10f)
-                .joinGlide()
                 .setCenterCrop()
                 .useCropSquare()
                 .into(mSquareBlurImg);
@@ -464,7 +444,6 @@ public class GlideActivity extends BaseActivity{
     private void showLocalWebpImg() {
         ImageLoader.create(getContext())
                 .load(R.drawable.ic_webp)
-                .joinGlide()
                 .setFitCenter()
                 .into(mLocalWebpImg);
     }
@@ -479,7 +458,6 @@ public class GlideActivity extends BaseActivity{
         }
         ImageLoader.create(getContext())
                 .load(Uri.fromFile(file))
-                .joinGlide()
                 .setVideo()
                 .into(mLocalVideoImg);
     }

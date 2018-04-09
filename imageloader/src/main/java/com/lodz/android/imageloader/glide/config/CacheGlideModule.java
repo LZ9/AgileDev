@@ -5,15 +5,11 @@ import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.GlideModule;
 import com.lodz.android.imageloader.ImageloaderManager;
-import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
-import java.io.InputStream;
 
 /**
  * 缓存GlideModule
@@ -60,8 +56,8 @@ public class CacheGlideModule implements GlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide) {
-        if (CompileUtils.isClassExists("com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader")){
-            glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
-        }
+//        if (CompileUtils.isClassExists("com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader")){
+//            glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
+//        }
     }
 }

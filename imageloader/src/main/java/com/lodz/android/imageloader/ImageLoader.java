@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
-import com.lodz.android.imageloader.fresco.impl.FrescoImageLoader;
 import com.lodz.android.imageloader.glide.impl.GlideImageLoader;
 
 /**
@@ -22,26 +21,17 @@ public class ImageLoader {
      */
     public static ImageLoaderContract create(Object o){
 
-        int loaderType = ImageloaderManager.get().getBuilder().getLoaderType();// 获取加载库类型
-        if (loaderType == ImageloaderManager.TYPE_FRESCO){
-            return FrescoImageLoader.create();
+        if (o instanceof FragmentActivity){
+            return GlideImageLoader.with((FragmentActivity) o);
         }
-        if (loaderType == ImageloaderManager.TYPE_GLIDE){
-            if (o instanceof FragmentActivity){
-                return GlideImageLoader.with((FragmentActivity) o);
-            }
-            if (o instanceof Activity){
-                return GlideImageLoader.with((Activity) o);
-            }
-            if (o instanceof Context){
-                return GlideImageLoader.with((Context) o);
-            }
-            if (o instanceof Fragment){
-                return GlideImageLoader.with((Fragment) o);
-            }
+        if (o instanceof Activity){
+            return GlideImageLoader.with((Activity) o);
         }
-        if (loaderType == ImageloaderManager.TYPE_NONE){
-            throw new RuntimeException("请在你的build.gradle文件中配置Glide或Fresco的依赖");
+        if (o instanceof Context){
+            return GlideImageLoader.with((Context) o);
+        }
+        if (o instanceof Fragment){
+            return GlideImageLoader.with((Fragment) o);
         }
         throw new RuntimeException("你传入的Object对象不属于Context、FragmentActivity、Activity、Fragment中的一种");
     }

@@ -168,7 +168,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
                                         .load(source)
-                                        .joinGlide()
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .setCenterCrop()
                                         .into(imageView);
@@ -179,7 +178,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
                                         .load(source)
-                                        .joinGlide()
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .into(imageView);
                             }
@@ -236,7 +234,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setImgLoader(new PhotoLoader<String>() {
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
-                                ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
+                                ImageLoader.create(context).load(source).setFitCenter().into(imageView);
                             }
                         })
                         .build(URLS)
@@ -257,7 +255,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
                                         .load(source)
-                                        .joinGlide()
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .into(imageView);
                             }
@@ -308,7 +305,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
                                         .load(source)
-                                        .joinGlide()
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .setCenterCrop()
                                         .into(imageView);
@@ -319,7 +315,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
                                         .load(source)
-                                        .joinGlide()
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .into(imageView);
                             }
@@ -344,7 +339,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onDisplayImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
                         .load(data)
-                        .joinGlide()
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .setCenterCrop()
                         .into(imageView);
@@ -383,7 +377,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setImgLoader(new PhotoLoader<String>() {
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
-                                ImageLoader.create(context).load(source).joinGlide().setFitCenter().into(imageView);
+                                ImageLoader.create(context).load(source).setFitCenter().into(imageView);
                             }
                         })
                         .build(mNineGridView.getPicData())
@@ -397,7 +391,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onDisplayNineGridImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
                         .load(data)
-                        .joinGlide()
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .setCenterCrop()
                         .into(imageView);
@@ -407,7 +400,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onDisplayPreviewImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
                         .load(data)
-                        .joinGlide()
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .into(imageView);
             }
@@ -416,7 +408,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
             public void onDisplayPickerImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
                         .load(data)
-                        .joinGlide()
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .setCenterCrop()
                         .into(imageView);
