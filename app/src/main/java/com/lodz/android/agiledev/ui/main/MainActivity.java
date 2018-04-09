@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.annotation.AnnotationTestActivity;
 import com.lodz.android.agiledev.ui.config.ConfigLayoutActivity;
 import com.lodz.android.agiledev.ui.crash.CrashTestActivity;
 import com.lodz.android.agiledev.ui.design.coordinator.CoordinatorTestActivity;
@@ -66,7 +67,7 @@ public class MainActivity extends BaseActivity{
             "照片选择器测试", "定位测试", "通知测试",
             "Retrofit测试", "RV装饰器测试类", "线程池测试类",
             "Rxjava测试类", "MVP模式测试类", "Coordinator测试类",
-            "DialogFragment测试类", "Glide测试");
+            "DialogFragment测试类", "Glide测试", "注解测试类");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivity{
             PhotoPickerTestActivity.class, LocationActivity.class, NotificationActivity.class,
             RetrofitTestActivity.class, ItemDecorationTestActivity.class, ThreadPoolActivity.class,
             RxTestActivity.class, MvpDemoActivity.class, CoordinatorTestActivity.class,
-            DialogFragmentTestActivity.class, GlideActivity.class};
+            DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";
