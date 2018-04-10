@@ -3,6 +3,7 @@ package com.lodz.android.imageloader.glide.impl;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
@@ -11,18 +12,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.GenericTransitionOptions;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.ViewPropertyAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.signature.StringSignature;
+import com.bumptech.glide.request.transition.ViewPropertyTransition;
+import com.bumptech.glide.signature.ObjectKey;
 import com.lodz.android.imageloader.ImageloaderManager;
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
+import com.lodz.android.imageloader.glide.config.GlideApp;
 import com.lodz.android.imageloader.glide.transformations.BlurTransformation;
 import com.lodz.android.imageloader.glide.transformations.ColorFilterTransformation;
 import com.lodz.android.imageloader.glide.transformations.CropCircleTransformation;
@@ -43,7 +48,6 @@ import java.util.UUID;
  */
 public class GlideImageLoader implements ImageLoaderContract{
 
-    private Context mContext;
     /** 构造对象实体 */
     private GlideBuilderBean mGlideBuilderBean;
     /** 请求管理对象 */
@@ -53,8 +57,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     public static GlideImageLoader with(Context context) {
         GlideImageLoader imageLoader = new GlideImageLoader();
         imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
-        imageLoader.mRequestManager = Glide.with(context);
-        imageLoader.mContext = context;
+        imageLoader.mRequestManager = GlideApp.with(context);
         return imageLoader;
     }
 
@@ -62,8 +65,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     public static GlideImageLoader with(Activity activity) {
         GlideImageLoader imageLoader = new GlideImageLoader();
         imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
-        imageLoader.mRequestManager = Glide.with(activity);
-        imageLoader.mContext = activity;
+        imageLoader.mRequestManager = GlideApp.with(activity);
         return imageLoader;
     }
 
@@ -71,8 +73,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     public static GlideImageLoader with(FragmentActivity fragmentActivity) {
         GlideImageLoader imageLoader = new GlideImageLoader();
         imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
-        imageLoader.mRequestManager = Glide.with(fragmentActivity);
-        imageLoader.mContext = fragmentActivity;
+        imageLoader.mRequestManager = GlideApp.with(fragmentActivity);
         return imageLoader;
     }
 
@@ -80,8 +81,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     public static GlideImageLoader with(Fragment fragment) {
         GlideImageLoader imageLoader = new GlideImageLoader();
         imageLoader.mGlideBuilderBean = getGlideBuilderBean(ImageloaderManager.get().getBuilder());
-        imageLoader.mRequestManager = Glide.with(fragment);
-        imageLoader.mContext = fragment.getContext();
+        imageLoader.mRequestManager = GlideApp.with(fragment);
         return imageLoader;
     }
 
@@ -144,7 +144,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     }
 
     @Override
-    public ImageLoaderContract setRoundCorner(float radius) {
+    public ImageLoaderContract setRoundCorner(int radius) {
         useRoundCorner();
         mGlideBuilderBean.roundCornerRadius = radius;
         return this;
@@ -181,29 +181,35 @@ public class GlideImageLoader implements ImageLoaderContract{
     }
 
     @Override
-    public ImageLoaderContract useAnimate() {
-        mGlideBuilderBean.dontAnimate = false;
+    public ImageLoaderContract setCenterInside() {
+        mGlideBuilderBean.centerInside = true;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract dontAnimate() {
+        mGlideBuilderBean.dontAnimate = true;
         return this;
     }
 
     @Override
     public ImageLoaderContract userCrossFade() {
         mGlideBuilderBean.crossFade = true;
-        useAnimate();
+        mGlideBuilderBean.dontAnimate = false;
         return this;
     }
 
     @Override
     public ImageLoaderContract setAnimResId(@AnimRes int animResId) {
         mGlideBuilderBean.animResId = animResId;
-        useAnimate();
+        mGlideBuilderBean.dontAnimate = false;
         return this;
     }
 
     @Override
-    public ImageLoaderContract setAnim(ViewPropertyAnimation.Animator animator) {
+    public ImageLoaderContract setAnim(ViewPropertyTransition.Animator animator) {
         mGlideBuilderBean.animator = animator;
-        useAnimate();
+        mGlideBuilderBean.dontAnimate = false;
         return this;
     }
 
@@ -264,18 +270,39 @@ public class GlideImageLoader implements ImageLoaderContract{
     }
 
     @Override
-    public ImageLoaderContract setRequestListener(RequestListener<Object, GlideDrawable> listener) {
+    public ImageLoaderContract setRequestListener(RequestListener listener) {
         mGlideBuilderBean.requestListener = listener;
         return this;
     }
 
     @Override
     public void into(ImageView imageView) {
+        if (mRequestManager == null) {
+            return;
+        }
+        RequestBuilder<Drawable> requestBuilder = mRequestManager.load(mGlideBuilderBean.path);
+        requestBuilder = setDrawableRequestBuilder(requestBuilder, mGlideBuilderBean);
+        requestBuilder.into(imageView);
+    }
+
+    @Override
+    public void into(SimpleTarget<Drawable> target) {
+        if (mRequestManager == null) {
+            return;
+        }
+        RequestBuilder<Drawable> requestBuilder = mRequestManager.load(mGlideBuilderBean.path);
+        requestBuilder = setDrawableRequestBuilder(requestBuilder, mGlideBuilderBean);
+        requestBuilder.into(target);
+    }
+
+    @Override
+    public void asBitmapInto(ImageView imageView) {
         if (mRequestManager == null){
             return;
         }
-        final DrawableTypeRequest request = getDrawableTypeRequest(mContext, mRequestManager, mGlideBuilderBean);
-        request.into(imageView);
+        RequestBuilder<Bitmap> requestBuilder = mRequestManager.asBitmap().load(mGlideBuilderBean.path);
+        requestBuilder = setBitmapRequestBuilder(requestBuilder, mGlideBuilderBean);
+        requestBuilder.into(imageView);
     }
 
     @Override
@@ -283,8 +310,9 @@ public class GlideImageLoader implements ImageLoaderContract{
         if (mRequestManager == null){
             return;
         }
-        DrawableTypeRequest request = getDrawableTypeRequest(mContext, mRequestManager, mGlideBuilderBean);
-        request.asBitmap().into(target);
+        RequestBuilder<Bitmap> requestBuilder = mRequestManager.asBitmap().load(mGlideBuilderBean.path);
+        requestBuilder = setBitmapRequestBuilder(requestBuilder, mGlideBuilderBean);
+        requestBuilder.into(target);
     }
 
     @Override
@@ -292,53 +320,116 @@ public class GlideImageLoader implements ImageLoaderContract{
         if ( mRequestManager == null){
             return;
         }
-        DrawableTypeRequest request = getDrawableTypeRequest(mContext, mRequestManager, mGlideBuilderBean);
-        request.asGif().into(imageView);
+        RequestBuilder<GifDrawable> requestBuilder = mRequestManager.asGif().load(mGlideBuilderBean.path);
+        requestBuilder = setGifDrawableRequestBuilder(requestBuilder, mGlideBuilderBean);
+        requestBuilder.into(imageView);
     }
 
-    /**
-     * 组装DrawableTypeRequest
-     * @param context 上下文
-     * @param manager 请求管理类
-     * @param bean 构建实体
-     */
-    @SuppressWarnings("unchecked")
-    private DrawableTypeRequest getDrawableTypeRequest(Context context, RequestManager manager, GlideBuilderBean bean){
-        DrawableTypeRequest request = manager.load(bean.path);
-        if (bean.path instanceof byte[]){
-            request.signature(new StringSignature(UUID.randomUUID().toString()));// 修复glide加载byte数组图片无法缓存的BUG
+    @Override
+    public void asGifInto(SimpleTarget<GifDrawable> target) {
+        if ( mRequestManager == null){
+            return;
         }
-        request.placeholder(bean.placeholderResId);// 设置加载图
-        request.error(bean.errorResId);// 设置加载失败图
-        request.skipMemoryCache(!bean.saveToMemoryCache);// 设置跳过内存缓存
-        request = configDiskCacheStrategy(request, bean);// 配置磁盘缓存策略
+        RequestBuilder<GifDrawable> requestBuilder = mRequestManager.asGif().load(mGlideBuilderBean.path);
+        requestBuilder = setGifDrawableRequestBuilder(requestBuilder, mGlideBuilderBean);
+        requestBuilder.into(target);
+    }
+
+    @SuppressWarnings("unchecked")
+    private RequestBuilder<Drawable> setDrawableRequestBuilder(RequestBuilder<Drawable> requestBuilder, GlideBuilderBean bean) {
+        requestBuilder = requestBuilder.apply(getRequestOptions(mGlideBuilderBean));
+        requestBuilder = setDrawableTransitionOptions(requestBuilder, mGlideBuilderBean);
+        if (bean.requestListener != null){// 设置请求监听器
+            requestBuilder = requestBuilder.listener(bean.requestListener);
+        }
+        return requestBuilder;
+    }
+
+    @SuppressWarnings("unchecked")
+    private RequestBuilder<Bitmap> setBitmapRequestBuilder(RequestBuilder<Bitmap> requestBuilder, GlideBuilderBean bean) {
+        requestBuilder = requestBuilder.apply(getRequestOptions(mGlideBuilderBean));
+        requestBuilder = setBitmapTransitionOptions(requestBuilder, mGlideBuilderBean);
+        if (bean.requestListener != null){// 设置请求监听器
+            requestBuilder = requestBuilder.listener(bean.requestListener);
+        }
+        return requestBuilder;
+    }
+
+    @SuppressWarnings("unchecked")
+    private RequestBuilder<GifDrawable> setGifDrawableRequestBuilder(RequestBuilder<GifDrawable> requestBuilder, GlideBuilderBean bean) {
+        requestBuilder = requestBuilder.apply(getRequestOptions(mGlideBuilderBean));
+        requestBuilder = setGifDrawableTransitionOptions(requestBuilder, mGlideBuilderBean);
+        if (bean.requestListener != null){// 设置请求监听器
+            requestBuilder = requestBuilder.listener(bean.requestListener);
+        }
+        return requestBuilder;
+    }
+
+    private RequestOptions getRequestOptions(GlideBuilderBean bean){
+        RequestOptions options = new RequestOptions();
+        if (bean.path instanceof byte[]){
+            options = options.signature(new ObjectKey(UUID.randomUUID().toString()));// 修复glide加载byte数组图片无法缓存的BUG
+        }
+        options = options.placeholder(bean.placeholderResId);// 设置加载图
+        options = options.error(bean.errorResId);// 设置加载失败图
+        options = options.skipMemoryCache(!bean.saveToMemoryCache);// 设置跳过内存缓存
+        options = configDiskCacheStrategy(options, bean);// 配置磁盘缓存策略
         if (bean.width > 0 && bean.height > 0) {
-            request.override(bean.width, bean.height);// 设置图片宽高
+            options = options.override(bean.width, bean.height);// 设置图片宽高
         }
         if (bean.centerCrop){
-            request.centerCrop();
+            options = options.centerCrop();
         }
         if (bean.fitCenter){
-            request.fitCenter();
+            options = options.fitCenter();
+        }
+        if (bean.centerInside){
+            options = options.centerInside();
         }
         if (bean.dontAnimate){
-            request.dontAnimate();
+            options = options.dontAnimate();
         }
-        if (bean.crossFade){
-            request.crossFade();
+        options = setTransformation(options, bean);
+        return options;
+    }
+
+    /** 设置图片转换选项 */
+    private RequestBuilder<Drawable> setDrawableTransitionOptions(RequestBuilder<Drawable> requestBuilder, GlideBuilderBean bean) {
+        if (bean.crossFade) {
+            requestBuilder = requestBuilder.transition(new DrawableTransitionOptions().crossFade());
         }
         if (bean.animResId != -1){
-            request.animate(bean.animResId);
+            requestBuilder = requestBuilder.transition(new DrawableTransitionOptions().transition(bean.animResId));
         }
         if (bean.animator != null){
-            request.animate(bean.animator);
+            requestBuilder = requestBuilder.transition(new DrawableTransitionOptions().transition(bean.animator));
         }
-        if (bean.requestListener != null){// 设置请求监听器
-            request.listener(bean.requestListener);
-        }
+        return requestBuilder;
+    }
 
-        setTransformation(context, request, bean);
-        return request;
+    /** 设置图片转换选项 */
+    private RequestBuilder<Bitmap> setBitmapTransitionOptions(RequestBuilder<Bitmap> requestBuilder, GlideBuilderBean bean) {
+        if (bean.crossFade) {
+            requestBuilder = requestBuilder.transition(new BitmapTransitionOptions().crossFade());
+        }
+        if (bean.animResId != -1){
+            requestBuilder = requestBuilder.transition(new BitmapTransitionOptions().transition(bean.animResId));
+        }
+        if (bean.animator != null){
+            requestBuilder = requestBuilder.transition(new BitmapTransitionOptions().transition(bean.animator));
+        }
+        return requestBuilder;
+    }
+
+    /** 设置图片转换选项 */
+    private RequestBuilder<GifDrawable> setGifDrawableTransitionOptions(RequestBuilder<GifDrawable> requestBuilder, GlideBuilderBean bean) {
+        if (bean.animResId != -1){
+            requestBuilder = requestBuilder.transition(new GenericTransitionOptions<>().transition(bean.animResId));
+        }
+        if (bean.animator != null){
+            requestBuilder = requestBuilder.transition(new GenericTransitionOptions<>().transition(bean.animator));
+        }
+        return requestBuilder;
     }
 
     /**
@@ -346,13 +437,13 @@ public class GlideImageLoader implements ImageLoaderContract{
      * @param request 请求
      * @param bean 构建实体
      */
-    private DrawableTypeRequest configDiskCacheStrategy(DrawableTypeRequest request, GlideBuilderBean bean) {
+    private RequestOptions configDiskCacheStrategy(RequestOptions request, GlideBuilderBean bean) {
         if (bean.isVideo){//显示视频的第一帧需要设置为NONE
-            request.diskCacheStrategy(DiskCacheStrategy.NONE);
+            request = request.diskCacheStrategy(DiskCacheStrategy.NONE);
         } else if (bean.path instanceof File || bean.path instanceof Integer || bean.path instanceof byte[]){
-            request.diskCacheStrategy(DiskCacheStrategy.NONE);// 资源文件、本地手机存储的文件和byte数组不需要进行磁盘缓存
+            request = request.diskCacheStrategy(DiskCacheStrategy.NONE);// 资源文件、本地手机存储的文件和byte数组不需要进行磁盘缓存
         }else {// 其他情况根据自定义缓存策略设置
-            request.diskCacheStrategy(getGlideDiskCacheStrategy(bean.diskCacheStrategy));
+            request = request.diskCacheStrategy(getGlideDiskCacheStrategy(bean.diskCacheStrategy));
         }
         return request;
     }
@@ -367,46 +458,49 @@ public class GlideImageLoader implements ImageLoaderContract{
                 return DiskCacheStrategy.ALL;
             case GlideBuilderBean.DiskCacheStrategy.NONE:
                 return DiskCacheStrategy.NONE;
-            case GlideBuilderBean.DiskCacheStrategy.SOURCE:
-                return DiskCacheStrategy.SOURCE;
-            case GlideBuilderBean.DiskCacheStrategy.RESULT:
-                return DiskCacheStrategy.RESULT;
+            case GlideBuilderBean.DiskCacheStrategy.DATA:
+                return DiskCacheStrategy.DATA;
+            case GlideBuilderBean.DiskCacheStrategy.RESOURCE:
+                return DiskCacheStrategy.RESOURCE;
+            case GlideBuilderBean.DiskCacheStrategy.AUTOMATIC:
+                return DiskCacheStrategy.AUTOMATIC;
             default:
-                return DiskCacheStrategy.SOURCE;
+                return DiskCacheStrategy.AUTOMATIC;
         }
     }
 
     /** 对图片进行变换 */
     @SuppressWarnings("unchecked")
-    private void setTransformation(Context context, DrawableTypeRequest request, GlideBuilderBean bean) {
+    private RequestOptions setTransformation(RequestOptions request, GlideBuilderBean bean) {
         List<Transformation<Bitmap>> list = new ArrayList<>();
         if (bean.useBlur){
-            list.add(new BlurTransformation(context, bean.blurRadius));
+            list.add(new BlurTransformation(bean.blurRadius));
         }
         if (bean.useFilterColor){
-            list.add(new ColorFilterTransformation(context, bean.filterColor));
+            list.add(new ColorFilterTransformation(bean.filterColor));
         }
         if (bean.useRoundCorner){
-            list.add(new RoundedCornersTransformation(context, (int) bean.roundCornerRadius, bean.roundedCornersMargin, bean.cornerType));
+            list.add(new RoundedCornersTransformation(bean.roundCornerRadius, bean.roundedCornersMargin, bean.cornerType));
         }
         if (bean.useGrayscale){
-            list.add(new GrayscaleTransformation(context));
+            list.add(new GrayscaleTransformation());
         }
         if (bean.useCircle){
-            list.add(new CropCircleTransformation(context));
+            list.add(new CropCircleTransformation());
         }
         if (bean.useCropSquare){
-            list.add(new CropSquareTransformation(context));
+            list.add(new CropSquareTransformation());
         }
         if (bean.useMask){
-            list.add(new MaskTransformation(context, bean.maskResId));
+            list.add(new MaskTransformation(bean.maskResId));
         }
         if (list.size() > 0){
             Transformation[] transformations = new Transformation[list.size()];
             for (int i = 0; i < list.size(); i++) {
                 transformations[i] = list.get(i);
             }
-            request.bitmapTransform(transformations);
+            request = request.transforms(transformations);
         }
+        return request;
     }
 }

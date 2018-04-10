@@ -54,10 +54,6 @@
             android:name="error_tag"
             android:value="resultValue" />
 
-        <meta-data
-            android:name="com.lodz.android.imageloader.glide.config.CacheGlideModule"
-            android:value="GlideModule" />
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:label="@string/app_name"

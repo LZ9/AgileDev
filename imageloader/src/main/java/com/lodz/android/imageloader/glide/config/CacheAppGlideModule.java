@@ -1,27 +1,36 @@
 package com.lodz.android.imageloader.glide.config;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
-import com.bumptech.glide.module.GlideModule;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.module.AppGlideModule;
 import com.lodz.android.imageloader.ImageloaderManager;
+import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
- * 缓存GlideModule
- * Created by zhouL on 2017/4/7.
+ * Created by zhouL on 2018/4/9.
  */
-public class CacheGlideModule implements GlideModule {
+@GlideModule
+public class CacheAppGlideModule extends AppGlideModule {
 
     /** 缓存文件夹名称 */
     private static final String IMAGE_PIPELINE_CACHE_DIR = "image_cache";
 
+
     @Override
-    public void applyOptions(Context context, GlideBuilder builder) {
+    public void applyOptions(@NonNull Context context, @NonNull GlideBuilder builder) {
+        super.applyOptions(context, builder);
 
         // 获取配置缓存文件夹名称
         String directoryName = ImageloaderManager.get().getBuilder().getDirectoryName();
@@ -38,6 +47,7 @@ public class CacheGlideModule implements GlideModule {
         }else {
             if (!fileCacheDir.exists()){// 传入的文件路径未创建，则创建该文件
                 try {
+                    //noinspection ResultOfMethodCallIgnored
                     fileCacheDir.mkdirs();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -55,9 +65,10 @@ public class CacheGlideModule implements GlideModule {
     }
 
     @Override
-    public void registerComponents(Context context, Glide glide) {
-//        if (CompileUtils.isClassExists("com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader")){
-//            glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
-//        }
+    public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
+        super.registerComponents(context, glide, registry);
+        if (CompileUtils.isClassExists("com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader")){
+            registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
+        }
     }
 }

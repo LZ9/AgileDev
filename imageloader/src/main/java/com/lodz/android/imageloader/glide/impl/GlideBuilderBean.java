@@ -5,10 +5,8 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.ViewPropertyAnimation;
-import com.lodz.android.imageloader.BuilderBean;
+import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.lodz.android.imageloader.R;
 import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
@@ -18,37 +16,63 @@ import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransfor
  * Created by zhouL on 2017/4/7.
  */
 
-public class GlideBuilderBean extends BuilderBean {
+public class GlideBuilderBean {
 
     /** 磁盘缓存策略 */
     public interface DiskCacheStrategy{
-        /** 缓存所有类型的图片 */
+        /** 使用DATA和RESOURCE缓存远程数据，仅使用RESOURCE来缓存本地数据 */
         int ALL = 1;
         /** 啥也不缓存 */
         int NONE = 2;
         /** 只缓存全尺寸图 */
-        int SOURCE = 3;
+        int DATA = 3;
         /** 只缓存最终降低分辨后用到的图片 */
-        int RESULT = 4;
+        int RESOURCE = 4;
+        /** 自动选择磁盘缓存策略 */
+        int AUTOMATIC = 5;
     }
 
+    /** 加载路径 */
+    public Object path = null;
+    /** 加载图的资源id */
+    @DrawableRes
+    public int placeholderResId = R.drawable.imageloader_ic_launcher;
+    /** 失败图的资源id */
+    @DrawableRes
+    public int errorResId = R.drawable.imageloader_ic_launcher;
+    /** 控件宽度（单位：px） */
+    public int width = 0;
+    /** 控件高度（单位：px） */
+    public int height = 0;
+    /** 使用高斯模糊 */
+    public boolean useBlur = false;
+    /** 高斯模糊率（0-25） */
+    public int blurRadius = 5;
+    /** 是否使用圆形图片 */
+    public boolean useCircle = false;
+    /** 是否使用圆角 */
+    public boolean useRoundCorner = false;
+    /** 圆角半径 */
+    public int roundCornerRadius = 10;
     /** 保存到内存 */
     public boolean saveToMemoryCache = true;
     /** 磁盘缓存策略 */
-    public int diskCacheStrategy = DiskCacheStrategy.SOURCE;
+    public int diskCacheStrategy = DiskCacheStrategy.AUTOMATIC;
     /** 居中裁切 */
     public boolean centerCrop = false;
     /** 居中自适应 */
     public boolean fitCenter = false;
+    /** 设置居中填充 */
+    public boolean centerInside = false;
     /** 直接显示图片不使用动画 */
-    public boolean dontAnimate = true;
+    public boolean dontAnimate = false;
     /** 渐变显示 */
     public boolean crossFade = false;
     /** 动画资源id */
     @AnimRes
     public int animResId = -1;
     /** 动画编辑器 */
-    public ViewPropertyAnimation.Animator animator;
+    public ViewPropertyTransition.Animator animator;
     /** 使用覆盖颜色 */
     public boolean useFilterColor = false;
     /** 覆盖颜色 */
@@ -70,6 +94,6 @@ public class GlideBuilderBean extends BuilderBean {
     /** 是否显示视频第一帧 */
     public boolean isVideo = false;
     /** 图片请求监听器 */
-    public RequestListener<Object, GlideDrawable> requestListener = null;
+    public RequestListener requestListener = null;
 
 }

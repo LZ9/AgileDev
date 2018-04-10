@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
+import com.lodz.android.imageloader.glide.config.GlideApp;
 import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
@@ -53,40 +53,40 @@ public class ImageloaderManager {
 
     /** 清除内存缓存 */
     public void clearMemoryCaches(Context context){
-        Glide.get(context).clearMemory();
+        GlideApp.get(context).clearMemory();
     }
 
     /** 清除内存缓存（包括手动GC内存） */
     public void clearMemoryCachesWithGC(Context context){
-        Glide.get(context).clearMemory();
+        GlideApp.get(context).clearMemory();
         System.gc();
     }
 
     /** 清除磁盘缓存 */
     public void clearDiskCaches(Context context){
-        Glide.get(context).clearDiskCache();
+        GlideApp.get(context).clearDiskCache();
     }
 
     /** 清除所有缓存（内存+磁盘） */
     public void clearCaches(Context context){
-        Glide.get(context).clearMemory();
-        Glide.get(context).clearDiskCache();
+        GlideApp.get(context).clearMemory();
+        GlideApp.get(context).clearDiskCache();
         System.gc();
     }
 
     /** 暂停加载 */
     public void pauseLoad(Context context){
-        Glide.with(context).pauseRequests();
+        GlideApp.with(context).pauseRequests();
     }
 
     /** 恢复加载 */
     public void resumeLoad(Context context){
-        Glide.with(context).resumeRequests();
+        GlideApp.with(context).resumeRequests();
     }
 
     /** 是否暂停加载 */
     public boolean isPaused(Context context){
-        return Glide.with(context).isPaused();
+        return GlideApp.with(context).isPaused();
     }
 
     public class Builder {
@@ -97,13 +97,6 @@ public class ImageloaderManager {
         /** 加载失败图片资源id */
         @DrawableRes
         private int errorResId = 0;
-        /** 默认重载图片资源id */
-        @DrawableRes
-        private int retryResId = 0;
-        /** 开启重试功能 */
-        private boolean tapToRetryEnabled = false;
-        /** 自动播放gif动画 */
-        private boolean autoPlayAnimations = true;
         /** 图片缓存目录 */
         private File directoryFile;
         /** 缓存图片文件夹名称 */
@@ -162,21 +155,6 @@ public class ImageloaderManager {
         /** 获取默认加载失败图片 */
         public int getErrorResId() {
             return errorResId;
-        }
-
-        /** 获取默认重载图片 */
-        public int getRetryResId() {
-            return retryResId;
-        }
-
-        /** 开启重试功能 */
-        public boolean isTapToRetryEnabled() {
-            return tapToRetryEnabled;
-        }
-
-        /** 自动播放gif动画 */
-        public boolean isAutoPlayAnimations() {
-            return autoPlayAnimations;
         }
 
         /** 获取图片缓存目录文件 */

@@ -1,15 +1,16 @@
 package com.lodz.android.imageloader.contract;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
 
@@ -21,7 +22,7 @@ public interface ImageLoaderContract {
 
     /**
      * 设置加载路径
-     * @param o 加载路径（Fresco采用Uri，Glide包括String/Uri/File/Integer/byte[]）
+     * @param o 加载路径（Glide包括String/Uri/File/Integer/byte[]）
      */
     ImageLoaderContract load(Object o);
 
@@ -60,7 +61,7 @@ public interface ImageLoaderContract {
      * 设置圆角
      * @param radius 圆角半径
      */
-    ImageLoaderContract setRoundCorner(float radius);
+    ImageLoaderContract setRoundCorner(int radius);
 
     /** 使用圆形图片 */
     ImageLoaderContract useCircle();
@@ -71,15 +72,17 @@ public interface ImageLoaderContract {
     /** 设置磁盘缓存方式 */
     ImageLoaderContract diskCacheStrategy(int diskCacheStrategy);
 
-
     /** 设置居中裁切 */
     ImageLoaderContract setCenterCrop();
 
     /** 设置居中自适应 */
     ImageLoaderContract setFitCenter();
 
+    /** 设置居中填充 */
+    ImageLoaderContract setCenterInside();
+
     /** 设置使用动画 */
-    ImageLoaderContract useAnimate();
+    ImageLoaderContract dontAnimate();
 
     /** 使用默认渐变效果 */
     ImageLoaderContract userCrossFade();
@@ -94,7 +97,7 @@ public interface ImageLoaderContract {
      * 设置动画
      * @param animator 动画编辑器
      */
-    ImageLoaderContract setAnim(ViewPropertyAnimation.Animator animator);
+    ImageLoaderContract setAnim(ViewPropertyTransition.Animator animator);
 
     /** 使用覆盖颜色 */
     ImageLoaderContract useFilterColor();
@@ -136,15 +139,24 @@ public interface ImageLoaderContract {
     ImageLoaderContract setVideo();
 
     /** 添加图片请求监听器 */
-    ImageLoaderContract setRequestListener(RequestListener<Object, GlideDrawable> listener);
+    ImageLoaderContract setRequestListener(RequestListener listener);
 
     /** 装载图片 */
-    void into(final ImageView imageView);
+    void into(ImageView imageView);
+
+    /** 装载图片 */
+    void into(SimpleTarget<Drawable> target);
+
+    /** 将图片转为bitmap并装载 */
+    void asBitmapInto(ImageView imageView);
 
     /** 将图片转为bitmap并装载在SimpleTarget里面 */
     void asBitmapInto(SimpleTarget<Bitmap> target);
 
     /** 将图片转为gif并装载 */
     void asGifInto(ImageView imageView);
+
+    /** 将图片转为gif并装载 */
+    void asGifInto(SimpleTarget<GifDrawable> target);
 
 }

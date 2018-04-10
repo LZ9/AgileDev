@@ -38,10 +38,11 @@
 
             <!--本地图片-->
             <ImageView
-                android:id="@+id/local_img"
+                android:id="@+id/base64_img"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
+                android:scaleType="center"
                 android:contentDescription="@string/app_name"
                 android:padding="1dp" />
 

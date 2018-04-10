@@ -1,7 +1,7 @@
 package com.lodz.android.imageloader.glide.transformations;
 
 /**
- * Copyright (C) 2017 Wasabeef
+ * Copyright (C) 2018 Wasabeef
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,79 +23,66 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.load.engine.Resource;
+import android.support.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapResource;
+import com.lodz.android.imageloader.utils.TransformationUtils;
 
-public class MaskTransformation implements Transformation<Bitmap> {
+import java.security.MessageDigest;
 
-  private static Paint sMaskingPaint = new Paint();
-  private Context mContext;
-  private BitmapPool mBitmapPool;
-  private int mMaskId;
+public class MaskTransformation extends BitmapTransformation {
+
+  private static final int VERSION = 1;
+  private static final String ID =
+      "jp.wasabeef.glide.transformations.MaskTransformation." + VERSION;
+  private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
+
+  private static Paint paint = new Paint();
+  private int maskId;
 
   static {
-    sMaskingPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
   }
 
   /**
    * @param maskId If you change the mask file, please also rename the mask file, or Glide will get
-   * the cache with the old mask. Because getId() return the same values if using the
+   * the cache with the old mask. Because key() return the same values if using the
    * same make file name. If you have a good idea please tell us, thanks.
    */
-  public MaskTransformation(Context context, int maskId) {
-    this(context, Glide.get(context).getBitmapPool(), maskId);
+  public MaskTransformation(int maskId) {
+    this.maskId = maskId;
   }
 
-  public MaskTransformation(Context context, BitmapPool pool, int maskId) {
-    mBitmapPool = pool;
-    mContext = context.getApplicationContext();
-    mMaskId = maskId;
-  }
+  @Override protected Bitmap transform(@NonNull Context context, @NonNull BitmapPool pool,
+      @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+    int width = toTransform.getWidth();
+    int height = toTransform.getHeight();
 
-  @Override
-  public Resource<Bitmap> transform(Resource<Bitmap> resource, int outWidth, int outHeight) {
-    Bitmap source = resource.get();
+    Bitmap bitmap = pool.get(width, height, Bitmap.Config.ARGB_8888);
+    bitmap.setHasAlpha(true);
 
-    int width = source.getWidth();
-    int height = source.getHeight();
+    Drawable mask = TransformationUtils.getMaskDrawable(context.getApplicationContext(), maskId);
 
-    Bitmap result = mBitmapPool.get(width, height, Bitmap.Config.ARGB_8888);
-    if (result == null) {
-      result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-    }
-
-    Drawable mask = getMaskDrawable(mContext, mMaskId);
-
-    Canvas canvas = new Canvas(result);
+    Canvas canvas = new Canvas(bitmap);
     mask.setBounds(0, 0, width, height);
     mask.draw(canvas);
-    canvas.drawBitmap(source, 0, 0, sMaskingPaint);
+    canvas.drawBitmap(toTransform, 0, 0, paint);
 
-    return BitmapResource.obtain(result, mBitmapPool);
+    return bitmap;
   }
 
-  @Override public String getId() {
-    return "MaskTransformation(maskId=" + mContext.getResources().getResourceEntryName(mMaskId)
-        + ")";
+  @Override public String toString() {
+    return "MaskTransformation(maskId=" + maskId + ")";
   }
 
-  private Drawable getMaskDrawable(Context context, int maskId) {
-    Drawable drawable;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      drawable = context.getDrawable(maskId);
-    } else {
-      drawable = context.getResources().getDrawable(maskId);
-    }
+  @Override public boolean equals(Object o) {
+    return o instanceof MaskTransformation;
+  }
 
-    if (drawable == null) {
-      throw new IllegalArgumentException("maskId is invalid");
-    }
+  @Override public int hashCode() {
+    return ID.hashCode();
+  }
 
-    return drawable;
+  @Override public void updateDiskCacheKey(MessageDigest messageDigest) {
+    messageDigest.update(ID_BYTES);
   }
 }

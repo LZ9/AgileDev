@@ -1,7 +1,7 @@
 package com.lodz.android.imageloader.glide.transformations;
 
 /**
- * Copyright (C) 2017 Wasabeef
+ * Copyright (C) 2018 Wasabeef
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.load.engine.Resource;
+import android.support.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapResource;
+import java.security.MessageDigest;
 
-public class CropTransformation implements Transformation<Bitmap> {
+public class CropTransformation extends BitmapTransformation {
+
+  private static final int VERSION = 1;
+  private static final String ID = "jp.wasabeef.glide.transformations.CropTransformation." + VERSION;
+  private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
 
   public enum CropType {
     TOP,
@@ -34,81 +36,74 @@ public class CropTransformation implements Transformation<Bitmap> {
     BOTTOM
   }
 
-  private BitmapPool mBitmapPool;
-  private int mWidth;
-  private int mHeight;
+  private int width;
+  private int height;
 
-  private CropType mCropType = CropType.CENTER;
+  private CropType cropType = CropType.CENTER;
 
-  public CropTransformation(Context context) {
-    this(Glide.get(context).getBitmapPool());
+  public CropTransformation(int width, int height) {
+    this(width, height, CropType.CENTER);
   }
 
-  public CropTransformation(BitmapPool pool) {
-    this(pool, 0, 0);
+  public CropTransformation(int width, int height, CropType cropType) {
+    this.width = width;
+    this.height = height;
+    this.cropType = cropType;
   }
 
-  public CropTransformation(Context context, int width, int height) {
-    this(Glide.get(context).getBitmapPool(), width, height);
-  }
+  @Override protected Bitmap transform(@NonNull Context context, @NonNull BitmapPool pool,
+      @NonNull Bitmap toTransform, int outWidth, int outHeight) {
 
-  public CropTransformation(BitmapPool pool, int width, int height) {
-    this(pool, width, height, CropType.CENTER);
-  }
-
-  public CropTransformation(Context context, int width, int height, CropType cropType) {
-    this(Glide.get(context).getBitmapPool(), width, height, cropType);
-  }
-
-  public CropTransformation(BitmapPool pool, int width, int height, CropType cropType) {
-    mBitmapPool = pool;
-    mWidth = width;
-    mHeight = height;
-    mCropType = cropType;
-  }
-
-  @Override
-  public Resource<Bitmap> transform(Resource<Bitmap> resource, int outWidth, int outHeight) {
-    Bitmap source = resource.get();
-    mWidth = mWidth == 0 ? source.getWidth() : mWidth;
-    mHeight = mHeight == 0 ? source.getHeight() : mHeight;
+    width = width == 0 ? toTransform.getWidth() : width;
+    height = height == 0 ? toTransform.getHeight() : height;
 
     Bitmap.Config config =
-        source.getConfig() != null ? source.getConfig() : Bitmap.Config.ARGB_8888;
-    Bitmap bitmap = mBitmapPool.get(mWidth, mHeight, config);
-    if (bitmap == null) {
-      bitmap = Bitmap.createBitmap(mWidth, mHeight, config);
-    }
+        toTransform.getConfig() != null ? toTransform.getConfig() : Bitmap.Config.ARGB_8888;
+    Bitmap bitmap = pool.get(width, height, config);
 
-    float scaleX = (float) mWidth / source.getWidth();
-    float scaleY = (float) mHeight / source.getHeight();
+    bitmap.setHasAlpha(true);
+
+    float scaleX = (float) width / toTransform.getWidth();
+    float scaleY = (float) height / toTransform.getHeight();
     float scale = Math.max(scaleX, scaleY);
 
-    float scaledWidth = scale * source.getWidth();
-    float scaledHeight = scale * source.getHeight();
-    float left = (mWidth - scaledWidth) / 2;
+    float scaledWidth = scale * toTransform.getWidth();
+    float scaledHeight = scale * toTransform.getHeight();
+    float left = (width - scaledWidth) / 2;
     float top = getTop(scaledHeight);
     RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
 
     Canvas canvas = new Canvas(bitmap);
-    canvas.drawBitmap(source, null, targetRect, null);
+    canvas.drawBitmap(toTransform, null, targetRect, null);
 
-    return BitmapResource.obtain(bitmap, mBitmapPool);
+    return bitmap;
   }
 
-  @Override public String getId() {
-    return "CropTransformation(width=" + mWidth + ", height=" + mHeight + ", cropType=" + mCropType
+  @Override public String toString() {
+    return "CropTransformation(width=" + width + ", height=" + height + ", cropType=" + cropType
         + ")";
   }
 
+  @Override public boolean equals(Object o) {
+    return o instanceof CropTransformation;
+  }
+
+  @Override public int hashCode() {
+    return ID.hashCode();
+  }
+
+  @Override public void updateDiskCacheKey(MessageDigest messageDigest) {
+    messageDigest.update(ID_BYTES);
+  }
+
   private float getTop(float scaledHeight) {
-    switch (mCropType) {
+    switch (cropType) {
       case TOP:
         return 0;
       case CENTER:
-        return (mHeight - scaledHeight) / 2;
+        return (height - scaledHeight) / 2;
       case BOTTOM:
-        return mHeight - scaledHeight;
+        return height - scaledHeight;
       default:
         return 0;
     }

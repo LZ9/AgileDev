@@ -10,24 +10,28 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.NotificationTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.core.log.PrintLog;
+import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.NotificationUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
@@ -56,10 +60,12 @@ public class GlideActivity extends BaseActivity{
     private static final String IMG_URL = "http://hiphotos.baidu.com/zhidao/pic/item/d439b6003af33a87dd932ba4cd5c10385243b595.jpg";
     /** 网络gif地址 */
     private static final String GIF_URL = "http://image2.sina.com.cn/gm/ol/cross/tujian/446034.gif";
+    /** 图片的BASE64 */
+    private static final String PIC_BASE64 = "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";
 
-    /** 本地图片 */
-    @BindView(R.id.local_img)
-    ImageView mLocalImg;
+    /** BASE64图片 */
+    @BindView(R.id.base64_img)
+    ImageView mBase64Img;
     /** 本地居中剪切图片 */
     @BindView(R.id.local_crop_img)
     ImageView mLocalCropImg;
@@ -159,8 +165,7 @@ public class GlideActivity extends BaseActivity{
                 ImageLoader.create(getContext())
                         .load(IMG_URL)
                         .setCenterCrop()
-                        .asBitmapInto(new NotificationTarget(getContext()
-                                , remoteViews, R.id.remoteview_icon, builder.build(), 1235));
+                        .asBitmapInto(new NotificationTarget(getContext(), R.id.remoteview_icon, remoteViews, builder.build(), 1235));
             }
         });
 
@@ -171,14 +176,10 @@ public class GlideActivity extends BaseActivity{
 
                 ImageLoader.create(getContext())
                         .load(IMG_URL)
-                        .setFitCenter()
+                        .setCenterCrop()
                         .asBitmapInto(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                if (resource == null){
-                                    return;
-                                }
-
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), NOTIFI_CHANNEL_MAIN_ID);// 获取构造器
                                 builder.setTicker("震惊！谁是超能力霸主");// 通知栏显示的文字
                                 builder.setContentTitle("胡地");// 通知栏通知的标题
@@ -250,12 +251,12 @@ public class GlideActivity extends BaseActivity{
         return null;
     }
 
-    /** 本地图片 */
+    /** BASE64图片 */
     private void showLocalImg() {
         ImageLoader.create(getContext())
-                .load(R.drawable.bg_pokemon)
-                .setFitCenter()
-                .into(mLocalImg);
+                .load(BitmapUtils.base64ToByte(PIC_BASE64))
+                .setCenterInside()
+                .into(mBase64Img);
     }
 
     /** 本地居中剪切图片 */
@@ -271,15 +272,15 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .setFitCenter()
-                .setRequestListener(new RequestListener<Object, GlideDrawable>() {
+                .setRequestListener(new RequestListener<Object>() {
                     @Override
-                    public boolean onException(Exception e, Object model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Object> target, boolean isFirstResource) {
                         PrintLog.e("testtag", model == null ? "" : model.toString(), e);
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource, Object model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Object resource, Object model, Target<Object> target, DataSource dataSource, boolean isFirstResource) {
                         PrintLog.d("testtag", model == null ? "" : model.toString());
                         return false;
                     }
@@ -291,7 +292,7 @@ public class GlideActivity extends BaseActivity{
     private void showAnimImg() {
         ImageLoader.create(getContext())
                 .load(IMG_URL)
-                .setAnim(new ViewPropertyAnimation.Animator() {
+                .setAnim(new ViewPropertyTransition.Animator() {
                     @Override
                     public void animate(View view) {
                         view.setAlpha(0.5f);
@@ -344,7 +345,7 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .useRoundCorner()
-                .setRoundCorner(10f)
+                .setRoundCorner(10)
                 .setFitCenter()
                 .into(mCornersAllImg);
     }
@@ -354,7 +355,7 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .useRoundCorner()
-                .setRoundCorner(10f)
+                .setRoundCorner(10)
                 .setRoundedCornerType(RoundedCornersTransformation.CornerType.TOP)
                 .setFitCenter()
                 .into(mCornersTopImg);
@@ -374,7 +375,7 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .useRoundCorner()
-                .setRoundCorner(10f)
+                .setRoundCorner(10)
                 .useGrayscale()
                 .setFitCenter()
                 .into(mCornersGrayscaleImg);
@@ -434,7 +435,7 @@ public class GlideActivity extends BaseActivity{
                 .load(IMG_URL)
                 .useBlur()
                 .useRoundCorner()
-                .setRoundCorner(10f)
+                .setRoundCorner(10)
                 .setCenterCrop()
                 .useCropSquare()
                 .into(mSquareBlurImg);

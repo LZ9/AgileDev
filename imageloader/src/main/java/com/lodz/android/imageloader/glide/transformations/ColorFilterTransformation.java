@@ -1,7 +1,7 @@
 package com.lodz.android.imageloader.glide.transformations;
 
 /**
- * Copyright (C) 2017 Wasabeef
+ * Copyright (C) 2018 Wasabeef
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,51 +22,54 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.load.engine.Resource;
+import android.support.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapResource;
+import java.security.MessageDigest;
 
-public class ColorFilterTransformation implements Transformation<Bitmap> {
+public class ColorFilterTransformation extends BitmapTransformation {
 
-  private BitmapPool mBitmapPool;
+  private static final int VERSION = 1;
+  private static final String ID =
+      "jp.wasabeef.glide.transformations.ColorFilterTransformation." + VERSION;
+  private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
 
-  private int mColor;
+  private int color;
 
-  public ColorFilterTransformation(Context context, int color) {
-    this(Glide.get(context).getBitmapPool(), color);
+  public ColorFilterTransformation(int color) {
+    this.color = color;
   }
 
-  public ColorFilterTransformation(BitmapPool pool, int color) {
-    mBitmapPool = pool;
-    mColor = color;
-  }
-
-  @Override
-  public Resource<Bitmap> transform(Resource<Bitmap> resource, int outWidth, int outHeight) {
-    Bitmap source = resource.get();
-
-    int width = source.getWidth();
-    int height = source.getHeight();
+  @Override protected Bitmap transform(@NonNull Context context, @NonNull BitmapPool pool,
+      @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+    int width = toTransform.getWidth();
+    int height = toTransform.getHeight();
 
     Bitmap.Config config =
-        source.getConfig() != null ? source.getConfig() : Bitmap.Config.ARGB_8888;
-    Bitmap bitmap = mBitmapPool.get(width, height, config);
-    if (bitmap == null) {
-      bitmap = Bitmap.createBitmap(width, height, config);
-    }
+        toTransform.getConfig() != null ? toTransform.getConfig() : Bitmap.Config.ARGB_8888;
+    Bitmap bitmap = pool.get(width, height, config);
 
     Canvas canvas = new Canvas(bitmap);
     Paint paint = new Paint();
     paint.setAntiAlias(true);
-    paint.setColorFilter(new PorterDuffColorFilter(mColor, PorterDuff.Mode.SRC_ATOP));
-    canvas.drawBitmap(source, 0, 0, paint);
+    paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
+    canvas.drawBitmap(toTransform, 0, 0, paint);
 
-    return BitmapResource.obtain(bitmap, mBitmapPool);
+    return bitmap;
   }
 
-  @Override public String getId() {
-    return "ColorFilterTransformation(color=" + mColor + ")";
+  @Override public String toString() {
+    return "ColorFilterTransformation(color=" + color + ")";
+  }
+
+  @Override public boolean equals(Object o) {
+    return o instanceof ColorFilterTransformation;
+  }
+
+  @Override public int hashCode() {
+    return ID.hashCode();
+  }
+
+  @Override public void updateDiskCacheKey(MessageDigest messageDigest) {
+    messageDigest.update(ID_BYTES);
   }
 }

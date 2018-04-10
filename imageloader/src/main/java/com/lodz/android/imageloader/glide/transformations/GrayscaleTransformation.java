@@ -1,7 +1,7 @@
 package com.lodz.android.imageloader.glide.transformations;
 
 /**
- * Copyright (C) 2017 Wasabeef
+ * Copyright (C) 2018 Wasabeef
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,49 +22,49 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.load.engine.Resource;
+import android.support.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapResource;
+import java.security.MessageDigest;
 
-public class GrayscaleTransformation implements Transformation<Bitmap> {
+public class GrayscaleTransformation extends BitmapTransformation {
 
-  private BitmapPool mBitmapPool;
+  private static final int VERSION = 1;
+  private static final String ID =
+      "jp.wasabeef.glide.transformations.GrayscaleTransformation." + VERSION;
+  private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
 
-  public GrayscaleTransformation(Context context) {
-    this(Glide.get(context).getBitmapPool());
-  }
-
-  public GrayscaleTransformation(BitmapPool pool) {
-    mBitmapPool = pool;
-  }
-
-  @Override
-  public Resource<Bitmap> transform(Resource<Bitmap> resource, int outWidth, int outHeight) {
-    Bitmap source = resource.get();
-
-    int width = source.getWidth();
-    int height = source.getHeight();
+  @Override protected Bitmap transform(@NonNull Context context, @NonNull BitmapPool pool,
+      @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+    int width = toTransform.getWidth();
+    int height = toTransform.getHeight();
 
     Bitmap.Config config =
-        source.getConfig() != null ? source.getConfig() : Bitmap.Config.ARGB_8888;
-    Bitmap bitmap = mBitmapPool.get(width, height, config);
-    if (bitmap == null) {
-      bitmap = Bitmap.createBitmap(width, height, config);
-    }
+        toTransform.getConfig() != null ? toTransform.getConfig() : Bitmap.Config.ARGB_8888;
+    Bitmap bitmap = pool.get(width, height, config);
 
     Canvas canvas = new Canvas(bitmap);
     ColorMatrix saturation = new ColorMatrix();
     saturation.setSaturation(0f);
     Paint paint = new Paint();
     paint.setColorFilter(new ColorMatrixColorFilter(saturation));
-    canvas.drawBitmap(source, 0, 0, paint);
+    canvas.drawBitmap(toTransform, 0, 0, paint);
 
-    return BitmapResource.obtain(bitmap, mBitmapPool);
+    return bitmap;
   }
 
-  @Override public String getId() {
+  @Override public String toString() {
     return "GrayscaleTransformation()";
+  }
+
+  @Override public boolean equals(Object o) {
+    return o instanceof GrayscaleTransformation;
+  }
+
+  @Override public int hashCode() {
+    return ID.hashCode();
+  }
+
+  @Override public void updateDiskCacheKey(MessageDigest messageDigest) {
+    messageDigest.update(ID_BYTES);
   }
 }
