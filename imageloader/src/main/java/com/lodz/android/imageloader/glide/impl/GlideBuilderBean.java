@@ -62,7 +62,7 @@ public class GlideBuilderBean {
     public boolean centerCrop = false;
     /** 居中自适应 */
     public boolean fitCenter = false;
-    /** 设置居中填充 */
+    /** 设置内部居中 */
     public boolean centerInside = false;
     /** 直接显示图片不使用动画 */
     public boolean dontAnimate = false;

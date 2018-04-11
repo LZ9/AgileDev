@@ -78,7 +78,7 @@ public interface ImageLoaderContract {
     /** 设置居中自适应 */
     ImageLoaderContract setFitCenter();
 
-    /** 设置居中填充 */
+    /** 设置内部居中 */
     ImageLoaderContract setCenterInside();
 
     /** 设置使用动画 */
