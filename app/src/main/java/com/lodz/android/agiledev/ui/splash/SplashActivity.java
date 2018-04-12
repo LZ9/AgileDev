@@ -15,7 +15,6 @@ import com.lodz.android.agiledev.utils.crash.CrashHandler;
 import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.core.cache.ACacheUtils;
-import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
@@ -142,7 +141,6 @@ public class SplashActivity extends AbsActivity{
 
 
     private void init() {
-        PrintLog.d("testtag", "init");
         FileManager.init();// 初始化文件管理
         initCrashHandler();//初始化异常处理
         initACache();// 初始化缓存类

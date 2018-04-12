@@ -2,11 +2,14 @@ package com.lodz.android.agiledev.ui.webview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -22,6 +25,9 @@ import com.lodz.android.agiledev.utils.jsbridge.BridgeWebView;
 import com.lodz.android.agiledev.utils.jsbridge.BridgeWebViewClient;
 import com.lodz.android.agiledev.utils.jsbridge.CallBackFunction;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.widget.base.ErrorLayout;
+import com.lodz.android.component.widget.base.LoadingLayout;
+import com.lodz.android.core.log.PrintLog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +43,8 @@ public class WebViewTestActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
+    private static final String TAG = "webview_test";
+
     /** 测试信息网页 */
     private static final String TEST_INFO_URL = "http://222.76.243.213:7102/jyxlpt/file/recv/html/4150888675E64BFF9556CA38E0754DA5_app.html";
     /** 测试本地信息（不带头信息） */
@@ -45,13 +53,24 @@ public class WebViewTestActivity extends BaseActivity {
     private static final String TEST_LOCAL_TEST_APP = "file:///android_asset/test_app.html";
     /** JS交互测试页 */
     private static final String TEST_JS_BRIDGE = "file:///android_asset/JsBridgeDemo.html";
+    /** 错误地址 */
+    private static final String TEST_ERROR_URL = "https://www.baiduasdwqewq.com/";
+
 
     /** 文件请求码 */
     private final static int REQUEST_CODE_FILE_CHOOSER = 10000;
 
+
+    /** 加载控件 */
+    @BindView(R.id.web_loading_layout)
+    LoadingLayout mWebLoadingLayout;
+    /** 加载失败控件 */
+    @BindView(R.id.web_error_layout)
+    ErrorLayout mWebErrorLayout;
     /** 浏览器 */
     @BindView(R.id.webview)
     BridgeWebView mWebView;
+
     /** ScrollView */
     @BindView(R.id.scroll_view)
     ScrollView mScrollView;
@@ -67,6 +86,9 @@ public class WebViewTestActivity extends BaseActivity {
 
     /** 上传文件信息 */
     private ValueCallback<Uri[]> mUploadMessageAboveL;
+
+    /** 是否加载成功 */
+    private boolean isLoadSuccess = true;
 
     @Override
     protected int getLayoutId() {
@@ -112,6 +134,14 @@ public class WebViewTestActivity extends BaseActivity {
                 mWebView.send(msg);
             }
         });
+
+        // 加载失败控件
+        mWebErrorLayout.setReloadListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebView.reload();
+            }
+        });
     }
 
     @Override
@@ -147,7 +177,7 @@ public class WebViewTestActivity extends BaseActivity {
             }
         });
 
-        mWebView.loadUrl(TEST_JS_BRIDGE);
+        mWebView.loadUrl(TEST_INFO_URL);
     }
 
     /** 初始化WebSettings */
@@ -168,10 +198,40 @@ public class WebViewTestActivity extends BaseActivity {
             super(webView);
         }
 
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            showWebLoading();
+            PrintLog.w(TAG, "onPageStarted");
+        }
 
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+            showWebError();
+            isLoadSuccess = false;
+            PrintLog.e(TAG, error.toString());
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            PrintLog.i(TAG, "onPageFinished");
+            if (!isLoadSuccess){
+                isLoadSuccess = true;
+                return;
+            }
+            showWebCompleted();
+        }
     }
 
     private class CustomWebChromeClient extends WebChromeClient {
+
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+            PrintLog.d(TAG, "进度 ： " + newProgress);
+        }
 
         /** H5调用文件选择 */
         @Override
@@ -226,4 +286,24 @@ public class WebViewTestActivity extends BaseActivity {
         });
     }
 
+    /** 显示web加载页 */
+    private void showWebLoading(){
+        mWebLoadingLayout.setVisibility(View.VISIBLE);
+        mWebView.setVisibility(View.GONE);
+        mWebErrorLayout.setVisibility(View.GONE);
+    }
+
+    /** 显示web加载失败页 */
+    private void showWebError(){
+        mWebLoadingLayout.setVisibility(View.GONE);
+        mWebView.setVisibility(View.GONE);
+        mWebErrorLayout.setVisibility(View.VISIBLE);
+    }
+
+    /** 显示web内容页 */
+    private void showWebCompleted(){
+        mWebLoadingLayout.setVisibility(View.GONE);
+        mWebView.setVisibility(View.VISIBLE);
+        mWebErrorLayout.setVisibility(View.GONE);
+    }
 }

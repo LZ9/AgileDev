@@ -5,13 +5,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.lodz.android.agiledev.utils.jsbridge.BridgeWebView
-        android:id="@+id/webview"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-    </com.lodz.android.agiledev.utils.jsbridge.BridgeWebView>
+        <com.lodz.android.agiledev.utils.jsbridge.BridgeWebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.lodz.android.agiledev.utils.jsbridge.BridgeWebView>
+
+        <com.lodz.android.component.widget.base.LoadingLayout
+            android:id="@+id/web_loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.lodz.android.component.widget.base.LoadingLayout>
+
+        <com.lodz.android.component.widget.base.ErrorLayout
+            android:id="@+id/web_error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.lodz.android.component.widget.base.ErrorLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
