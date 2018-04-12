@@ -32,6 +32,7 @@ import com.lodz.android.agiledev.ui.rv.refresh.RefreshTestActivity;
 import com.lodz.android.agiledev.ui.rv.swipe.SwipeRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rxjava.RxTestActivity;
 import com.lodz.android.agiledev.ui.threadpool.ThreadPoolActivity;
+import com.lodz.android.agiledev.ui.webview.WebViewTestActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
@@ -67,7 +68,8 @@ public class MainActivity extends BaseActivity{
             "照片选择器测试", "定位测试", "通知测试",
             "Retrofit测试", "RV装饰器测试类", "线程池测试类",
             "Rxjava测试类", "MVP模式测试类", "Coordinator测试类",
-            "DialogFragment测试类", "Glide测试", "注解测试类");
+            "DialogFragment测试类", "Glide测试", "注解测试类",
+            "WebView测试类");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -77,7 +79,8 @@ public class MainActivity extends BaseActivity{
             PhotoPickerTestActivity.class, LocationActivity.class, NotificationActivity.class,
             RetrofitTestActivity.class, ItemDecorationTestActivity.class, ThreadPoolActivity.class,
             RxTestActivity.class, MvpDemoActivity.class, CoordinatorTestActivity.class,
-            DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class};
+            DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class,
+            WebViewTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

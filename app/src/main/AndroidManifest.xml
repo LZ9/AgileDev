@@ -75,12 +75,6 @@
         </activity>
 
         <activity
-            android:name="com.lodz.android.agiledev.ui.other.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
             android:name=".ui.premissions.PremissionsActivity"
             android:screenOrientation="portrait">
 
@@ -100,12 +94,6 @@
 
         <activity
             android:name=".ui.other.Test2Activity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
-            android:name=".ui.other.TitleBarTestActivity"
             android:screenOrientation="portrait">
 
         </activity>
@@ -329,6 +317,14 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name=".ui.webview.WebViewTestActivity"
+            android:label="WebView测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
     </application>
 
