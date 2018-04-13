@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * APP帮助类
@@ -120,6 +121,11 @@ public class AppUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /** 获取随机的UUID */
+    public static String getUUID(){
+        return UUID.randomUUID().toString();
     }
 
     /**

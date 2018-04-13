@@ -144,15 +144,16 @@ public class SplashActivity extends AbsActivity{
         FileManager.init();// 初始化文件管理
         initCrashHandler();//初始化异常处理
         initACache();// 初始化缓存类
-        jumpMainActivity();
         initRxDownload(getContext());
+        jumpMainActivity();
     }
 
+    /** 初始化下载器 */
     private void initRxDownload(Context context) {
         DownloadConfig.Builder builder = DownloadConfig.Builder.Companion.create(context.getApplicationContext())
                 .setFps(20) //设置更新频率
-                .setMaxMission(5)//设置同时下载数量
-                .enableAutoStart(true) //自动开始下载
+                .setMaxMission(2)//设置同时下载数量
+                .enableAutoStart(false) //自动开始下载
                 .setDefaultPath(FileManager.getDownloadFolderPath()) //设置默认的下载地址
                 .enableDb(true) //启用数据库
                 .enableService(true) //启用Service

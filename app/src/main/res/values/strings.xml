@@ -115,7 +115,20 @@
     <!-- CoordinatorLayout测试 -->
     <string name="coordinator_collapsing">折叠</string>
 
-
+    <!-- 应用市场下载测试 -->
+    <string name="market_title">应用市场</string>
+    <string name="market_download">下载</string>
+    <string name="market_pause">暂停</string>
+    <string name="market_waiting">等待中</string>
+    <string name="market_delete">删除</string>
+    <string name="market_install">安装</string>
+    <string name="market_open">打开</string>
+    <string name="market_downloading">下载中</string>
+    <string name="market_download_fail">下载失败</string>
+    <string name="market_already_pause">已暂停</string>
+    <string name="market_installing">安装中</string>
+    <string name="market_app_content">应用内容描述</string>
+    <string name="download_manager_title">下载管理</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
