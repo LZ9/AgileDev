@@ -1,6 +1,5 @@
 package com.lodz.android.agiledev.ui.download.market;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -128,23 +127,12 @@ public class DownloadMarketActivity extends BaseActivity {
         showStatusCompleted();
     }
 
-    @SuppressLint("CheckResult")
+    /** 创建下载任务 */
     private void createDownloadMission(List<AppInfoBean> list) {
         List<Mission> missions = new ArrayList<>();
         for (AppInfoBean appInfoBean : list) {
             missions.add(appInfoBean.mission);
         }
         RxDownload.INSTANCE.createAll(missions).subscribe();
-
-
-
-//        RxDownload.INSTANCE.create(mWechatMission)
-//                .compose(RxUtils.<Status>ioToMainFlowable())
-//                .subscribe(new Consumer<Status>() {
-//                    @Override
-//                    public void accept(Status status) throws Exception {
-//                        setActionText(status);
-//                    }
-//                });
     }
 }

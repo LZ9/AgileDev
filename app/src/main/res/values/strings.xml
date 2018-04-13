@@ -129,6 +129,9 @@
     <string name="market_installing">安装中</string>
     <string name="market_app_content">应用内容描述</string>
     <string name="download_manager_title">下载管理</string>
+    <string name="download_manager_start_all">全部开始</string>
+    <string name="download_manager_pause_all">全部暂停</string>
+    <string name="download_manager_delete_all">全部删除</string>
 
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>

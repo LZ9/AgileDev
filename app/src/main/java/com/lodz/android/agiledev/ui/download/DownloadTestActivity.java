@@ -61,8 +61,6 @@ public class DownloadTestActivity extends BaseActivity{
     Button mMarketBtn;
 
 
-
-
     /** 微信下载编号 */
     private Mission mWechatMission;
 

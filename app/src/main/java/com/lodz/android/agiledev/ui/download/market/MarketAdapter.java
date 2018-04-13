@@ -58,9 +58,8 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
     }
 
     private void showItem(DataViewHolder holder, AppInfoBean bean) {
-        if (holder.itemView.getTag() != null){// 先解除holder复用前绑定的订阅对象
-            Disposable disposable = (Disposable) holder.itemView.getTag();
-            disposable.dispose();
+        if (holder.disposable != null){// 先解除holder复用前绑定的订阅对象
+            holder.disposable.dispose();
         }
         showImage(holder.appImg, bean.imgUrl);
         holder.appNameTv.setText(bean.appName);
@@ -77,7 +76,8 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
 
     /** 订阅任务 */
     private void subscribeMission(final DataViewHolder holder, final AppInfoBean bean) {
-        Disposable disposable = RxDownload.INSTANCE.create(bean.mission)
+        //把订阅对象保存进holder
+        holder.disposable = RxDownload.INSTANCE.create(bean.mission)
                 .compose(RxUtils.<Status>ioToMainFlowable())
                 .subscribe(new Consumer<Status>() {
                     @Override
@@ -85,7 +85,6 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
                         setViewByStatus(holder, bean, status);
                     }
                 });
-        holder.itemView.setTag(disposable);//把订阅对象保存进holder
     }
 
     /** 根据状态设置界面 */
@@ -247,6 +246,9 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
         @BindView(R.id.status_btn)
         Button statusBtn;
 
+        /** 下载任务订阅对象 */
+        private Disposable disposable;
+
         private DataViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -258,7 +260,6 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
     }
 
     public interface Listener{
-
         /** 点击下载 */
         void onClickDownload(AppInfoBean bean, int position);
         /** 点击暂停 */

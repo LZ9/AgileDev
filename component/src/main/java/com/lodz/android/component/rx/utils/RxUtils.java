@@ -20,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
+import io.reactivex.Maybe;
+import io.reactivex.MaybeSource;
+import io.reactivex.MaybeTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -49,6 +52,16 @@ public class RxUtils {
         return new FlowableTransformer<T, T>() {
             @Override
             public Publisher<T> apply(Flowable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    /** 在异步线程发起，在主线程订阅 */
+    public static <T> MaybeTransformer<T, T> ioToMainMaybe() {
+        return new MaybeTransformer<T, T>() {
+            @Override
+            public MaybeSource<T> apply(Maybe<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };
