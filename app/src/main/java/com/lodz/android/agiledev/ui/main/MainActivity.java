@@ -21,6 +21,7 @@ import com.lodz.android.agiledev.ui.download.DownloadTestActivity;
 import com.lodz.android.agiledev.ui.image.GlideActivity;
 import com.lodz.android.agiledev.ui.location.LocationActivity;
 import com.lodz.android.agiledev.ui.media.RecordActivity;
+import com.lodz.android.agiledev.ui.mvc.MvcDemoActivity;
 import com.lodz.android.agiledev.ui.mvp.MvpDemoActivity;
 import com.lodz.android.agiledev.ui.notification.NotificationActivity;
 import com.lodz.android.agiledev.ui.photopicker.PhotoPickerTestActivity;
@@ -70,7 +71,7 @@ public class MainActivity extends BaseActivity{
             "Retrofit测试", "RV装饰器测试类", "线程池测试类",
             "Rxjava测试类", "MVP模式测试类", "Coordinator测试类",
             "DialogFragment测试类", "Glide测试", "注解测试类",
-            "WebView测试类", "下载测试类");
+            "WebView测试类", "下载测试类", "MVC模式测试类");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -81,7 +82,7 @@ public class MainActivity extends BaseActivity{
             RetrofitTestActivity.class, ItemDecorationTestActivity.class, ThreadPoolActivity.class,
             RxTestActivity.class, MvpDemoActivity.class, CoordinatorTestActivity.class,
             DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class,
-            WebViewTestActivity.class, DownloadTestActivity.class};
+            WebViewTestActivity.class, DownloadTestActivity.class, MvcDemoActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

@@ -180,49 +180,28 @@
 
         <activity
             android:name=".ui.mvp.abs.activity.MvpTestAbsActivity"
+            android:label="基础Activity测试"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".ui.mvp.base.activity.MvpTestBaseActivity"
+            android:label="带基础状态控件Activity测试"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".ui.mvp.refresh.activity.MvpTestRefreshActivity"
+            android:label="带基础状态控件和下来刷新控件Activity"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".ui.mvp.MvpFragmentActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-
-        <activity
-            android:name=".ui.jump.AzActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
-            android:name=".ui.jump.BzActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
-            android:name=".ui.jump.CzActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
-            android:name=".ui.jump.DzActivity"
+            android:label="Fragment用例"
             android:screenOrientation="portrait">
 
         </activity>
@@ -346,6 +325,40 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.mvc.MvcDemoActivity"
+            android:label="MVC模式测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.mvc.abs.MvcTestAbsActivity"
+            android:label="基础Activity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.mvc.base.MvcTestBaseActivity"
+            android:label="带基础状态控件Activity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.mvc.refresh.MvcTestRefreshActivity"
+            android:label="带基础状态控件和下来刷新控件Activity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.mvc.sandwich.MvcTestSandwichActivity"
+            android:label="MVC带基础状态控件、中部刷新控件和顶部/底部扩展Activity"
+            android:screenOrientation="portrait">
+
+        </activity>
 
     </application>
 

@@ -20,12 +20,18 @@ public class MvpTestAbsPresenter extends AbsPresenter<MvpTestAbsViewContract> {
                 .subscribe(new ProgressObserver<String>() {
                     @Override
                     public void onPgNext(String s) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().showResult();
                         getViewContract().setResult(s);
                     }
 
                     @Override
                     public void onPgError(Throwable e, boolean isNetwork) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().setResult("fail");
                     }
                 }.create(getContext(), "加载中...", true));

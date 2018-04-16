@@ -59,7 +59,7 @@ public abstract class BaseActivity extends AbsActivity {
 
     /** 把内容布局设置进来 */
     private void setContainerView() {
-        if (getLayoutId() <= 0){
+        if (getLayoutId() == 0){
             showStatusNoData();
             return;
         }

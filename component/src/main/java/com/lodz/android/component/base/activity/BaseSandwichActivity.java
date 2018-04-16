@@ -8,27 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.widget.base.ErrorLayout;
 import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.component.widget.base.NoDataLayout;
-import com.lodz.android.component.widget.base.TitleBarLayout;
 
 /**
- * 基类Activity（带基础状态控件和下来刷新控件）
- * Created by zhouL on 2017/2/28.
+ * 基类Activity（带基础状态控件、中部刷新控件和顶部/底部扩展）
+ * Created by zhouL on 2018/4/16.
  */
-public abstract class BaseRefreshActivity extends AbsActivity{
+public abstract class BaseSandwichActivity extends AbsActivity{
 
-    private ViewStub mTitleBarViewStub;
     private ViewStub mLoadingViewStub;
     private ViewStub mNoDataViewStub;
     private ViewStub mErrorViewStub;
 
-    /** 顶部标题布局 */
-    private TitleBarLayout mTitleBarLayout;
+    /** 顶部布局 */
+    private FrameLayout mTopLayout;
     /** 内容布局 */
     private LinearLayout mContentLayout;
     /** 加载布局 */
@@ -39,10 +38,12 @@ public abstract class BaseRefreshActivity extends AbsActivity{
     private ErrorLayout mErrorLayout;
     /** 下拉刷新 */
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    /** 底部布局 */
+    private FrameLayout mBottomLayout;
 
     @Override
     protected int getAbsLayoutId() {
-        return R.layout.component_activity_base_refresh_layout;
+        return R.layout.component_activity_base_sandwich_layout;
     }
 
     @Override
@@ -50,6 +51,8 @@ public abstract class BaseRefreshActivity extends AbsActivity{
         super.afterSetContentView();
         initViews();
         showStatusLoading();
+        setTopView();
+        setBottomView();
         setContainerView();
         initSwipeRefreshLayout();
     }
@@ -64,16 +67,54 @@ public abstract class BaseRefreshActivity extends AbsActivity{
                 android.R.color.holo_red_light);
         // 设置下拉进度的背景颜色
         setSwipeRefreshBackgroundColor(android.R.color.white);
+        setSwipeRefreshEnabled(false);
     }
 
     /** 初始化基类的view */
     private void initViews() {
+        mTopLayout = findViewById(R.id.top_layout);
         mContentLayout = findViewById(R.id.content_layout);
         mSwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        mTitleBarViewStub = findViewById(R.id.view_stub_title_bar_layout);
         mLoadingViewStub = findViewById(R.id.view_stub_loading_layout);
         mNoDataViewStub = findViewById(R.id.view_stub_no_data_layout);
         mErrorViewStub = findViewById(R.id.view_stub_error_layout);
+        mBottomLayout = findViewById(R.id.bottom_layout);
+    }
+
+    /** 把顶部布局设置进来 */
+    private void setTopView() {
+        if (getTopLayoutId() == 0){
+            mTopLayout.setVisibility(View.GONE);
+            return;
+        }
+        View view = LayoutInflater.from(this).inflate(getTopLayoutId(), null);
+        ViewGroup.LayoutParams layoutParams =
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTopLayout.addView(view, layoutParams);
+        mTopLayout.setVisibility(View.VISIBLE);
+    }
+
+    @LayoutRes
+    protected int getTopLayoutId(){
+        return 0;
+    }
+
+    /** 把底部布局设置进来 */
+    private void setBottomView() {
+        if (getBottomLayoutId() == 0){
+            mBottomLayout.setVisibility(View.GONE);
+            return;
+        }
+        View view = LayoutInflater.from(this).inflate(getBottomLayoutId(), null);
+        ViewGroup.LayoutParams layoutParams =
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mBottomLayout.addView(view, layoutParams);
+        mBottomLayout.setVisibility(View.VISIBLE);
+    }
+
+    @LayoutRes
+    protected int getBottomLayoutId(){
+        return 0;
     }
 
     /** 把内容布局设置进来 */
@@ -94,12 +135,6 @@ public abstract class BaseRefreshActivity extends AbsActivity{
     @Override
     protected void setListeners() {
         super.setListeners();
-        getTitleBarLayout().setOnBackBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickBackBtn();
-            }
-        });
 
         // 下拉刷新
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -111,7 +146,7 @@ public abstract class BaseRefreshActivity extends AbsActivity{
     }
 
     /** 下拉刷新 */
-    protected abstract void onDataRefresh();
+    protected void onDataRefresh(){}
 
     /**
      * 设置下拉进度的切换颜色
@@ -141,9 +176,6 @@ public abstract class BaseRefreshActivity extends AbsActivity{
     protected void setSwipeRefreshEnabled(boolean enabled){
         mSwipeRefreshLayout.setEnabled(enabled);
     }
-
-    /** 点击标题栏的返回按钮 */
-    protected void clickBackBtn() {}
 
     /** 点击错误页面的重试按钮 */
     protected void clickReload() {}
@@ -200,24 +232,6 @@ public abstract class BaseRefreshActivity extends AbsActivity{
         if (mErrorLayout != null){
             mErrorLayout.setVisibility(View.GONE);
         }
-    }
-
-    /** 隐藏TitleBar */
-    protected void goneTitleBar(){
-        getTitleBarLayout().setVisibility(View.GONE);
-    }
-
-    /** 显示TitleBar */
-    protected void showTitleBar(){
-        getTitleBarLayout().setVisibility(View.VISIBLE);
-    }
-
-    /** 获取顶部标题栏控件 */
-    protected TitleBarLayout getTitleBarLayout(){
-        if (mTitleBarLayout == null){
-            mTitleBarLayout = (TitleBarLayout) mTitleBarViewStub.inflate();
-        }
-        return mTitleBarLayout;
     }
 
     /** 获取加载控件 */

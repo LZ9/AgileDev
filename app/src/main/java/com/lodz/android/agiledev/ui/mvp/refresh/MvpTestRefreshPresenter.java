@@ -12,13 +12,6 @@ import com.lodz.android.component.rx.utils.RxUtils;
 
 public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefreshViewContract>{
 
-    /** 数据来源 */
-    private ApiModule mApiModule;
-
-    public MvpTestRefreshPresenter() {
-        this.mApiModule = new ApiModule();
-    }
-
     public void getResult(boolean isSuccess){
         ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
@@ -26,6 +19,9 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().showResult();
                         getViewContract().setResult(s);
                         getViewContract().showStatusCompleted();
@@ -33,6 +29,9 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
 
                     @Override
                     public void onBaseError(Throwable e) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().showStatusError();
                     }
                 });
@@ -45,6 +44,9 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().setSwipeRefreshFinish();
                         getViewContract().showResult();
                         getViewContract().setResult(s);
@@ -52,6 +54,9 @@ public class MvpTestRefreshPresenter extends BaseRefreshPresenter<MvpTestRefresh
 
                     @Override
                     public void onBaseError(Throwable e) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().setSwipeRefreshFinish();
                         getViewContract().refreshFail("刷新数据失败");
                     }

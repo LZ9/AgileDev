@@ -19,6 +19,9 @@ public class MvpTestBasePresenter extends BasePresenter<MvpTestBaseViewContract>
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().showResult();
                         getViewContract().setResult(s);
                         getViewContract().showStatusCompleted();
@@ -26,6 +29,9 @@ public class MvpTestBasePresenter extends BasePresenter<MvpTestBaseViewContract>
 
                     @Override
                     public void onBaseError(Throwable e) {
+                        if (isDetach()){
+                            return;
+                        }
                         getViewContract().showStatusError();
                     }
                 });
