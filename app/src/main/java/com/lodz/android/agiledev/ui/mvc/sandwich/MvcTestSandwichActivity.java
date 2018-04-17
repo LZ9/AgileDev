@@ -58,6 +58,11 @@ public class MvcTestSandwichActivity extends BaseSandwichActivity{
     }
 
     @Override
+    protected int getBottomLayoutId() {
+        return R.layout.view_mvc_test_bottom_layout;
+    }
+
+    @Override
     protected void findViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
         mTitleBarLayout.setTitleName(R.string.mvc_demo_sandwich_title);

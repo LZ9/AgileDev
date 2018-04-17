@@ -5,16 +5,18 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <!-- 顶部菜单栏 -->
-    <ViewStub
-        android:id="@+id/view_stub_title_bar_layout"
+    <FrameLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout="@layout/component_viewstub_title_layout" />
+        android:visibility="gone">
+
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
@@ -55,6 +57,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout="@layout/component_viewstub_error_layout" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
     </FrameLayout>
 </LinearLayout>

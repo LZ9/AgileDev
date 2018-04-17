@@ -1,7 +1,5 @@
 package com.lodz.android.agiledev.ui.mvc.refresh;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +7,11 @@ import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.mvp.ApiModule;
-import com.lodz.android.component.base.activity.BaseRefreshActivity;
+import com.lodz.android.component.base.fragment.BaseRefreshFragment;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
-import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ToastUtils;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.Random;
 
@@ -22,14 +19,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 带基础状态控件和下来刷新控件Activity
- * Created by zhouL on 2018/4/16.
+ * 刷新测试类
+ * Created by zhouL on 2018/4/17.
  */
-public class MvcTestRefreshActivity extends BaseRefreshActivity{
+public class MvcTestRefreshFragment extends BaseRefreshFragment{
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, MvcTestRefreshActivity.class);
-        context.startActivity(starter);
+    public static MvcTestRefreshFragment newInstance() {
+        return new MvcTestRefreshFragment();
     }
 
     /** 结果 */
@@ -42,20 +38,14 @@ public class MvcTestRefreshActivity extends BaseRefreshActivity{
     @BindView(R.id.get_fail_reuslt_btn)
     Button mGetFailResultBtn;
 
-
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_mvc_test_layout;
+        return R.layout.activity_mvp_test_layout;
     }
 
     @Override
-    protected void findViews(Bundle savedInstanceState) {
-        ButterKnife.bind(this);
-        initTitleBarLayout(getTitleBarLayout());
-    }
-
-    private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
-        titleBarLayout.setTitleName(R.string.mvc_demo_refresh_title);
+    protected void findViews(View view, Bundle savedInstanceState) {
+        ButterKnife.bind(this, view);
     }
 
     @Override
@@ -69,11 +59,9 @@ public class MvcTestRefreshActivity extends BaseRefreshActivity{
         showStatusLoading();
         getResult(true);
     }
-
     @Override
-    protected void setListeners() {
-        super.setListeners();
-
+    protected void setListeners(View view) {
+        super.setListeners(view);
         mGetSuccessResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +80,8 @@ public class MvcTestRefreshActivity extends BaseRefreshActivity{
     }
 
     @Override
-    protected void initData() {
-        super.initData();
+    protected void initData(View view) {
+        super.initData(view);
         showStatusLoading();
         getResult(true);
     }
@@ -101,7 +89,7 @@ public class MvcTestRefreshActivity extends BaseRefreshActivity{
     private void getResult(boolean isSuccess){
         ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
-                .compose(this.<String>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(this.<String>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {
@@ -119,7 +107,7 @@ public class MvcTestRefreshActivity extends BaseRefreshActivity{
     private void getRefreshData(boolean isSuccess){
         ApiModule.requestResult(isSuccess)
                 .compose(RxUtils.<String>ioToMainObservable())
-                .compose(this.<String>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(this.<String>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onBaseNext(String s) {

@@ -360,6 +360,14 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.mvc.MvcFragmentActivity"
+            android:label="fragment生命周期测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
     </application>
 
 </manifest>

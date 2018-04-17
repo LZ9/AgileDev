@@ -101,7 +101,7 @@ public class MvcDemoActivity extends BaseActivity{
         mFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MvcFragmentActivity.start(getContext());
             }
         });
     }
