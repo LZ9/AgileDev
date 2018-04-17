@@ -149,6 +149,13 @@
     <string name="download_manager_pause_all">全部暂停</string>
     <string name="download_manager_delete_all">全部删除</string>
 
+    <!-- 身份证测试类 -->
+    <string name="idcard_input_title">身份证号：</string>
+    <string name="idcard_input_hint">请输入身份证号</string>
+    <string name="idcard_check">校验</string>
+    <string name="idcard_empty_tips">请输入身份证号</string>
+    <string name="idcard_length_error">请输入18位身份证号</string>
+
     <!-- 课程详情页 -->
     <string name="lesson_detail_tab_introduction">简介</string>
     <string name="lesson_detail_tab_video">视频</string>
