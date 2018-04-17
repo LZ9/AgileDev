@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.mvp.refresh.fragment;
+package com.lodz.android.agiledev.ui.mvp.sandwich.fragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,9 +6,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshPresenter;
-import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshViewContract;
-import com.lodz.android.component.mvp.base.fragment.MvpBaseRefreshFragment;
+import com.lodz.android.agiledev.ui.mvp.sandwich.MvpTestSandwichPresenter;
+import com.lodz.android.agiledev.ui.mvp.sandwich.MvpTestSandwichViewContract;
+import com.lodz.android.component.mvp.base.fragment.MvpBaseSandwichFragment;
+import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ToastUtils;
 
 import java.util.Random;
@@ -17,14 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 刷新测试类
- * Created by zhouL on 2017/8/2.
+ * MVP带基础状态控件、中部刷新控件和顶部/底部扩展Fragment
+ * Created by zhouL on 2018/4/17.
  */
+public class MvpTestSandwichFragment extends MvpBaseSandwichFragment<MvpTestSandwichPresenter, MvpTestSandwichViewContract> implements MvpTestSandwichViewContract {
 
-public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefreshPresenter, MvpTestRefreshViewContract> implements MvpTestRefreshViewContract {
-
-    public static MvpTestRefreshFragment newInstance() {
-        return new MvpTestRefreshFragment();
+    public static MvpTestSandwichFragment newInstance() {
+        return new MvpTestSandwichFragment();
     }
 
     /** 结果 */
@@ -37,9 +37,13 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     @BindView(R.id.get_fail_reuslt_btn)
     Button mGetFailResultBtn;
 
+    /** 顶部标题栏 */
+    @BindView(R.id.title_bar_layout)
+    TitleBarLayout mTitleBarLayout;
+
     @Override
-    protected MvpTestRefreshPresenter createMainPresenter() {
-        return new MvpTestRefreshPresenter();
+    protected MvpTestSandwichPresenter createMainPresenter() {
+        return new MvpTestSandwichPresenter();
     }
 
     @Override
@@ -48,8 +52,27 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     }
 
     @Override
+    protected int getTopLayoutId() {
+        return R.layout.view_mvc_test_top_layout;
+    }
+
+    @Override
+    protected int getBottomLayoutId() {
+        return R.layout.view_mvc_test_bottom_layout;
+    }
+
+    @Override
     protected void findViews(View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
+        mTitleBarLayout.setVisibility(View.GONE);
+        setSwipeRefreshEnabled(true);
+    }
+
+    @Override
+    protected void clickReload() {
+        super.clickReload();
+        showStatusLoading();
+        getPresenterContract().getResult(true);
     }
 
     @Override
@@ -60,6 +83,7 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
+
         mGetSuccessResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,13 +104,7 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     @Override
     protected void initData(View view) {
         super.initData(view);
-        showStatusLoading();
-        getPresenterContract().getResult(true);
-    }
-
-    @Override
-    public void showResult() {
-        mResult.setVisibility(View.VISIBLE);
+        showStatusNoData();
     }
 
     @Override
@@ -100,9 +118,7 @@ public class MvpTestRefreshFragment extends MvpBaseRefreshFragment<MvpTestRefres
     }
 
     @Override
-    protected void clickReload() {
-        super.clickReload();
-        showStatusLoading();
-        getPresenterContract().getResult(true);
+    public void showResult() {
+        mResult.setVisibility(View.VISIBLE);
     }
 }

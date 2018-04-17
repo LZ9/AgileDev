@@ -1,4 +1,4 @@
-package com.lodz.android.agiledev.ui.mvp.refresh.activity;
+package com.lodz.android.agiledev.ui.mvp.sandwich.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
-import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshPresenter;
-import com.lodz.android.agiledev.ui.mvp.refresh.MvpTestRefreshViewContract;
-import com.lodz.android.component.mvp.base.activity.MvpBaseRefreshActivity;
+import com.lodz.android.agiledev.ui.mvp.sandwich.MvpTestSandwichPresenter;
+import com.lodz.android.agiledev.ui.mvp.sandwich.MvpTestSandwichViewContract;
+import com.lodz.android.component.mvp.base.activity.MvpBaseSandwichActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ToastUtils;
 
@@ -20,14 +20,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 刷新测试类
- * Created by zhouL on 2017/7/17.
+ * MVP带基础状态控件、中部刷新控件和顶部/底部扩展Activity
+ * Created by zhouL on 2018/4/17.
  */
-
-public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefreshPresenter, MvpTestRefreshViewContract> implements MvpTestRefreshViewContract{
+public class MvpTestSandwichActivity extends MvpBaseSandwichActivity<MvpTestSandwichPresenter, MvpTestSandwichViewContract> implements MvpTestSandwichViewContract{
 
     public static void start(Context context) {
-        Intent starter = new Intent(context, MvpTestRefreshActivity.class);
+        Intent starter = new Intent(context, MvpTestSandwichActivity.class);
         context.startActivity(starter);
     }
 
@@ -41,9 +40,13 @@ public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefres
     @BindView(R.id.get_fail_reuslt_btn)
     Button mGetFailResultBtn;
 
+    /** 顶部标题栏 */
+    @BindView(R.id.title_bar_layout)
+    TitleBarLayout mTitleBarLayout;
+
     @Override
-    protected MvpTestRefreshPresenter createMainPresenter() {
-        return new MvpTestRefreshPresenter();
+    protected MvpTestSandwichPresenter createMainPresenter() {
+        return new MvpTestSandwichPresenter();
     }
 
     @Override
@@ -52,18 +55,20 @@ public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefres
     }
 
     @Override
-    protected void findViews(Bundle savedInstanceState) {
-        ButterKnife.bind(this);
-        initTitleBarLayout(getTitleBarLayout());
-    }
-
-    private void initTitleBarLayout(TitleBarLayout titleBarLayout) {
-        titleBarLayout.setTitleName(R.string.mvp_demo_refresh_title);
+    protected int getTopLayoutId() {
+        return R.layout.view_mvc_test_top_layout;
     }
 
     @Override
-    protected void onDataRefresh() {
-        getPresenterContract().getRefreshData(new Random().nextInt(9) % 2 == 0);
+    protected int getBottomLayoutId() {
+        return R.layout.view_mvc_test_bottom_layout;
+    }
+
+    @Override
+    protected void findViews(Bundle savedInstanceState) {
+        ButterKnife.bind(this);
+        mTitleBarLayout.setTitleName(R.string.mvp_demo_sandwich_title);
+        setSwipeRefreshEnabled(true);
     }
 
     @Override
@@ -74,14 +79,20 @@ public class MvpTestRefreshActivity extends MvpBaseRefreshActivity<MvpTestRefres
     }
 
     @Override
-    protected void clickBackBtn() {
-        super.clickBackBtn();
-        finish();
+    protected void onDataRefresh() {
+        getPresenterContract().getRefreshData(new Random().nextInt(9) % 2 == 0);
     }
 
     @Override
     protected void setListeners() {
         super.setListeners();
+
+        mTitleBarLayout.setOnBackBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mGetSuccessResultBtn.setOnClickListener(new View.OnClickListener() {
             @Override

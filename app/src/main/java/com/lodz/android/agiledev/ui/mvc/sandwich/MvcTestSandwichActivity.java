@@ -113,8 +113,7 @@ public class MvcTestSandwichActivity extends BaseSandwichActivity{
     @Override
     protected void initData() {
         super.initData();
-        showStatusLoading();
-        getResult(true);
+        showStatusNoData();
     }
 
     private void getResult(boolean isSuccess){

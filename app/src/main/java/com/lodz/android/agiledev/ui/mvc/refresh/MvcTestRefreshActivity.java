@@ -125,6 +125,7 @@ public class MvcTestRefreshActivity extends BaseRefreshActivity{
                     public void onBaseNext(String s) {
                         setSwipeRefreshFinish();
                         mResult.setText(s);
+                        showStatusCompleted();
                     }
 
                     @Override

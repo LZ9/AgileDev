@@ -1,7 +1,7 @@
 package com.lodz.android.agiledev.ui.mvp.abs;
 
 import com.lodz.android.agiledev.ui.mvp.ApiModule;
-import com.lodz.android.component.mvp.presenter.AbsPresenter;
+import com.lodz.android.component.mvp.presenter.BasePresenter;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 
@@ -10,7 +10,7 @@ import com.lodz.android.component.rx.utils.RxUtils;
  * Created by zhouL on 2017/7/7.
  */
 
-public class MvpTestAbsPresenter extends AbsPresenter<MvpTestAbsViewContract> {
+public class MvpTestAbsPresenter extends BasePresenter<MvpTestAbsViewContract> {
 
 
     public void getResult(boolean isSuccess){

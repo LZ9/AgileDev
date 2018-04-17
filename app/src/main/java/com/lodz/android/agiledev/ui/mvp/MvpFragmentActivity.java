@@ -13,6 +13,7 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.mvp.abs.fragment.MvpTestLazyFragment;
 import com.lodz.android.agiledev.ui.mvp.base.fragment.MvpTestBaseFragment;
 import com.lodz.android.agiledev.ui.mvp.refresh.fragment.MvpTestRefreshFragment;
+import com.lodz.android.agiledev.ui.mvp.sandwich.fragment.MvpTestSandwichFragment;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 
@@ -32,7 +33,7 @@ public class MvpFragmentActivity extends BaseActivity{
     }
 
     /** 主页tab名称 */
-    private String[] tabNameResId = {"普通", "状态", "刷新"};
+    private String[] tabNameResId = {"普通", "状态", "刷新", "三明治"};
 
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
@@ -77,6 +78,8 @@ public class MvpFragmentActivity extends BaseActivity{
                     return MvpTestBaseFragment.newInstance();
                 case 2:
                     return MvpTestRefreshFragment.newInstance();
+                case 3:
+                    return MvpTestSandwichFragment.newInstance();
                 default:
                     return MvpTestLazyFragment.newInstance();
             }

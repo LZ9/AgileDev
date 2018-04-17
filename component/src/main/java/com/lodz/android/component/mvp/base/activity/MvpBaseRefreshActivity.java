@@ -3,7 +3,7 @@ package com.lodz.android.component.mvp.base.activity;
 import android.support.annotation.NonNull;
 
 import com.lodz.android.component.base.activity.BaseRefreshActivity;
-import com.lodz.android.component.mvp.contract.refresh.BaseRefreshPresenterContract;
+import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.refresh.BaseRefreshViewContract;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -14,7 +14,7 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
  * Created by zhouL on 2017/7/17.
  */
 
-public abstract class MvpBaseRefreshActivity<PC extends BaseRefreshPresenterContract<VC>, VC extends BaseRefreshViewContract> extends BaseRefreshActivity implements BaseRefreshViewContract{
+public abstract class MvpBaseRefreshActivity<PC extends PresenterContract<VC>, VC extends BaseRefreshViewContract> extends BaseRefreshActivity implements BaseRefreshViewContract{
 
     /** Presenter接口 */
     private PC mPresenterContract;
@@ -49,22 +49,6 @@ public abstract class MvpBaseRefreshActivity<PC extends BaseRefreshPresenterCont
         super.finish();
         if (mPresenterContract != null){
             mPresenterContract.detach();
-        }
-    }
-
-    @Override
-    protected void clickBackBtn() {
-        super.clickBackBtn();
-        if (mPresenterContract != null){
-            mPresenterContract.clickBackBtn();
-        }
-    }
-
-    @Override
-    protected void clickReload() {
-        super.clickReload();
-        if (mPresenterContract != null){
-            mPresenterContract.clickReload();
         }
     }
 

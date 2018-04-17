@@ -1,20 +1,18 @@
-package com.lodz.android.component.mvp.base.activity;
+package com.lodz.android.component.mvp.base.fragment;
 
 import android.support.annotation.NonNull;
 
-import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.base.fragment.BaseSandwichFragment;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
-import com.lodz.android.component.mvp.contract.base.BaseViewContract;
+import com.lodz.android.component.mvp.contract.sandwich.BaseSandwichViewContract;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
- * MVP基类Activity（带基础状态控件）
- * Created by zhouL on 2017/7/10.
+ * Created by zhouL on 2018/4/17.
  */
-
-public abstract class MvpBaseActivity<PC extends PresenterContract<VC>, VC extends BaseViewContract> extends BaseActivity implements BaseViewContract{
+public abstract class MvpBaseSandwichFragment<PC extends PresenterContract<VC>, VC extends BaseSandwichViewContract> extends BaseSandwichFragment implements BaseSandwichViewContract {
 
     /** Presenter接口 */
     private PC mPresenterContract;
@@ -25,7 +23,7 @@ public abstract class MvpBaseActivity<PC extends PresenterContract<VC>, VC exten
         super.startCreate();
         mPresenterContract = createMainPresenter();
         if (mPresenterContract != null){
-            mPresenterContract.attach(this, (VC) this);
+            mPresenterContract.attach(getContext(), (VC) this);
         }
     }
 
@@ -37,16 +35,16 @@ public abstract class MvpBaseActivity<PC extends PresenterContract<VC>, VC exten
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (mPresenterContract != null){
             mPresenterContract.detach();
         }
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    public void onDestroy() {
+        super.onDestroy();
         if (mPresenterContract != null){
             mPresenterContract.detach();
         }
@@ -73,27 +71,28 @@ public abstract class MvpBaseActivity<PC extends PresenterContract<VC>, VC exten
     }
 
     @Override
-    public void goneTitleBar() {
-        super.goneTitleBar();
+    public void setSwipeRefreshFinish() {
+        super.setSwipeRefreshFinish();
     }
 
     @Override
-    public void showTitleBar() {
-        super.showTitleBar();
+    public void setSwipeRefreshEnabled(boolean enabled) {
+        super.setSwipeRefreshEnabled(enabled);
     }
 
     @Override
-    public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+    public <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+        throw new IllegalArgumentException("you bind fragment but call activity event");
+    }
+
+    @Override
+    public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         return bindUntilEvent(event);
     }
 
     @Override
-    public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
-        throw new IllegalArgumentException("you bind activity but call fragment event");
-    }
-
-    @Override
     public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
-        return bindUntilEvent(ActivityEvent.DESTROY);
+        return bindUntilEvent(FragmentEvent.DESTROY_VIEW);
     }
 }
+

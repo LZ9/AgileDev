@@ -102,8 +102,7 @@ public class MvcTestSandwichFragment extends BaseSandwichFragment{
     @Override
     protected void initData(View view) {
         super.initData(view);
-        showStatusLoading();
-        getResult(true);
+        showStatusNoData();
     }
 
     private void getResult(boolean isSuccess){

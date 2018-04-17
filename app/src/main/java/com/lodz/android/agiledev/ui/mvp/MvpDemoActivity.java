@@ -11,6 +11,7 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.mvp.abs.activity.MvpTestAbsActivity;
 import com.lodz.android.agiledev.ui.mvp.base.activity.MvpTestBaseActivity;
 import com.lodz.android.agiledev.ui.mvp.refresh.activity.MvpTestRefreshActivity;
+import com.lodz.android.agiledev.ui.mvp.sandwich.activity.MvpTestSandwichActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
 
 import butterknife.BindView;
@@ -37,6 +38,9 @@ public class MvpDemoActivity extends BaseActivity{
     /** 带基础状态控件和下来刷新控件Activity */
     @BindView(R.id.refresh_btn)
     Button mRefreshBtn;
+    /** 带基础状态控件、中部刷新控件和顶部/底部扩展Activity */
+    @BindView(R.id.sandwich_btn)
+    Button mSandwichBtn;
     /** Fragment用例 */
     @BindView(R.id.fragment_btn)
     Button mFragmentBtn;
@@ -82,6 +86,14 @@ public class MvpDemoActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 MvpTestRefreshActivity.start(getContext());
+            }
+        });
+
+        // 带基础状态控件、中部刷新控件和顶部/底部扩展Activity
+        mSandwichBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MvpTestSandwichActivity.start(getContext());
             }
         });
 

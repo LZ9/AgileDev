@@ -200,6 +200,13 @@
         </activity>
 
         <activity
+            android:name=".ui.mvp.sandwich.activity.MvpTestSandwichActivity"
+            android:label="MVP带基础状态控件、中部刷新控件和顶部/底部扩展Activity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".ui.mvp.MvpFragmentActivity"
             android:label="Fragment用例"
             android:screenOrientation="portrait">

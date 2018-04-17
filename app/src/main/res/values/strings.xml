@@ -111,6 +111,7 @@
     <string name="mvp_demo_base_title">带基础状态控件</string>
     <string name="mvp_demo_refresh_title">带下拉刷新控件</string>
     <string name="mvp_demo_fragment_title">MVP模式Fragment测试</string>
+    <string name="mvp_demo_sandwich_title">带扩展和下拉刷新控件</string>
 
     <!-- MVC模式 -->
     <string name="mvc_demo_abs">基础Activity</string>
