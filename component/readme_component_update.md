@@ -1,5 +1,12 @@
 # component库更新记录
 
+##### 2018/04/18
+1. RxUtils增加线程调度方法
+2. MVC增加BaseSandwichActivity、BaseSandwichFragment基类，适用于中部状态控件刷新和顶部/底部界面扩展
+3. MVP增加MvpBaseSandwichActivity、MvpBaseSandwichFragment基类，用法与MVC一致
+4. MVP的Presenter都统一继承BasePresenter
+5. 发布1.4.5版本
+
 ##### 2018/04/02
 1. 九宫格增加拖拽方法
 2. 修改MVP接口基类，在Presenter里绑定Rx的生命周期
