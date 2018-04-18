@@ -10,6 +10,7 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 /**
+ * MVP基类Fragment（带基础状态控件、中部刷新控件和顶部/底部扩展）
  * Created by zhouL on 2018/4/17.
  */
 public abstract class MvpBaseSandwichFragment<PC extends PresenterContract<VC>, VC extends BaseSandwichViewContract> extends BaseSandwichFragment implements BaseSandwichViewContract {

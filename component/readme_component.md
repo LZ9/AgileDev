@@ -211,6 +211,15 @@ b） **SwipeRefreshLayout** 为下拉刷新控件，你可以实现下面的方�
 ```
 c）加载状态界面的使用方式与BaseActivity一致
 
+### 4）BaseSandwichActivity
+a）BaseSandwichActivity继承自AbsActivity，内部分为上中下3个区域，中间由状态控件和刷新控件包裹，顶部和底部可以根据自己的需要放入layout。需要自定义顶部底部且由中部刷新时，可以选择继承这个Activity
+
+b）重写 **getTopLayoutId()** 方法，传入顶部布局的id，即可把顶部布局加载进界面（不重写的话不会显示）
+
+c）重写 **getBottomLayoutId()** 方法，传入底部布局的id，即可把底部布局加载进界面（不重写的话不会显示）
+
+d）其余使用方法与BaseRefreshActivity一致
+
 ## 4、Fragment基类
 ### 1）LazyFragment
 a）LazyFragment是最底层的Fragment，如果你不需要用到数据加载状态界面的话，可以选择继承这个Fragment。
@@ -268,6 +277,9 @@ BaseFragment继承自LazyFragment，同样在内部增加了数据加载状态�
 
 ### 3）BaseRefreshFragment
 BaseRefreshFragment继承自LazyFragment，和BaseRefreshActivity一样，包含了加载状态界面和下拉刷新，使用方法和BaseRefreshActivity里的一样。
+
+### 4）BaseSandwichFragment
+a）BaseSandwichFragment继承自LazyFragment，内部分为上中下3个区域，中间由状态控件和刷新控件包裹，顶部和底部可以根据自己的需要放入layout。使用方式和BaseSandwichActivity一致
 
 ## 5、Rx相关
 RxJava2.0区分了背压概念，将订阅者分为Observer和Subscriber，我这边以Observer为例来讲解我对订阅者做的基础封装。（Subscriber与Observer的封装基本一致，不再赘述）
@@ -1125,15 +1137,14 @@ app:isNeedDragVibrate|是否允许拖拽震动提示|true
 ## 9、MVP相关
 ### 1）基础的Activity实现
 - 定义一个接口 **VC** 继承 **ViewContract** ，在 **VC** 中定义你的UI更新接口
-- 定义一个类 **PC** 继承 **AbsPresenter< VC >** ，在 **PC** 中实现你的业务逻辑方法
+- 定义一个类 **PC** 继承 **BasePresenter< VC >** ，在 **PC** 中实现你的业务逻辑方法
 - 定义一个 **Activity** 继承 **MvpAbsActivity<PC, VC>** ，实现 **VC** 接口，如下
 ```
 public class TestActivity extends MvpAbsActivity<PC, VC> implements VC
 ```
-- 在 **AbsPresenter** 里面已经为小伙伴们实现了 **onCreate()、onPause()、onResume()、onResume()、onDestroy()** 这些生命周期的回调，大家只需要重写该方法就可以了
-- 在 **AbsPresenter** 里面可以直接调用 **getViewContract()** 方法获取你定义的 **VC** 接口对象，对UI进行更新
-- 在 **AbsPresenter** 里需要用到 **Context** 的话可以直接调用 **getContext()** 获取
-- 在 **AbsPresenter** 内回调 **onDestroy()** 时，会将 **VC** 对象和 **Context** 对象置空，请勿在 **onDestroy()** 内使用这两个对象的方法
+- 在 **BasePresenter** 里面可以直接调用 **getViewContract()** 方法获取你定义的 **VC** 接口对象，对UI进行更新
+- 在 **BasePresenter** 里需要用到 **Context** 的话可以直接调用 **getContext()** 获取
+- 为了避免 **BasePresenter** 内出现内存泄漏，请在有可能发生内存泄漏的位置加上 **isDetach()** 方法来判断V与P是否已经分离，否则调用 **getViewContract()** 时会抛出空指针异常。
 - 继承 **MvpAbsActivity<PC, VC>** 后需要实现 **createMainPresenter()** 方法，创建对应的 **PC** 对象
 
 ### 2）基础的Fragment实现
@@ -1151,7 +1162,6 @@ public class TestFragment extends MvpLazyFragment<PC, VC> implements VC
 public class TestActivity extends MvpBaseActivity<PC, VC> implements VC
 ```
 - **BaseViewContract** 里面已经定义了基础控件的调用方法，小伙伴们可以直接使用
-- **BasePresenter** 继承自 **AbsPresenter** ，里面实现了 **clickBackBtn()、clickReload()** 方法，有需要在这两个方法内处理业务逻辑的小伙伴直接重写就OK了
 - 其余使用方式同：[基础的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#1基础的activity实现)
 
 ### 4）带基础控件的Fragment实现
@@ -1163,13 +1173,12 @@ public class TestFragment extends MvpBaseFragment<PC, VC> implements VC
 
 ### 5）带基础控件和刷新控件的Activity实现
 - 定义一个接口 **VC** 继承 **BaseRefreshViewContract** ，在 **VC** 中定义你的UI更新接口
-- 定义一个类 **PC** 继承 **BaseRefreshPresenter< VC >** ，在 **PC** 中实现你的业务逻辑方法
+- 定义一个类 **PC** 继承 **BasePresenter< VC >** ，在 **PC** 中实现你的业务逻辑方法
 - 定义一个 **Activity** 继承 **MvpBaseRefreshActivity<PC, VC>** ，实现 **VC** 接口，如下
 ```
 public class TestActivity extends MvpBaseRefreshActivity<PC, VC> implements VC
 ```
 - **BaseRefreshViewContract** 继承自 **BaseViewContract** ，除了基础控件的调用方法外，还多了 **setSwipeRefreshFinish()** 和 **setSwipeRefreshEnabled()** 这两个控制刷新控件的方法，一样可以直接调用
-- **BaseRefreshPresenter** 继承自 **BasePresenter** ，里面多了 **onDataRefresh()** 方法，小伙伴可以重写该方法，然后实现下拉刷新的业务逻辑
 - 其余使用方式同：[带基础控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3带基础控件的activity实现)
 
 ### 6）带基础控件和刷新控件的Fragment实现
@@ -1178,6 +1187,23 @@ public class TestActivity extends MvpBaseRefreshActivity<PC, VC> implements VC
 public class TestFragment extends MvpBaseRefreshFragment<PC, VC> implements VC
 ```
 - 其余使用方式同：[带基础控件和刷新控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#5带基础控件和刷新控件的activity实现)
+
+### 7）带基础状态控件、中部刷新控件和顶部/底部扩展Activity实现
+- 定义一个接口 **VC** 继承 **BaseSandwichViewContract** ，在 **VC** 中定义你的UI更新接口
+- 定义一个类 **PC** 继承 **BasePresenter< VC >** ，在 **PC** 中实现你的业务逻辑方法
+- 定义一个 **Activity** 继承 **MvpBaseSandwichActivity<PC, VC>** ，实现 **VC** 接口，如下
+```
+public class TestActivity extends MvpBaseSandwichActivity<PC, VC> implements VC
+```
+- **BaseSandwichViewContract** 继承自 **ViewContract** ，里面定义了基础控件的调用方法以及 **setSwipeRefreshFinish()** 和 **setSwipeRefreshEnabled()** 这两个控制刷新控件的方法，小伙伴们可以直接使用
+- 其余使用方式同：[带基础控件的Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#3带基础控件的activity实现)
+
+### 8）带基础状态控件、中部刷新控件和顶部/底部扩展的Fragment实现
+- 定义一个 **Fragment** 继承 **MvpBaseSandwichFragment<PC, VC>** ，实现 **VC** 接口，如下
+```
+public class TestFragment extends MvpBaseSandwichFragment<PC, VC> implements VC
+```
+- 其余使用方式同：[带基础状态控件、中部刷新控件和顶部/底部扩展Activity实现](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#7带基础状态控件、中部刷新控件和顶部/底部扩展Activity实现)
 
 ## 10、PopupWindow基类
 ### 1）基础使用
