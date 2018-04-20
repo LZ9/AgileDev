@@ -10,9 +10,9 @@ import com.lodz.android.component.rx.status.ResponseStatus;
 public class ResponseBean<T> implements ResponseStatus {
 
     /** 失败 */
-    public final static int Fail = 500;
+    public static final int Fail = 500;
     /** 成功 */
-    public final static int SUCCESS = 200;
+    public static final int SUCCESS = 200;
 
     /** 本次接口请求返回的状态 */
     public int code = Fail;

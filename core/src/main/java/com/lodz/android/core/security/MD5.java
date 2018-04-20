@@ -12,7 +12,7 @@ public class MD5 {
      * MD5信息摘要
      * @param decript 加密字符串
      */
-    public final static String MD5(String decript) {
+    public static final String MD5(String decript) {
         char hexDigits[] = { // 用来将字节转换成 16 进制表示的字符
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
                 'e', 'f'};

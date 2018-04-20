@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 34
-        versionName "1.2.0"// 成功上传
+        versionCode 35
+        versionName "1.2.1"// 未上传
     }
     buildTypes {
         release {
@@ -30,7 +30,7 @@ dependencies {
     api 'com.android.support:recyclerview-v7:27.1.1'
     api 'com.android.support:cardview-v7:27.1.1'
     api 'com.android.support:support-annotations:27.1.1'
-    api 'com.android.support.constraint:constraint-layout:1.0.2'
+    api 'com.android.support.constraint:constraint-layout:1.1.0'
     api 'com.google.android:flexbox:0.3.2'
 }
 

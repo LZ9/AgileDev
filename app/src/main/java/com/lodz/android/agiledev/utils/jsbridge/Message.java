@@ -23,11 +23,11 @@ public class Message {
 	private String data; //data of message
 	private String handlerName; //name of handler
 
-    private final static String CALLBACK_ID_STR = "callbackId";
-    private final static String RESPONSE_ID_STR = "responseId";
-    private final static String RESPONSE_DATA_STR = "responseData";
-    private final static String DATA_STR = "data";
-    private final static String HANDLER_NAME_STR = "handlerName";
+    private static final String CALLBACK_ID_STR = "callbackId";
+    private static final String RESPONSE_ID_STR = "responseId";
+    private static final String RESPONSE_DATA_STR = "responseData";
+    private static final String DATA_STR = "data";
+    private static final String HANDLER_NAME_STR = "handlerName";
 	
 	public String getResponseId() {
 		return responseId;
