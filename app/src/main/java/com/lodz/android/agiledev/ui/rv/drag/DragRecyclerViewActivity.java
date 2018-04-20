@@ -24,7 +24,6 @@ import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ToastUtils;
-import com.lodz.android.core.utils.VibratorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,13 +83,14 @@ public class DragRecyclerViewActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerViewDragHelper = new RecyclerViewDragHelper<>();
+        mRecyclerViewDragHelper = new RecyclerViewDragHelper<>(getContext());
         mRecyclerViewDragHelper
                 .setUseDrag(true)// 设置是否允许拖拽
                 .setLongPressDragEnabled(true)// 是否启用长按拖拽效果
                 .setUseLeftToRightSwipe(true)// 设置允许从左往右滑动
                 .setUseRightToLeftSwipe(true)// 设置允许从右往左滑动
                 .setSwipeEnabled(false)// 设置是否允许滑动
+                .setVibrateEnabled(true)// 启用震动效果
                 .build(mRecyclerView, mAdapter);
 //        mAdapter.setItemTouchHelper(mRecyclerViewDragHelper.getItemTouchHelper());//由适配器来控制何时进行拖动
     }
@@ -125,13 +125,6 @@ public class DragRecyclerViewActivity extends BaseActivity{
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
                 ToastUtils.showShort(getContext(), item);
-            }
-        });
-
-        mAdapter.setOnItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<String>() {
-            @Override
-            public void onItemLongClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
-                VibratorUtil.vibrate(getContext(), 100);//长按震动
             }
         });
 

@@ -15,8 +15,7 @@ import java.util.Set;
  */
 public class SharedPreferencesUtils {
 
-    private SharedPreferencesUtils() {
-    }
+    private SharedPreferencesUtils() {}
 
     /**
      * 保存String类型数据
@@ -85,10 +84,11 @@ public class SharedPreferencesUtils {
     }
 
     /** 获取全部的sp数据，没有返回null */
-    public static Map<String, ?> getAll() {
+    public static <T> Map<String, T>  getAll() {
         SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
-            return sp.getAll();
+            //noinspection unchecked
+            return (Map<String, T>) sp.getAll();
         } catch (Exception e) {
             e.printStackTrace();
         }

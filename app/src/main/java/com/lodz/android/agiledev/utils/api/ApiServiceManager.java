@@ -100,7 +100,7 @@ public class ApiServiceManager {
      */
     private void logRequest(Request request) {
         List<String> list = request.url().pathSegments();
-        PrintLog.i(TAG, "[" + list.get(list.size() - 1) + "] ---> " + request.url().toString());
+        PrintLog.i(TAG, "[" + list.get(list.size() - 1) + "] ----> " + request.url().toString());
         logSegmentedLog(false, list.get(list.size() - 1), getRequestString(request));
     }
 

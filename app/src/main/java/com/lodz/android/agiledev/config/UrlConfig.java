@@ -8,8 +8,7 @@ import android.support.annotation.Keep;
  */
 public class UrlConfig {
 
-    private UrlConfig() {
-    }
+    private UrlConfig() {}
 
     @Keep
     private static class BaseUrls{

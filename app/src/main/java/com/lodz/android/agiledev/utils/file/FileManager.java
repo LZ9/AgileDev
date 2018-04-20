@@ -14,8 +14,7 @@ import java.io.File;
  */
 public class FileManager {
 
-    private FileManager() {
-    }
+    private FileManager() {}
 
     /** 存储卡是否可用 */
     private static boolean isStorageCanUse = false;

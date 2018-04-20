@@ -31,8 +31,7 @@ public class ApiServiceImpl implements ApiService{
         return new ApiServiceImpl();
     }
 
-    private ApiServiceImpl() {
-    }
+    private ApiServiceImpl() {}
 
     @Override
     public Observable<ResponseBean<SpotBean>> getSpot(String id, String output) {

@@ -38,8 +38,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return mInstance;
     }
 
-    private CrashHandler() {
-    }
+    private CrashHandler() {}
 
     /** 系统默认的UncaughtException处理类 */
     private Thread.UncaughtExceptionHandler mDefaultHandler;
@@ -153,7 +152,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         boolean isSaveSuccess = saveCrashLogInFile(content);// 将日志内容保存到内存卡
         PrintLog.d(TAG, "保存崩溃日志 ： " + isSaveSuccess);
         // 自定义操作
-        customHandle(deviceInfos, content, t);
+//        customHandle(deviceInfos, content, t);
     }
 
     /** 显示提示语 */
@@ -259,7 +258,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param content 日志内容
      * @param t 异常
      */
-    private void customHandle(Map<String, String> deviceInfos, String content, Throwable t) {
-
-    }
+//    private void customHandle(Map<String, String> deviceInfos, String content, Throwable t) {
+//
+//    }
 }

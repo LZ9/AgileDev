@@ -1,10 +1,13 @@
 package com.lodz.android.component.widget.adapter.recycler;
 
+import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
+
+import com.lodz.android.core.utils.VibratorUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.List;
  * Created by zhouL on 2017/3/16.
  */
 public class RecyclerViewDragHelper<T> {
+
+    /** 上下文 */
+    private Context mContext;
 
     /** 允许拖拽 */
     private boolean mUseDrag = true;
@@ -25,6 +31,8 @@ public class RecyclerViewDragHelper<T> {
     private boolean isLongPressDragEnabled = true;
     /** 启用滑动效果 */
     private boolean isSwipeEnabled = true;
+    /** 启用震动效果 */
+    private boolean isVibrateEnabled = true;
 
     /** 适配器 */
     private RecyclerView.Adapter<RecyclerView.ViewHolder> mAdapter;
@@ -34,6 +42,10 @@ public class RecyclerViewDragHelper<T> {
     private List<T> mList;
 
     private ItemTouchHelper mItemTouchHelper;
+
+    public RecyclerViewDragHelper(Context context) {
+        this.mContext = context;
+    }
 
     /**
      * 设置是否允许拖拽
@@ -77,6 +89,15 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setSwipeEnabled(boolean enabled){
         isSwipeEnabled = enabled;
+        return this;
+    }
+
+    /**
+     * 启用震动效果
+     * @param enabled 是否启用
+     */
+    public RecyclerViewDragHelper setVibrateEnabled(boolean enabled){
+        isVibrateEnabled = enabled;
         return this;
     }
 
@@ -192,6 +213,9 @@ public class RecyclerViewDragHelper<T> {
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             if (actionState != ItemTouchHelper.ACTION_STATE_IDLE){
                 // do something
+                if (isVibrateEnabled){
+                    VibratorUtil.vibrate(mContext, 100);//长按震动
+                }
             }
             super.onSelectedChanged(viewHolder, actionState);
         }
