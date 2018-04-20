@@ -28,16 +28,9 @@ public class ApiServiceManager {
     /** 接口日志标签 */
     private static final String TAG = "resultValue";
 
-    private static ApiServiceManager mInstance;
+    private static ApiServiceManager mInstance = new ApiServiceManager();
 
     public static ApiServiceManager get() {
-        if (mInstance == null) {
-            synchronized (ApiServiceManager.class) {
-                if (mInstance == null) {
-                    mInstance = new ApiServiceManager();
-                }
-            }
-        }
         return mInstance;
     }
 
@@ -115,13 +108,12 @@ public class ApiServiceManager {
      * 获取请求字符串
      * @param request 请求
      */
-    private String getRequestString(Request request){
-        try {
+    private String getRequestString(Request request) {
+        try (Buffer buffer = new Buffer()) {
             final Request copy = request.newBuilder().build();
-            if (copy.body() == null){
+            if (copy.body() == null) {
                 return "";
             }
-            final Buffer buffer = new Buffer();
             copy.body().writeTo(buffer);
             return buffer.readUtf8();
         } catch (Exception e) {

@@ -32,16 +32,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private static final String TAG = "CrashTag";
 
-    private static CrashHandler mInstance;
+    private static CrashHandler mInstance = new CrashHandler();
 
     public static CrashHandler get() {
-        if (mInstance == null) {
-            synchronized (CrashHandler.class) {
-                if (mInstance == null) {
-                    mInstance = new CrashHandler();
-                }
-            }
-        }
         return mInstance;
     }
 
@@ -185,26 +178,25 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param content 保存信息
      */
     private boolean saveCrashLogInFile(String content) {
-        try {
-            if (TextUtils.isEmpty(mSaveFolderPath)){
-                mSaveFolderPath = FileManager.getCrashFolderPath();
-            }else {
-                if (!mSaveFolderPath.endsWith(File.separator)) {// 判断路径结尾符
-                    mSaveFolderPath += File.separator;
-                }
+        if (TextUtils.isEmpty(mSaveFolderPath)){
+            mSaveFolderPath = FileManager.getCrashFolderPath();
+        }else {
+            if (!mSaveFolderPath.endsWith(File.separator)) {// 判断路径结尾符
+                mSaveFolderPath += File.separator;
             }
-            if (TextUtils.isEmpty(mSaveFolderPath)) {//保存路径为空时不保存数据
-                return false;
-            }
+        }
+        if (TextUtils.isEmpty(mSaveFolderPath)) {//保存路径为空时不保存数据
+            return false;
+        }
 
-            if (TextUtils.isEmpty(mLogFileName)){
-                long timestamp = System.currentTimeMillis();
-                String time = DateUtils.getFormatString(DateUtils.TYPE_7, new Date(timestamp));
-                mLogFileName = "crash-" + time + "-" + timestamp + ".log";
-            }
-            FileOutputStream fos = new FileOutputStream(mSaveFolderPath + mLogFileName);
+        if (TextUtils.isEmpty(mLogFileName)){
+            long timestamp = System.currentTimeMillis();
+            String time = DateUtils.getFormatString(DateUtils.TYPE_7, new Date(timestamp));
+            mLogFileName = "crash-" + time + "-" + timestamp + ".log";
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(mSaveFolderPath + mLogFileName)){
             fos.write(content.getBytes());
-            fos.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

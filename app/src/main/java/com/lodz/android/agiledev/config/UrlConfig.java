@@ -8,12 +8,15 @@ import android.support.annotation.Keep;
  */
 public class UrlConfig {
 
+    private UrlConfig() {
+    }
+
     @Keep
-    public static class BaseUrls{
+    private static class BaseUrls{
         @Keep
-        public static final String Release = "http://www.baidu.com/"; // 正式地址
+        private static final String Release = "http://www.baidu.com/"; // 正式地址
         @Keep
-        public static final String Test = "http://www.baidu.com/"; // 测试地址
+        private static final String Test = "http://www.baidu.com/"; // 测试地址
     }
 
     /** 正式环境 BASE_URL设置为静态可修改*/

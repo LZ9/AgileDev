@@ -15,6 +15,9 @@ import java.util.Set;
  */
 public class SharedPreferencesUtils {
 
+    private SharedPreferencesUtils() {
+    }
+
     /**
      * 保存String类型数据
      * @param key 键

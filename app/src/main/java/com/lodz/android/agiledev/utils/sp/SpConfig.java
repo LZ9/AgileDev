@@ -6,6 +6,9 @@ package com.lodz.android.agiledev.utils.sp;
  */
 public class SpConfig {
 
+    private SpConfig() {
+    }
+
     /** sp文件名称 */
     public static final String SP_NAME = "sp_setting";
 

@@ -6,16 +6,9 @@ package com.lodz.android.agiledev.utils.sp;
  */
 public class SpManager {
 
-    private static SpManager mInstance;
+    private static SpManager mInstance = new SpManager();
 
     public static SpManager get() {
-        if (mInstance == null) {
-            synchronized (SpManager.class) {
-                if (mInstance == null) {
-                    mInstance = new SpManager();
-                }
-            }
-        }
         return mInstance;
     }
 
