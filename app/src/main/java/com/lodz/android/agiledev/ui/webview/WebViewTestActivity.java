@@ -48,11 +48,11 @@ public class WebViewTestActivity extends BaseActivity {
     /** 测试信息网页 */
     private static final String TEST_INFO_URL = "http://222.76.243.213:7102/jyxlpt/file/recv/html/4150888675E64BFF9556CA38E0754DA5_app.html";
     /** 测试本地信息（不带头信息） */
-    private static final String TEST_LOCAL_TEST = "file:///android_asset/test.html";
+    private static final String TEST_LOCAL_TEST = "file:///android_asset/test.htm";
     /** 测试本地信息 */
-    private static final String TEST_LOCAL_TEST_APP = "file:///android_asset/test_app.html";
+    private static final String TEST_LOCAL_TEST_APP = "file:///android_asset/test_app.htm";
     /** JS交互测试页 */
-    private static final String TEST_JS_BRIDGE = "file:///android_asset/JsBridgeDemo.html";
+    private static final String TEST_JS_BRIDGE = "file:///android_asset/JsBridgeDemo.htm";
     /** 错误地址 */
     private static final String TEST_ERROR_URL = "https://www.baiduasdwqewq.com/";
 
