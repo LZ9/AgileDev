@@ -13,16 +13,9 @@ import java.io.File;
  */
 public class ACacheUtils {
 
-    private static ACacheUtils mInstance;
+    private static ACacheUtils mInstance = new ACacheUtils();
 
     public static ACacheUtils get() {
-        if (mInstance == null) {
-            synchronized (ACacheUtils.class) {
-                if (mInstance == null) {
-                    mInstance = new ACacheUtils();
-                }
-            }
-        }
         return mInstance;
     }
 

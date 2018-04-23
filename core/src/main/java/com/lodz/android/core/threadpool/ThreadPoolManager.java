@@ -14,16 +14,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolManager {
 
-    private static ThreadPoolManager mInstance;
+    private static ThreadPoolManager mInstance = new ThreadPoolManager();
 
     public static ThreadPoolManager get() {
-        if (mInstance == null) {
-            synchronized (ThreadPoolManager.class) {
-                if (mInstance == null) {
-                    mInstance = new ThreadPoolManager();
-                }
-            }
-        }
         return mInstance;
     }
 

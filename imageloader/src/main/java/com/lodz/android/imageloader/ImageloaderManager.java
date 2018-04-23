@@ -17,16 +17,9 @@ import java.io.File;
 
 public class ImageloaderManager {
 
-    private static ImageloaderManager mInstance;
+    private static ImageloaderManager mInstance = new ImageloaderManager();
 
     public static ImageloaderManager get() {
-        if (mInstance == null) {
-            synchronized (ImageloaderManager.class) {
-                if (mInstance == null) {
-                    mInstance = new ImageloaderManager();
-                }
-            }
-        }
         return mInstance;
     }
 

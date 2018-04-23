@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
+import android.telephony.cdma.CdmaCellLocation;
+import android.telephony.gsm.GsmCellLocation;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,16 +22,9 @@ import java.util.List;
 
 public class NetworkManager {
 
-    private static NetworkManager mInstance;
+    private static NetworkManager mInstance = new NetworkManager();
 
     public static NetworkManager get() {
-        if (mInstance == null) {
-            synchronized (NetworkManager.class) {
-                if (mInstance == null) {
-                    mInstance = new NetworkManager();
-                }
-            }
-        }
         return mInstance;
     }
 
@@ -83,6 +80,97 @@ public class NetworkManager {
     @NetInfo.NetType
     public int getNetType(){
         return mNetInfo.type;
+    }
+
+    /**
+     * 获取运营商代号（0：未知 1：移动 2：联通 3：电信）
+     * @param context 上下文
+     */
+    @OperatorInfo.OperatorType
+    public int getSimOperator(Context context) {
+        if (context == null){
+            return OperatorInfo.OPERATOR_UNKNOWN;
+        }
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager == null){
+            return OperatorInfo.OPERATOR_UNKNOWN;
+        }
+        String opeator = telephonyManager.getSimOperator();
+        if (TextUtils.isEmpty(opeator)) {
+            return OperatorInfo.OPERATOR_UNKNOWN;
+        }
+
+        if (opeator.equals("46000") || opeator.equals("46002") || opeator.equals("46007")) {// 中国移动
+            return OperatorInfo.OPERATOR_CMCC;
+        } else if (opeator.equals("46001")) {// 中国联通
+            return OperatorInfo.OPERATOR_CUCC;
+        } else if (opeator.equals("46003")) {// 中国电信
+            return OperatorInfo.OPERATOR_CTCC;
+        }
+        // 未知
+        return OperatorInfo.OPERATOR_UNKNOWN;
+    }
+
+    /**
+     * 获取运营商（基站）信息
+     * @param context 上下文
+     */
+    @SuppressLint("MissingPermission")
+    public OperatorInfo getOperatorInfo(Context context){
+        if (context == null){
+            return null;
+        }
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager == null){
+            return null;
+        }
+        int simOperator = getSimOperator(context);
+        OperatorInfo info = new OperatorInfo();
+        info.type = simOperator;
+        if (!info.isSuccess()){
+            return null;
+        }
+
+        try {
+            // 移动或联通
+            if (simOperator == OperatorInfo.OPERATOR_CMCC || simOperator == OperatorInfo.OPERATOR_CUCC) {
+                GsmCellLocation location = (GsmCellLocation) telephonyManager.getCellLocation();
+                if (location == null){
+                    return null;
+                }
+                info.ci = String.valueOf(location.getCid());
+                info.lac = String.valueOf(location.getLac());
+                info.mcc = telephonyManager.getNetworkOperator().substring(0, 3);
+                info.mnc = telephonyManager.getNetworkOperator().substring(3);
+                return info;
+            }
+
+            // 电信
+            if (simOperator == OperatorInfo.OPERATOR_CTCC) {
+                CellLocation cellLocation = telephonyManager.getCellLocation();
+                if (cellLocation == null){
+                    return null;
+                }
+                if (cellLocation instanceof CdmaCellLocation) {
+                    CdmaCellLocation location = (CdmaCellLocation) cellLocation;
+                    info.ci = String.valueOf(location.getBaseStationId());
+                    info.lac = String.valueOf(location.getNetworkId());
+                    info.mcc = telephonyManager.getNetworkOperator().substring(0, 3);
+                    info.mnc = telephonyManager.getNetworkOperator();
+                    return info;
+                }else if (cellLocation instanceof GsmCellLocation) {
+                    GsmCellLocation location = (GsmCellLocation) cellLocation;
+                    info.ci = String.valueOf(location.getCid());
+                    info.lac = String.valueOf(location.getLac());
+                    info.mcc = telephonyManager.getNetworkOperator().substring(0, 3);
+                    info.mnc = telephonyManager.getNetworkOperator().substring(3);
+                    return info;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /** 更新网络信息 */
