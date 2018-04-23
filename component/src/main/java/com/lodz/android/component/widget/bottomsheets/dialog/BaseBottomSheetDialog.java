@@ -1,0 +1,66 @@
+package com.lodz.android.component.widget.bottomsheets.dialog;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.view.View;
+
+/**
+ * BottomSheetDialog基类
+ * Created by zhouL on 2018/4/23.
+ */
+public abstract class BaseBottomSheetDialog extends BottomSheetDialog{
+
+    private BottomSheetBehavior mBottomSheetBehavior;
+
+    public BaseBottomSheetDialog(@NonNull Context context) {
+        super(context);
+        initDialog(context);
+    }
+
+    public BaseBottomSheetDialog(@NonNull Context context, int theme) {
+        super(context, theme);
+        initDialog(context);
+    }
+
+    public BaseBottomSheetDialog(@NonNull Context context, boolean cancelable, OnCancelListener cancelListener) {
+        super(context, cancelable, cancelListener);
+        initDialog(context);
+    }
+
+    private void initDialog(Context context) {
+        onStartInit(context);
+        createContentView(getLayoutId());
+        findViews();
+        setListeners();
+        initData();
+    }
+
+    protected void onStartInit(Context context) {}
+
+    private void createContentView(@LayoutRes int layoutId) {
+        View view = getLayoutInflater().inflate(layoutId, null);
+        setContentView(view);
+        mBottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
+    }
+
+    @LayoutRes
+    protected abstract int getLayoutId();
+
+    protected abstract void findViews();
+
+    protected void setListeners() {}
+
+    protected void initData() {}
+
+    public BottomSheetBehavior getBehavior(){
+        return mBottomSheetBehavior;
+    }
+
+    protected DialogInterface getDialogInterface(){
+        return this;
+    }
+}
