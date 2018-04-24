@@ -2,6 +2,7 @@ package com.lodz.android.agiledev.ui.design.bottomsheet;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.dialogfragment.TestDialogFragment;
 import com.lodz.android.component.widget.bottomsheets.dialogfragment.BaseBottomSheetDialogFragment;
 import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.ScreenUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +82,37 @@ public class TestBottomSheetDialogFragment extends BaseBottomSheetDialogFragment
 
     @Override
     protected void onBehaviorInit(Context context, BottomSheetBehavior behavior) {
+        configStatusBar(context, getDialog().getWindow());
+        configBehavior(context, behavior);
+    }
+
+    /** 配置状态栏颜色 */
+    private void configStatusBar(Context context, Window window) {
+        if (window == null){
+            return;
+        }
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        int screenHeight = ScreenUtils.getScreenHeight(context);
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, screenHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : screenHeight);
+    }
+
+    /** 配置BottomSheetBehavior */
+    private void configBehavior(Context context, BottomSheetBehavior behavior) {
         behavior.setPeekHeight(DensityUtils.dp2px(context, 150));
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    getDialog().cancel();
+                }
+                if (getDialog().getWindow() != null) {
+                    getDialog().getWindow().setDimAmount(newState == BottomSheetBehavior.STATE_EXPANDED ? 0f : 0.6f);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
     }
 }

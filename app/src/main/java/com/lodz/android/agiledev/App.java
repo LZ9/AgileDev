@@ -1,6 +1,5 @@
 package com.lodz.android.agiledev;
 
-import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.lodz.android.component.base.application.BaseApplication;
@@ -127,22 +126,22 @@ public class App extends BaseApplication{
         NetworkManager.get().clearNetworkListener();// 清除所有网络监听器
     }
 
-    private int sessionId = 123213234;
-
-    @Override
-    public Bundle getSaveInstanceState() {
-        PrintLog.e("testtag", "getSaveInstanceState : " + sessionId);
-        Bundle bundle = new Bundle();
-        bundle.putInt("sessionid", sessionId);
-        return bundle;
-    }
-
-    @Override
-    public void getRestoreInstanceState(Bundle bundle) {
-        super.getRestoreInstanceState(bundle);
-        if (bundle != null){
-            sessionId = bundle.getInt("sessionid", 0);
-        }
-        PrintLog.e("testtag", "getRestoreInstanceState : " + sessionId);
-    }
+//    private int sessionId = 123213234;
+//
+//    @Override
+//    public Bundle getSaveInstanceState() {
+//        PrintLog.e("testtag", "getSaveInstanceState : " + sessionId);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("sessionid", sessionId);
+//        return bundle;
+//    }
+//
+//    @Override
+//    public void getRestoreInstanceState(Bundle bundle) {
+//        super.getRestoreInstanceState(bundle);
+//        if (bundle != null){
+//            sessionId = bundle.getInt("sessionid", 0);
+//        }
+//        PrintLog.e("testtag", "getRestoreInstanceState : " + sessionId);
+//    }
 }
