@@ -1,5 +1,11 @@
 # component库更新记录
 
+##### 2018/04/24
+1. 拖拽帮助类增加震动开关
+2. 增加BottomSheetDialog和BottomSheetDialogFragment基类
+3. 修复BaseApplication里退出应用时没有先关闭activity的bug
+4. 发布1.4.6版本
+
 ##### 2018/04/18
 1. RxUtils增加线程调度方法
 2. MVC增加BaseSandwichActivity、BaseSandwichFragment基类，适用于中部状态控件刷新和顶部/底部界面扩展
