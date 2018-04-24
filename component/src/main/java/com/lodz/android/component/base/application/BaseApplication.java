@@ -41,8 +41,8 @@ public abstract class BaseApplication extends Application {
 
     /** 退出app  */
     public void exit() {
-        beforeExit();
         finishActivities();
+        beforeExit();
 //        System.exit(0);// 退出整个应用
     }
 
