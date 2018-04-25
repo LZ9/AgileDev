@@ -105,9 +105,7 @@ public class TestBottomSheetDialogFragment extends BaseBottomSheetDialogFragment
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                     getDialog().cancel();
                 }
-                if (getDialog().getWindow() != null) {
-                    getDialog().getWindow().setDimAmount(newState == BottomSheetBehavior.STATE_EXPANDED ? 0f : 0.6f);
-                }
+                setDim(newState == BottomSheetBehavior.STATE_EXPANDED ? 0f : 0.6f);
             }
 
             @Override

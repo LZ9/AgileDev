@@ -1,11 +1,15 @@
 package com.lodz.android.core.utils;
 
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Looper;
 import android.provider.Settings;
@@ -126,6 +130,52 @@ public class AppUtils {
     /** 获取随机的UUID */
     public static String getUUID(){
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 通过LaunchIntent打开APP
+     * @param context 上下文
+     * @param packageName 目标APP的包名
+     */
+    public static void openAppByLaunch(Context context, String packageName) throws IllegalArgumentException, ActivityNotFoundException{
+        if (context == null || TextUtils.isEmpty(packageName)) {
+            throw new IllegalArgumentException("参数不能为空");
+        }
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 通过android.intent.action.MAIN来打开APP
+     * @param context 上下文
+     * @param packageName 目标APP的包名
+     */
+    public static void openAppByActionMain(Context context, String packageName) throws IllegalArgumentException, ActivityNotFoundException{
+        if (context == null || TextUtils.isEmpty(packageName)) {
+            throw new IllegalArgumentException("参数不能为空");
+        }
+
+        String mainActivityName = "";// 启动页的路径
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        PackageManager packageManager = context.getPackageManager();
+        for (ResolveInfo resolve : packageManager.queryIntentActivities(intent, 0)) {
+            ActivityInfo info = resolve.activityInfo;
+            if (info == null){
+                continue;
+            }
+            if (packageName.equals(info.packageName)){
+                mainActivityName = info.name;
+                break;
+            }
+        }
+
+        if (TextUtils.isEmpty(mainActivityName)) {
+            throw new ActivityNotFoundException("没有找到该应用");
+        }
+
+        intent.setComponent(new ComponentName(packageName, mainActivityName));
+        context.startActivity(intent);
     }
 
     /**

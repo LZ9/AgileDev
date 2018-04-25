@@ -724,6 +724,41 @@ c）初始化的代码都写在构造函数内，如果你的数据是通过构�
 ### 7）ProgressDialogHelper
 一个加载框的帮助类，帮助你快速获取一个加载框，可以通过不同的创建函数来进行简单的订制
 
+### 8）BaseDialogFragment
+BaseDialogFragment继承自DialogFragment，在dialog里支持Fragment使用，基本用法和BaseDialog一致
+
+### 9）BaseTopDialogFragment
+从顶部滑出的DialogFragment，使用方法和BaseDialogFragment一致
+
+### 10）BaseBottomDialogFragment
+从底部滑出的DialogFragment，使用方法和BaseDialogFragment一致
+
+### 11）BaseLeftDialogFragment
+从左侧滑出的DialogFragment，使用方法和BaseDialogFragment一致
+
+### 12）BaseRightDialogFragment
+从右侧滑出的DialogFragment，使用方法和BaseDialogFragment一致
+
+### 13）BaseBottomSheetDialog
+a）BaseBottomSheetDialog继承自BottomSheetDialog，实现下面两个方法，分别传入布局layout和获取控件id
+```
+    @Override
+    protected int getLayoutId() {
+        return R.layout.xxx;
+    }
+
+    @Override
+    protected void findViews() {
+        .....
+    }
+
+```
+b）可以通过getBehavior()方法获取dialog里的BottomSheetBehavior对象，根据你的需要对BottomSheetBehavior进行配置
+
+### 14）BaseBottomSheetDialog
+a）BaseBottomSheetDialog继承自BottomSheetDialogFragment，在dialog里支持Fragment使用，基本用法和BaseBottomSheetDialog一致
+b）你可以通过重写onBehaviorInit()方法来获取BottomSheetBehavior对象
+
 ## 8、自定义widget
 ### 1）MmsTabLayout
 - 自定义的TabLayout，可以通过设置下面的方法来控制底线的宽度

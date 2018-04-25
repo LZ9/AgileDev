@@ -61,4 +61,14 @@ public abstract class BaseBottomSheetDialogFragment extends BottomSheetDialogFra
     }
 
     protected abstract void onBehaviorInit(Context context, BottomSheetBehavior behavior);
+
+    /**
+     * 设置背景蒙版
+     * @param value 蒙版透明度（0~1）
+     */
+    protected void setDim(float value){
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setDimAmount(value);
+        }
+    }
 }

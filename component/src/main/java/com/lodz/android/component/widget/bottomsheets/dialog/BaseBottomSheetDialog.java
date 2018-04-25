@@ -56,11 +56,21 @@ public abstract class BaseBottomSheetDialog extends BottomSheetDialog{
 
     protected void initData() {}
 
-    public BottomSheetBehavior getBehavior(){
+    protected BottomSheetBehavior getBehavior(){
         return mBottomSheetBehavior;
     }
 
     protected DialogInterface getDialogInterface(){
         return this;
+    }
+
+    /**
+     * 设置背景蒙版
+     * @param value 蒙版透明度（0~1）
+     */
+    protected void setDim(float value){
+        if (getWindow() != null){
+            getWindow().setDimAmount(value);
+        }
     }
 }

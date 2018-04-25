@@ -15,9 +15,9 @@
 使用Glide的小伙伴可以加入下面两个依赖，其中第3个为使用okhttp3的依赖，如果小伙伴们不使用可以去掉，我在图片库里已经集成了图片变换
 ```
     dependencies {
-        implementation 'com.github.bumptech.glide:glide:4.6.1'
-        annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-        implementation "com.github.bumptech.glide:okhttp3-integration:4.6.1"
+        implementation 'com.github.bumptech.glide:glide:4.7.1'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+        implementation "com.github.bumptech.glide:okhttp3-integration:4.7.1"
     }
 ```
 

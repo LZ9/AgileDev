@@ -77,6 +77,8 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
     NetworkManager.get().isNetworkAvailable()
     NetworkManager.get().isWifi()
     NetworkManager.get().getNetType()
+    NetworkManager.get().getSimOperator()
+    NetworkManager.get().getOperatorInfo()
 ```
 记得加入下面两个权限，确保功能正常使用
 ```
