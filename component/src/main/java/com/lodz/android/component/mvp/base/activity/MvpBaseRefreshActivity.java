@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.activity.BaseRefreshActivity;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.refresh.BaseRefreshViewContract;
+import com.lodz.android.core.utils.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -105,5 +106,25 @@ public abstract class MvpBaseRefreshActivity<PC extends PresenterContract<VC>, V
     @Override
     public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
         return bindUntilEvent(ActivityEvent.DESTROY);
+    }
+
+    @Override
+    public final void showShortToast(int resId) {
+        showShortToast(getString(resId));
+    }
+
+    @Override
+    public final void showShortToast(String tips) {
+        ToastUtils.showShort(getContext(), tips);
+    }
+
+    @Override
+    public final void showLongToast(int resId) {
+        showLongToast(getString(resId));
+    }
+
+    @Override
+    public final void showLongToast(String tips) {
+        ToastUtils.showLong(getContext(), tips);
     }
 }

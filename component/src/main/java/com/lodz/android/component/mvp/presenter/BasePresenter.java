@@ -12,6 +12,10 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 /**
  * 基类Presenter
  * Created by zhouL on 2017/7/7.
+ *
+ * 在Activity里只操作UI、显示toast、显示dialog
+ * 在ViewContract里定义UI的交互方法
+ * 在Presenter里进行数据获取、数据组装、页面跳转、业务逻辑判断
  */
 
 public class BasePresenter<VC extends ViewContract> implements PresenterContract<VC>{

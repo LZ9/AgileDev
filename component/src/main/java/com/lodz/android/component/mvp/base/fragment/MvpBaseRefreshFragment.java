@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.fragment.BaseRefreshFragment;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.refresh.BaseRefreshViewContract;
+import com.lodz.android.core.utils.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -93,17 +94,41 @@ public abstract class MvpBaseRefreshFragment<PC extends PresenterContract<VC>, V
     }
 
     @Override
-    public <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
+    public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
         throw new IllegalArgumentException("you bind fragment but call activity event");
     }
 
     @Override
-    public <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
+    public final <T> LifecycleTransformer<T> bindUntilFragmentEvent(@NonNull FragmentEvent event) {
         return bindUntilEvent(event);
     }
 
     @Override
     public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
         return bindUntilEvent(FragmentEvent.DESTROY_VIEW);
+    }
+
+    @Override
+    public final void finish() {
+    }
+
+    @Override
+    public final void showShortToast(int resId) {
+        showShortToast(getString(resId));
+    }
+
+    @Override
+    public final void showShortToast(String tips) {
+        ToastUtils.showShort(getContext(), tips);
+    }
+
+    @Override
+    public final void showLongToast(int resId) {
+        showLongToast(getString(resId));
+    }
+
+    @Override
+    public final void showLongToast(String tips) {
+        ToastUtils.showLong(getContext(), tips);
     }
 }

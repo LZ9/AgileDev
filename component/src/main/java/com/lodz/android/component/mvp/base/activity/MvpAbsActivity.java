@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.abs.ViewContract;
+import com.lodz.android.core.utils.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -66,4 +67,25 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
     public final <T> LifecycleTransformer<T> bindUntilDetachEvent() {
         return bindUntilEvent(ActivityEvent.DESTROY);
     }
+
+    @Override
+    public final void showShortToast(int resId) {
+        showShortToast(getString(resId));
+    }
+
+    @Override
+    public final void showShortToast(String tips) {
+        ToastUtils.showShort(getContext(), tips);
+    }
+
+    @Override
+    public final void showLongToast(int resId) {
+        showLongToast(getString(resId));
+    }
+
+    @Override
+    public final void showLongToast(String tips) {
+        ToastUtils.showLong(getContext(), tips);
+    }
+
 }
