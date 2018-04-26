@@ -1,5 +1,10 @@
 # component库更新记录
 
+##### 2018/04/25
+1. BottomSheetDialog基类增加设置背景蒙版方法
+2. MVP的ViewContract增加常用UI调用方法
+3. 发布1.4.7版本
+
 ##### 2018/04/24
 1. 拖拽帮助类增加震动开关
 2. 增加BottomSheetDialog和BottomSheetDialogFragment基类
