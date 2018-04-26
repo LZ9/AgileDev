@@ -5,7 +5,9 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.FloatRange;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -196,6 +198,14 @@ public class TitleBarLayout extends LinearLayout{
         mBackLayout.setVisibility(isNeed ? View.VISIBLE : View.GONE);
     }
 
+    /**
+     * 设置返回按钮的透明度
+     * @param alpha 透明度
+     */
+    public void setBackButtonAlpha(@FloatRange(from=0.0, to=1.0) float alpha){
+        mBackLayout.setAlpha(alpha);
+    }
+
     /** 请重写实现返回按钮监听 */
     public void setOnBackBtnClickListener(OnClickListener listener) {
         mBackLayout.setOnClickListener(listener);
@@ -232,6 +242,14 @@ public class TitleBarLayout extends LinearLayout{
      */
     public void setBackBtnTextColor(@ColorRes int colorRes){
         mBackBtn.setTextColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    /**
+     * 设置返回按钮文字颜色
+     * @param color 颜色
+     */
+    public void setBackBtnTextColorInt(@ColorInt int color){
+        mBackBtn.setTextColor(color);
     }
 
     /**
@@ -278,6 +296,14 @@ public class TitleBarLayout extends LinearLayout{
     }
 
     /**
+     * 设置标题文字颜色
+     * @param color 颜色
+     */
+    public void setTitleTextColorInt(@ColorInt int color){
+        mTitleTextView.setTextColor(color);
+    }
+
+    /**
      * 设置文字颜色
      * @param colorStateList 颜色
      */
@@ -294,6 +320,14 @@ public class TitleBarLayout extends LinearLayout{
      */
     public void setTitleTextSize(float size){
         mTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
+    }
+
+    /**
+     * 设置标题的透明度
+     * @param alpha 透明度
+     */
+    public void setTitleAlpha(@FloatRange(from=0.0, to=1.0) float alpha){
+        mTitleTextView.setAlpha(alpha);
     }
 
     /**
@@ -326,6 +360,11 @@ public class TitleBarLayout extends LinearLayout{
     /** 设置分割线颜色 */
     public void setDivideLineColor(@ColorRes int colorRes){
         mDivideLineView.setBackgroundColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    /** 设置分割线颜色 */
+    public void setDivideLineColorInt(@ColorInt int color){
+        mDivideLineView.setBackgroundColor(color);
     }
 
     /** 设置分割线颜色 */

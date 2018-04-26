@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
@@ -183,6 +184,14 @@ public class NoDataLayout extends LinearLayout{
      */
     public void setTipsTextColor(@ColorRes int colorRes){
         mNoDataTextView.setTextColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    /**
+     * 设置文字颜色
+     * @param color 颜色
+     */
+    public void setTipsTextColorInt(@ColorInt int color){
+        mNoDataTextView.setTextColor(color);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.lodz.android.core.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
@@ -115,6 +116,7 @@ public class SelectorUtils {
      * @param selected 选中背景（不需要可传-1）
      * @param focused 获取焦点背景（不需要可传-1）
      */
+    @SuppressLint("ResourceType")
     public static StateListDrawable createBgSelectorDrawable(Context context, @DrawableRes int normal, @DrawableRes int pressed,
             @DrawableRes int unable, @DrawableRes int selected, @DrawableRes int focused){
         return createBgSelectorDrawable(normal > 0 ? ContextCompat.getDrawable(context, normal) : null,
@@ -133,6 +135,7 @@ public class SelectorUtils {
      * @param selected 选中背景（不需要可传-1）
      * @param focused 获取焦点背景（不需要可传-1）
      */
+    @SuppressLint("ResourceType")
     public static StateListDrawable createBgSelectorColor(Context context, @ColorRes int normal, @ColorRes int pressed,
             @ColorRes int unable, @ColorRes int selected, @ColorRes int focused){
         return createBgSelectorDrawable(normal > 0 ? DrawableUtils.createColorDrawable(context, normal) : null,
@@ -237,8 +240,9 @@ public class SelectorUtils {
      * @param selected 选中颜色（不需要可传-1）
      * @param focused 获取焦点颜色（不需要可传-1）
      */
+    @SuppressLint("ResourceType")
     public static ColorStateList createTxSelectorColor(Context context, @ColorRes int normal, @ColorRes int pressed,
-            @ColorRes int unable, @ColorRes int selected, @ColorRes int focused){
+                                                       @ColorRes int unable, @ColorRes int selected, @ColorRes int focused){
         return createTxSelectorColor(normal > 0 ? ContextCompat.getColor(context, normal) : -1,
                 pressed > 0 ? ContextCompat.getColor(context, pressed) : -1,
                 unable > 0 ? ContextCompat.getColor(context, unable) : -1,
