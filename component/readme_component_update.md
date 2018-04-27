@@ -1,5 +1,9 @@
 # component库更新记录
 
+##### 2018/04/26
+1. 状态控件增加ColorInt的设置方法
+2. 发布1.4.8版本
+
 ##### 2018/04/25
 1. BottomSheetDialog基类增加设置背景蒙版方法
 2. MVP的ViewContract增加常用UI调用方法
