@@ -253,30 +253,6 @@ public class FileUtils {
     }
 
     /**
-     * 转换文件大小（单位KB、MB、GB）
-     * @param fileSize 文件大小
-     */
-    public static String formetFileSize1(long fileSize) {
-        String fileSizeString = "0B";
-        if (fileSize <= 0) {
-            return fileSizeString;
-        }
-        DecimalFormat df = new DecimalFormat("##0.0");
-        if (fileSize < 1024){
-            fileSizeString = df.format(fileSize) + "B";
-        } else if (fileSize < 1048576) {
-            fileSizeString = df.format((double) fileSize / 1024) + "KB";
-        } else if (fileSize < 1073741824) {
-            fileSizeString = df.format((double) fileSize / 1048576) + "MB";
-        } else if(fileSize < 1099511627776L){
-            fileSizeString = df.format((double) fileSize / 1073741824) + "GB";
-        }else {
-            fileSizeString = df.format((double) fileSize / 1099511627776L) + "TB";
-        }
-        return fileSizeString;
-    }
-
-    /**
      * 转换文件大小（单位B、KB、MB、GB、TB）
      * @param fileSize 文件大小
      */
