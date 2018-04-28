@@ -11,10 +11,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -95,16 +97,19 @@ public class AppUtils {
     public static String getProcessName(Context context) {
         int pid = android.os.Process.myPid();
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null){
+            return "";
+        }
         List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
         if (runningApps == null) {
-            return null;
+            return "";
         }
         for (ActivityManager.RunningAppProcessInfo procInfo : runningApps) {
             if (procInfo.pid == pid) {
                 return procInfo.processName;
             }
         }
-        return null;
+        return "";
     }
 
     /**
@@ -112,19 +117,21 @@ public class AppUtils {
      * @param context 上下文
      * @param apkPath apk路径
      */
-    public static void installApk(Context context, @NonNull String apkPath) {
-        try {
-            File file = FileUtils.createFile(apkPath);
-            if (!FileUtils.isFileExists(file)){
-                return;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void installApk(Context context, @NonNull String apkPath, String authority) throws Exception {
+        File file = FileUtils.createFile(apkPath);
+        if (!FileUtils.isFileExists(file)){
+            throw new IllegalArgumentException("file no exists");
         }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri apkUri = FileProvider.getUriForFile(context, authority, file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        }else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        }
+        context.startActivity(intent);
     }
 
     /** 获取随机的UUID */
