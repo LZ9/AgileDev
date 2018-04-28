@@ -143,7 +143,7 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     protected abstract int getLoadFailLayoutId();
 
     /** 获取Item的ViewHolder */
-    protected abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -170,11 +170,11 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     }
 
     /** 显示正在加载界面 */
-    protected abstract void showLoadingMore(RecyclerView.ViewHolder holder);
+    public abstract void showLoadingMore(RecyclerView.ViewHolder holder);
     /** 显示加载完毕界面 */
-    protected abstract void showLoadFinish(RecyclerView.ViewHolder holder);
+    public abstract void showLoadFinish(RecyclerView.ViewHolder holder);
     /** 显示加载失败界面 */
-    protected abstract void showLoadFail(RecyclerView.ViewHolder holder);
+    public abstract void showLoadFail(RecyclerView.ViewHolder holder);
 
     /**
      * 处理加载更多

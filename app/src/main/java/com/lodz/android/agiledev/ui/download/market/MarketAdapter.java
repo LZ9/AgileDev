@@ -49,7 +49,7 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         AppInfoBean bean = getItem(position);
         if (bean == null){
             return;

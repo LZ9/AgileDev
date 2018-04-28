@@ -23,22 +23,22 @@ public class HeadRecyclerViewAdapter extends BaseHeaderFooterRVAdapter<String, S
     }
 
     @Override
-    protected RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent) {
         return new HeaderViewHolder(getLayoutView(parent, R.layout.item_head_layout));
     }
 
     @Override
-    protected RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
         return new ItemViewHolder(getLayoutView(parent, R.layout.item_drag_recycler_view_layout));
     }
 
     @Override
-    protected RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent) {
         return new FooterViewHolder(getLayoutView(parent, R.layout.item_footer_layout));
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder){
             showHeaderItem((HeaderViewHolder) holder);
             return;

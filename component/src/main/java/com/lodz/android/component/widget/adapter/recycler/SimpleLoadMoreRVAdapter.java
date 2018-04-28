@@ -75,7 +75,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     }
 
     @Override
-    protected void showLoadFinish(RecyclerView.ViewHolder holder) {
+    public void showLoadFinish(RecyclerView.ViewHolder holder) {
         if (holder == null) {
             return;
         }
@@ -93,7 +93,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     }
 
     @Override
-    protected void showLoadFail(RecyclerView.ViewHolder holder) {
+    public void showLoadFail(RecyclerView.ViewHolder holder) {
         if (holder == null) {
             return;
         }
@@ -111,7 +111,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     }
 
     @Override
-    protected void showLoadingMore(RecyclerView.ViewHolder holder) {
+    public void showLoadingMore(RecyclerView.ViewHolder holder) {
         if (holder == null) {
             return;
         }

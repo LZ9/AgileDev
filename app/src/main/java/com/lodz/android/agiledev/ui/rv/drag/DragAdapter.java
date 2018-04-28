@@ -38,7 +38,7 @@ public class DragAdapter extends BaseRecyclerViewAdapter<String>{
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         String text = getItem(position);
         if (TextUtils.isEmpty(text)){
             return;

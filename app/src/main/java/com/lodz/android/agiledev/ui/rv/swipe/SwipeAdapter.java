@@ -48,7 +48,7 @@ public class SwipeAdapter extends BaseSwipeRVAdapter<String, SwipeAdapter.DataVi
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         String str = getItem(position);
         if (TextUtils.isEmpty(str)) {
             return;

@@ -76,7 +76,7 @@ public class PhotoPickerAdapter extends BaseRecyclerViewAdapter<PickerItemBean>{
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof PickerCameraViewHolder){
             showCameraItem((PickerCameraViewHolder) holder);
             return;

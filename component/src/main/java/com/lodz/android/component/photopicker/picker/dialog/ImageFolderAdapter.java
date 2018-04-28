@@ -54,7 +54,7 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         ImageFolderIteamBean bean = getItem(position);
         if (bean == null){
             return;

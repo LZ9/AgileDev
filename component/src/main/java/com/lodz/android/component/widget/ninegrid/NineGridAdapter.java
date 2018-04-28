@@ -136,7 +136,7 @@ public class NineGridAdapter extends BaseRecyclerViewAdapter<String>{
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         if (mItemHighPx > 0){
             setItemViewHeight(holder.itemView, mItemHighPx);
         }

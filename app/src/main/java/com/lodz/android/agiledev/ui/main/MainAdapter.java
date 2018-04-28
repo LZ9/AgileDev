@@ -46,7 +46,7 @@ public class MainAdapter extends BaseRecyclerViewAdapter<String> {
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         String name = getItem(position);
         if (TextUtils.isEmpty(name)) {
             return;

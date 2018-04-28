@@ -32,7 +32,7 @@ public class SimpleDataAdapter extends BaseRecyclerViewAdapter<String>{
     }
 
     @Override
-    protected void onBind(RecyclerView.ViewHolder holder, int position) {
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
         String data = getItem(position);
         if (TextUtils.isEmpty(data)) {
             return;

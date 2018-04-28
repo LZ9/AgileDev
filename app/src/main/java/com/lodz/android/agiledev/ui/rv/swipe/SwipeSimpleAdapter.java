@@ -38,7 +38,7 @@ public class SwipeSimpleAdapter extends SimpleSwipeRVAdapter<String, SwipeSimple
     }
 
     @Override
-    protected void onBindContent(DataViewHolder holder, int position) {
+    public void onBindContent(DataViewHolder holder, int position) {
         String str = getItem(position);
         if (TextUtils.isEmpty(str)) {
             return;

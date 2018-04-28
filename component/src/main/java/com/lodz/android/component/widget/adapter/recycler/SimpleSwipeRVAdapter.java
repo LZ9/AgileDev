@@ -77,13 +77,13 @@ public abstract class SimpleSwipeRVAdapter<T, VH extends SimpleSwipeViewHolder> 
 
     @SuppressWarnings("unchecked")
     @Override
-    protected final void onBind(RecyclerView.ViewHolder holder, int position) {
+    public final void onBind(RecyclerView.ViewHolder holder, int position) {
         bindListData((VH) holder, mLeftList, mRightList, position);
         onBindContent((VH) holder, position);
     }
 
     /** 绑定内容数据 */
-    protected abstract void onBindContent(VH holder, int position);
+    public abstract void onBindContent(VH holder, int position);
 
     private void bindListData(VH holder, List<SwipeMenuBean> leftList, List<SwipeMenuBean> rightList, int position) {
         configLeftMenu(holder, leftList, position);

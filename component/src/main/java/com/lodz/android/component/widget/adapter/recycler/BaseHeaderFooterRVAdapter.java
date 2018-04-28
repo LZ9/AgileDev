@@ -68,11 +68,11 @@ public abstract class BaseHeaderFooterRVAdapter<H, T, F> extends BaseRecyclerVie
     }
 
     /** 获取头布局的ViewHolder */
-    protected abstract RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent);
     /** 获取列表布局的ViewHolder */
-    protected abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
     /** 获取头布局的ViewHolder */
-    protected abstract RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent);
 
     /**
      * 设置头部数据

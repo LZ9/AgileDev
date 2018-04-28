@@ -216,7 +216,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         });
     }
 
-    protected abstract void onBind(RecyclerView.ViewHolder holder, int position);
+    public abstract void onBind(RecyclerView.ViewHolder holder, int position);
 
     @Override
     public int getItemCount() {
