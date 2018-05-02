@@ -149,6 +149,10 @@ public class AppUtils {
             throw new IllegalArgumentException("参数不能为空");
         }
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent == null){
+            throw new ActivityNotFoundException();
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
@@ -182,6 +186,7 @@ public class AppUtils {
         }
 
         intent.setComponent(new ComponentName(packageName, mainActivityName));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
