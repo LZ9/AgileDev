@@ -35,8 +35,6 @@ public class TitleBarLayout extends LinearLayout{
     /** 标题栏配置 */
     private TitleBarLayoutConfig mConfig = new TitleBarLayoutConfig();
 
-    /** 根布局 */
-    private ViewGroup mRootViewLayout;
     /** 返回按钮布局 */
     private LinearLayout mBackLayout;
     /** 返回按钮 */
@@ -79,7 +77,6 @@ public class TitleBarLayout extends LinearLayout{
 
     private void findViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.component_view_title_layout, this);
-        mRootViewLayout = findViewById(R.id.root_view);
         mBackLayout = findViewById(R.id.back_layout);
         mBackBtn = findViewById(R.id.back_btn);
         mTitleTextView = findViewById(R.id.title_textview);
@@ -166,9 +163,9 @@ public class TitleBarLayout extends LinearLayout{
         if (drawableBackground != null){
             setBackground(drawableBackground);
         } else if (mConfig.getBackgroundResId() != 0){
-            mRootViewLayout.setBackgroundResource(mConfig.getBackgroundResId());
+            setBackgroundResource(mConfig.getBackgroundResId());
         } else {
-            mRootViewLayout.setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.holo_blue_light : mConfig.getBackgroundColor()));
+            setBackgroundColor(ContextCompat.getColor(getContext(), mConfig.getBackgroundColor() == 0 ? android.R.color.holo_blue_light : mConfig.getBackgroundColor()));
         }
 
         boolean isNeedElevation = typedArray == null ? mConfig.getIsNeedElevation()
