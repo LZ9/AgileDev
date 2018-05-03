@@ -46,14 +46,6 @@ public abstract class MvpAbsActivity<PC extends PresenterContract<VC>, VC extend
     }
 
     @Override
-    public void finish() {
-        super.finish();
-        if (mPresenterContract != null){
-            mPresenterContract.detach();
-        }
-    }
-
-    @Override
     public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
         return bindUntilEvent(event);
     }

@@ -46,14 +46,6 @@ public abstract class MvpLazyFragment<PC extends PresenterContract<VC>, VC exten
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mPresenterContract != null){
-            mPresenterContract.detach();
-        }
-    }
-
-    @Override
     public final <T> LifecycleTransformer<T> bindUntilActivityEvent(@NonNull ActivityEvent event) {
         throw new IllegalArgumentException("you bind fragment but call activity event");
     }

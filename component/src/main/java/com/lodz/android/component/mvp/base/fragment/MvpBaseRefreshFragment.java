@@ -46,14 +46,6 @@ public abstract class MvpBaseRefreshFragment<PC extends PresenterContract<VC>, V
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mPresenterContract != null){
-            mPresenterContract.detach();
-        }
-    }
-
-    @Override
     public void showStatusNoData() {
         super.showStatusNoData();
     }

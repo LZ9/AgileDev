@@ -45,14 +45,6 @@ public abstract class MvpBaseSandwichFragment<PC extends PresenterContract<VC>, 
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mPresenterContract != null){
-            mPresenterContract.detach();
-        }
-    }
-
-    @Override
     public void showStatusNoData() {
         super.showStatusNoData();
     }

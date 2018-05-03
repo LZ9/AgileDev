@@ -46,14 +46,6 @@ public abstract class MvpBaseActivity<PC extends PresenterContract<VC>, VC exten
     }
 
     @Override
-    public void finish() {
-        super.finish();
-        if (mPresenterContract != null){
-            mPresenterContract.detach();
-        }
-    }
-
-    @Override
     public void showStatusNoData() {
         super.showStatusNoData();
     }
