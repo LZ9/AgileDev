@@ -15,7 +15,7 @@
     compile 'cn.lodz:core:1.2.5'
 ```
 ```
-    compile 'cn.lodz:Component:1.4.10'
+    compile 'cn.lodz:Component:1.4.11'
 ```
 ```
     compile 'cn.lodz:ImagerLoader:1.2.0'
