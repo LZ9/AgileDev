@@ -298,6 +298,13 @@
         </activity>
 
         <activity
+            android:name=".ui.design.coordinator.CoordinatorTranslationActivity"
+            android:label="CoordinatorLayout位移测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".ui.annotation.AnnotationTestActivity"
             android:label="注解测试类"
             android:screenOrientation="portrait">

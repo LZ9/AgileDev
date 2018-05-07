@@ -117,7 +117,7 @@ public class CoordinatorTestActivity extends AbsActivity{
                         .setAction("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                CoordinatorTranslationActivity.start(getContext());
                             }
                         })
                         .show();
