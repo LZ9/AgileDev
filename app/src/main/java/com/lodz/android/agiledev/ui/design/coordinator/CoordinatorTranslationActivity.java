@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.ScreenUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,12 +28,6 @@ public class CoordinatorTranslationActivity extends AbsActivity{
         context.startActivity(starter);
     }
 
-    private float mSelfHeight = 0;//用以判断是否得到正确的宽高值
-    private float mTitleScale;
-    private float mSubScribeScale;
-    private float mSubScribeScaleX;
-    private float mHeadImgScale;
-
     @BindView(R.id.back)
     ImageView mBackBtn;
 
@@ -47,6 +42,17 @@ public class CoordinatorTranslationActivity extends AbsActivity{
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    /** 标题栏高度 */
+    private float mToolbarHeight;
+    /** 标题内容高度 */
+    private float mTitleContentHeight;
+
+    private float mSelfHeight = 0;//用以判断是否得到正确的宽高值
+    private float mTitleScale;
+    private float mSubScribeScale;
+    private float mSubScribeScaleX;
+    private float mHeadImgScale;
+
     @Override
     protected int getAbsLayoutId() {
         return R.layout.activity_coordinator_translation_layout;
@@ -59,24 +65,25 @@ public class CoordinatorTranslationActivity extends AbsActivity{
     }
 
     private void setOffset() {
-        final float screenW = getResources().getDisplayMetrics().widthPixels;
-        final float toolbarHeight = DensityUtils.dp2px(getContext(), 56);
-        final float initHeight = DensityUtils.dp2px(getContext(), 150);
         mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (mSelfHeight == 0) {
                     mSelfHeight = mSubscriptionTitle.getHeight();
-                    float distanceTitle = mSubscriptionTitle.getTop() + (mSelfHeight - toolbarHeight) / 2.0f;
-                    float distanceSubscribe = mSubscribe.getY() + (mSubscribe.getHeight() - toolbarHeight) / 2.0f;
-                    float distanceHeadImg = mHeadImage.getY() + (mHeadImage.getHeight() - toolbarHeight) / 2.0f;
-                    float distanceSubscribeX = screenW / 2.0f - (mSubscribe.getWidth() / 2.0f + DensityUtils.dp2px(getContext(), 5));
-                    mTitleScale = distanceTitle / (initHeight - toolbarHeight);
-                    mSubScribeScale = distanceSubscribe / (initHeight - toolbarHeight);
-                    mHeadImgScale = distanceHeadImg / (initHeight - toolbarHeight);
-                    mSubScribeScaleX = distanceSubscribeX / (initHeight - toolbarHeight);
+
+                    float distanceHeadImg = mHeadImage.getY() + (mHeadImage.getHeight() - mToolbarHeight) / 2.0f;
+                    mHeadImgScale = distanceHeadImg / (mTitleContentHeight - mToolbarHeight);
+
+                    float distanceTitle = mSubscriptionTitle.getTop() + (mSubscriptionTitle.getHeight() - mToolbarHeight) / 2.0f;
+                    mTitleScale = distanceTitle / (mTitleContentHeight - mToolbarHeight);
+
+                    float distanceSubscribe = mSubscribe.getY() + (mSubscribe.getHeight() - mToolbarHeight) / 2.0f;
+                    float distanceSubscribeX = ScreenUtils.getScreenWidth(getContext()) / 2.0f - (mSubscribe.getWidth() / 2.0f + DensityUtils.dp2px(getContext(), 5));
+                    mSubScribeScale = distanceSubscribe / (mTitleContentHeight - mToolbarHeight);
+                    mSubScribeScaleX = distanceSubscribeX / (mTitleContentHeight - mToolbarHeight);
                 }
-                float scale = 1.0f - (-verticalOffset) / (initHeight - toolbarHeight);
+
+                float scale = 1.0f - (-verticalOffset) / (mTitleContentHeight - mToolbarHeight);
                 mHeadImage.setScaleX(scale);
                 mHeadImage.setScaleY(scale);
                 mHeadImage.setTranslationY(mHeadImgScale * verticalOffset);
@@ -96,5 +103,12 @@ public class CoordinatorTranslationActivity extends AbsActivity{
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mToolbarHeight = DensityUtils.dp2pxFloat(getContext(), 56);
+        mTitleContentHeight = DensityUtils.dp2pxFloat(getContext(), 150);
     }
 }
