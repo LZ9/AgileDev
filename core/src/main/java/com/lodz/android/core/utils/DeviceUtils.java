@@ -7,19 +7,46 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringDef;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * 设备帮助类
  * Created by zhouL on 2017/3/22.
  */
 public class DeviceUtils {
+
+    /** 品牌 */
+    public static final String BRAND = "BRAND";
+    /** 型号 */
+    public static final String MODEL = "MODEL";
+    /** 模板 */
+    public static final String BOARD = "BOARD";
+    /** CPU1 */
+    public static final String CPU_ABI = "CPU_ABI";
+    /** CPU2 */
+    public static final String CPU_ABI2 = "CPU_ABI2";
+    /** 制造商 */
+    public static final String MANUFACTURER = "MANUFACTURER";
+    /** 产品 */
+    public static final String PRODUCT = "PRODUCT";
+    /** 设备 */
+    public static final String DEVICE = "DEVICE";
+
+    @StringDef({BRAND, MODEL, BOARD, CPU_ABI, CPU_ABI2, MANUFACTURER, PRODUCT, DEVICE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface DeviceKey {}
 
     /** 获取手机的UA信息 */
     public static String getUserAgent() {
@@ -139,5 +166,37 @@ public class DeviceUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /** 获取设备信息 */
+    public static Map<String, String> getDeviceInfo() {
+        Map<String, String> infos = new HashMap<>();
+        try {
+            Field[] fields = Build.class.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                infos.put(field.getName(), field.get(null).toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return infos;
+    }
+
+    /**
+     * 获取设备key对应的值
+     * @param key 键，例如：{@link #BRAND}、{@link #MODEL}等等
+     */
+    public static String getDeviceValue(String key){
+        if (TextUtils.isEmpty(key)) {
+            return "";
+        }
+        try {
+            Map<String, String> map = getDeviceInfo();
+            return map.get(key);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 }
