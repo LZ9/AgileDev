@@ -219,4 +219,94 @@ public class ArrayUtils {
         return array;
     }
 
+    /**
+     * 获取列表里的最大值
+     * @param list 列表
+     */
+    public static long getMaxLong(List<Long> list){
+        long max = 0L;
+        for (Long data : list) {
+            if (max < data){
+                max = data;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 获取数组里的最大值
+     * @param array 数组
+     */
+    public static long getMaxLong(Long[] array){
+        return getMaxLong(arrayToList(array));
+    }
+
+    /**
+     * 获取列表里的最大值
+     * @param list 列表
+     */
+    public static int getMaxInt(List<Integer> list){
+        int max = 0;
+        for (int data : list) {
+            if (max < data){
+                max = data;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 获取数组里的最大值
+     * @param array 数组
+     */
+    public static int getMaxInt(Integer[] array){
+        return getMaxInt(arrayToList(array));
+    }
+
+    /**
+     * 获取列表的最小值
+     * @param list 列表
+     */
+    public static long getMinLong(List<Long> list){
+        long min = 0L;
+        for (Long data : list) {
+            if (min > data){
+                min = data;
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 获取数组的最小值
+     * @param array 数组
+     */
+    public static long getMinLong(Long[] array){
+        return getMinLong(arrayToList(array));
+    }
+
+    /**
+     * 获取列表的最小值
+     * @param list 列表
+     */
+    public static int getMinInt(List<Integer> list){
+        int min = 0;
+        for (int data : list) {
+            if (min > data){
+                min = data;
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 获取数组的最小值
+     * @param array 数组
+     */
+    public static int getMinInt(Integer[] array){
+        return getMinInt(arrayToList(array));
+    }
+
+
+
 }
