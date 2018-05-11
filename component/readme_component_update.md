@@ -1,5 +1,9 @@
 # component库更新记录
 
+##### 2018/05/11
+1. 更新targetSdkVersion版本号
+2. 发布1.4.12版本
+
 ##### 2018/05/03
 1. 修改detach的调用位置
 2. 修复titlebar没有阴影的BUG
