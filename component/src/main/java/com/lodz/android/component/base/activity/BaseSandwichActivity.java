@@ -266,4 +266,14 @@ public abstract class BaseSandwichActivity extends AbsActivity{
         }
         return mErrorLayout;
     }
+
+    /** 获取顶部布局 */
+    protected View getTopView(){
+        return mTopLayout;
+    }
+
+    /** 获取底部布局 */
+    protected View getBottomView(){
+        return mBottomLayout;
+    }
 }

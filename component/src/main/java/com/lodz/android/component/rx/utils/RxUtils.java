@@ -28,6 +28,9 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.SingleTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -62,6 +65,16 @@ public class RxUtils {
         return new MaybeTransformer<T, T>() {
             @Override
             public MaybeSource<T> apply(Maybe<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    /** 在异步线程发起，在主线程订阅 */
+    public static <T> SingleTransformer<T, T> ioToMainSingle() {
+        return new SingleTransformer<T, T>() {
+            @Override
+            public SingleSource<T> apply(Single<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };
