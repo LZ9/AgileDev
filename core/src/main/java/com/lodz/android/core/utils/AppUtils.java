@@ -134,6 +134,16 @@ public class AppUtils {
         context.startActivity(intent);
     }
 
+    /**
+     * 卸载应用
+     * @param context 上下文
+     * @param packageName 包名
+     */
+    public static void uninstallApp(Context context, String packageName){
+        Intent intent = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
+        context.startActivity(intent);
+    }
+
     /** 获取随机的UUID */
     public static String getUUID(){
         return UUID.randomUUID().toString();
