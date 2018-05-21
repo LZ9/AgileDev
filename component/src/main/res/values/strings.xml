@@ -31,4 +31,7 @@
     <string name="component_photo_folder_fail">文件夹创建失败</string>
     <string name="component_photo_authority_empty">您尚未配置FileProvider</string>
 
+    <!-- 搜索标题栏 -->
+    <string name="component_search_title_hint">请输入查询关键字</string>
+
 </resources>

@@ -60,24 +60,61 @@
         <attr name="contentBackground" />
     </declare-styleable>
 
+    <attr name="isNeedBackBtn" format="boolean" />
+    <attr name="backDrawable" format="reference" />
+    <attr name="backText" format="string" />
+    <attr name="backTextColor" format="color" />
+    <attr name="backTextSize" format="dimension" />
+    <attr name="isShowDivideLine" format="boolean" />
+    <attr name="divideLineColor" format="color" />
+    <attr name="divideLineHeight" format="dimension" />
+    <attr name="titleBarBackground" format="reference|color" />
+    <attr name="isNeedElevation" format="boolean" />
+    <attr name="elevationVale" format="dimension" />
+
     <!--标题栏-->
     <declare-styleable name="TitleBarLayout">
-        <attr name="isNeedBackBtn" format="boolean" />
-        <attr name="backDrawable" format="reference" />
-        <attr name="backText" format="string" />
-        <attr name="backTextColor" format="color" />
-        <attr name="backTextSize" format="dimension" />
+        <attr name="isNeedBackBtn" />
+        <attr name="backDrawable" />
+        <attr name="backText" />
+        <attr name="backTextColor" />
+        <attr name="backTextSize" />
         <attr name="titleText" format="string" />
         <attr name="titleTextColor" format="color" />
         <attr name="titleTextSize" format="dimension" />
-        <attr name="isShowDivideLine" format="boolean" />
-        <attr name="divideLineColor" format="color" />
-        <attr name="divideLineHeight" format="dimension" />
-        <attr name="titleBarBackground" format="reference|color" />
-        <attr name="isNeedElevation" format="boolean" />
-        <attr name="elevationVale" format="dimension" />
+        <attr name="isShowDivideLine" />
+        <attr name="divideLineColor" />
+        <attr name="divideLineHeight" />
+        <attr name="titleBarBackground" />
+        <attr name="isNeedElevation" />
+        <attr name="elevationVale" />
         <attr name="isNeedExpandView" format="boolean" />
         <attr name="expandViewId" format="reference" />
+    </declare-styleable>
+
+    <!--搜索标题栏-->
+    <declare-styleable name="SearchTitleBarLayout">
+        <attr name="isNeedBackBtn" />
+        <attr name="backDrawable" />
+        <attr name="backText" />
+        <attr name="backTextColor" />
+        <attr name="backTextSize" />
+        <attr name="isShowDivideLine" />
+        <attr name="divideLineColor" />
+        <attr name="divideLineHeight" />
+        <attr name="titleBarBackground" />
+        <attr name="isNeedElevation" />
+        <attr name="elevationVale" />
+        <attr name="isNeedCleanBtn" format="boolean" />
+        <attr name="searchDrawable" format="reference"/>
+        <attr name="cleanDrawable" format="reference"/>
+        <attr name="inputBackground" format="reference|color"/>
+        <attr name="inputHint" format="string" />
+        <attr name="inputHintTextColor" format="color" />
+        <attr name="inputText" format="string" />
+        <attr name="inputTextColor" format="color" />
+        <attr name="inputTextSize" format="dimension" />
+
     </declare-styleable>
 
     <!--自定义TabLayout-->

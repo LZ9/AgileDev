@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 52
-        versionName "1.4.13"// 成功上传
+        versionCode 53
+        versionName "1.4.14"// 未上传
     }
 
     buildTypes {
