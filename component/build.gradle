@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 53
-        versionName "1.4.14"// 未上传
+        versionName "1.4.14"// 成功上传
     }
 
     buildTypes {
@@ -51,7 +51,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.4.13'//版本号
+//    publishVersion = '1.4.14'//版本号
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
