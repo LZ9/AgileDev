@@ -43,7 +43,7 @@ public class RefreshAdapter extends SimpleLoadMoreRVAdapter<String> {
     }
 
     @Override
-    public RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, int viewType) {
         return new DataViewHolder(getLayoutView(parent, R.layout.item_refresh_layout));
     }
 

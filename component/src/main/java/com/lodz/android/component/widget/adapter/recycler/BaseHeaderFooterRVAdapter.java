@@ -64,13 +64,13 @@ public abstract class BaseHeaderFooterRVAdapter<H, T, F> extends BaseRecyclerVie
         if (viewType == VIEW_TYPE_FOOTER){
             return getFooterViewHolder(parent);
         }
-        return getItemViewHolder(parent);
+        return getItemViewHolder(parent, viewType);
     }
 
     /** 获取头布局的ViewHolder */
     public abstract RecyclerView.ViewHolder getHeaderViewHolder(ViewGroup parent);
     /** 获取列表布局的ViewHolder */
-    public abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, int viewType);
     /** 获取头布局的ViewHolder */
     public abstract RecyclerView.ViewHolder getFooterViewHolder(ViewGroup parent);
 

@@ -110,7 +110,7 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
         if (viewType == VIEW_TYPE_HIDE_ITEM){
             return getBlankViewHolder(parent);
         }
-        return getItemViewHolder(parent);
+        return getItemViewHolder(parent, viewType);
     }
 
     /** 获取加载完毕的ViewHolder */
@@ -143,7 +143,7 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
     protected abstract int getLoadFailLayoutId();
 
     /** 获取Item的ViewHolder */
-    public abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent);
+    public abstract RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, int viewType);
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {

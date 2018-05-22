@@ -50,6 +50,7 @@ public class SearchTitleBarLayout extends FrameLayout{
     private EditText mInputEdit;
     /** 扩展区清空按钮布局 */
     private ImageView mClearBtn;
+    /** 竖线 */
     private View mVerticalLineView;
     /** 返回按钮 */
     private ImageView mSearchBtn;
@@ -60,6 +61,9 @@ public class SearchTitleBarLayout extends FrameLayout{
     private boolean isNeedCleanBtn = true;
     /** 输入框监听 */
     private TextWatcher mTextWatcher;
+    /** 清空按钮点击回调 */
+    private OnClickListener mCleanClickListener;
+
 
     public SearchTitleBarLayout(Context context) {
         super(context);
@@ -269,6 +273,9 @@ public class SearchTitleBarLayout extends FrameLayout{
             @Override
             public void onClick(View v) {
                 mInputEdit.setText("");
+                if (mCleanClickListener != null){
+                    mCleanClickListener.onClick(v);
+                }
             }
         });
     }
@@ -290,7 +297,7 @@ public class SearchTitleBarLayout extends FrameLayout{
         mBackLayout.setAlpha(alpha);
     }
 
-    /** 请重写实现返回按钮监听 */
+    /** 设置返回按钮监听 */
     public void setOnBackBtnClickListener(OnClickListener listener) {
         mBackLayout.setOnClickListener(listener);
     }
@@ -385,30 +392,9 @@ public class SearchTitleBarLayout extends FrameLayout{
         mDivideLineView.setLayoutParams(layoutParams);
     }
 
-    /** 请重写实现返回按钮监听 */
+    /** 设置搜索按钮监听 */
     public void setOnSearchClickListener(OnClickListener listener) {
         mSearchBtn.setOnClickListener(listener);
-    }
-
-    /**
-     * 设置是否需要清空按钮
-     * @param isNeed 是否需要清空按钮
-     */
-    public void setNeedCleanBtn(boolean isNeed){
-        isNeedCleanBtn = isNeed;
-    }
-
-    /**
-     * 设置文本输入监听器
-     * @param watcher 监听器
-     */
-    public void setTextWatcher(TextWatcher watcher){
-        mTextWatcher = watcher;
-    }
-
-    /** 获取输入框内容 */
-    public String getInputText(){
-        return mInputEdit.getText().toString();
     }
 
     /**
@@ -430,6 +416,14 @@ public class SearchTitleBarLayout extends FrameLayout{
     }
 
     /**
+     * 设置是否需要清空按钮
+     * @param isNeed 是否需要清空按钮
+     */
+    public void setNeedCleanBtn(boolean isNeed){
+        isNeedCleanBtn = isNeed;
+    }
+
+    /**
      * 设置清空图标
      * @param cleanDrawable 图标
      */
@@ -447,6 +441,27 @@ public class SearchTitleBarLayout extends FrameLayout{
     public void setCleanIcon(@DrawableRes int resId){
         setNeedCleanBtn(true);
         mClearBtn.setImageResource(resId);
+    }
+
+    /**
+     * 设置清空按钮点击监听
+     * @param listener 监听器
+     */
+    public void setOnCleanClickListener(OnClickListener listener){
+        mCleanClickListener = listener;
+    }
+
+    /**
+     * 设置文本输入监听器
+     * @param watcher 监听器
+     */
+    public void setTextWatcher(TextWatcher watcher){
+        mTextWatcher = watcher;
+    }
+
+    /** 获取输入框内容 */
+    public String getInputText(){
+        return mInputEdit.getText().toString();
     }
 
     /**
@@ -517,7 +532,6 @@ public class SearchTitleBarLayout extends FrameLayout{
         }
         mInputEdit.setHintTextColor(colorStateList);
     }
-
 
     /**
      * 设置输入框文字

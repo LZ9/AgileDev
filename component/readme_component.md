@@ -806,7 +806,7 @@ app:tabMargin|设置每个tab的左右间距|10dp
 ```
     // 是否需要显示返回按钮
     needBackButton(boolean isNeed)
-    // 请重写实现返回按钮监听
+    // 设置返回按钮监听
     setOnBackBtnClickListener(OnClickListener listener)
     // 替换默认的返回按钮
     replaceBackBtn(View view)
@@ -1168,6 +1168,152 @@ app:isNeedDragVibrate|是否允许拖拽震动提示|true
 ```
 
 - 自定义属性列表与NineGridView一致
+
+### 9）SearchTitleBarLayout
+- 搜索标题栏SearchTitleBarLayout，可以通过下面的方法来订制
+```
+    // 是否需要显示返回按钮
+    needBackButton(boolean isNeed)
+    // 设置返回按钮监听
+    setOnBackBtnClickListener(OnClickListener listener)
+    // 替换默认的返回按钮
+    replaceBackBtn(View view)
+    // 设置返回按钮文字
+    setBackBtnName(String str)
+    // 设置返回按钮文字
+    setBackBtnName(@StringRes int strResId)
+    // 设置返回按钮文字颜色
+    setBackBtnTextColor(@ColorRes int colorRes)
+    // 设置返回按钮文字颜色
+    setBackBtnTextColor(ColorStateList colorStateList)
+    // 设置返回按钮文字大小
+    setBackBtnTextSize(float size)
+    // 隐藏分割线
+    goneDivideLine()
+    // 设置分割线颜色
+    setDivideLineColor(@ColorRes int colorRes)
+    // 设置分割线颜色
+    setDivideLineColor(Drawable drawable)
+    // 设置分割线高度
+    setDivideLineHeight(float height)
+    // 设置分割线高度
+    setDivideLineHeight(float height)
+    // 设置搜索按钮监听
+    setOnSearchClickListener(OnClickListener listener)
+    // 设置搜索图标
+    setSearchIcon(Drawable searchDrawable)
+    // 设置搜索图标
+    setSearchIcon(@DrawableRes int resId)
+    // 设置是否需要清空按钮
+    setNeedCleanBtn(boolean isNeed)
+    // 设置清空图标
+    setCleanIcon(Drawable cleanDrawable)
+    // 设置清空图标
+    setCleanIcon(@DrawableRes int resId)
+    // 设置清空按钮点击监听
+    setOnCleanClickListener(OnClickListener listener)
+    // 设置文本输入监听器
+    setTextWatcher(TextWatcher watcher)
+    // 获取输入框内容
+    getInputText()
+    // 设置输入框背景
+    setInputBackground(Drawable drawable)
+    // 设置输入框背景
+    setInputBackgroundResource(@DrawableRes int resId)
+    // 设置输入框背景
+    setInputBackgroundColor(@ColorInt int color)
+    // 设置输入框提示语
+    setInputHint(String hint)
+    // 设置输入框提示语
+    setInputHint(@StringRes int resId)
+    // 设置输入框提示语颜色
+    setInputHintTextColor(@ColorRes int colorRes)
+    // 设置输入框提示语颜色
+    setInputHintTextColorInt(@ColorInt int color)
+    // 设置输入框提示语颜色
+    setInputHintTextColor(ColorStateList colorStateList)
+    // 设置输入框文字
+    setInputText(String text)
+    // 设置输入框文字
+    setInputText(@StringRes int resId)
+    // 设置输入框文字颜色
+    public void setInputTextColor(@ColorRes int colorRes)
+    // 设置输入框文字颜色
+    setInputTextColorInt(@ColorInt int color)
+    // 设置输入框文字颜色
+    setInputTextColor(ColorStateList colorStateList)
+    // 设置输入框文字大小
+    setInputTextSize(float size)
+    // 获取输入框控件
+    getInputEdit()
+    // 是否显示竖线
+    setShowVerticalLine(boolean isShow)
+    // 设置竖线背景
+    setVerticalLineBackground(Drawable drawable)
+    // 设置竖线背景
+    setVerticalLineBackgroundResource(@DrawableRes int resId)
+    // 设置竖线背景
+    setVerticalLineBackgroundColor(@ColorInt int color)
+```
+
+- xml调用方法
+```
+    <com.lodz.android.component.widget.base.SearchTitleBarLayout
+        android:id="@+id/search_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backDrawable="@drawable/ic_launcher"
+        app:backText="返"
+        app:backTextColor="@color/white"
+        app:backTextSize="16sp"
+        app:cleanDrawable="@drawable/ic_launcher"
+        app:divideLineColor="@color/red"
+        app:divideLineHeight="5dp"
+        app:elevationVale="5sp"
+        app:inputBackground="@drawable/bg_ffffff_corners_4_stroke_9b9b9b"
+        app:inputHint="@string/idcard_input_hint"
+        app:inputHintTextColor="@color/color_3981ef"
+        app:inputText="@string/app_name"
+        app:inputTextColor="@color/color_ff6307"
+        app:inputTextSize="15sp"
+        app:isNeedBackBtn="true"
+        app:isNeedCleanBtn="true"
+        app:isNeedElevation="true"
+        app:isShowDivideLine="true"
+        app:isShowVerticalLine="true"
+        app:searchDrawable="@drawable/ic_launcher"
+        app:titleBarBackground="@android:color/holo_orange_light"
+        app:verticalLineBackground="@color/red">
+
+    </com.lodz.android.component.widget.base.SearchTitleBarLayout>
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---|:---|:---
+app:isNeedBackBtn|是否需要显示返回按钮|true
+app:backDrawable|返回按钮的资源图片|@drawable/ic_launcher
+app:backText|返回按钮文字|@string/test
+app:backTextColor|返回按钮文字颜色|@color/white
+app:backTextSize|返回按钮文字大小|16sp
+app:isNeedElevation|是否需要阴影|true
+app:elevationVale|显示阴影|6dp
+app:isShowDivideLine|是否显示底部分割线|false
+app:divideLineColor|底部分割线颜色|@color/color_d28928
+app:divideLineHeight|底部分割线高度|10dp
+app:titleBarBackground|标题栏背景色|@color/color_ea8380
+app:isNeedCleanBtn|设置是否需要清空按钮|true
+app:searchDrawable|搜索按钮的资源图片|@drawable/ic_launcher
+app:cleanDrawable|清空按钮的资源图片|@drawable/ic_launcher
+app:inputBackground|输入框背景|@drawable/bg_ffffff_corners_4_stroke_9b9b9b
+app:inputHint|输入框提示语|@string/test
+app:inputHintTextColor|输入框提示语文字颜色|@color/white
+app:inputText|输入框文字|@string/test
+app:inputTextColor|输入框文字颜色|@color/white
+app:inputTextSize|输入框文字大小|16sp
+app:isShowVerticalLine|是否显示竖线|true
+app:verticalLineBackground|竖线背景|@color/color_ea8380
 
 ## 9、MVP相关
 ### 1）基础的Activity实现

@@ -28,7 +28,7 @@ public class HeadRecyclerViewAdapter extends BaseHeaderFooterRVAdapter<String, S
     }
 
     @Override
-    public RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder getItemViewHolder(ViewGroup parent, int viewType) {
         return new ItemViewHolder(getLayoutView(parent, R.layout.item_drag_recycler_view_layout));
     }
 

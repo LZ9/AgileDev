@@ -56,19 +56,19 @@ public abstract class BaseSwipeRVAdapter<T, VH extends SwipeViewHolder> extends 
 
     /** 配置侧滑菜单的ViewHolder */
     protected void configSwipeViewHolder(VH holder){
-        if (getContentLayout() > 0){
+        if (getContentLayout() != 0){
             View contentView = getLayoutView(holder.contentLayout, getContentLayout());
             holder.contentLayout.addView(contentView);
         }
-        if (getRightLayout() > 0){
+        if (getRightLayout() != 0){
             View rightView = getLayoutView(holder.rightLayout, getRightLayout());
             holder.rightLayout.addView(rightView);
         }
-        if (getLeftLayout() > 0){
+        if (getLeftLayout() != 0){
             View leftView = getLayoutView(holder.leftLayout, getLeftLayout());
             holder.leftLayout.addView(leftView);
         }
-        holder.swipeMenuLayout.setSwipeEnable(getRightLayout() > 0 || getLeftLayout() > 0);//没有侧滑菜单禁止滑动
+        holder.swipeMenuLayout.setSwipeEnable(getRightLayout() != 0 || getLeftLayout() != 0);//没有侧滑菜单禁止滑动
     }
 
     /** 关闭侧滑菜单 */
