@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:inputBackground="@drawable/bg_ffffff_corners_4_stroke_9b9b9b"
-        app:isNeedBackBtn="true">
+        app:inputHint="@string/idcard_input_hint">
 
     </com.lodz.android.component.widget.base.SearchTitleBarLayout>
 

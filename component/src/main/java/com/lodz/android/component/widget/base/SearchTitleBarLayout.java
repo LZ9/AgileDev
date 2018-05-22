@@ -50,6 +50,7 @@ public class SearchTitleBarLayout extends FrameLayout{
     private EditText mInputEdit;
     /** 扩展区清空按钮布局 */
     private ImageView mClearBtn;
+    private View mVerticalLineView;
     /** 返回按钮 */
     private ImageView mSearchBtn;
     /** 分割线 */
@@ -97,6 +98,7 @@ public class SearchTitleBarLayout extends FrameLayout{
         mInputLayout = findViewById(R.id.input_layout);
         mInputEdit = findViewById(R.id.input_edit);
         mClearBtn = findViewById(R.id.clear_btn);
+        mVerticalLineView = findViewById(R.id.vertical_line);
         mSearchBtn = findViewById(R.id.search_btn);
         mDivideLineView = findViewById(R.id.divide_line);
     }
@@ -215,6 +217,15 @@ public class SearchTitleBarLayout extends FrameLayout{
         int inputTextSize = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.SearchTitleBarLayout_inputTextSize, 0);
         if (inputTextSize != 0){
             setInputTextSize(DensityUtils.px2sp(getContext(), inputTextSize));
+        }
+
+        if (typedArray != null){
+            setShowVerticalLine(typedArray.getBoolean(R.styleable.SearchTitleBarLayout_isShowVerticalLine, true));
+        }
+
+        Drawable verticalLineBackground = typedArray == null ? null : typedArray.getDrawable(R.styleable.SearchTitleBarLayout_verticalLineBackground);
+        if (verticalLineBackground != null){
+            setVerticalLineBackground(verticalLineBackground);
         }
 
         if (typedArray != null){
@@ -562,5 +573,39 @@ public class SearchTitleBarLayout extends FrameLayout{
     /** 获取输入框控件 */
     public EditText getInputEdit(){
         return mInputEdit;
+    }
+
+    /**
+     * 是否显示竖线
+     * @param isShow 是否显示
+     */
+    public void setShowVerticalLine(boolean isShow){
+        mVerticalLineView.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 设置竖线背景
+     * @param drawable 背景
+     */
+    public void setVerticalLineBackground(Drawable drawable){
+        if (drawable != null){
+            mVerticalLineView.setBackground(drawable);
+        }
+    }
+
+    /**
+     * 设置竖线背景
+     * @param resId 背景资源
+     */
+    public void setVerticalLineBackgroundResource(@DrawableRes int resId){
+        mVerticalLineView.setBackgroundResource(resId);
+    }
+
+    /**
+     * 设置竖线背景
+     * @param color 背景颜色
+     */
+    public void setVerticalLineBackgroundColor(@ColorInt int color){
+        mVerticalLineView.setBackgroundColor(color);
     }
 }

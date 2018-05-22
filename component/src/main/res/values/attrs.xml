@@ -114,7 +114,8 @@
         <attr name="inputText" format="string" />
         <attr name="inputTextColor" format="color" />
         <attr name="inputTextSize" format="dimension" />
-
+        <attr name="isShowVerticalLine" format="boolean" />
+        <attr name="verticalLineBackground" format="reference|color" />
     </declare-styleable>
 
     <!--自定义TabLayout-->

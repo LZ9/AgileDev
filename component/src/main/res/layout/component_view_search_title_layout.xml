@@ -70,10 +70,10 @@
                 android:paddingStart="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_clean"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:visibility="gone" />
 
             <View
+                android:id="@+id/vertical_line"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
