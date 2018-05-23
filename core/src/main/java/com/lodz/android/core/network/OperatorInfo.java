@@ -35,7 +35,7 @@ public class OperatorInfo {
     /** 1~65535 */
     public String lac;
     /** 2G（1~65535） 3G/4G（1~268435455） */
-    public String ci;
+    public String cid;
 
     public boolean isSuccess(){
         return type != OPERATOR_UNKNOWN;

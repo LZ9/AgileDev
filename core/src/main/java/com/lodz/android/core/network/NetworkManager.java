@@ -138,7 +138,7 @@ public class NetworkManager {
                 if (location == null){
                     return null;
                 }
-                info.ci = String.valueOf(location.getCid());
+                info.cid = String.valueOf(location.getCid());
                 info.lac = String.valueOf(location.getLac());
                 info.mcc = telephonyManager.getNetworkOperator().substring(0, 3);
                 info.mnc = telephonyManager.getNetworkOperator().substring(3);
@@ -153,14 +153,14 @@ public class NetworkManager {
                 }
                 if (cellLocation instanceof CdmaCellLocation) {
                     CdmaCellLocation location = (CdmaCellLocation) cellLocation;
-                    info.ci = String.valueOf(location.getBaseStationId());
+                    info.cid = String.valueOf(location.getBaseStationId());
                     info.lac = String.valueOf(location.getNetworkId());
                     info.mcc = telephonyManager.getNetworkOperator().substring(0, 3);
                     info.mnc = telephonyManager.getNetworkOperator();
                     return info;
                 }else if (cellLocation instanceof GsmCellLocation) {
                     GsmCellLocation location = (GsmCellLocation) cellLocation;
-                    info.ci = String.valueOf(location.getCid());
+                    info.cid = String.valueOf(location.getCid());
                     info.lac = String.valueOf(location.getLac());
                     info.mcc = telephonyManager.getNetworkOperator().substring(0, 3);
                     info.mnc = telephonyManager.getNetworkOperator().substring(3);
