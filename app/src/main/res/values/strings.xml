@@ -161,4 +161,8 @@
     <string name="lesson_detail_tab_video">视频</string>
     <string name="lesson_detail_tab_document">文档</string>
     <string name="lesson_detail_tab_comment">评论</string>
+
+    <!-- 共享动画 -->
+    <string name="share_element_title">共享元素</string>
+
 </resources>

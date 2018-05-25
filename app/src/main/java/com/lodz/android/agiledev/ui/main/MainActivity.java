@@ -36,6 +36,7 @@ import com.lodz.android.agiledev.ui.rv.head.HeadRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.refresh.RefreshTestActivity;
 import com.lodz.android.agiledev.ui.rv.swipe.SwipeRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rxjava.RxTestActivity;
+import com.lodz.android.agiledev.ui.share.ShareAnimationActivity;
 import com.lodz.android.agiledev.ui.threadpool.ThreadPoolActivity;
 import com.lodz.android.agiledev.ui.webview.WebViewTestActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
@@ -75,7 +76,8 @@ public class MainActivity extends BaseActivity{
             "Rxjava测试类", "MVP模式测试类", "Coordinator测试类",
             "DialogFragment测试类", "Glide测试", "注解测试类",
             "WebView测试类", "下载测试类", "MVC模式测试类",
-            "身份证号码测试类", "BottomSheets测试类", "CardView测试类");
+            "身份证号码测试类", "BottomSheets测试类", "CardView测试类",
+            "共享元素动画");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -87,7 +89,8 @@ public class MainActivity extends BaseActivity{
             RxTestActivity.class, MvpDemoActivity.class, CoordinatorTestActivity.class,
             DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class,
             WebViewTestActivity.class, DownloadTestActivity.class, MvcDemoActivity.class,
-            IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class};
+            IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class,
+            ShareAnimationActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

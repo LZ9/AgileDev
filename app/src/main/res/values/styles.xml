@@ -41,4 +41,13 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!-- 元素动画 -->
+    <style name="AppTheme.Transitions" parent="AppTheme">
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap" tools:ignore="NewApi">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap" tools:ignore="NewApi">false</item>
+    </style>
+
+
 </resources>

@@ -402,6 +402,21 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.share.ShareAnimationActivity"
+            android:label="共享动画"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transitions">
+
+        </activity>
+
+        <activity
+            android:name=".ui.share.element.ElementActivity"
+            android:label="共享元素"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Transitions">
+
+        </activity>
 
     </application>
 
