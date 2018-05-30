@@ -33,8 +33,8 @@ public class RoundItemDecoration extends BaseItemDecoration{
      * 创建底部分割线
      * @param context 上下文
      * @param dp 间距
-     * @param color 分割线颜色
-     * @param bgColor 背景颜色
+     * @param color 分割线颜色（使用默认值传0）
+     * @param bgColor 背景颜色（使用默认值传0）
      * @param lrPaddingDp 左右间隔
      */
     public static RoundItemDecoration createBottomDivider(Context context, @IntRange(from = 1) int dp
@@ -87,13 +87,13 @@ public class RoundItemDecoration extends BaseItemDecoration{
     /**
      * 设置顶部分割线
      * @param dp 间距
-     * @param color 分割线颜色
-     * @param bgColor 背景颜色
+     * @param color 分割线颜色（使用默认值传0）
+     * @param bgColor 背景颜色（使用默认值传0）
      * @param lrPaddingDp 左右间隔
      */
     public RoundItemDecoration setTopDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
-        return setTopDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
-                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
+        return setTopDividerInt(dp, color != 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+                , bgColor != 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
     }
 
     /**
@@ -122,13 +122,13 @@ public class RoundItemDecoration extends BaseItemDecoration{
     /**
      * 设置底部分割线
      * @param dp 间距
-     * @param color 颜色
-     * @param bgColor 背景颜色
+     * @param color 颜色（使用默认值传0）
+     * @param bgColor 背景颜色（使用默认值传0）
      * @param lrPaddingDp 左右间隔
      */
     public RoundItemDecoration setBottomDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int lrPaddingDp){
-        return setBottomDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
-                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
+        return setBottomDividerInt(dp, color != 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+                , bgColor != 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, lrPaddingDp);
     }
 
     /**
@@ -157,13 +157,13 @@ public class RoundItemDecoration extends BaseItemDecoration{
     /**
      * 设置左侧分割线
      * @param dp 间距
-     * @param color 颜色
-     * @param bgColor 背景颜色
+     * @param color 颜色（使用默认值传0）
+     * @param bgColor 背景颜色（使用默认值传0）
      * @param tbPaddingDp 上下间隔
      */
     public RoundItemDecoration setLeftDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
-        return setLeftDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
-                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
+        return setLeftDividerInt(dp, color != 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+                , bgColor != 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
     }
 
     /**
@@ -193,13 +193,13 @@ public class RoundItemDecoration extends BaseItemDecoration{
     /**
      * 设置右侧分割线
      * @param dp 间距
-     * @param color 颜色
-     * @param bgColor 背景颜色
+     * @param color 颜色（使用默认值传0）
+     * @param bgColor 背景颜色（使用默认值传0）
      * @param tbPaddingDp 上下间隔
      */
     public RoundItemDecoration setRightDividerRes(@IntRange(from = 1) int dp, @ColorRes int color, @ColorRes int bgColor, @IntRange(from = 0) int tbPaddingDp){
-        return setRightDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
-                , bgColor > 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
+        return setRightDividerInt(dp, color != 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY
+                , bgColor != 0 ? ContextCompat.getColor(getContext(), bgColor) : Color.WHITE, tbPaddingDp);
     }
 
     /**

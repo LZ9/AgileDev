@@ -25,6 +25,7 @@ import com.lodz.android.core.utils.NotificationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -189,7 +190,7 @@ public class NotificationActivity extends BaseActivity{
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
 //        Intent intent = new Intent(getContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(getContext(), 1, intent , PendingIntent.FLAG_ONE_SHOT);//创建一个意图
+        PendingIntent pIntent = PendingIntent.getActivity(getContext(), UUID.randomUUID().hashCode(), intent , PendingIntent.FLAG_UPDATE_CURRENT);//创建一个意图
         builder.setContentIntent(pIntent);// 将意图设置到通知上
 
         Notification notification = builder.build();//构建通知

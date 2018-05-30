@@ -1,10 +1,19 @@
 package com.lodz.android.core.utils;
 
+import android.support.annotation.IntRange;
+import android.text.TextUtils;
+
+import com.lodz.android.core.array.Groupable;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -13,6 +22,9 @@ import java.util.Set;
  */
 
 public class ArrayUtils {
+
+    private ArrayUtils() {
+    }
 
     /**
      * 去除重复数据
@@ -25,8 +37,7 @@ public class ArrayUtils {
         }
 
         Set<T> set = new HashSet<>(arrayToList(array));
-        List<T> list = new ArrayList<>();
-        list.addAll(set);
+        List<T> list = new ArrayList<>(set);
         return listToArray(list, cls);
     }
 
@@ -307,6 +318,86 @@ public class ArrayUtils {
         return getMinInt(arrayToList(array));
     }
 
+    /**
+     * 将数据分组（只匹配标题的第一位字段）
+     * @param source 原始数据列表
+     * @param groups 分组标题列表
+     */
+    public static <T> List<T> groupList(List<T> source, List<String> groups){
+        return groupList(source, groups, 1);
+    }
+
+    /**
+     * 将数据分组（只匹配标题的第一位字段）
+     * @param source 原始数据数组
+     * @param groups 分组标题数组
+     */
+    public static <T> T[] groupList(T[] source, String[] groups){
+        return groupList(source, groups, 1);
+    }
+
+    /**
+     * 将数据分组
+     * @param source 原始数据数组
+     * @param groups 分组标题数组
+     * @param compareLength 匹配长度
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] groupList(T[] source, String[] groups, @IntRange(from = 1) int compareLength){
+        return (T[]) groupList(arrayToList(source), arrayToList(groups), compareLength).toArray();
+    }
+
+    /**
+     * 将数据分组
+     * @param source 原始数据列表
+     * @param groups 分组标题列表
+     * @param compareLength 匹配长度
+     */
+    public static <T> List<T> groupList(List<T> source, List<String> groups, @IntRange(from = 1) int compareLength){
+        if (isEmpty(source) || isEmpty(groups) || compareLength <= 0) {
+            return source;
+        }
+
+        final String OTHER = String.valueOf(System.currentTimeMillis());
+
+        Map<String, List<T>> map = new LinkedHashMap<>();
+        for (String group : groups) {
+            String tag = group.length() <= compareLength ? group : group.substring(0, compareLength);
+            map.put(tag, new LinkedList<T>());
+        }
+        map.put(OTHER, new LinkedList<T>());
+
+        for (T t : source) {
+            if (t instanceof Groupable || t instanceof String) {
+                String item = t instanceof Groupable ? ((Groupable) t).getSortStr() : (String) t;
+                if (TextUtils.isEmpty(item)) {
+                    map.get(OTHER).add(t);//没有设置排序字段加入到其他分组中
+                    continue;
+                }
+                String tag = item.length() <= compareLength
+                        ? item : item.substring(0, compareLength);// 获取分组标签
+                if (map.get(tag) != null) {
+                    map.get(tag).add(t);//存在该分组则加入
+                } else {
+                    map.get(OTHER).add(t);
+                }
+            } else {
+                map.get(OTHER).add(t);// 未实现Groupable接口直接加入到其他分组中
+            }
+        }
+
+        List<T> results = new LinkedList<>();
+        Iterator<Map.Entry<String, List<T>>> iterator = map.entrySet().iterator();
+        Map.Entry<String, List<T>> entry;
+        while (iterator.hasNext()) {// 遍历map将分组数据装入结果集
+            entry = iterator.next();
+            List<T> list = entry.getValue();
+            if (!ArrayUtils.isEmpty(list)){
+                results.addAll(list);
+            }
+        }
+        return results;
+    }
 
 
 }

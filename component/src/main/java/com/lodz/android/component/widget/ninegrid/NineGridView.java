@@ -101,7 +101,7 @@ public class NineGridView extends FrameLayout{
 
     /** 设置装饰器 */
     private RecyclerView.ItemDecoration getItemDecoration() {
-        return GridItemDecoration.createDividerInt(getContext(), 1, Color.TRANSPARENT);
+        return GridItemDecoration.create(getContext()).setDividerSpace(1).setDividerInt(Color.TRANSPARENT);
     }
 
     /** 配置属性 */

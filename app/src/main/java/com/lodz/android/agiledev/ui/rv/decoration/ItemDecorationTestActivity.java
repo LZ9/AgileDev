@@ -2,6 +2,7 @@ package com.lodz.android.agiledev.ui.rv.decoration;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -20,8 +21,9 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.rv.drag.LayoutManagerPopupWindow;
 import com.lodz.android.agiledev.ui.rv.drag.OrientationPopupWindow;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.widget.adapter.decoration.GridItemDecoration;
+import com.lodz.android.component.widget.adapter.decoration.SectionItemDecoration;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DensityUtils;
 
 import java.util.ArrayList;
@@ -80,19 +82,19 @@ public class ItemDecorationTestActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(getLayoutManager());
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
 
-//        mRecyclerView.addItemDecoration(getItemDecoration());
+        mRecyclerView.addItemDecoration(getItemDecoration());
 //        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext()));
-        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext(), new TestItemDecoration.DecorationCallback() {
-            @Override
-            public long getGroupId(int position) {
-                return Character.toUpperCase(mList.get(position).charAt(0));
-            }
-
-            @Override
-            public String getGroupFirstLine(int position) {
-                return mList.get(position).substring(0, 1).toUpperCase();
-            }
-        }));
+//        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext(), new TestItemDecoration.DecorationCallback() {
+//            @Override
+//            public long getGroupId(int position) {
+//                return Character.toUpperCase(mList.get(position).charAt(0));
+//            }
+//
+//            @Override
+//            public String getGroupFirstLine(int position) {
+//                return mList.get(position).substring(0, 1).toUpperCase();
+//            }
+//        }));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -109,7 +111,21 @@ public class ItemDecorationTestActivity extends BaseActivity{
 //        return RoundItemDecoration.createBottomDivider(getContext(), 1, R.color.color_3f51b5, 0, 15);
 
         // 网格分割线
-        return GridItemDecoration.createDividerRes(getContext(), 1, R.color.color_00a0e9);
+//        return GridItemDecoration.createDividerRes(getContext(), 1, R.color.color_00a0e9);
+
+        // 分组
+        return SectionItemDecoration.<String>create(getContext())
+                .setOnGroupCallback(new SectionItemDecoration.OnGroupCallback<String>() {
+                    @Override
+                    public String getSourceItem(int position) {
+                        return mList.get(position);
+                    }
+                })
+                .setSectionTextSize(22)
+                .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
+                .setSectionTextColorRes(R.color.white)
+                .setSectionTextPaddingLeftDp(8)
+                .setSectionBgColorRes(R.color.color_ea8380);
 
     }
 
@@ -129,6 +145,8 @@ public class ItemDecorationTestActivity extends BaseActivity{
     protected void initData() {
         super.initData();
         mList = getList();
+        List<String> title = ArrayUtils.arrayToList(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"});
+        mList = ArrayUtils.groupList(mList, title);
         mAdapter.setData(mList);
         mAdapter.notifyDataSetChanged();
         showStatusCompleted();

@@ -24,6 +24,17 @@ import com.lodz.android.core.utils.DensityUtils;
 
 public class GridItemDecoration extends BaseItemDecoration{
 
+    /** 外部间距 */
+    private int mPx = 0;
+    /** 顶部画笔 */
+    private Paint mPaint;
+
+    private GridItemDecoration(Context context) {
+        super(context);
+        mPaint = new Paint();
+        mPaint.setColor(Color.GRAY);
+    }
+
     /**
      * 创建
      * @param context 上下文
@@ -33,59 +44,32 @@ public class GridItemDecoration extends BaseItemDecoration{
     }
 
     /**
-     * 创建网格分割线
-     * @param context 上下文
+     * 设置分割线间距
      * @param dp 间距
-     * @param color 分割线颜色
      */
-    public static GridItemDecoration createDividerRes(Context context, @IntRange(from = 1) int dp, @ColorRes int color){
-        GridItemDecoration decoration = new GridItemDecoration(context);
-        decoration.setDividerRes(dp, color);
-        return decoration;
-    }
-
-    /**
-     * 创建网格分割线
-     * @param context 上下文
-     * @param dp 间距
-     * @param color 分割线颜色
-     */
-    public static GridItemDecoration createDividerInt(Context context, @IntRange(from = 1) int dp, @ColorInt int color){
-        GridItemDecoration decoration = new GridItemDecoration(context);
-        decoration.setDividerInt(dp, color);
-        return decoration;
-    }
-
-    private GridItemDecoration(Context context) {
-        super(context);
-    }
-
-    /** 外部间距 */
-    private int mPx = 0;
-    /** 顶部画笔 */
-    private Paint mPaint;
-
-    /**
-     * 设置分割线
-     * @param dp 间距
-     * @param color 分割线颜色
-     */
-    public void setDividerRes(@IntRange(from = 1) int dp, @ColorRes int color){
-        setDividerInt(dp, color > 0 ? ContextCompat.getColor(getContext(), color) : Color.GRAY);
-    }
-
-    /**
-     * 设置分割线
-     * @param dp 间距
-     * @param color 分割线颜色
-     */
-    public void setDividerInt(@IntRange(from = 1) int dp, @ColorInt int color){
+    public GridItemDecoration setDividerSpace(@IntRange(from = 1) int dp){
         mPx = DensityUtils.dp2px(getContext(), dp);
+        return this;
+    }
 
-        if (mPaint == null){
-            mPaint = new Paint();
+    /**
+     * 设置分割线颜色
+     * @param color 颜色
+     */
+    public GridItemDecoration setDividerRes(@ColorRes int color){
+        if (color != 0){
+            mPaint.setColor(ContextCompat.getColor(getContext(), color));
         }
+        return this;
+    }
+
+    /**
+     * 设置分割线颜色
+     * @param color 颜色
+     */
+    public GridItemDecoration setDividerInt(@ColorInt int color){
         mPaint.setColor(color);
+        return this;
     }
 
     @Override
