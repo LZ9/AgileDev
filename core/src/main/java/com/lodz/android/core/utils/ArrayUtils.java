@@ -319,7 +319,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 将数据分组（只匹配标题的第一位字段）
+     * 将数据分组（只匹配标题的第一位字段），泛型T可以为String或者实现了Groupable的任意类
      * @param source 原始数据列表
      * @param groups 分组标题列表
      */
@@ -328,7 +328,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 将数据分组（只匹配标题的第一位字段）
+     * 将数据分组（只匹配标题的第一位字段），泛型T可以为String或者实现了Groupable的任意类
      * @param source 原始数据数组
      * @param groups 分组标题数组
      */
@@ -337,7 +337,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 将数据分组
+     * 将数据分组，泛型T可以为String或者实现了Groupable的任意类
      * @param source 原始数据数组
      * @param groups 分组标题数组
      * @param compareLength 匹配长度
@@ -348,7 +348,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 将数据分组
+     * 将数据分组，泛型T可以为String或者实现了Groupable的任意类
      * @param source 原始数据列表
      * @param groups 分组标题列表
      * @param compareLength 匹配长度

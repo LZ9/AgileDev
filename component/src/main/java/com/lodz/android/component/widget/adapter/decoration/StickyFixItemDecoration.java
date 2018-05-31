@@ -3,27 +3,28 @@ package com.lodz.android.component.widget.adapter.decoration;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
+import java.util.List;
+
 /**
- * 粘黏标签装饰器（粘黏标签的文字由item里字符串的第一位截取）
- * 泛型T可以为String或者实现了Groupable的任意类
- * Created by zhouL on 2018/3/27.
+ * 固定数据的粘黏标签装饰器
+ * Created by zhouL on 2018/5/31.
  */
+public class StickyFixItemDecoration<T> extends SectionFixItemDecoration<T>{
 
-public class StickyItemDecoration<T> extends SectionItemDecoration<T>{
-
-    public static <T> StickyItemDecoration <T>create(Context context){
-        return new StickyItemDecoration<>(context);
+    public static <T> StickyFixItemDecoration <T>create(Context context, List<String> sections, List<List<T>> source){
+        return new StickyFixItemDecoration<>(context, sections, source);
     }
 
     /**
      * 创建
      * @param context 上下文
+     * @param sections 分组标题列表
+     * @param sources 各组数据列表集
      */
-    private StickyItemDecoration(Context context) {
-        super(context);
+    private StickyFixItemDecoration(Context context, List<String> sections, List<List<T>> sources) {
+        super(context, sections, sources);
     }
 
     @Override
@@ -36,24 +37,16 @@ public class StickyItemDecoration<T> extends SectionItemDecoration<T>{
         if (!isVerLinearLayout(parent)){
             return;
         }
-        if (mOnSectionCallback == null){
-            return;
-        }
         int childCount = parent.getChildCount();
         if (childCount == 0){
             return;
         }
-
-        int itemCount = state.getItemCount();
 
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
         for (int i = 0; i < childCount; i++) {
             View view = parent.getChildAt(i);
             int position = parent.getChildAdapterPosition(view);
-            if (TextUtils.isEmpty(getItem(position))) {
-                continue;
-            }
 
             int top = parent.getTop();
             int bottom = parent.getTop() + mSectionHeightPx;
@@ -63,19 +56,19 @@ public class StickyItemDecoration<T> extends SectionItemDecoration<T>{
 
             if (isFirstGroupItem(position)) {// 分组的第一个数据，绘制分组样式
                 drawBgPaint(canvas, left, sectionTop, right, sectionBottom);
-                drawTextPaint(canvas, getItem(position), left, sectionTop, right, sectionBottom);
+                drawTextPaint(canvas, getSectionText(position), left, sectionTop, right, sectionBottom);
                 continue;
             }
 
-            if (isLastGroupItem(position, itemCount) && view.getBottom() <= mSectionHeightPx) {// 分组的最后一个数据并且已经到达顶部，绘制过度动画样式
+            if (isLastGroupItem(position) && view.getBottom() <= mSectionHeightPx) {// 分组的最后一个数据并且已经到达顶部，绘制过度动画样式
                 drawBgPaint(canvas, left, top, right, view.getBottom());
-                drawTextPaint(canvas, getItem(position), left, top, right, view.getBottom());
+                drawTextPaint(canvas, getSectionText(position), left, top, right, view.getBottom());
                 continue;
             }
 
             if (i == 0){// 第一个view属于某个分组内的中间数据，则在顶部绘制固定section
                 drawBgPaint(canvas, left, sectionTop, right, sectionBottom);
-                drawTextPaint(canvas, getItem(position), left, sectionTop, right, sectionBottom);
+                drawTextPaint(canvas, getSectionText(position), left, sectionTop, right, sectionBottom);
             }
         }
     }
@@ -83,17 +76,18 @@ public class StickyItemDecoration<T> extends SectionItemDecoration<T>{
     /**
      * 是否是分组的最后一个数据
      * @param position 位置
-     * @param itemCount 列表长度
      */
-    private boolean isLastGroupItem(int position, int itemCount){
-        if (position + 1 >= itemCount){
-            return true;
+    private boolean isLastGroupItem(int position){
+        int size = 0;
+        for (List<T> list : mSources) {
+            size += list.size();
+            if (position + 1 == size){
+                return true;
+            }
+            if (position < size){
+                return false;
+            }
         }
-        String current = getItem(position);
-        String next = getItem(position + 1);
-        if (TextUtils.isEmpty(current) || TextUtils.isEmpty(next)) {
-            return false;
-        }
-        return !current.substring(0, 1).equals(next.substring(0, 1));
+        return false;
     }
 }

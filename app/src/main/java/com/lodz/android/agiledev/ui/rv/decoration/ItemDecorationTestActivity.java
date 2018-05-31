@@ -21,8 +21,7 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.rv.drag.LayoutManagerPopupWindow;
 import com.lodz.android.agiledev.ui.rv.drag.OrientationPopupWindow;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.widget.adapter.decoration.SectionItemDecoration;
-import com.lodz.android.component.widget.adapter.decoration.StickyItemDecoration;
+import com.lodz.android.component.widget.adapter.decoration.StickyFixItemDecoration;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DensityUtils;
@@ -117,15 +116,41 @@ public class ItemDecorationTestActivity extends BaseActivity{
 //                .setSectionBgColorRes(R.color.color_ea8380);
 
         // 粘黏标签
-        return StickyItemDecoration.<String>create(getContext())
-                .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<String>() {
-                    @Override
-                    public String getSourceItem(int position) {
-                        return mList.get(position);
-                    }
-                })
+//        return StickyItemDecoration.<String>create(getContext())
+//                .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<String>() {
+//                    @Override
+//                    public String getSourceItem(int position) {
+//                        return mList.get(position);
+//                    }
+//                })
+//                .setSectionTextSize(22)
+//                .setSectionHeight(40)
+//                .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
+//                .setSectionTextColorRes(R.color.white)
+//                .setSectionTextPaddingLeftDp(8)
+//                .setSectionBgColorRes(R.color.color_ea8380);
+
+        // 固定数据
+        List<String> sections = ArrayUtils.arrayToList(new String[]{"曼联", "阿森纳", "切尔西", "利物浦"});
+        List<List<String>> source = new ArrayList<>();
+        source.add(ArrayUtils.arrayToList(new String[]{"贝克汉姆", "吉格斯", "斯科尔斯", "鲁尼", "费迪南德", "范德萨", "卡里克", "罗伊基恩", "埃弗拉"}));
+        source.add(ArrayUtils.arrayToList(new String[]{"亨利", "皮雷", "博格坎普", "莱曼", "维埃拉", "罗西基", "阿什利科尔", "索尔坎贝尔"}));
+        source.add(ArrayUtils.arrayToList(new String[]{"兰帕德", "切赫", "特里", "乔科尔", "德罗巴", "巴拉克", "舍甫琴科", "罗本"}));
+        source.add(ArrayUtils.arrayToList(new String[]{"欧文", "杰拉德", "卡拉格", "福勒", "雷纳", "阿隆索", "库伊特", "里瑟"}));
+
+        // 固定数据分组
+//        return SectionFixItemDecoration.create(getContext(), sections, source)
+//                .setSectionTextSize(22)
+//                .setSectionHeight(40)
+//                .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
+//                .setSectionTextColorRes(R.color.white)
+//                .setSectionTextPaddingLeftDp(8)
+//                .setSectionBgColorRes(R.color.color_ffa630);
+
+        // 固定数据粘黏
+        return StickyFixItemDecoration.create(getContext(), sections, source)
                 .setSectionTextSize(22)
-                .setSectionHeight(50)
+                .setSectionHeight(40)
                 .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
                 .setSectionTextColorRes(R.color.white)
                 .setSectionTextPaddingLeftDp(8)
@@ -149,18 +174,23 @@ public class ItemDecorationTestActivity extends BaseActivity{
     protected void initData() {
         super.initData();
         mList = getList();
-        List<String> title = ArrayUtils.arrayToList(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"});
-        mList = ArrayUtils.groupList(mList, title);
+//        List<String> title = ArrayUtils.arrayToList(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"});
+//        mList = ArrayUtils.groupList(mList, title);
         mAdapter.setData(mList);
         mAdapter.notifyDataSetChanged();
         showStatusCompleted();
     }
 
     private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 87; i++) {
-            list.add((i + 1) + "");
-        }
+//        List<String> list = new ArrayList<>();
+//        for (int i = 0; i < 87; i++) {
+//            list.add((i + 1) + "");
+//        }
+
+        List<String> list = ArrayUtils.arrayToList(new String[]{"贝克汉姆", "吉格斯", "斯科尔斯", "鲁尼", "费迪南德", "范德萨", "卡里克", "罗伊基恩", "埃弗拉"
+                , "亨利", "皮雷", "博格坎普", "莱曼", "维埃拉", "罗西基", "阿什利科尔", "索尔坎贝尔"
+                , "兰帕德", "切赫", "特里", "乔科尔", "德罗巴", "巴拉克", "舍甫琴科", "罗本"
+                , "欧文", "杰拉德", "卡拉格", "福勒", "雷纳", "阿隆索", "库伊特", "里瑟"});
         return list;
     }
 
