@@ -21,7 +21,7 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.rv.drag.LayoutManagerPopupWindow;
 import com.lodz.android.agiledev.ui.rv.drag.OrientationPopupWindow;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.widget.adapter.decoration.SectionItemDecoration;
+import com.lodz.android.component.widget.adapter.decoration.StickyItemDecoration;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DensityUtils;
@@ -114,14 +114,29 @@ public class ItemDecorationTestActivity extends BaseActivity{
 //        return GridItemDecoration.createDividerRes(getContext(), 1, R.color.color_00a0e9);
 
         // 分组
-        return SectionItemDecoration.<String>create(getContext())
-                .setOnGroupCallback(new SectionItemDecoration.OnGroupCallback<String>() {
+//        return SectionItemDecoration.<String>create(getContext())
+//                .setOnGroupCallback(new SectionItemDecoration.OnGroupCallback<String>() {
+//                    @Override
+//                    public String getSourceItem(int position) {
+//                        return mList.get(position);
+//                    }
+//                })
+//                .setSectionTextSize(22)
+//                .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
+//                .setSectionTextColorRes(R.color.white)
+//                .setSectionTextPaddingLeftDp(8)
+//                .setSectionBgColorRes(R.color.color_ea8380);
+
+        // 粘黏标签
+        return StickyItemDecoration.<String>create(getContext())
+                .setOnGroupCallback(new StickyItemDecoration.OnGroupCallback<String>() {
                     @Override
                     public String getSourceItem(int position) {
                         return mList.get(position);
                     }
                 })
                 .setSectionTextSize(22)
+                .setSectionHeight(50)
                 .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
                 .setSectionTextColorRes(R.color.white)
                 .setSectionTextPaddingLeftDp(8)

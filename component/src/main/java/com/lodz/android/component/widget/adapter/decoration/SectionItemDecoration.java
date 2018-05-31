@@ -34,13 +34,13 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
     private static final int DEFAULT_SECTION_HEIGHT_DP = 32;
 
     /** 数据回调 */
-    private OnGroupCallback<T> mGroupCallback;
+    OnGroupCallback<T> mGroupCallback;
     /** 文字画笔 */
     private TextPaint mTextPaint;
     /** 背景画笔 */
     private Paint mBgPaint;
     /** 分组高度 */
-    private int mSectionHeightPx;
+    int mSectionHeightPx;
     /** 文字左侧间距 */
     private int mTextPaddingLeftDp = 0;
 
@@ -48,7 +48,7 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
         return new SectionItemDecoration<>(context);
     }
 
-    private SectionItemDecoration(Context context) {
+    SectionItemDecoration(Context context) {
         super(context);
         mBgPaint = new Paint();
         mBgPaint.setColor(Color.GRAY);
@@ -62,6 +62,15 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
         mTextPaint.setTextAlign(Paint.Align.LEFT);
 
         mSectionHeightPx = DensityUtils.dp2px(getContext(), DEFAULT_SECTION_HEIGHT_DP);
+    }
+
+    /**
+     * 设置分组的高度
+     * @param dp 高度
+     */
+    public SectionItemDecoration setSectionHeight(int dp){
+        mSectionHeightPx = DensityUtils.dp2px(getContext(), dp);
+        return this;
     }
 
     /**
@@ -177,21 +186,43 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
 
             int top = view.getTop() - mSectionHeightPx;
             int bottom = view.getTop();
-            canvas.drawRect(checkValue(left), checkValue(top), checkValue(right), checkValue(bottom), mBgPaint);//绘制背景色
+            drawBgPaint(canvas, left, top, right, bottom);
+            drawTextPaint(canvas, getItem(position), left, top, right, bottom);
+        }
+    }
 
-            String sectionText = getItem(position);
-            if (!TextUtils.isEmpty(sectionText)) {
-                Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-                int baseline = (int) ((bottom + top - fontMetrics.bottom - fontMetrics.top) / 2);//文字居中基线
-                canvas.drawText(sectionText.substring(0, 1),
-                        checkValue(left + mTextPaddingLeftDp), checkValue((int) (baseline)), mTextPaint);//绘制文本
+    /**
+     * 画背景
+     * @param canvas 画布
+     * @param left 左侧坐标
+     * @param top 顶部坐标
+     * @param right 右侧坐标
+     * @param bottom 底部坐标
+     */
+    void drawBgPaint(Canvas canvas, int left, int top, int right, int bottom){
+        canvas.drawRect(checkValue(left), checkValue(top), checkValue(right), checkValue(bottom), mBgPaint);//绘制背景色
+    }
 
-            }
+    /**
+     * 画文字
+     * @param canvas 画布
+     * @param text 文字
+     * @param left 左侧坐标
+     * @param top 顶部坐标
+     * @param right 右侧坐标
+     * @param bottom 底部坐标
+     */
+    void drawTextPaint(Canvas canvas, String text, int left, int top, int right, int bottom){
+        if (!TextUtils.isEmpty(text)) {
+            Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
+            int baseline = (int) ((bottom + top - fontMetrics.bottom - fontMetrics.top) / 2);//文字居中基线
+            canvas.drawText(text.substring(0, 1),
+                    checkValue(left + mTextPaddingLeftDp), checkValue(baseline), mTextPaint);//绘制文本
         }
     }
 
     /** 是否是垂直列表 */
-    private boolean isVerLinearLayout(RecyclerView parent) {
+    boolean isVerLinearLayout(RecyclerView parent) {
         if (parent.getLayoutManager() instanceof GridLayoutManager){
             return false;
         }
@@ -206,7 +237,7 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
      * 是否是分组的第一个数据
      * @param position 位置
      */
-    private boolean isGroupItem(int position) {
+    boolean isGroupItem(int position) {
         if (position == 0){
             return true;
         }
@@ -219,10 +250,27 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
     }
 
     /**
+     * 是否是分组的最后一个数据
+     * @param position 位置
+     * @param itemCount 列表长度
+     */
+    boolean isLastGroupItem(int position, int itemCount){
+        if (position + 1 >= itemCount){
+            return true;
+        }
+        String current = getItem(position);
+        String next = getItem(position + 1);
+        if (TextUtils.isEmpty(current) || TextUtils.isEmpty(next)) {
+            return false;
+        }
+        return !current.substring(0, 1).equals(next.substring(0, 1));
+    }
+
+    /**
      * 获取数据
      * @param position 位置
      */
-    private String getItem(int position) {
+    String getItem(int position) {
         if (position < 0){
             return "";
         }

@@ -20,15 +20,15 @@ import java.util.List;
 public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T> {
 
     /** 列表内容 */
-    private static final int VIEW_TYPE_ITEM = 0;
+    public static final int VIEW_TYPE_ITEM = 0;
     /** 正在加载更多 */
-    private static final int VIEW_TYPE_LOADING_MORE = 1;
+    public static final int VIEW_TYPE_LOADING_MORE = 1;
     /** 已加载完全部数据 */
-    private static final int VIEW_TYPE_LOAD_FINISH = 2;
+    public static final int VIEW_TYPE_LOAD_FINISH = 2;
     /** 加载失败 */
-    private static final int VIEW_TYPE_LOAD_FAIL = 3;
+    public static final int VIEW_TYPE_LOAD_FAIL = 3;
     /** 隐藏数据 */
-    private static final int VIEW_TYPE_HIDE_ITEM = 4;
+    public static final int VIEW_TYPE_HIDE_ITEM = 4;
 
 
     /** 总条数 */

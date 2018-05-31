@@ -15,11 +15,11 @@ import android.view.ViewGroup;
 public abstract class BaseHeaderFooterRVAdapter<H, T, F> extends BaseRecyclerViewAdapter<T>{
 
     /** 头部 */
-    private static final int VIEW_TYPE_HEADER = 0;
+    public static final int VIEW_TYPE_HEADER = 0;
     /** 数据列表 */
-    private static final int VIEW_TYPE_ITEM = 1;
+    public static final int VIEW_TYPE_ITEM = 1;
     /** 底部 */
-    private static final int VIEW_TYPE_FOOTER = 2;
+    public static final int VIEW_TYPE_FOOTER = 2;
 
     /** 头信息数据 */
     private H mHeaderData;
