@@ -3,6 +3,7 @@ package com.lodz.android.component.widget.adapter.decoration;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 /**
@@ -30,7 +31,7 @@ public class StickyItemDecoration<T> extends SectionItemDecoration<T>{
         if (!isVerLinearLayout(parent)){
             return;
         }
-        if (mGroupCallback == null){
+        if (mOnSectionCallback == null){
             return;
         }
         int childCount = parent.getChildCount();
@@ -45,6 +46,9 @@ public class StickyItemDecoration<T> extends SectionItemDecoration<T>{
         for (int i = 0; i < childCount; i++) {
             View view = parent.getChildAt(i);
             int position = parent.getChildAdapterPosition(view);
+            if (TextUtils.isEmpty(getItem(position))) {
+                continue;
+            }
 
             int top = parent.getTop();
             int bottom = parent.getTop() + mSectionHeightPx;

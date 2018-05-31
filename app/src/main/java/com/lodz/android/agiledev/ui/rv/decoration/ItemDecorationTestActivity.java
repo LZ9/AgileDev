@@ -21,6 +21,7 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.rv.drag.LayoutManagerPopupWindow;
 import com.lodz.android.agiledev.ui.rv.drag.OrientationPopupWindow;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.widget.adapter.decoration.SectionItemDecoration;
 import com.lodz.android.component.widget.adapter.decoration.StickyItemDecoration;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.ArrayUtils;
@@ -83,18 +84,6 @@ public class ItemDecorationTestActivity extends BaseActivity{
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
 
         mRecyclerView.addItemDecoration(getItemDecoration());
-//        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext()));
-//        mRecyclerView.addItemDecoration(new TestItemDecoration(getContext(), new TestItemDecoration.DecorationCallback() {
-//            @Override
-//            public long getGroupId(int position) {
-//                return Character.toUpperCase(mList.get(position).charAt(0));
-//            }
-//
-//            @Override
-//            public String getGroupFirstLine(int position) {
-//                return mList.get(position).substring(0, 1).toUpperCase();
-//            }
-//        }));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -115,7 +104,7 @@ public class ItemDecorationTestActivity extends BaseActivity{
 
         // 分组
 //        return SectionItemDecoration.<String>create(getContext())
-//                .setOnGroupCallback(new SectionItemDecoration.OnGroupCallback<String>() {
+//                .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<String>() {
 //                    @Override
 //                    public String getSourceItem(int position) {
 //                        return mList.get(position);
@@ -129,7 +118,7 @@ public class ItemDecorationTestActivity extends BaseActivity{
 
         // 粘黏标签
         return StickyItemDecoration.<String>create(getContext())
-                .setOnGroupCallback(new StickyItemDecoration.OnGroupCallback<String>() {
+                .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<String>() {
                     @Override
                     public String getSourceItem(int position) {
                         return mList.get(position);

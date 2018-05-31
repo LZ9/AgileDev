@@ -34,7 +34,7 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
     private static final int DEFAULT_SECTION_HEIGHT_DP = 32;
 
     /** 数据回调 */
-    OnGroupCallback<T> mGroupCallback;
+    OnSectionCallback<T> mOnSectionCallback;
     /** 文字画笔 */
     private TextPaint mTextPaint;
     /** 背景画笔 */
@@ -77,8 +77,8 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
      * 设置回调
      * @param callback 回调
      */
-    public SectionItemDecoration setOnGroupCallback(OnGroupCallback<T> callback){
-        mGroupCallback = callback;
+    public SectionItemDecoration setOnSectionCallback(OnSectionCallback<T> callback){
+        mOnSectionCallback = callback;
         return this;
     }
 
@@ -152,13 +152,17 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        if (mGroupCallback == null){
+        if (mOnSectionCallback == null){
             return;
         }
         if (!isVerLinearLayout(parent)){
             return;
         }
-        outRect.top = isGroupItem(parent.getChildAdapterPosition(view)) ? mSectionHeightPx : 0;// 设置分组高度
+        int position = parent.getChildAdapterPosition(view);
+        if (TextUtils.isEmpty(getItem(position))) {
+            return;
+        }
+        outRect.top = isGroupItem(position) ? mSectionHeightPx : 0;// 设置分组高度
     }
 
     @Override
@@ -167,7 +171,7 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
         if (!isVerLinearLayout(parent)){
             return;
         }
-        if (mGroupCallback == null){
+        if (mOnSectionCallback == null){
             return;
         }
         int childCount = parent.getChildCount();
@@ -274,7 +278,7 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
         if (position < 0){
             return "";
         }
-        T t = mGroupCallback.getSourceItem(position);
+        T t = mOnSectionCallback.getSourceItem(position);
         if (!(t instanceof Groupable) && !(t instanceof String)) {
             return "";
         }
@@ -285,7 +289,7 @@ public class SectionItemDecoration<T> extends BaseItemDecoration{
         return item;
     }
 
-    public interface OnGroupCallback<T>{
+    public interface OnSectionCallback<T>{
 
         /**
          * 获取列表内容
