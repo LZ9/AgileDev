@@ -81,7 +81,6 @@ public class ItemDecorationTestActivity extends BaseActivity{
         mAdapter = new ItemDecorationTestAdapter(getContext());
         mRecyclerView.setLayoutManager(getLayoutManager());
         mAdapter.onAttachedToRecyclerView(mRecyclerView);// 如果使用网格布局请设置此方法
-
         mRecyclerView.addItemDecoration(getItemDecoration());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);

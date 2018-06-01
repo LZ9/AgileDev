@@ -1,0 +1,292 @@
+package com.lodz.android.agiledev.ui.index;
+
+import com.alibaba.fastjson.JSON;
+import com.lodz.android.agiledev.bean.NationBean;
+import com.lodz.android.core.utils.ArrayUtils;
+
+import java.util.List;
+
+/**
+ * 国籍数据生成器
+ * Created by zhouL on 2018/6/1.
+ */
+public class NationDataFactory {
+
+    /** 索引标题 */
+    private static final String[] INDEX_TITLE = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    /** 国籍数据 */
+    private static final String NATION_JSON = "[{\"code\":\"CHN\",\"name\":\"中国\",\"orderNum\":1,\"pinYin\":\"ZG\"}," +
+            "{\"code\":\"BLM\",\"name\":\"圣巴泰勒米岛\",\"orderNum\":4,\"pinYin\":\"SBTLMD\"}," +
+            "{\"code\":\"GGY\",\"name\":\"根西岛\",\"orderNum\":4,\"pinYin\":\"GXD\"}," +
+            "{\"code\":\"IMN\",\"name\":\"马恩岛\",\"orderNum\":4,\"pinYin\":\"MED\"}," +
+            "{\"code\":\"JEY\",\"name\":\"泽西岛\",\"orderNum\":4,\"pinYin\":\"ZXD\"}," +
+            "{\"code\":\"MAF\",\"name\":\"法属圣马丁\",\"orderNum\":4,\"pinYin\":\"FSSMD\"}," +
+            "{\"code\":\"SRB\",\"name\":\"塞尔维亚\",\"orderNum\":4,\"pinYin\":\"SEWY\"}," +
+            "{\"code\":\"SDN\",\"name\":\"苏丹\",\"orderNum\":4,\"pinYin\":\"SD\"}," +
+            "{\"code\":\"SEN\",\"name\":\"塞内加尔\",\"orderNum\":4,\"pinYin\":\"SNJE\"}," +
+            "{\"code\":\"SF\",\"name\":\"塞尔维亚\",\"orderNum\":4,\"pinYin\":\"SEWY\"}," +
+            "{\"code\":\"SGP\",\"name\":\"新加坡\",\"orderNum\":4,\"pinYin\":\"XJP\"}," +
+            "{\"code\":\"SGS\",\"name\":\"南乔治亚岛和南桑德韦\",\"orderNum\":4,\"pinYin\":\"NQZYD\"}," +
+            "{\"code\":\"SHN\",\"name\":\"圣赫勒拿\",\"orderNum\":4,\"pinYin\":\"SHLN\"}," +
+            "{\"code\":\"SJM\",\"name\":\"斯瓦尔巴岛和扬马延岛\",\"orderNum\":4,\"pinYin\":\"SWEBQD\"}," +
+            "{\"code\":\"SLB\",\"name\":\"所罗门群岛\",\"orderNum\":4,\"pinYin\":\"SLMQD\"}," +
+            "{\"code\":\"SLE\",\"name\":\"塞拉利昂\",\"orderNum\":4,\"pinYin\":\"SLLA\"}," +
+            "{\"code\":\"SLV\",\"name\":\"萨尔瓦多\",\"orderNum\":4,\"pinYin\":\"SEWD\"}," +
+            "{\"code\":\"SMR\",\"name\":\"圣马力诺\",\"orderNum\":4,\"pinYin\":\"SMLN\"}," +
+            "{\"code\":\"SOM\",\"name\":\"索马里\",\"orderNum\":4,\"pinYin\":\"SML\"}," +
+            "{\"code\":\"SPM\",\"name\":\"圣皮埃尔和密克隆\",\"orderNum\":4,\"pinYin\":\"SPAE\"}," +
+            "{\"code\":\"SS\",\"name\":\"塞班\",\"orderNum\":4,\"pinYin\":\"SB\"}," +
+            "{\"code\":\"STP\",\"name\":\"圣多美和普林西比\",\"orderNum\":4,\"pinYin\":\"SDM\"}," +
+            "{\"code\":\"SUR\",\"name\":\"苏里南\",\"orderNum\":4,\"pinYin\":\"SLN\"}," +
+            "{\"code\":\"SVK\",\"name\":\"斯洛伐克\",\"orderNum\":4,\"pinYin\":\"SLFK\"}," +
+            "{\"code\":\"SVN\",\"name\":\"斯洛文尼亚\",\"orderNum\":4,\"pinYin\":\"SLWNY\"}," +
+            "{\"code\":\"SWE\",\"name\":\"瑞典\",\"orderNum\":4,\"pinYin\":\"RD\"}," +
+            "{\"code\":\"SWZ\",\"name\":\"斯威士兰\",\"orderNum\":4,\"pinYin\":\"SWSL\"}," +
+            "{\"code\":\"SX\",\"name\":\"锡金\",\"orderNum\":4,\"pinYin\":\"XJ\"}," +
+            "{\"code\":\"SYC\",\"name\":\"塞舌尔\",\"orderNum\":4,\"pinYin\":\"SSE\"}," +
+            "{\"code\":\"SYR\",\"name\":\"叙利亚\",\"orderNum\":4,\"pinYin\":\"XLY\"}," +
+            "{\"code\":\"TCA\",\"name\":\"特克斯和凯科斯群岛\",\"orderNum\":4,\"pinYin\":\"TKSHKKSQD\"}," +
+            "{\"code\":\"TCD\",\"name\":\"乍得\",\"orderNum\":4,\"pinYin\":\"ZD\"}," +
+            "{\"code\":\"TGO\",\"name\":\"多哥\",\"orderNum\":4,\"pinYin\":\"DG\"}," +
+            "{\"code\":\"THA\",\"name\":\"泰国\",\"orderNum\":4,\"pinYin\":\"TG\"}," +
+            "{\"code\":\"TJK\",\"name\":\"塔吉克斯坦\",\"orderNum\":4,\"pinYin\":\"TJKST\"}," +
+            "{\"code\":\"TKL\",\"name\":\"托克劳\",\"orderNum\":4,\"pinYin\":\"TKL\"}," +
+            "{\"code\":\"TKM\",\"name\":\"土库曼斯坦\",\"orderNum\":4,\"pinYin\":\"TKMST\"}," +
+            "{\"code\":\"TON\",\"name\":\"汤加\",\"orderNum\":4,\"pinYin\":\"TJWG\"}," +
+            "{\"code\":\"TTO\",\"name\":\"特立尼达和多巴哥\",\"orderNum\":4,\"pinYin\":\"TLND\"}," +
+            "{\"code\":\"TUN\",\"name\":\"突尼斯\",\"orderNum\":4,\"pinYin\":\"TNS\"}," +
+            "{\"code\":\"TUR\",\"name\":\"土耳其\",\"orderNum\":4,\"pinYin\":\"TEQ\"}," +
+            "{\"code\":\"TUV\",\"name\":\"图瓦卢\",\"orderNum\":4,\"pinYin\":\"TWL\"}," +
+            "{\"code\":\"TZA\",\"name\":\"坦桑尼亚\",\"orderNum\":4,\"pinYin\":\"TSNY\"}," +
+            "{\"code\":\"UGA\",\"name\":\"乌干达\",\"orderNum\":4,\"pinYin\":\"WGD\"}," +
+            "{\"code\":\"UKR\",\"name\":\"乌克兰\",\"orderNum\":4,\"pinYin\":\"WKL\"}," +
+            "{\"code\":\"UMI\",\"name\":\"美属太平洋各群岛\",\"orderNum\":4,\"pinYin\":\"MSTPYGQD\"}," +
+            "{\"code\":\"UNA\",\"name\":\"联合国\",\"orderNum\":4,\"pinYin\":\"LHG\"}," +
+            "{\"code\":\"UNO\",\"name\":\"联合国\",\"orderNum\":4,\"pinYin\":\"LHG\"}," +
+            "{\"code\":\"URY\",\"name\":\"乌拉圭\",\"orderNum\":4,\"pinYin\":\"WLG\"}," +
+            "{\"code\":\"USA\",\"name\":\"美国\",\"orderNum\":4,\"pinYin\":\"MG\"}," +
+            "{\"code\":\"UZB\",\"name\":\"乌兹别克斯坦\",\"orderNum\":4,\"pinYin\":\"WZBK\"}," +
+            "{\"code\":\"VAT\",\"name\":\"梵蒂冈\",\"orderNum\":4,\"pinYin\":\"FTG\"}," +
+            "{\"code\":\"VCT\",\"name\":\"圣文森特和格林纳丁斯\",\"orderNum\":4,\"pinYin\":\"SWST\"}," +
+            "{\"code\":\"VEN\",\"name\":\"委内瑞拉\",\"orderNum\":4,\"pinYin\":\"WNRL\"}," +
+            "{\"code\":\"VGB\",\"name\":\"英属维尔京群岛\",\"orderNum\":4,\"pinYin\":\"YSWEJQD\"}," +
+            "{\"code\":\"VIR\",\"name\":\"美属维尔京群岛\",\"orderNum\":4,\"pinYin\":\"MSWEJQD\"}," +
+            "{\"code\":\"VNM\",\"name\":\"越南\",\"orderNum\":4,\"pinYin\":\"YN\"}," +
+            "{\"code\":\"VUT\",\"name\":\"瓦努阿图\",\"orderNum\":4,\"pinYin\":\"WLAT\"}," +
+            "{\"code\":\"WAK\",\"name\":\"威克岛\",\"orderNum\":4,\"pinYin\":\"WKD\"}," +
+            "{\"code\":\"WLF\",\"name\":\"瓦利斯和富图纳群岛\",\"orderNum\":4,\"pinYin\":\"WLS\"}," +
+            "{\"code\":\"WSM\",\"name\":\"萨摩亚\",\"orderNum\":4,\"pinYin\":\"SMY\"}," +
+            "{\"code\":\"XXX\",\"name\":\"无国籍\",\"orderNum\":4,\"pinYin\":\"WGJ\"}," +
+            "{\"code\":\"YEM\",\"name\":\"也门\",\"orderNum\":4,\"pinYin\":\"YM\"}," +
+            "{\"code\":\"YUG\",\"name\":\"南斯拉夫\",\"orderNum\":4,\"pinYin\":\"NSLF\"}," +
+            "{\"code\":\"ZAF\",\"name\":\"南非\",\"orderNum\":4,\"pinYin\":\"NF\"}," +
+            "{\"code\":\"ZAR\",\"name\":\"扎伊尔\",\"orderNum\":4,\"pinYin\":\"ZYE\"}," +
+            "{\"code\":\"ZMB\",\"name\":\"赞比亚\",\"orderNum\":4,\"pinYin\":\"ZBY\"}," +
+            "{\"code\":\"ZWE\",\"name\":\"津巴布韦\",\"orderNum\":4,\"pinYin\":\"JBBW\"}," +
+            "{\"code\":\"ZZZ\",\"name\":\"国籍不详\",\"orderNum\":4,\"pinYin\":\"GJBX\"}," +
+            "{\"code\":\"TWN\",\"name\":\"台湾\",\"orderNum\":4,\"pinYin\":\"TW\"}," +
+            "{\"code\":\"ALA\",\"name\":\"奥兰群岛\",\"orderNum\":4,\"pinYin\":\"ALQD\"}," +
+            "{\"code\":\"LBY\",\"name\":\"利比亚\",\"orderNum\":4,\"pinYin\":\"LBY\"}," +
+            "{\"code\":\"LCA\",\"name\":\"圣卢西亚\",\"orderNum\":4,\"pinYin\":\"SLXY\"}," +
+            "{\"code\":\"LIE\",\"name\":\"列支敦士登\",\"orderNum\":4,\"pinYin\":\"LZDSD\"}," +
+            "{\"code\":\"LKA\",\"name\":\"斯里兰卡\",\"orderNum\":4,\"pinYin\":\"SLLK\"}," +
+            "{\"code\":\"LSO\",\"name\":\"莱索托\",\"orderNum\":4,\"pinYin\":\"LST\"}," +
+            "{\"code\":\"LTU\",\"name\":\"立陶宛\",\"orderNum\":4,\"pinYin\":\"LTW\"}," +
+            "{\"code\":\"LUX\",\"name\":\"卢森堡\",\"orderNum\":4,\"pinYin\":\"LSB\"}," +
+            "{\"code\":\"LVA\",\"name\":\"拉脱维亚\",\"orderNum\":4,\"pinYin\":\"LTWY\"}," +
+            "{\"code\":\"MAC\",\"name\":\"澳门\",\"orderNum\":4,\"pinYin\":\"AM\"}," +
+            "{\"code\":\"MAR\",\"name\":\"摩洛哥\",\"orderNum\":4,\"pinYin\":\"MLG\"}," +
+            "{\"code\":\"MCO\",\"name\":\"摩纳哥\",\"orderNum\":4,\"pinYin\":\"MNG\"}," +
+            "{\"code\":\"MDA\",\"name\":\"摩尔多瓦\",\"orderNum\":4,\"pinYin\":\"MEDW\"}," +
+            "{\"code\":\"MDG\",\"name\":\"马达加斯加\",\"orderNum\":4,\"pinYin\":\"MDJSJ\"}," +
+            "{\"code\":\"MDV\",\"name\":\"马尔代夫\",\"orderNum\":4,\"pinYin\":\"MEDF\"}," +
+            "{\"code\":\"MEX\",\"name\":\"墨西哥\",\"orderNum\":4,\"pinYin\":\"MXG\"}," +
+            "{\"code\":\"MHL\",\"name\":\"马绍尔群岛\",\"orderNum\":4,\"pinYin\":\"MSEQD\"}," +
+            "{\"code\":\"MID\",\"name\":\"中途岛\",\"orderNum\":4,\"pinYin\":\"ZTD\"}," +
+            "{\"code\":\"MKD\",\"name\":\"前南马其顿\",\"orderNum\":4,\"pinYin\":\"MQD\"}," +
+            "{\"code\":\"MLI\",\"name\":\"马里\",\"orderNum\":4,\"pinYin\":\"ML\"}," +
+            "{\"code\":\"MLT\",\"name\":\"马耳他\",\"orderNum\":4,\"pinYin\":\"MET\"}," +
+            "{\"code\":\"MMR\",\"name\":\"缅甸\",\"orderNum\":4,\"pinYin\":\"MD\"}," +
+            "{\"code\":\"MNG\",\"name\":\"蒙古\",\"orderNum\":4,\"pinYin\":\"MG\"}," +
+            "{\"code\":\"MNP\",\"name\":\"北马里亚纳\",\"orderNum\":4,\"pinYin\":\"MMLYNQD\"}," +
+            "{\"code\":\"MOZ\",\"name\":\"莫桑比克\",\"orderNum\":4,\"pinYin\":\"MSBK\"}," +
+            "{\"code\":\"MRT\",\"name\":\"毛里塔尼亚\",\"orderNum\":4,\"pinYin\":\"MLTNY\"}," +
+            "{\"code\":\"MSR\",\"name\":\"蒙特塞拉特\",\"orderNum\":4,\"pinYin\":\"MTSLT\"}," +
+            "{\"code\":\"MTQ\",\"name\":\"马提尼克\",\"orderNum\":4,\"pinYin\":\"MTNK\"}," +
+            "{\"code\":\"MUS\",\"name\":\"毛里求斯\",\"orderNum\":4,\"pinYin\":\"MLQS\"}," +
+            "{\"code\":\"MWI\",\"name\":\"马拉维\",\"orderNum\":4,\"pinYin\":\"MLW\"}," +
+            "{\"code\":\"MYS\",\"name\":\"马来西亚\",\"orderNum\":4,\"pinYin\":\"MLXY\"}," +
+            "{\"code\":\"MYT\",\"name\":\"马约特\",\"orderNum\":4,\"pinYin\":\"MYT\"}," +
+            "{\"code\":\"NAM\",\"name\":\"纳米比亚\",\"orderNum\":4,\"pinYin\":\"NMBY\"}," +
+            "{\"code\":\"NCL\",\"name\":\"新喀里多尼亚\",\"orderNum\":4,\"pinYin\":\"XKLDNY\"}," +
+            "{\"code\":\"NER\",\"name\":\"尼日尔\",\"orderNum\":4,\"pinYin\":\"NRE\"}," +
+            "{\"code\":\"NFK\",\"name\":\"诺福克岛\",\"orderNum\":4,\"pinYin\":\"NFKD\"}," +
+            "{\"code\":\"NGA\",\"name\":\"尼日利亚\",\"orderNum\":4,\"pinYin\":\"NRLY\"}," +
+            "{\"code\":\"NIC\",\"name\":\"尼加拉瓜\",\"orderNum\":4,\"pinYin\":\"NJLG\"}," +
+            "{\"code\":\"NIU\",\"name\":\"纽埃\",\"orderNum\":4,\"pinYin\":\"NAD\"}," +
+            "{\"code\":\"NLD\",\"name\":\"荷兰\",\"orderNum\":4,\"pinYin\":\"HL\"}," +
+            "{\"code\":\"NOR\",\"name\":\"挪威\",\"orderNum\":4,\"pinYin\":\"NW\"}," +
+            "{\"code\":\"NPL\",\"name\":\"尼泊尔\",\"orderNum\":4,\"pinYin\":\"NBE\"}," +
+            "{\"code\":\"NRU\",\"name\":\"瑙鲁\",\"orderNum\":4,\"pinYin\":\"NL\"}," +
+            "{\"code\":\"NTZ\",\"name\":\"中间地带\",\"orderNum\":4,\"pinYin\":\"ZJDD\"}," +
+            "{\"code\":\"NZL\",\"name\":\"新西兰\",\"orderNum\":4,\"pinYin\":\"XXL\"}," +
+            "{\"code\":\"OMN\",\"name\":\"阿曼\",\"orderNum\":4,\"pinYin\":\"AM\"}," +
+            "{\"code\":\"PAK\",\"name\":\"巴基斯坦\",\"orderNum\":4,\"pinYin\":\"BJST\"}," +
+            "{\"code\":\"PAN\",\"name\":\"巴拿马\",\"orderNum\":4,\"pinYin\":\"BNM\"}," +
+            "{\"code\":\"PCN\",\"name\":\"皮特凯恩\",\"orderNum\":4,\"pinYin\":\"PTKEQD\"}," +
+            "{\"code\":\"PER\",\"name\":\"秘鲁\",\"orderNum\":4,\"pinYin\":\"BL\"}," +
+            "{\"code\":\"PHL\",\"name\":\"菲律宾\",\"orderNum\":4,\"pinYin\":\"FLB\"}," +
+            "{\"code\":\"PLW\",\"name\":\"帕劳\",\"orderNum\":4,\"pinYin\":\"PL\"}," +
+            "{\"code\":\"PNG\",\"name\":\"巴布亚新几内亚\",\"orderNum\":4,\"pinYin\":\"BBYXJNY\"}," +
+            "{\"code\":\"POL\",\"name\":\"波兰\",\"orderNum\":4,\"pinYin\":\"BL\"}," +
+            "{\"code\":\"PRI\",\"name\":\"波多黎各\",\"orderNum\":4,\"pinYin\":\"BDLG\"}," +
+            "{\"code\":\"PRK\",\"name\":\"朝鲜\",\"orderNum\":4,\"pinYin\":\"CX\"}," +
+            "{\"code\":\"PRT\",\"name\":\"葡萄牙\",\"orderNum\":4,\"pinYin\":\"PTY\"}," +
+            "{\"code\":\"PRY\",\"name\":\"巴拉圭\",\"orderNum\":4,\"pinYin\":\"BLG\"}," +
+            "{\"code\":\"PST\",\"name\":\"巴勒斯坦\",\"orderNum\":4,\"pinYin\":\"BLST\"}," +
+            "{\"code\":\"PYF\",\"name\":\"法属波利尼西亚\",\"orderNum\":4,\"pinYin\":\"FSBLNXY\"}," +
+            "{\"code\":\"QAT\",\"name\":\"卡塔尔\",\"orderNum\":4,\"pinYin\":\"KTE\"}," +
+            "{\"code\":\"REU\",\"name\":\"留尼汪\",\"orderNum\":4,\"pinYin\":\"LNW\"}," +
+            "{\"code\":\"RUS\",\"name\":\"俄罗斯\",\"orderNum\":4,\"pinYin\":\"ELS\"}," +
+            "{\"code\":\"RWA\",\"name\":\"卢旺达\",\"orderNum\":4,\"pinYin\":\"LWD\"}," +
+            "{\"code\":\"SAU\",\"name\":\"沙特阿拉伯\",\"orderNum\":4,\"pinYin\":\"STALB\"}," +
+            "{\"code\":\"DMA\",\"name\":\"多米尼克\",\"orderNum\":4,\"pinYin\":\"DMNJ\"}," +
+            "{\"code\":\"DNK\",\"name\":\"丹麦\",\"orderNum\":4,\"pinYin\":\"DM\"}," +
+            "{\"code\":\"DOM\",\"name\":\"多米尼加共和国\",\"orderNum\":4,\"pinYin\":\"DMNJGHG\"}," +
+            "{\"code\":\"DZA\",\"name\":\"阿尔及利亚\",\"orderNum\":4,\"pinYin\":\"AEJLY\"}," +
+            "{\"code\":\"ECU\",\"name\":\"厄瓜多尔\",\"orderNum\":4,\"pinYin\":\"EGDE\"}," +
+            "{\"code\":\"EGY\",\"name\":\"埃及\",\"orderNum\":4,\"pinYin\":\"AJ\"}," +
+            "{\"code\":\"ERI\",\"name\":\"厄立特里亚\",\"orderNum\":4,\"pinYin\":\"ELTLY\"}," +
+            "{\"code\":\"ESH\",\"name\":\"西撒哈拉\",\"orderNum\":4,\"pinYin\":\"XSHL\"}," +
+            "{\"code\":\"ESP\",\"name\":\"西班牙\",\"orderNum\":4,\"pinYin\":\"XBY\"}," +
+            "{\"code\":\"EST\",\"name\":\"爱沙尼亚\",\"orderNum\":4,\"pinYin\":\"ASNY\"}," +
+            "{\"code\":\"ETH\",\"name\":\"埃塞俄比亚\",\"orderNum\":4,\"pinYin\":\"ASEBY\"}," +
+            "{\"code\":\"FIN\",\"name\":\"芬兰\",\"orderNum\":4,\"pinYin\":\"FL\"}," +
+            "{\"code\":\"FJI\",\"name\":\"斐济\",\"orderNum\":4,\"pinYin\":\"FJ\"}," +
+            "{\"code\":\"FLK\",\"name\":\"福兰克群岛（马尔维纳斯）\",\"orderNum\":4,\"pinYin\":\"FKLQD\"}," +
+            "{\"code\":\"FRA\",\"name\":\"法国\",\"orderNum\":4,\"pinYin\":\"FG\"}," +
+            "{\"code\":\"FRO\",\"name\":\"法罗群岛\",\"orderNum\":4,\"pinYin\":\"FLQD\"}," +
+            "{\"code\":\"FSM\",\"name\":\"密克罗尼西亚联邦\",\"orderNum\":4,\"pinYin\":\"MKLNXY\"}," +
+            "{\"code\":\"GAB\",\"name\":\"加蓬\",\"orderNum\":4,\"pinYin\":\"JP\"}," +
+            "{\"code\":\"GBR\",\"name\":\"英国\",\"orderNum\":4,\"pinYin\":\"YG\"}," +
+            "{\"code\":\"GEO\",\"name\":\"格鲁吉亚\",\"orderNum\":4,\"pinYin\":\"GLJY\"}," +
+            "{\"code\":\"GHA\",\"name\":\"加纳\",\"orderNum\":4,\"pinYin\":\"JN\"}," +
+            "{\"code\":\"GIB\",\"name\":\"直布罗陀\",\"orderNum\":4,\"pinYin\":\"ZBLT\"}," +
+            "{\"code\":\"GIN\",\"name\":\"几内亚\",\"orderNum\":4,\"pinYin\":\"JNY\"}," +
+            "{\"code\":\"GLP\",\"name\":\"瓜德罗普\",\"orderNum\":4,\"pinYin\":\"GDLP\"}," +
+            "{\"code\":\"GMB\",\"name\":\"冈比亚\",\"orderNum\":4,\"pinYin\":\"GBY\"}," +
+            "{\"code\":\"GNB\",\"name\":\"几内亚比绍\",\"orderNum\":4,\"pinYin\":\"JNYBS\"}," +
+            "{\"code\":\"GNQ\",\"name\":\"赤道几内亚\",\"orderNum\":4,\"pinYin\":\"CDJNY\"}," +
+            "{\"code\":\"GRC\",\"name\":\"希腊\",\"orderNum\":4,\"pinYin\":\"XL\"}," +
+            "{\"code\":\"GRD\",\"name\":\"格林纳达\",\"orderNum\":4,\"pinYin\":\"GLND\"}," +
+            "{\"code\":\"GRL\",\"name\":\"格陵兰\",\"orderNum\":4,\"pinYin\":\"GLN\"}," +
+            "{\"code\":\"GTM\",\"name\":\"危地马拉\",\"orderNum\":4,\"pinYin\":\"WDML\"}," +
+            "{\"code\":\"GUF\",\"name\":\"法属圭亚那\",\"orderNum\":4,\"pinYin\":\"FSGYN\"}," +
+            "{\"code\":\"GUM\",\"name\":\"关岛\",\"orderNum\":4,\"pinYin\":\"GD\"}," +
+            "{\"code\":\"GUY\",\"name\":\"圭亚那\",\"orderNum\":4,\"pinYin\":\"GYN\"}," +
+            "{\"code\":\"HKG\",\"name\":\"香港\",\"orderNum\":4,\"pinYin\":\"XG\"}," +
+            "{\"code\":\"HMD\",\"name\":\"赫德岛和麦克唐纳岛\",\"orderNum\":4,\"pinYin\":\"HDD\"}," +
+            "{\"code\":\"HND\",\"name\":\"洪都拉斯\",\"orderNum\":4,\"pinYin\":\"HDLS\"}," +
+            "{\"code\":\"HRV\",\"name\":\"克罗地亚\",\"orderNum\":4,\"pinYin\":\"KLDY\"}," +
+            "{\"code\":\"HTI\",\"name\":\"海地\",\"orderNum\":4,\"pinYin\":\"HD\"}," +
+            "{\"code\":\"HUN\",\"name\":\"匈牙利\",\"orderNum\":4,\"pinYin\":\"XYL\"}," +
+            "{\"code\":\"IDN\",\"name\":\"印度尼西亚\",\"orderNum\":4,\"pinYin\":\"YDNXY\"}," +
+            "{\"code\":\"IND\",\"name\":\"印度\",\"orderNum\":4,\"pinYin\":\"YD\"}," +
+            "{\"code\":\"IOT\",\"name\":\"英属印度洋领土\",\"orderNum\":4,\"pinYin\":\"YSYDYLT\"}," +
+            "{\"code\":\"IRL\",\"name\":\"爱尔兰\",\"orderNum\":4,\"pinYin\":\"AEL\"}," +
+            "{\"code\":\"IRN\",\"name\":\"伊朗\",\"orderNum\":4,\"pinYin\":\"YL\"}," +
+            "{\"code\":\"IRQ\",\"name\":\"伊拉克\",\"orderNum\":4,\"pinYin\":\"YLK\"}," +
+            "{\"code\":\"ISL\",\"name\":\"冰岛\",\"orderNum\":4,\"pinYin\":\"BD\"}," +
+            "{\"code\":\"ISR\",\"name\":\"以色列\",\"orderNum\":4,\"pinYin\":\"YSL\"}," +
+            "{\"code\":\"ITA\",\"name\":\"意大利\",\"orderNum\":4,\"pinYin\":\"YDL\"}," +
+            "{\"code\":\"JAM\",\"name\":\"牙买加\",\"orderNum\":4,\"pinYin\":\"YMJ\"}," +
+            "{\"code\":\"JOR\",\"name\":\"约旦\",\"orderNum\":4,\"pinYin\":\"YD\"}," +
+            "{\"code\":\"JPN\",\"name\":\"日本\",\"orderNum\":4,\"pinYin\":\"RB\"}," +
+            "{\"code\":\"JTN\",\"name\":\"约翰斯顿岛\",\"orderNum\":4,\"pinYin\":\"YHSDD\"}," +
+            "{\"code\":\"KAZ\",\"name\":\"哈萨克斯坦\",\"orderNum\":4,\"pinYin\":\"HSKST\"}," +
+            "{\"code\":\"KEN\",\"name\":\"肯尼亚\",\"orderNum\":4,\"pinYin\":\"KNY\"}," +
+            "{\"code\":\"KGZ\",\"name\":\"吉尔吉斯斯坦\",\"orderNum\":4,\"pinYin\":\"JEJSST\"}," +
+            "{\"code\":\"KHM\",\"name\":\"柬埔寨\",\"orderNum\":4,\"pinYin\":\"JPZ\"}," +
+            "{\"code\":\"KIR\",\"name\":\"基里巴斯\",\"orderNum\":4,\"pinYin\":\"JLBS\"}," +
+            "{\"code\":\"KNA\",\"name\":\"圣基茨和尼维斯\",\"orderNum\":4,\"pinYin\":\"SKLSTF\"}," +
+            "{\"code\":\"KOR\",\"name\":\"韩国\",\"orderNum\":4,\"pinYin\":\"HG\"}," +
+            "{\"code\":\"KWT\",\"name\":\"科威特\",\"orderNum\":4,\"pinYin\":\"KWT\"}," +
+            "{\"code\":\"LAO\",\"name\":\"老挝\",\"orderNum\":4,\"pinYin\":\"LW\"}," +
+            "{\"code\":\"LBN\",\"name\":\"黎巴嫩\",\"orderNum\":4,\"pinYin\":\"LBN\"}," +
+            "{\"code\":\"LBR\",\"name\":\"利比里亚\",\"orderNum\":4,\"pinYin\":\"LBLY\"}," +
+            "{\"code\":\"SSD\",\"name\":\"南苏丹\",\"orderNum\":4,\"pinYin\":\"NSD\"}," +
+            "{\"code\":\"MNE\",\"name\":\"黑山\",\"orderNum\":4,\"pinYin\":\"HS\"}," +
+            "{\"code\":\"ROU\",\"name\":\"罗马尼亚\",\"orderNum\":4,\"pinYin\":\"LMNY\"}," +
+            "{\"code\":\"TLS\",\"name\":\"东帝汶\",\"orderNum\":4,\"pinYin\":\"DDW\"}," +
+            "{\"code\":\"GBD\",\"name\":\"英国（独立领土公民）\",\"orderNum\":4,\"pinYin\":\"YG\"}," +
+            "{\"code\":\"GBN\",\"name\":\"英国（海外国民）\",\"orderNum\":4,\"pinYin\":\"YG\"}," +
+            "{\"code\":\"GBS\",\"name\":\"英国（隶属）\",\"orderNum\":4,\"pinYin\":\"YG\"}," +
+            "{\"code\":\"ABW\",\"name\":\"阿鲁巴\",\"orderNum\":4,\"pinYin\":\"ALBD\"}," +
+            "{\"code\":\"AFG\",\"name\":\"阿富汗\",\"orderNum\":4,\"pinYin\":\"AFH\"}," +
+            "{\"code\":\"AGO\",\"name\":\"安哥拉\",\"orderNum\":4,\"pinYin\":\"AGL\"}," +
+            "{\"code\":\"AIA\",\"name\":\"安圭拉\",\"orderNum\":4,\"pinYin\":\"AGL\"}," +
+            "{\"code\":\"ALB\",\"name\":\"阿尔巴尼亚\",\"orderNum\":4,\"pinYin\":\"AEBNY\"}," +
+            "{\"code\":\"AND\",\"name\":\"安道尔\",\"orderNum\":4,\"pinYin\":\"ADE\"}," +
+            "{\"code\":\"ANT\",\"name\":\"荷属安的列斯\",\"orderNum\":4,\"pinYin\":\"HSADLS\"}," +
+            "{\"code\":\"ARE\",\"name\":\"阿联酋\",\"orderNum\":4,\"pinYin\":\"ALBLHQZG\"}," +
+            "{\"code\":\"ARG\",\"name\":\"阿根廷\",\"orderNum\":4,\"pinYin\":\"AGT\"}," +
+            "{\"code\":\"ARM\",\"name\":\"亚美尼亚\",\"orderNum\":4,\"pinYin\":\"YMNY\"}," +
+            "{\"code\":\"ASM\",\"name\":\"美属萨摩亚\",\"orderNum\":4,\"pinYin\":\"MSSMY\"}," +
+            "{\"code\":\"ATA\",\"name\":\"南极洲\",\"orderNum\":4,\"pinYin\":\"NJZ\"}," +
+            "{\"code\":\"ATF\",\"name\":\"法属南部领土\",\"orderNum\":4,\"pinYin\":\"FSNBLT\"}," +
+            "{\"code\":\"ATG\",\"name\":\"安提瓜和巴布达\",\"orderNum\":4,\"pinYin\":\"ATG\"}," +
+            "{\"code\":\"AUS\",\"name\":\"澳大利亚\",\"orderNum\":4,\"pinYin\":\"ADLY\"}," +
+            "{\"code\":\"AUT\",\"name\":\"奥地利\",\"orderNum\":4,\"pinYin\":\"ADL\"}," +
+            "{\"code\":\"AZE\",\"name\":\"阿塞拜疆\",\"orderNum\":4,\"pinYin\":\"ASBJ\"}," +
+            "{\"code\":\"BDI\",\"name\":\"布隆迪\",\"orderNum\":4,\"pinYin\":\"BLD\"}," +
+            "{\"code\":\"BEL\",\"name\":\"比利时\",\"orderNum\":4,\"pinYin\":\"BLS\"}," +
+            "{\"code\":\"BEN\",\"name\":\"贝宁\",\"orderNum\":4,\"pinYin\":\"BN\"}," +
+            "{\"code\":\"BFA\",\"name\":\"布基纳法索\",\"orderNum\":4,\"pinYin\":\"BJNFS\"}," +
+            "{\"code\":\"BGD\",\"name\":\"孟加拉国\",\"orderNum\":4,\"pinYin\":\"MJLG\"}," +
+            "{\"code\":\"BGR\",\"name\":\"保加利亚\",\"orderNum\":4,\"pinYin\":\"BJLY\"}," +
+            "{\"code\":\"BHR\",\"name\":\"巴林\",\"orderNum\":4,\"pinYin\":\"BL\"}," +
+            "{\"code\":\"BHS\",\"name\":\"巴哈马\",\"orderNum\":4,\"pinYin\":\"BHM\"}," +
+            "{\"code\":\"BIH\",\"name\":\"波斯尼亚和黑塞哥维那\",\"orderNum\":4,\"pinYin\":\"BSNY\"}," +
+            "{\"code\":\"BLR\",\"name\":\"白俄罗斯\",\"orderNum\":4,\"pinYin\":\"BELS\"}," +
+            "{\"code\":\"BLZ\",\"name\":\"伯利兹\",\"orderNum\":4,\"pinYin\":\"BLZ\"}," +
+            "{\"code\":\"BMU\",\"name\":\"百慕大\",\"orderNum\":4,\"pinYin\":\"BMD\"}," +
+            "{\"code\":\"BOL\",\"name\":\"玻利维亚\",\"orderNum\":4,\"pinYin\":\"BLWY\"}," +
+            "{\"code\":\"BRA\",\"name\":\"巴西\",\"orderNum\":4,\"pinYin\":\"BX\"}," +
+            "{\"code\":\"BRB\",\"name\":\"巴巴多斯\",\"orderNum\":4,\"pinYin\":\"BBDS\"}," +
+            "{\"code\":\"BRN\",\"name\":\"文莱\",\"orderNum\":4,\"pinYin\":\"WL\"}," +
+            "{\"code\":\"BTN\",\"name\":\"不丹\",\"orderNum\":4,\"pinYin\":\"BD\"}," +
+            "{\"code\":\"BVT\",\"name\":\"布维岛\",\"orderNum\":4,\"pinYin\":\"BWD\"}," +
+            "{\"code\":\"BWA\",\"name\":\"博茨瓦纳\",\"orderNum\":4,\"pinYin\":\"BZWN\"}," +
+            "{\"code\":\"CAF\",\"name\":\"中非\",\"orderNum\":4,\"pinYin\":\"ZF\"}," +
+            "{\"code\":\"CAN\",\"name\":\"加拿大\",\"orderNum\":4,\"pinYin\":\"JND\"}," +
+            "{\"code\":\"CCK\",\"name\":\"科科斯（基林）群岛\",\"orderNum\":4,\"pinYin\":\"KKQD\"}," +
+            "{\"code\":\"CHE\",\"name\":\"瑞士\",\"orderNum\":4,\"pinYin\":\"RS\"}," +
+            "{\"code\":\"CHL\",\"name\":\"智利\",\"orderNum\":4,\"pinYin\":\"ZL\"}," +
+            "{\"code\":\"CIV\",\"name\":\"科特迪瓦\",\"orderNum\":4,\"pinYin\":\"KTDW\"}," +
+            "{\"code\":\"CMR\",\"name\":\"喀麦隆\",\"orderNum\":4,\"pinYin\":\"KML\"}," +
+            "{\"code\":\"COD\",\"name\":\"刚果（金）\",\"orderNum\":4,\"pinYin\":\"GGMZGHG\"}," +
+            "{\"code\":\"COG\",\"name\":\"刚果（布）\",\"orderNum\":4,\"pinYin\":\"GG\"}," +
+            "{\"code\":\"COK\",\"name\":\"库克群岛\",\"orderNum\":4,\"pinYin\":\"KKQD\"}," +
+            "{\"code\":\"COL\",\"name\":\"哥伦比亚\",\"orderNum\":4,\"pinYin\":\"GLBY\"}," +
+            "{\"code\":\"COM\",\"name\":\"科摩罗\",\"orderNum\":4,\"pinYin\":\"KML\"}," +
+            "{\"code\":\"CPV\",\"name\":\"佛得角\",\"orderNum\":4,\"pinYin\":\"FDJ\"}," +
+            "{\"code\":\"CRI\",\"name\":\"哥斯达黎加\",\"orderNum\":4,\"pinYin\":\"GSDLJ\"}," +
+            "{\"code\":\"CUB\",\"name\":\"古巴\",\"orderNum\":4,\"pinYin\":\"GB\"}," +
+            "{\"code\":\"CXR\",\"name\":\"圣诞岛\",\"orderNum\":4,\"pinYin\":\"SSD\"}," +
+            "{\"code\":\"CYM\",\"name\":\"开曼群岛\",\"orderNum\":4,\"pinYin\":\"KMQD\"}," +
+            "{\"code\":\"CYP\",\"name\":\"塞浦路斯\",\"orderNum\":4,\"pinYin\":\"SPLS\"}," +
+            "{\"code\":\"CZE\",\"name\":\"捷克\",\"orderNum\":4,\"pinYin\":\"JK\"}," +
+            "{\"code\":\"DEU\",\"name\":\"德国\",\"orderNum\":4,\"pinYin\":\"DG\"}," +
+            "{\"code\":\"DJI\",\"name\":\"吉布提\",\"orderNum\":4,\"pinYin\":\"JBT\"}]";
+
+    /** 获取国籍数据 */
+    public static List<NationBean> getNations(){
+        return JSON.parseArray(NATION_JSON, NationBean.class);
+    }
+
+    /** 获取索引标题数据 */
+    public static List<String> getIndexTitle(){
+        return ArrayUtils.arrayToList(INDEX_TITLE);
+    }
+}

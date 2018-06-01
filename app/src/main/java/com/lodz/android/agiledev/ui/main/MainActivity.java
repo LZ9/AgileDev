@@ -22,6 +22,7 @@ import com.lodz.android.agiledev.ui.dialogfragment.DialogFragmentTestActivity;
 import com.lodz.android.agiledev.ui.download.DownloadTestActivity;
 import com.lodz.android.agiledev.ui.idcard.IdcardTestActivity;
 import com.lodz.android.agiledev.ui.image.GlideActivity;
+import com.lodz.android.agiledev.ui.index.IndexBarTestActivity;
 import com.lodz.android.agiledev.ui.location.LocationActivity;
 import com.lodz.android.agiledev.ui.media.RecordActivity;
 import com.lodz.android.agiledev.ui.mvc.MvcDemoActivity;
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity{
             "DialogFragment测试类", "Glide测试", "注解测试类",
             "WebView测试类", "下载测试类", "MVC模式测试类",
             "身份证号码测试类", "BottomSheets测试类", "CardView测试类",
-            "共享元素动画");
+            "共享元素动画", "索引栏测试类");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -90,7 +91,7 @@ public class MainActivity extends BaseActivity{
             DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class,
             WebViewTestActivity.class, DownloadTestActivity.class, MvcDemoActivity.class,
             IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class,
-            ShareAnimationActivity.class};
+            ShareAnimationActivity.class, IndexBarTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";
