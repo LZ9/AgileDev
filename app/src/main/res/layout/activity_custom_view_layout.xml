@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.lodz.android.agiledev.ui.customview.CustomView
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:background="@color/color_ea8380"
+        android:padding="10dp" />
+
+    <com.lodz.android.agiledev.ui.customview.CustomViewGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="20dp"
+        android:background="@color/color_ea413c">
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:background="@color/green" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@color/color_3981ef" />
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@color/color_ffa630" />
+
+    </com.lodz.android.agiledev.ui.customview.CustomViewGroup>
+
+</FrameLayout>

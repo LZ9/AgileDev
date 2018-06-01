@@ -425,6 +425,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.customview.CustomViewTestActivity"
+            android:label="自定义控件测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
     </application>
 
