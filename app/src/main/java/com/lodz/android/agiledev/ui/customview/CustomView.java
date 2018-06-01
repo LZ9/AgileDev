@@ -1,13 +1,16 @@
 package com.lodz.android.agiledev.ui.customview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -16,7 +19,22 @@ import android.view.View;
  */
 public class CustomView extends View{
 
+    /** 画笔 */
     private Paint mPaint;
+
+    /** 半径 */
+    private int mRadius;
+    /** 圆心X坐标 */
+    private int mCenterX;
+    /** 圆心Y坐标 */
+    private int mCenterY;
+
+    /** 按下的X坐标 */
+    private float mPressX;
+    /** 按下的Y坐标 */
+    private float mPressY;
+    /** 圆点击监听器 */
+    private OnClickListener mCircleClickListener;
 
     public CustomView(Context context) {
         super(context);
@@ -47,6 +65,22 @@ public class CustomView extends View{
         mPaint.setStyle(Paint.Style.FILL);
     }
 
+    /**
+     * 设置圆点击监听器
+     * @param listener 监听器
+     */
+    public void setOnCircleClickListener(OnClickListener listener){
+        mCircleClickListener = listener;
+    }
+
+    /**
+     * 设置圆的颜色
+     * @param color 颜色
+     */
+    public void setCircleColor(@ColorInt int color){
+        mPaint.setColor(color);
+        invalidate();
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -84,11 +118,42 @@ public class CustomView extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int radius = (getContentRight() - getContentLeft()) / 2;
-        int centerX = (getRight() - getLeft()) / 2;
-        int centerY = (getBottom() - getTop()) / 2;
-        canvas.drawCircle(centerX, centerY, radius, mPaint);
+        mRadius = (getContentRight() - getContentLeft()) / 2;
+        mCenterX = (getRight() - getLeft()) / 2;
+        mCenterY = (getBottom() - getTop()) / 2;
+        canvas.drawCircle(mCenterX, mCenterY, mRadius, mPaint);
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                // 获取用户按下时的X、Y坐标
+                mPressX = event.getX();
+                mPressY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                // 手指的偏移量绝对值超过10表示当前不是点击事件
+                if (Math.abs(mPressX - event.getX()) > 10){
+                    mPressX = -1;
+                }
+                if (Math.abs(mPressY - event.getY()) > 10){
+                    mPressY = -1;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (mPressX != -1 && mPressY != -1 && isInCircle(mPressX, mPressY, mCenterX, mCenterY, mRadius) && mCircleClickListener != null) {
+                    mCircleClickListener.onClick(this);
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                mPressX = -1;
+                mPressY = -1;
+            default:
+                break;
+        }
+        return true;
     }
 
     private int getContentLeft(){
@@ -105,5 +170,18 @@ public class CustomView extends View{
 
     private int getContentBottom(){
         return getBottom() - getPaddingBottom();
+    }
+
+    /**
+     * 某个点是否在圆内
+     * @param x 点的X坐标
+     * @param y 要判断的点的Y坐标
+     * @param cx 圆心纵坐标
+     * @param cy 圆心横坐标
+     * @param radius 圆的半径
+     */
+    private boolean isInCircle(double x, double y, double cx, double cy, double radius) {
+        double distance = Math.abs(Math.hypot((x - cx), (y - cy)));
+        return distance <= radius;
     }
 }

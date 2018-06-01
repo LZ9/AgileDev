@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <com.lodz.android.agiledev.ui.customview.CustomView
+        android:id="@+id/custom_view"
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
