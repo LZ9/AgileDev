@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.bean.NationBean;
@@ -12,6 +13,7 @@ import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.adapter.decoration.SectionItemDecoration;
 import com.lodz.android.component.widget.adapter.decoration.StickyItemDecoration;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
+import com.lodz.android.component.widget.index.IndexBar;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
@@ -25,6 +27,13 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2018/6/1.
  */
 public class IndexBarTestActivity extends BaseActivity{
+
+    /** 索引栏 */
+    @BindView(R.id.index_bar)
+    IndexBar mIndexBar;
+    /** 提示控件 */
+    @BindView(R.id.hint)
+    TextView mHintTv;
 
     /** 列表 */
     @BindView(R.id.recycler_view)
@@ -43,6 +52,7 @@ public class IndexBarTestActivity extends BaseActivity{
         ButterKnife.bind(this);
         getTitleBarLayout().setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
         initRecyclerView();
+        initIndexBar();
     }
 
     private void initRecyclerView() {
@@ -54,6 +64,14 @@ public class IndexBarTestActivity extends BaseActivity{
         mRecyclerView.addItemDecoration(getItemDecoration());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void initIndexBar() {
+        mIndexBar.setIndexTextColorRes(R.color.color_00a0e9);
+        mIndexBar.setIndexTextSize(15);
+        mIndexBar.setTextBold(false);
+        mIndexBar.setPressBgColorRes(R.color.color_ebece7);
+        mIndexBar.setHintTextView(mHintTv);
     }
 
     private RecyclerView.ItemDecoration getItemDecoration() {
@@ -87,6 +105,18 @@ public class IndexBarTestActivity extends BaseActivity{
                 ToastUtils.showShort(getContext(), item.getTitle());
             }
         });
+
+        mIndexBar.setOnIndexListener(new IndexBar.OnIndexListener() {
+            @Override
+            public void onStart(int position, String indexText) {
+                mRecyclerView.scrollToPosition(ArrayUtils.getPositionByIndex(mList, indexText));
+            }
+
+            @Override
+            public void onEnd() {
+
+            }
+        });
     }
 
     @Override
@@ -95,6 +125,7 @@ public class IndexBarTestActivity extends BaseActivity{
         mList = getNations();
         mAdapter.setData(mList);
         mAdapter.notifyDataSetChanged();
+        mIndexBar.setIndexList(NationDataFactory.getIndexTitle());
         showStatusCompleted();
     }
 

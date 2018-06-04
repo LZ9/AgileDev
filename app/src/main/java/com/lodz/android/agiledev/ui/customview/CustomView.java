@@ -147,9 +147,6 @@ public class CustomView extends View{
                     mCircleClickListener.onClick(this);
                 }
                 break;
-            case MotionEvent.ACTION_CANCEL:
-                mPressX = -1;
-                mPressY = -1;
             default:
                 break;
         }

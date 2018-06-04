@@ -399,5 +399,34 @@ public class ArrayUtils {
         return results;
     }
 
+    /**
+     * 通过索引文字来获取原数据列表里的首个item位置
+     * @param source 原数据列表
+     * @param indexText 索引文字
+     */
+    public static <T> int getPositionByIndex(List<T> source, String indexText){
+        if (isEmpty(source) || TextUtils.isEmpty(indexText)){
+            return 0;
+        }
+        for (int i = 0; i < source.size(); i++) {
+            T t = source.get(i);
+            if (t instanceof Groupable || t instanceof String) {
+                String item = t instanceof Groupable ? ((Groupable) t).getSortStr() : (String) t;
+                if (TextUtils.isEmpty(item)) {
+                    continue;
+                }
+                if (item.length() <= indexText.length()){// 列表文字长度小于等于索引字符长度
+                    if (item.equals(indexText.substring(0, item.length()))){
+                        return i;
+                    }
+                }else {
+                    if (indexText.equals(item.substring(0, indexText.length()))){
+                        return i;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
 
 }
