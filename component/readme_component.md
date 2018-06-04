@@ -730,7 +730,7 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
 - 其余调用方法与SectionItemDecoration一致
 
 #### f)粘黏标签装饰器StickyItemDecoration
-1)使用方法与SectionItemDecoration一致，只是分组标签的展示改为粘黏效果，使用方法：
+1)使用方法与[SectionItemDecoration](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#d分组标签装饰器SectionItemDecoration)一致，只是分组标签的展示改为粘黏效果，使用方法：
 ```
     StickyItemDecoration.<T>create(getContext())
         .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<T>() {
@@ -750,7 +750,7 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
 ```
 
 #### g)固定数据的粘黏标签装饰器StickyFixItemDecoration
-1)使用方法与SectionFixItemDecoration一致，只是分组标签的展示改为粘黏效果，使用方法：
+1)使用方法与[SectionFixItemDecoration](https://github.com/LZ9/AgileDev/blob/master/component/readme_component.md#e固定数据的分组标签装饰器SectionFixItemDecoration)一致，只是分组标签的展示改为粘黏效果，使用方法：
 ```
     StickyFixItemDecoration.create(getContext(), sections, source)
         .setSectionHeight(40)// 设置分组高度
