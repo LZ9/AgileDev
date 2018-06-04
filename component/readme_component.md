@@ -677,6 +677,92 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
 - dp是分割线宽度（单位dp）
 - color为分割线颜色
 
+#### d)分组标签装饰器SectionItemDecoration
+1)该装饰器的分组标题由item里字符串的第一位截取，小伙伴可以搭配下面的方法先将原始数据排序
+```
+    ArrayUtils.groupList(List<T> source, List<String> groups)
+```
+- source是原始数据
+- groups是标签列表
+- 泛型T可以为String或者实现了Groupable的任意类
+
+2)使用方法
+```
+    SectionItemDecoration.<T>create(getContext())
+        .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<T>() {
+            @Override
+            public String getSourceItem(int position) {
+                return source.get(position);// 根据position获取原数据
+            }
+        })
+        .setSectionHeight(40)// 设置分组高度
+        .setSectionTextSize(22)// 设置分组文字大小
+        .setSectionTextTypeface(Typeface.DEFAULT_BOLD)// 设置分组文字样式
+        .setSectionTextColorRes(R.color.white)// 设置分组文字颜色
+        .setSectionTextColorInt(Color.BLACK)// 设置分组文字颜色
+        .setSectionTextPaddingLeftDp(8)// 设置分组文字左侧间距
+        .setSectionBgColorRes(R.color.color_ea8380);// 设置分组背景色
+        .setSectionBgColorInt(COLOR.WHITE);// 设置分组背景色
+```
+- 泛型T可以为String或者实现了Groupable的任意类，请务必要指定否则不会显示分组
+- 设置文字颜色时可在setSectionTextColorRes和setSectionTextColorInt二选一
+- 设置分组背景时可在setSectionBgColorRes和setSectionBgColorInt二选一
+- setOnSectionCallback()一定要设置，否则不会出现分组
+- 请务必确保source的顺序已经经过分组排序，否则会出现多个重复分组标题
+
+#### e)固定数据的分组标签装饰器SectionFixItemDecoration
+1)该装饰器支持自定义分组标题的数据集合，使用方式如下：
+```
+    SectionFixItemDecoration.create(getContext(), sections, source)
+        .setSectionHeight(40)// 设置分组高度
+        .setSectionTextSize(22)// 设置分组文字大小
+        .setSectionTextTypeface(Typeface.DEFAULT_BOLD)// 设置分组文字样式
+        .setSectionTextColorRes(R.color.white)// 设置分组文字颜色
+        .setSectionTextColorInt(Color.BLACK)// 设置分组文字颜色
+        .setSectionTextPaddingLeftDp(8)// 设置分组文字左侧间距
+        .setSectionBgColorRes(R.color.color_ea8380);// 设置分组背景色
+        .setSectionBgColorInt(COLOR.WHITE);// 设置分组背景色
+```
+- sections为分组标题列表
+- sources为各组数据列表集
+- sections的长度必须和sources的长度一致，即有几个标题，就要有几个数据列表
+- sections.get(0)这个标题对应sources.get(0)这组数据，请在设置前确保数据顺序正确
+- 其余调用方法与SectionItemDecoration一致
+
+#### f)粘黏标签装饰器StickyItemDecoration
+1)使用方法与SectionItemDecoration一致，只是分组标签的展示改为粘黏效果，使用方法：
+```
+    StickyItemDecoration.<T>create(getContext())
+        .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<T>() {
+            @Override
+            public String getSourceItem(int position) {
+                return mList.get(position);
+            }
+        })
+        .setSectionHeight(40)// 设置分组高度
+        .setSectionTextSize(22)// 设置分组文字大小
+        .setSectionTextTypeface(Typeface.DEFAULT_BOLD)// 设置分组文字样式
+        .setSectionTextColorRes(R.color.white)// 设置分组文字颜色
+        .setSectionTextColorInt(Color.BLACK)// 设置分组文字颜色
+        .setSectionTextPaddingLeftDp(8)// 设置分组文字左侧间距
+        .setSectionBgColorRes(R.color.color_ea8380);// 设置分组背景色
+        .setSectionBgColorInt(COLOR.WHITE);// 设置分组背景色
+```
+
+#### g)固定数据的粘黏标签装饰器StickyFixItemDecoration
+1)使用方法与SectionFixItemDecoration一致，只是分组标签的展示改为粘黏效果，使用方法：
+```
+    StickyFixItemDecoration.create(getContext(), sections, source)
+        .setSectionHeight(40)// 设置分组高度
+        .setSectionTextSize(22)// 设置分组文字大小
+        .setSectionTextTypeface(Typeface.DEFAULT_BOLD)// 设置分组文字样式
+        .setSectionTextColorRes(R.color.white)// 设置分组文字颜色
+        .setSectionTextColorInt(Color.BLACK)// 设置分组文字颜色
+        .setSectionTextPaddingLeftDp(8)// 设置分组文字左侧间距
+        .setSectionBgColorRes(R.color.color_ea8380);// 设置分组背景色
+        .setSectionBgColorInt(COLOR.WHITE);// 设置分组背景色
+```
+
 ## 7、Dialog相关
 ### 1）BaseDialog
 a）BaseDialog继承自Dialog，小伙伴继承BaseDialog后可以实现下面两个方法，分别传入布局layout和获取控件id
