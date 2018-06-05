@@ -1401,6 +1401,63 @@ app:inputTextSize|输入框文字大小|16sp
 app:isShowVerticalLine|是否显示竖线|true
 app:verticalLineBackground|竖线背景|@color/color_ea8380
 
+### 9）IndexBar
+- 索引标题栏IndexBar，支持横向索引和纵向索引，可以通过下面的方法来订制
+```
+    // 设置索引文字颜色
+    public void setIndexTextColorInt(@ColorInt int color)
+    // 设置索引文字颜色
+    public void setIndexTextColorRes(@ColorRes int color)
+    // 设置索引文字大小
+    public void setIndexTextSize(int sp)
+    // 文字是否粗体
+    public void setTextBold(boolean isBold)
+    // 设置按下索引栏的背景色
+    public void setPressBgColorInt(@ColorInt int color)
+    // 设置按下索引栏的背景色
+    public void setPressBgColorRes(@ColorRes int color)
+    // 设置提示控件
+    public void setHintTextView(TextView textView)
+    // 设置索引数据列表，请在配置完全部方法后最后调用该方法进行数据绘制
+    public void setIndexList(List<String> list)
+    // 设置索引监听器
+    mIndexBar.setOnIndexListener(new IndexBar.OnIndexListener() {
+        @Override
+        public void onStart(int position, String indexText) {
+            // 触摸开始，回调索引位置和索引文字
+        }
+
+        @Override
+        public void onEnd() {
+            // 结束触摸
+        }
+    });
+```
+
+- xml调用方法
+```
+    <com.lodz.android.component.widget.index.IndexBar
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        app:indexTextColor="@color/color_00a0e9"
+        app:indexTextSize="15sp"
+        app:isTextBold="false"
+        app:pressBackgroundColor="@color/color_11000000" />
+```
+
+- 自定义属性列表
+
+属性|描述|参数用例
+:---|:---|:---
+app:indexTextColor|索引文字颜色|@color/color_00a0e9
+app:indexTextSize|索引文字大小|15sp
+app:isTextBold|索引文字是否粗体|true
+app:pressBackgroundColor|按下时的背景色|@color/color_11000000
+
 ## 9、MVP相关
 ### 1）基础的Activity实现
 - 定义一个接口 **VC** 继承 **ViewContract** ，在 **VC** 中定义你的UI更新接口
