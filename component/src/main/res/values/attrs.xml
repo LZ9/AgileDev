@@ -135,4 +135,13 @@
         <attr name="spanCount" format="integer" />
         <attr name="itemHigh" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="IndexBar">
+        <attr name="indexTextColor" format="color" />
+        <attr name="indexTextSize" format="dimension" />
+        <attr name="isTextBold" format="boolean" />
+        <attr name="pressBackgroundColor" format="reference|color" />
+    </declare-styleable>
+
+
 </resources>

@@ -2,8 +2,12 @@ package com.lodz.android.component.widget.index;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -18,7 +22,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lodz.android.component.R;
 import com.lodz.android.core.utils.ArrayUtils;
+import com.lodz.android.core.utils.DensityUtils;
 
 import java.util.List;
 
@@ -31,13 +37,14 @@ public class IndexBar extends LinearLayout{
     /** 索引文字颜色 */
     @ColorInt
     private int mTextColor = Color.BLACK;
+    /** 索引文字颜色 */
+    private ColorStateList mTextColorStateList;
     /** 索引文字大小 */
     private int mTextSizeSp = 13;
     /** 文字是否粗体 */
     private boolean isTextBold = true;
     /** 按下索引栏的背景色 */
-    @ColorInt
-    private int mPressBgColor = Color.TRANSPARENT;
+    private Drawable mPressBgDrawable;
     /** 索引监听器 */
     private OnIndexListener mOnIndexListener;
 
@@ -46,27 +53,42 @@ public class IndexBar extends LinearLayout{
 
     public IndexBar(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public IndexBar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     public IndexBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public IndexBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(attrs);
     }
 
-    private void init(){
+    private void init(AttributeSet attrs){
+        TypedArray typedArray = null;
+        if (attrs != null){
+            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.IndexBar);
+        }
 
+        mTextColorStateList = typedArray == null ? null : typedArray.getColorStateList(R.styleable.IndexBar_indexTextColor);
+        int backTextSize = typedArray == null ? 0 : typedArray.getDimensionPixelSize(R.styleable.IndexBar_indexTextSize, 13);
+        if (backTextSize != 0){
+            mTextSizeSp = (int) DensityUtils.px2sp(getContext(), backTextSize);
+        }
+        isTextBold = typedArray == null || typedArray.getBoolean(R.styleable.IndexBar_isTextBold, true);
+        mPressBgDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.IndexBar_pressBackgroundColor);
+
+        if (typedArray != null){
+            typedArray.recycle();
+        }
     }
 
     /**
@@ -114,7 +136,7 @@ public class IndexBar extends LinearLayout{
      * @param color 背景色
      */
     public void setPressBgColorInt(@ColorInt int color){
-        mPressBgColor = color;
+        mPressBgDrawable = new ColorDrawable(color);
     }
 
     /**
@@ -122,7 +144,7 @@ public class IndexBar extends LinearLayout{
      * @param color 背景色
      */
     public void setPressBgColorRes(@ColorRes int color){
-        mPressBgColor = ContextCompat.getColor(getContext(), color);
+        mPressBgDrawable = new ColorDrawable(ContextCompat.getColor(getContext(), color));
     }
 
     /**
@@ -154,7 +176,11 @@ public class IndexBar extends LinearLayout{
         for (String str : list) {
             TextView textView = new TextView(getContext());
             textView.setText(str);
-            textView.setTextColor(mTextColor);
+            if (mTextColorStateList != null){
+                textView.setTextColor(mTextColorStateList);
+            }else {
+                textView.setTextColor(mTextColor);
+            }
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSizeSp);
             textView.setTypeface(isTextBold ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
             textView.setGravity(Gravity.CENTER);
@@ -172,7 +198,9 @@ public class IndexBar extends LinearLayout{
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                setBackgroundColor(mPressBgColor);
+                if (mPressBgDrawable != null){
+                    setBackground(mPressBgDrawable);
+                }
                 if (mHintTextView != null){
                     mHintTextView.setVisibility(VISIBLE);
                 }
@@ -185,7 +213,7 @@ public class IndexBar extends LinearLayout{
                 if (mHintTextView != null){
                     mHintTextView.setVisibility(GONE);
                 }
-                setBackgroundColor(Color.TRANSPARENT);
+                setBackground(new ColorDrawable(Color.TRANSPARENT));
                 break;
         }
         return true;
@@ -204,14 +232,26 @@ public class IndexBar extends LinearLayout{
                 continue;
             }
             TextView textView = (TextView) view;
-            if (y >= textView.getTop() && y <= textView.getBottom()){
-                if (mHintTextView != null){
-                    mHintTextView.setText(textView.getText());
+            if (getOrientation() == VERTICAL){
+                if (y >= textView.getTop() && y <= textView.getBottom()){
+                    if (mHintTextView != null){
+                        mHintTextView.setText(textView.getText());
+                    }
+                    if (mOnIndexListener != null){
+                        mOnIndexListener.onStart(i, textView.getText().toString());
+                    }
+                    return;
                 }
-                if (mOnIndexListener != null){
-                    mOnIndexListener.onStart(i, textView.getText().toString());
+            }else {
+                if (x >= textView.getLeft() && x <= textView.getRight()){
+                    if (mHintTextView != null){
+                        mHintTextView.setText(textView.getText());
+                    }
+                    if (mOnIndexListener != null){
+                        mOnIndexListener.onStart(i, textView.getText().toString());
+                    }
+                    return;
                 }
-                return;
             }
         }
     }

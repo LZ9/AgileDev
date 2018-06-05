@@ -52,7 +52,7 @@ public class IndexBarTestActivity extends BaseActivity{
         ButterKnife.bind(this);
         getTitleBarLayout().setTitleName(getIntent().getStringExtra(MainActivity.EXTRA_TITLE_NAME));
         initRecyclerView();
-        initIndexBar();
+        mIndexBar.setHintTextView(mHintTv);
     }
 
     private void initRecyclerView() {
@@ -64,14 +64,6 @@ public class IndexBarTestActivity extends BaseActivity{
         mRecyclerView.addItemDecoration(getItemDecoration());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void initIndexBar() {
-        mIndexBar.setIndexTextColorRes(R.color.color_00a0e9);
-        mIndexBar.setIndexTextSize(15);
-        mIndexBar.setTextBold(false);
-        mIndexBar.setPressBgColorRes(R.color.color_ebece7);
-        mIndexBar.setHintTextView(mHintTv);
     }
 
     private RecyclerView.ItemDecoration getItemDecoration() {
@@ -109,7 +101,8 @@ public class IndexBarTestActivity extends BaseActivity{
         mIndexBar.setOnIndexListener(new IndexBar.OnIndexListener() {
             @Override
             public void onStart(int position, String indexText) {
-                mRecyclerView.scrollToPosition(ArrayUtils.getPositionByIndex(mList, indexText));
+                LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+                layoutManager.scrollToPositionWithOffset(ArrayUtils.getPositionByIndex(mList, indexText), 0);
             }
 
             @Override
