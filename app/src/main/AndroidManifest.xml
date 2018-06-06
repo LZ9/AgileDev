@@ -432,6 +432,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.drawer.DrawerTestActivity"
+            android:label="侧滑栏测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
     </application>
 
