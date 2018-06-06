@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * WebView测试类
+ * WebView和JS交互测试类
  * Created by zhouL on 2018/4/11.
  */
 public class WebViewTestActivity extends BaseActivity {
@@ -157,10 +157,6 @@ public class WebViewTestActivity extends BaseActivity {
         mWebView.setWebChromeClient(new CustomWebChromeClient());// 设置 WebChromeClient
         initWebSettings(mWebView.getSettings());
 
-
-
-
-
         mWebView.registerHandler("submitFromWeb", new BridgeHandler() {
             @Override
             public void handler(String data, CallBackFunction function) {
@@ -177,7 +173,7 @@ public class WebViewTestActivity extends BaseActivity {
             }
         });
 
-        mWebView.loadUrl(TEST_INFO_URL);
+        mWebView.loadUrl(TEST_JS_BRIDGE);
     }
 
     /** 初始化WebSettings */
@@ -267,11 +263,13 @@ public class WebViewTestActivity extends BaseActivity {
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    protected void onDestroy() {
+        super.onDestroy();
+        mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
         mWebView.clearHistory();
         mWebView.clearCache(true);
         mWebView.destroy();
+        mWebView = null;
     }
 
 

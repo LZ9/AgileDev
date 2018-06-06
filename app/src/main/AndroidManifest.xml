@@ -313,7 +313,14 @@
 
         <activity
             android:name=".ui.webview.WebViewTestActivity"
-            android:label="WebView测试类"
+            android:label="WebView和JS交互测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.webview.PgWebViewActivity"
+            android:label="加载进度条的WebView"
             android:screenOrientation="portrait">
 
         </activity>
