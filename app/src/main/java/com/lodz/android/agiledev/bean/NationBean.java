@@ -8,6 +8,8 @@ import com.lodz.android.core.array.Groupable;
  */
 public class NationBean implements Groupable{
 
+    /** 国旗图片 */
+    public String imgUrl;
     /** 国籍代码 */
     public String code = "";
     /** 名称 */

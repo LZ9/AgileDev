@@ -37,6 +37,7 @@ import com.lodz.android.agiledev.ui.rv.decoration.ItemDecorationTestActivity;
 import com.lodz.android.agiledev.ui.rv.drag.DragRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.head.HeadRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.refresh.RefreshTestActivity;
+import com.lodz.android.agiledev.ui.rv.snap.RvSnapActivity;
 import com.lodz.android.agiledev.ui.rv.swipe.SwipeRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rxjava.RxTestActivity;
 import com.lodz.android.agiledev.ui.share.ShareAnimationActivity;
@@ -83,7 +84,8 @@ public class MainActivity extends BaseActivity{
             "侧滑栏测试类", "下载测试类", "MVC模式测试类",
             "身份证号码测试类", "BottomSheets测试类", "CardView测试类",
             "共享元素动画", "索引栏测试类", "自定义控件测试类",
-            "WebView和JS交互测试类", "加载进度条的WebView", "Toast测试类");
+            "WebView和JS交互测试类", "加载进度条的WebView", "Toast测试类",
+            "RvSnap测试类");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -97,7 +99,8 @@ public class MainActivity extends BaseActivity{
             DrawerTestActivity.class, DownloadTestActivity.class, MvcDemoActivity.class,
             IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class,
             ShareAnimationActivity.class, IndexBarTestActivity.class, CustomViewTestActivity.class,
-            WebViewTestActivity.class, PgWebViewActivity.class, ToastTestActivity.class};
+            WebViewTestActivity.class, PgWebViewActivity.class, ToastTestActivity.class,
+            RvSnapActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

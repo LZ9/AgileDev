@@ -128,7 +128,7 @@ PrintLog主要封装了日志的打印开关，小伙伴可以在app里的build.
 12. SnackbarUtils Snackbar帮助类，定制简单的Snackbar提示
 13. StorageUtils 存储帮助类，可获取存储路径和存储大小
 14. StringUtils 字符串帮助类，可以对字符串进行UTF-8编码，根据分隔符把字符串转为list
-15. ToastUtils Toast帮助类，显示简单的toast提示
+15. ToastUtils Toast帮助类，可以显示简单的toast提示，也可以自定义Toast提示
 16. UiHandler 把runnable post到UI线程执行的工具类，在app退出时调用UiHandler.destroy()释放资源
 17. VibratorUtil 手机震动帮助类
 18. BitmapUtils 图片处理帮助类，压缩转码等等

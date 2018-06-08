@@ -453,7 +453,12 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.rv.snap.RvSnapActivity"
+            android:label="RvSnap测试类"
+            android:screenOrientation="portrait">
 
+        </activity>
 
 
     </application>
