@@ -763,6 +763,16 @@ b）使用自定义的TestBinder继承RecyclerBinder，如下所示：
         .setSectionBgColorInt(COLOR.WHITE);// 设置分组背景色
 ```
 
+### 7）滑动捕捉帮助类SnapHelper
+#### a)TabPagerSnapHelper
+- TabPagerSnapHelper继承PagerSnapHelper，支持与TabLayout联动
+- 使用方法：
+```
+    TabPagerSnapHelper snapHelper = new TabPagerSnapHelper();
+    snapHelper.attachToRecyclerView(RecyclerView);//设置RecyclerView
+    snapHelper.setupWithTabLayout(TabLayout);//与TabLayout联动
+```
+
 ## 7、Dialog相关
 ### 1）BaseDialog
 a）BaseDialog继承自Dialog，小伙伴继承BaseDialog后可以实现下面两个方法，分别传入布局layout和获取控件id

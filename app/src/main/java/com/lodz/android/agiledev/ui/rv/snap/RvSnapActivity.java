@@ -2,16 +2,14 @@ package com.lodz.android.agiledev.ui.rv.snap;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.bean.NationBean;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.core.log.PrintLog;
+import com.lodz.android.component.widget.adapter.snap.TabPagerSnapHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +44,6 @@ public class RvSnapActivity extends BaseActivity{
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
 
-    private boolean isRvScroll = false;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_snap_layout;
@@ -74,73 +70,15 @@ public class RvSnapActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-//        LinearSnapHelper snapHelper = new LinearSnapHelper();
-//        snapHelper.attachToRecyclerView(mRecyclerView);
-        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        TabPagerSnapHelper snapHelper = new TabPagerSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);
-
-//        setupWithViewPager
+        snapHelper.setupWithTabLayout(mTabLayout);
     }
 
     @Override
     protected void clickBackBtn() {
         super.clickBackBtn();
         finish();
-    }
-
-    @Override
-    protected void setListeners() {
-        super.setListeners();
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (isRvScroll){
-                    isRvScroll = false;
-                    return;
-                }
-                mRecyclerView.smoothScrollToPosition(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                PrintLog.d("testtag", "newState : " + newState);
-                if (newState != RecyclerView.SCROLL_STATE_SETTLING){
-                    return;
-                }
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (!(layoutManager instanceof LinearLayoutManager)){// 不属于LinearLayoutManager不处理
-                    return;
-                }
-                if (layoutManager instanceof GridLayoutManager){//属于GridLayoutManager也不处理
-                    return;
-                }
-                LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                TabLayout.Tab tab = mTabLayout.getTabAt(linearManager.findLastVisibleItemPosition());
-                if (tab != null) {
-                    isRvScroll = true;
-                    tab.select();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-
     }
 
     @Override
