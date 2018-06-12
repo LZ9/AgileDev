@@ -126,7 +126,7 @@ public class RxUtils {
      * @param widthPx 宽度（像素）
      * @param heightPx 高度（像素）
      */
-    private Observable<String> decodePathToBase64(final String path, final int widthPx, final int heightPx){
+    public static Observable<String> decodePathToBase64(final String path, final int widthPx, final int heightPx){
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
@@ -168,7 +168,7 @@ public class RxUtils {
      * @param widthPx 宽度（像素）
      * @param heightPx 高度（像素）
      */
-    private Observable<List<String>> decodePathToBase64(final List<String> paths, final int widthPx, final int heightPx){
+    public static Observable<List<String>> decodePathToBase64(final List<String> paths, final int widthPx, final int heightPx){
         return Observable.create(new ObservableOnSubscribe<List<String>>() {
             @Override
             public void subscribe(ObservableEmitter<List<String>> emitter) throws Exception {
