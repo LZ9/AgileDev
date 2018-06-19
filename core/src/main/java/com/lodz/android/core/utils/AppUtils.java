@@ -326,9 +326,9 @@ public class AppUtils {
      * GPS是否打开
      * @param context 上下文
      */
-    public static boolean isGpsClose(Context context) {
+    public static boolean isGpsOpen(Context context) {
         String str = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        return TextUtils.isEmpty(str) || (!TextUtils.isEmpty(str) && str.equals("0"));
+        return !TextUtils.isEmpty(str) && (str.contains("gps") || str.contains("GPS"));
     }
 
     /**

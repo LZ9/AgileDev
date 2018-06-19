@@ -181,7 +181,7 @@ public class LocationActivity extends BaseActivity{
         }
 
         //检查定位是否被打开
-        if (AppUtils.isGpsClose(getContext())){//如果定位没开弹到GPS设置页
+        if (!AppUtils.isGpsOpen(getContext())){//如果定位没开弹到GPS设置页
             AppUtils.jumpLocationSetting(getContext());
             return;
         }
