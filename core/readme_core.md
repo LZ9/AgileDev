@@ -22,8 +22,8 @@
         api 'com.android.support:recyclerview-v7:27.1.1'
         api 'com.android.support:cardview-v7:27.1.1'
         api 'com.android.support:support-annotations:27.1.1'
-        api 'com.android.support.constraint:constraint-layout:1.1.0'
-        api 'com.google.android:flexbox:0.3.2'
+        api 'com.android.support.constraint:constraint-layout:1.1.2'
+        api 'com.google.android:flexbox:1.0.0'
     }
 ```
 
