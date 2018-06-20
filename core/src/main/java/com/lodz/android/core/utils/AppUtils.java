@@ -1,6 +1,7 @@
 package com.lodz.android.core.utils;
 
 import android.app.ActivityManager;
+import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -349,4 +350,12 @@ public class AppUtils {
         context.startActivity(intent);
     }
 
+    /**
+     * 跳转到密码设置页
+     * @param context 上下文
+     */
+    public static void jumpSetPswdSetting(Context context){
+        Intent intent = new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
+        context.startActivity(intent);
+    }
 }

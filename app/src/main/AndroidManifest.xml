@@ -38,7 +38,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -49,6 +50,21 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
+        <receiver
+            android:name=".utils.admin.AdminReceiver"
+            android:label="设备管理"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="error_tag"
@@ -456,6 +472,13 @@
         <activity
             android:name=".ui.rv.snap.RvSnapActivity"
             android:label="RvSnap测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".ui.admin.AdminTestActivity"
+            android:label="设备管理功能测试"
             android:screenOrientation="portrait">
 
         </activity>

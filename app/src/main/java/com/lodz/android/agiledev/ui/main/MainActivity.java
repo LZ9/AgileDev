@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.ui.admin.AdminTestActivity;
 import com.lodz.android.agiledev.ui.annotation.AnnotationTestActivity;
 import com.lodz.android.agiledev.ui.config.ConfigLayoutActivity;
 import com.lodz.android.agiledev.ui.crash.CrashTestActivity;
@@ -85,7 +86,7 @@ public class MainActivity extends BaseActivity{
             "身份证号码测试类", "BottomSheets测试类", "CardView测试类",
             "共享元素动画", "索引栏测试类", "自定义控件测试类",
             "WebView和JS交互测试类", "加载进度条的WebView", "Toast测试类",
-            "RvSnap测试类");
+            "RvSnap测试类", "设备管理功能测试");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity{
             IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class,
             ShareAnimationActivity.class, IndexBarTestActivity.class, CustomViewTestActivity.class,
             WebViewTestActivity.class, PgWebViewActivity.class, ToastTestActivity.class,
-            RvSnapActivity.class};
+            RvSnapActivity.class, AdminTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";
