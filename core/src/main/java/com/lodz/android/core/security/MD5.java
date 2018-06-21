@@ -1,5 +1,7 @@
 package com.lodz.android.core.security;
 
+import android.text.TextUtils;
+
 import java.security.MessageDigest;
 
 /**
@@ -9,15 +11,19 @@ import java.security.MessageDigest;
 public class MD5 {
 
     /**
-     * MD5信息摘要
-     * @param decript 加密字符串
+     * 信息摘要
+     * @param content 内容
      */
-    public static final String MD5(String decript) {
+    public static String md(String content) {
+        if (TextUtils.isEmpty(content)){
+            return null;
+        }
+
         char hexDigits[] = { // 用来将字节转换成 16 进制表示的字符
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd',
-                'e', 'f'};
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f'};
         try {
-            byte[] strTemp = decript.getBytes();
+            byte[] strTemp = content.getBytes();
             MessageDigest mdTemp = MessageDigest.getInstance("MD5");
             mdTemp.update(strTemp);
             byte tmp[] = mdTemp.digest(); // MD5 的计算结果是一个 128 位的长整数，

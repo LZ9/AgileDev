@@ -41,6 +41,7 @@ import com.lodz.android.agiledev.ui.rv.refresh.RefreshTestActivity;
 import com.lodz.android.agiledev.ui.rv.snap.RvSnapActivity;
 import com.lodz.android.agiledev.ui.rv.swipe.SwipeRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rxjava.RxTestActivity;
+import com.lodz.android.agiledev.ui.security.EncryptTestActivity;
 import com.lodz.android.agiledev.ui.share.ShareAnimationActivity;
 import com.lodz.android.agiledev.ui.threadpool.ThreadPoolActivity;
 import com.lodz.android.agiledev.ui.toast.ToastTestActivity;
@@ -86,7 +87,7 @@ public class MainActivity extends BaseActivity{
             "身份证号码测试类", "BottomSheets测试类", "CardView测试类",
             "共享元素动画", "索引栏测试类", "自定义控件测试类",
             "WebView和JS交互测试类", "加载进度条的WebView", "Toast测试类",
-            "RvSnap测试类", "设备管理功能测试");
+            "RvSnap测试类", "设备管理功能测试", "加密测试类");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -101,7 +102,7 @@ public class MainActivity extends BaseActivity{
             IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class,
             ShareAnimationActivity.class, IndexBarTestActivity.class, CustomViewTestActivity.class,
             WebViewTestActivity.class, PgWebViewActivity.class, ToastTestActivity.class,
-            RvSnapActivity.class, AdminTestActivity.class};
+            RvSnapActivity.class, AdminTestActivity.class, EncryptTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";
