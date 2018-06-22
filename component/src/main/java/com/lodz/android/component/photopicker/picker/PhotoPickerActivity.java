@@ -297,7 +297,9 @@ public class PhotoPickerActivity extends AbsActivity{
                 for (PickerItemBean itemBean : mSelectedList) {
                     list.add(itemBean.photoPath);
                 }
-                mPickerBean.photoPickerListener.onPickerSelected(list);
+                if (mPickerBean != null && mPickerBean.photoPickerListener != null){
+                    mPickerBean.photoPickerListener.onPickerSelected(list);
+                }
                 finish();
             }
         });
