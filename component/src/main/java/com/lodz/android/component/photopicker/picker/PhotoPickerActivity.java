@@ -33,6 +33,7 @@ import com.lodz.android.component.photopicker.contract.preview.PreviewController
 import com.lodz.android.component.photopicker.picker.dialog.ImageFolderDialog;
 import com.lodz.android.component.photopicker.picker.dialog.ImageFolderIteamBean;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
+import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.album.AlbumUtils;
@@ -55,7 +56,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
@@ -176,10 +176,15 @@ public class PhotoPickerActivity extends AbsActivity{
                     }
                 })
                 .compose(RxUtils.<Bitmap>ioToMainObservable())
-                .subscribe(new Consumer<Bitmap>() {
+                .subscribe(new BaseObserver<Bitmap>() {
                     @Override
-                    public void accept(Bitmap bitmap) throws Exception {
+                    public void onBaseNext(Bitmap bitmap) {
                         mBackBtn.setImageBitmap(bitmap);
+                    }
+
+                    @Override
+                    public void onBaseError(Throwable e) {
+
                     }
                 });
     }
@@ -197,10 +202,15 @@ public class PhotoPickerActivity extends AbsActivity{
                     }
                 })
                 .compose(RxUtils.<Bitmap>ioToMainObservable())
-                .subscribe(new Consumer<Bitmap>() {
+                .subscribe(new BaseObserver<Bitmap>() {
                     @Override
-                    public void accept(Bitmap bitmap) throws Exception {
+                    public void onBaseNext(Bitmap bitmap) {
                         mMoreImg.setImageBitmap(bitmap);
+                    }
+
+                    @Override
+                    public void onBaseError(Throwable e) {
+
                     }
                 });
     }
