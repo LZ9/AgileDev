@@ -490,6 +490,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.keyboard.KeyboardTestActivity"
+            android:label="自定义键盘测试类"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
 
     </application>
