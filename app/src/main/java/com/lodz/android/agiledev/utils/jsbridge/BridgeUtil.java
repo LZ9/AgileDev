@@ -94,10 +94,11 @@ public class BridgeUtil {
 	 */
 	public static String assetFile2Str(Context c, String urlStr){
 		InputStream in = null;
+		BufferedReader bufferedReader = null;
 		try{
 			in = c.getAssets().open(urlStr);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
+            bufferedReader = new BufferedReader(new InputStreamReader(in));
+            String line;
             StringBuilder sb = new StringBuilder();
             do {
                 line = bufferedReader.readLine();
@@ -117,6 +118,14 @@ public class BridgeUtil {
 				try {
 					in.close();
 				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (bufferedReader != null){
+				try {
+					bufferedReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		}
