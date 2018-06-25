@@ -33,6 +33,7 @@ import com.lodz.android.agiledev.ui.mvc.MvcDemoActivity;
 import com.lodz.android.agiledev.ui.mvp.MvpDemoActivity;
 import com.lodz.android.agiledev.ui.notification.NotificationActivity;
 import com.lodz.android.agiledev.ui.photopicker.PhotoPickerTestActivity;
+import com.lodz.android.agiledev.ui.restore.RestoreTestActivity;
 import com.lodz.android.agiledev.ui.retrofit.RetrofitTestActivity;
 import com.lodz.android.agiledev.ui.rv.anim.AnimRecyclerViewActivity;
 import com.lodz.android.agiledev.ui.rv.decoration.ItemDecorationTestActivity;
@@ -89,7 +90,7 @@ public class MainActivity extends BaseActivity{
             "共享元素动画", "索引栏测试类", "自定义控件测试类",
             "WebView和JS交互测试类", "加载进度条的WebView", "Toast测试类",
             "RvSnap测试类", "设备管理功能测试", "加密测试类",
-            "自定义键盘测试类");
+            "自定义键盘测试类", "后台回收应用数据保存测试");
 
     /** 功能的activity */
     private static final Class<?>[] mClassList = {
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity{
             ShareAnimationActivity.class, IndexBarTestActivity.class, CustomViewTestActivity.class,
             WebViewTestActivity.class, PgWebViewActivity.class, ToastTestActivity.class,
             RvSnapActivity.class, AdminTestActivity.class, EncryptTestActivity.class,
-            KeyboardTestActivity.class};
+            KeyboardTestActivity.class, RestoreTestActivity.class};
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";

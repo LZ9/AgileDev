@@ -497,6 +497,13 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.restore.RestoreTestActivity"
+            android:label="后台回收应用数据保存测试"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
 
     </application>

@@ -26,8 +26,6 @@ import java.util.List;
  */
 public abstract class AbsActivity extends RxAppCompatActivity {
 
-    private static final String SAVE_INSTANCE_STATE_BUNDLE = "application_data_save";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,14 +143,16 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     /** 当APP处于后台被系统回收时回调 */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (BaseApplication.get() == null) {
-            return;
-        }
-        Bundle bundle = BaseApplication.get().getSaveInstanceState();
-        if (outState != null && bundle != null) {
-            outState.putBundle(SAVE_INSTANCE_STATE_BUNDLE, bundle);
-        }
         super.onSaveInstanceState(outState);
+        Bundle bundle = getSaveBundle();
+        if (BaseApplication.get() != null && bundle != null){
+            BaseApplication.get().putSaveInstanceState(bundle);// 把数据存进app里
+        }
+    }
+
+    /** 获取回收前需要被保存的数据 */
+    protected Bundle getSaveBundle(){
+        return null;
     }
 
     /** 被回收后从后台回到前台调用 */
@@ -162,9 +162,18 @@ public abstract class AbsActivity extends RxAppCompatActivity {
         if (BaseApplication.get() == null) {
             return;
         }
-        if (savedInstanceState != null) {
-            BaseApplication.get().getRestoreInstanceState(savedInstanceState.getBundle(SAVE_INSTANCE_STATE_BUNDLE));
+        Bundle bundle = BaseApplication.get().getSaveInstanceState();
+        if (bundle != null){
+            onRestore(bundle);
         }
+    }
+
+    /**
+     * 被回收后从后台回到前台调用
+     * @param bundle 之前保存的数据
+     */
+    protected void onRestore(Bundle bundle){
+
     }
 
     /**

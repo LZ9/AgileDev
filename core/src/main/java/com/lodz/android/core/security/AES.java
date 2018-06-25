@@ -44,7 +44,6 @@ public class AES {
      * @param dataBytes 原始内容
      * @param key 秘钥，必须为16位
      */
-
     public static String encrypt(byte[] dataBytes, String key) {
         if (dataBytes == null) {
             return null;
