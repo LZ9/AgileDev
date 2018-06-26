@@ -4,6 +4,7 @@ import android.widget.LinearLayout;
 
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.cache.ACacheUtils;
+import com.lodz.android.core.contract.BackgroundActivityLifecycleCallbacksImpl;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
 import com.lodz.android.core.utils.DensityUtils;
@@ -16,6 +17,8 @@ import com.lodz.android.imageloader.ImageloaderManager;
  */
 
 public class App extends BaseApplication{
+
+    private BackgroundActivityLifecycleCallbacksImpl mActivityLifecycleCallbacks;
 
     public static App getInstance() {
         return (App) get();
@@ -36,6 +39,8 @@ public class App extends BaseApplication{
         initACache();
 
         configBaseLayout();
+        mActivityLifecycleCallbacks = new BackgroundActivityLifecycleCallbacksImpl();
+        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
     }
 
     /** 初始化缓存类 */
@@ -118,12 +123,18 @@ public class App extends BaseApplication{
                 .build();
     }
 
+    /** 应用是否在后台 */
+    public boolean isBackground(){
+        return mActivityLifecycleCallbacks.isBackground();
+    }
+
     @Override
     protected void beforeExit() {
         ImageloaderManager.get().clearMemoryCachesWithGC(this);// 退出时清除图片缓存
         UiHandler.destroy();
         NetworkManager.get().release(this);// 释放网络管理资源
         NetworkManager.get().clearNetworkListener();// 清除所有网络监听器
+        unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
     }
 
 //    private int sessionId = 123213234;
@@ -144,4 +155,5 @@ public class App extends BaseApplication{
 //        }
 //        PrintLog.e("testtag", "getRestoreInstanceState : " + sessionId);
 //    }
+
 }

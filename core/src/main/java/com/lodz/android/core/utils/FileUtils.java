@@ -108,8 +108,7 @@ public class FileUtils {
             return;
         }
         for (File childFile : files) {
-            if (childFile.toString().endsWith("."+suffix.toLowerCase())
-                    || childFile.toString().endsWith("."+suffix.toUpperCase())){
+            if (childFile.getName().toLowerCase().endsWith("."+suffix.toLowerCase())){
                 //noinspection ResultOfMethodCallIgnored
                 childFile.delete();
             }
@@ -172,17 +171,24 @@ public class FileUtils {
      * @param toPath 指定复制路径
      */
     public static boolean copyFile(@NonNull String fromPath, @NonNull String toPath) {
+        File fromFile = createFile(fromPath);
+        File toFile = createFile(toPath);
+        if (fromFile == null || toFile == null){
+            return false;
+        }
+
+        FileInputStream inStream = null;
+        FileOutputStream outStream = null;
+        FileChannel inChannel = null;
+        FileChannel outChannel = null;
+
         try {
-            File fromFile = createFile(fromPath);
-            File toFile = createFile(toPath);
-            if (fromFile == null || toFile == null){
-                return false;
-            }
-            FileInputStream inStream = new FileInputStream(fromFile);
-            FileOutputStream outStream = new FileOutputStream(toFile);
-            FileChannel inChannel = inStream.getChannel();
-            FileChannel outChannel = outStream.getChannel();
+            inStream = new FileInputStream(fromFile);
+            outStream = new FileOutputStream(toFile);
+            inChannel = inStream.getChannel();
+            outChannel = outStream.getChannel();
             inChannel.transferTo(0, inChannel.size(), outChannel);
+
             inStream.close();
             outStream.close();
             inChannel.close();
@@ -190,6 +196,22 @@ public class FileUtils {
             return true;
         }catch (Exception e){
             e.printStackTrace();
+            try {
+                if (inStream != null){
+                    inStream.close();
+                }
+                if (outStream != null){
+                    outStream.close();
+                }
+                if (inChannel != null){
+                    inChannel.close();
+                }
+                if (outChannel != null){
+                    outChannel.close();
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
         return false;
     }

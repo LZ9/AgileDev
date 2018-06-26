@@ -297,24 +297,6 @@ public class AppUtils {
     }
 
     /**
-     * 当前APP是否在后台
-     * @param context 上下文
-     */
-    public static boolean isBackground(Context context) {
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (activityManager == null){
-            return false;
-        }
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.processName.equals(context.getPackageName())) {
-                return appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND;
-            }
-        }
-        return false;
-    }
-
-    /**
      * 跳转到定位设置页
      * @param context 上下文
      */
