@@ -101,7 +101,7 @@
                         android:layout_height="28dp"
                         android:layout_marginEnd="15dp"
                         android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_search" />
+                        android:src="@drawable/component_ic_search" />
 
                     <ImageView
                         android:id="@+id/refresh_btn"

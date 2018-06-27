@@ -69,7 +69,7 @@
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_clean"
+                android:src="@drawable/component_ic_clean"
                 android:visibility="gone" />
 
             <View
@@ -88,7 +88,7 @@
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/component_ic_search" />
 
         </LinearLayout>
 
