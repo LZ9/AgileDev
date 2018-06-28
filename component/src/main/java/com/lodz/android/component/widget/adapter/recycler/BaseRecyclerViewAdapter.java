@@ -268,7 +268,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
      * @param position 位置
      */
     public void notifyItemRemovedChanged(int position){
-        if (getItemCount() == 0){
+        if (getDataSize() == 0){
             return;
         }
         mData.remove(position);

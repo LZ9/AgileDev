@@ -34,7 +34,7 @@ import com.lodz.android.core.utils.DensityUtils;
 public class ErrorLayout extends LinearLayout{
 
     /** 异常界面配置 */
-    private ErrorLayoutConfig mConfig = new ErrorLayoutConfig();;
+    private ErrorLayoutConfig mConfig = new ErrorLayoutConfig();
 
     /** 加载失败布局 */
     private LinearLayout mErrorRootLayout;
