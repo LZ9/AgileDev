@@ -143,7 +143,7 @@ public class EncryptTestActivity extends BaseActivity{
                     return;
                 }
                 String result = AES.decrypt(mContent, mAESKey);
-                printResult(result == null ? "解密失败" : "原始内容内容：" + result);
+                printResult(result == null ? "解密失败" : "原始内容：" + result);
                 mContent = "";
             }
         });
@@ -198,7 +198,7 @@ public class EncryptTestActivity extends BaseActivity{
                     return;
                 }
                 String result = RSA.decryptByPrivateKey(mContent, mRSAPrivateKey);
-                printResult(result == null ? "解密失败" : "原始内容内容：" + result);
+                printResult(result == null ? "解密失败" : "原始内容：" + result);
                 mContent = "";
             }
         });
