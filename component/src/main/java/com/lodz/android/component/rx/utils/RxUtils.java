@@ -25,7 +25,6 @@ import io.reactivex.MaybeSource;
 import io.reactivex.MaybeTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Single;
@@ -126,33 +125,37 @@ public class RxUtils {
      * @param widthPx 宽度（像素）
      * @param heightPx 高度（像素）
      */
-    public static Observable<String> decodePathToBase64(final String path, final int widthPx, final int heightPx){
-        return Observable.create(new ObservableOnSubscribe<String>() {
+    public static Observable<String> decodePathToBase64(String path, int widthPx, int heightPx){
+        return Observable.create(new RxObservableOnSubscribe<String>(path, widthPx, heightPx) {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                if (emitter.isDisposed()){
-                    return;
-                }
+                String path = (String) getArgs()[0];
+                int widthPx = (int) getArgs()[1];
+                int heightPx = (int) getArgs()[2];
+
                 if (TextUtils.isEmpty(path)) {
-                    emitter.onNext("");
-                    emitter.onComplete();
+                    emitter.onError(new IllegalArgumentException("path is empty"));
                     return;
                 }
+
                 try {
                     Bitmap bitmap = BitmapUtils.decodeBitmap(path, widthPx, heightPx);
                     if (emitter.isDisposed()){
                         return;
                     }
                     if (bitmap == null){
-                        emitter.onNext("");
-                        emitter.onComplete();
+                        emitter.onError(new IllegalArgumentException("decode bitmap fail"));
                         return;
                     }
                     String base64 = BitmapUtils.bitmapToBase64Default(bitmap);
                     if (emitter.isDisposed()){
                         return;
                     }
-                    emitter.onNext(TextUtils.isEmpty(base64) ? "" : base64);
+                    if (TextUtils.isEmpty(base64)){
+                        emitter.onError(new IllegalArgumentException("decode base64 fail"));
+                        return;
+                    }
+                    emitter.onNext(base64);
                     emitter.onComplete();
                 }catch (Exception e){
                     e.printStackTrace();
@@ -162,22 +165,26 @@ public class RxUtils {
         });
     }
 
+
     /**
      * 把图片路径转为base64
      * @param paths 图片路径
      * @param widthPx 宽度（像素）
      * @param heightPx 高度（像素）
      */
-    public static Observable<List<String>> decodePathToBase64(final List<String> paths, final int widthPx, final int heightPx){
-        return Observable.create(new ObservableOnSubscribe<List<String>>() {
+
+    public static Observable<List<String>> decodePathToBase64(List<String> paths, int widthPx, int heightPx){
+        return Observable.create(new RxObservableOnSubscribe<List<String>>(paths, widthPx, heightPx) {
+
+            @SuppressWarnings("unchecked")
             @Override
             public void subscribe(ObservableEmitter<List<String>> emitter) throws Exception {
-                if (emitter.isDisposed()){
-                    return;
-                }
+                List<String> paths = (List<String>) getArgs()[0];
+                int widthPx = (int) getArgs()[1];
+                int heightPx = (int) getArgs()[2];
+
                 if (ArrayUtils.isEmpty(paths)){
-                    emitter.onNext(new ArrayList<String>());
-                    emitter.onComplete();
+                    emitter.onError(new IllegalArgumentException("paths size is 0"));
                     return;
                 }
 
@@ -189,10 +196,12 @@ public class RxUtils {
                         }
                         Bitmap bitmap = BitmapUtils.decodeBitmap(path, widthPx, heightPx);
                         if (bitmap == null){
+                            base64s.add("");
                             continue;
                         }
                         String base64 = BitmapUtils.bitmapToBase64Default(bitmap);
                         if (TextUtils.isEmpty(base64)) {
+                            base64s.add("");
                             continue;
                         }
                         base64s.add(base64);
@@ -224,11 +233,12 @@ public class RxUtils {
      * @param windowDuration 某段时间内
      * @param unit 时间单位
      */
-    public static Observable<View> viewClick(final View view, long windowDuration, TimeUnit unit){
-        return Observable.create(new ObservableOnSubscribe<View>() {
+    public static Observable<View> viewClick(View view, long windowDuration, TimeUnit unit){
+        return Observable.create(new RxObservableOnSubscribe<View>(view) {
             @Override
             public void subscribe(final ObservableEmitter<View> emitter) throws Exception {
-                if (emitter.isDisposed()){
+                View view = (View) getArgs()[0];
+                if (emitter.isDisposed() || view == null){
                     return;
                 }
                 view.setOnClickListener(new View.OnClickListener() {
@@ -245,11 +255,12 @@ public class RxUtils {
      * 文本变动
      * @param textView 控件
      */
-    public static Observable<CharSequence> textChanges(final TextView textView){
-        return Observable.create(new ObservableOnSubscribe<CharSequence>() {
+    public static Observable<CharSequence> textChanges(TextView textView) {
+        return Observable.create(new RxObservableOnSubscribe<CharSequence>(textView) {
             @Override
             public void subscribe(final ObservableEmitter<CharSequence> emitter) throws Exception {
-                if (emitter.isDisposed()){
+                TextView textView = (TextView) getArgs()[0];
+                if (emitter.isDisposed() || textView == null) {
                     return;
                 }
                 textView.addTextChangedListener(new TextWatcher() {

@@ -1,5 +1,6 @@
 package com.lodz.android.agiledev.ui.rv.refresh;
 
+import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.core.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 
 /**
@@ -17,10 +17,11 @@ import io.reactivex.annotations.NonNull;
 
 public class DataModule {
 
-    public Observable<List<String>> requestData(final int page){
-        return Observable.create(new ObservableOnSubscribe<List<String>>() {
+    public Observable<List<String>> requestData(int page){
+        return Observable.create(new RxObservableOnSubscribe<List<String>>(page) {
             @Override
             public void subscribe(@NonNull ObservableEmitter<List<String>> emitter) throws Exception {
+                int page = (int) getArgs()[0];
                 if (emitter.isDisposed()){
                     return;
                 }

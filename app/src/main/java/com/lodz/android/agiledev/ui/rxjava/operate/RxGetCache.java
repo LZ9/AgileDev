@@ -4,12 +4,12 @@ import android.text.TextUtils;
 
 import com.lodz.android.agiledev.ui.rxjava.RxContract;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
+import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.log.PrintLog;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
@@ -90,7 +90,7 @@ public class RxGetCache implements RxContract{
     }
 
     private Observable<String> memory(){
-        return Observable.create(new ObservableOnSubscribe<String>() {
+        return Observable.create(new RxObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 if (emitter.isDisposed()){
@@ -110,7 +110,7 @@ public class RxGetCache implements RxContract{
     }
 
     private Observable<String> disk(){
-        return Observable.create(new ObservableOnSubscribe<String>() {
+        return Observable.create(new RxObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 if (emitter.isDisposed()){
@@ -130,7 +130,7 @@ public class RxGetCache implements RxContract{
     }
 
     private Observable<String> network(){
-        return Observable.create(new ObservableOnSubscribe<String>() {
+        return Observable.create(new RxObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 if (emitter.isDisposed()){

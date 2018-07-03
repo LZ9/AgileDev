@@ -1,11 +1,11 @@
 package com.lodz.android.agiledev.ui.mvp;
 
 import com.lodz.android.component.rx.exception.DataException;
+import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.core.utils.UiHandler;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 /**
  * 数据
@@ -14,10 +14,11 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class ApiModule {
 
-    public static Observable<String> requestResult(final boolean isSuccess){
-        return Observable.create(new ObservableOnSubscribe<String>() {
+    public static Observable<String> requestResult(boolean isSuccess){
+        return Observable.create(new RxObservableOnSubscribe<String>(isSuccess) {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
+                final boolean isSuccess = (boolean) getArgs()[0];
                 if (emitter.isDisposed()){
                     return;
                 }

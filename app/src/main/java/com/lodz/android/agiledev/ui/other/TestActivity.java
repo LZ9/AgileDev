@@ -15,13 +15,13 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.fragment.TestFragment;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.rx.subscribe.observer.RxObserver;
+import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -105,7 +105,7 @@ public class TestActivity extends AbsActivity{
 
     /** 请求数据 */
     private void reuqestData() {
-        Observable.create(new ObservableOnSubscribe<String>() {
+        Observable.create(new RxObservableOnSubscribe<String>() {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
                 UiHandler.postDelayed(new Runnable() {

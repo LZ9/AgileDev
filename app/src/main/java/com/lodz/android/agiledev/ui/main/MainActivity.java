@@ -50,9 +50,12 @@ import com.lodz.android.agiledev.ui.toast.ToastTestActivity;
 import com.lodz.android.agiledev.ui.webview.PgWebViewActivity;
 import com.lodz.android.agiledev.ui.webview.WebViewTestActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
+import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.DensityUtils;
+import com.lodz.android.core.utils.ToastUtils;
 
 import java.util.Arrays;
 import java.util.List;

@@ -7,12 +7,12 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.fragment.BaseRefreshFragment;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
+import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.UiHandler;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -79,7 +79,7 @@ public class TestFragment extends BaseRefreshFragment{
             }
         };
 
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Observable.create(new RxObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(final ObservableEmitter<Integer> emitter) throws Exception {
                 UiHandler.postDelayed(new Runnable() {

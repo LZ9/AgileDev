@@ -205,6 +205,7 @@ public class NetworkManager {
             case TelephonyManager.NETWORK_TYPE_EDGE:
             case TelephonyManager.NETWORK_TYPE_GPRS:
             case TelephonyManager.NETWORK_TYPE_IDEN:
+            case TelephonyManager.NETWORK_TYPE_GSM:
                 type = NetInfo.NETWORK_TYPE_2G;
                 break;
             case TelephonyManager.NETWORK_TYPE_EVDO_0:
@@ -216,8 +217,8 @@ public class NetworkManager {
             case TelephonyManager.NETWORK_TYPE_EVDO_B:
             case TelephonyManager.NETWORK_TYPE_EHRPD:
             case TelephonyManager.NETWORK_TYPE_HSPAP:
-            case 17:
-            case 18:
+            case TelephonyManager.NETWORK_TYPE_TD_SCDMA:
+            case TelephonyManager.NETWORK_TYPE_IWLAN:
                 type = NetInfo.NETWORK_TYPE_3G;
                 break;
             case TelephonyManager.NETWORK_TYPE_LTE:

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.lodz.android.agiledev.bean.SpotBean;
 import com.lodz.android.agiledev.bean.base.ResponseBean;
+import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.core.utils.ReflectUtils;
 import com.lodz.android.core.utils.UiHandler;
 
@@ -17,7 +18,6 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import okhttp3.RequestBody;
 
 /**
@@ -35,7 +35,7 @@ public class ApiServiceImpl implements ApiService{
 
     @Override
     public Observable<ResponseBean<SpotBean>> getSpot(String id, String output) {
-        return Observable.create(new ObservableOnSubscribe<ResponseBean<SpotBean>>() {
+        return Observable.create(new RxObservableOnSubscribe<ResponseBean<SpotBean>>() {
             @Override
             public void subscribe(final ObservableEmitter<ResponseBean<SpotBean>> emitter) throws Exception {
                 if (emitter.isDisposed()){
@@ -65,10 +65,11 @@ public class ApiServiceImpl implements ApiService{
     }
 
     @Override
-    public Observable<ResponseBean<SpotBean>> postSpot(final String id, String output) {
-        return Observable.create(new ObservableOnSubscribe<ResponseBean<SpotBean>>() {
+    public Observable<ResponseBean<SpotBean>> postSpot(String id, String output) {
+        return Observable.create(new RxObservableOnSubscribe<ResponseBean<SpotBean>>(id, output) {
             @Override
             public void subscribe(final ObservableEmitter<ResponseBean<SpotBean>> emitter) throws Exception {
+                final String id = (String) getArgs()[0];
                 if (emitter.isDisposed()){
                     return;
                 }
@@ -106,10 +107,11 @@ public class ApiServiceImpl implements ApiService{
     }
 
     @Override
-    public Observable<ResponseBean<List<SpotBean>>> querySpot(final RequestBody requestBody) {
-        return Observable.create(new ObservableOnSubscribe<ResponseBean<List<SpotBean>>>() {
+    public Observable<ResponseBean<List<SpotBean>>> querySpot(RequestBody requestBody) {
+        return Observable.create(new RxObservableOnSubscribe<ResponseBean<List<SpotBean>>>(requestBody) {
             @Override
             public void subscribe(final ObservableEmitter<ResponseBean<List<SpotBean>>> emitter) throws Exception {
+                final RequestBody requestBody = (RequestBody) getArgs()[0];
                 if (emitter.isDisposed()){
                     return;
                 }
