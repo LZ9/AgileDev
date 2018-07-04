@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 57
-        versionName "1.5.2"// 未上传
+        versionCode 58
+        versionName "1.5.3"// 未上传
     }
 
     buildTypes {
@@ -26,11 +26,11 @@ android {
 
 dependencies {
     // 引用的库
-//    api 'cn.lodz:core:1.2.9'
+//    api 'cn.lodz:core:1.2.10'
     api project(':core')
 
     // RxJava
-    api ('io.reactivex.rxjava2:rxjava:2.1.14'){
+    api ('io.reactivex.rxjava2:rxjava:2.1.16'){
         exclude group: 'android.arch.core'
     }
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
@@ -51,7 +51,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.5.1'//版本号
+//    publishVersion = '1.5.2'//版本号
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
