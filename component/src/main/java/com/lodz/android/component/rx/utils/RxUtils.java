@@ -5,7 +5,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.lodz.android.component.rx.exception.DataException;
 import com.lodz.android.component.rx.exception.RxException;
@@ -223,17 +223,17 @@ public class RxUtils {
      * 防抖点击（默认1秒内）
      * @param view 控件
      */
-    public static Observable<View> viewClick(final View view){
+    public static Observable<View> viewClick(View view){
         return viewClick(view, 1, TimeUnit.SECONDS);
     }
 
     /**
      * 防抖点击
      * @param view 控件
-     * @param windowDuration 某段时间内
+     * @param duration 某段时间内
      * @param unit 时间单位
      */
-    public static Observable<View> viewClick(View view, long windowDuration, TimeUnit unit){
+    public static Observable<View> viewClick(View view, long duration, TimeUnit unit){
         return Observable.create(new RxObservableOnSubscribe<View>(view) {
             @Override
             public void subscribe(final ObservableEmitter<View> emitter) throws Exception {
@@ -248,22 +248,32 @@ public class RxUtils {
                     }
                 });
             }
-        }).throttleFirst(windowDuration, unit);
+        }).throttleFirst(duration, unit);
     }
 
     /**
-     * 文本变动
-     * @param textView 控件
+     * 文本变动延迟响应（延迟500毫秒）
+     * @param editText 控件
      */
-    public static Observable<CharSequence> textChanges(TextView textView) {
-        return Observable.create(new RxObservableOnSubscribe<CharSequence>(textView) {
+    public static Observable<CharSequence> textChanges(EditText editText) {
+        return textChanges(editText, 500, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * 文本变动延迟响应
+     * @param editText 控件
+     * @param duration 时长
+     * @param unit 单位
+     */
+    public static Observable<CharSequence> textChanges(EditText editText, long duration, TimeUnit unit) {
+        return Observable.create(new RxObservableOnSubscribe<CharSequence>(editText) {
             @Override
             public void subscribe(final ObservableEmitter<CharSequence> emitter) throws Exception {
-                TextView textView = (TextView) getArgs()[0];
-                if (emitter.isDisposed() || textView == null) {
+                EditText editText = (EditText) getArgs()[0];
+                if (emitter.isDisposed() || editText == null) {
                     return;
                 }
-                textView.addTextChangedListener(new TextWatcher() {
+                editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -280,6 +290,6 @@ public class RxUtils {
                     }
                 });
             }
-        });
+        }).debounce(duration, unit);
     }
 }

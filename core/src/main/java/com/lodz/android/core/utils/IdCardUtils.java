@@ -3,6 +3,7 @@ package com.lodz.android.core.utils;
 import android.text.TextUtils;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,9 +34,42 @@ public class IdCardUtils {
         if (!isNum(code17)) {//前17位存在非数字
             return false;
         }
+        if (!isProvinceExist(idCard)){// 判断省份是否存在
+            return false;
+        }
+        if (!validateBirth(idCard)){// 判断日期是否存在
+            return false;
+        }
         // 获取校验位
         String validationCode = getCheckCode18(getPowerSum(converCharToInt(code17.toCharArray())));
         return !TextUtils.isEmpty(validationCode) && validationCode.equalsIgnoreCase(idCard.substring(17, 18));
+    }
+
+
+
+    /**
+     * 身份证的省份是否存在
+     * @param idCard 身份证号
+     */
+    private static boolean isProvinceExist(String idCard) {
+        String provinceNum = idCard.substring(0, 2);
+        Map<String, String> map = getProvinceMap();
+        return !TextUtils.isEmpty(map.get(provinceNum));
+    }
+
+    /**
+     * 校验出生日期是否正确
+     * @param idCard 身份证
+     */
+    private static boolean validateBirth(String idCard) {
+        if (TextUtils.isEmpty(idCard) || idCard.length() < 14){
+            return false;
+        }
+        String birth = idCard.substring(6, 14);
+
+        Date date = DateUtils.parseFormatDate(DateUtils.TYPE_5, birth);
+        String dateStr = DateUtils.getFormatString(DateUtils.TYPE_5, date);
+        return dateStr.equals(birth);
     }
 
     /**

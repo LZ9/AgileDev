@@ -13,8 +13,6 @@ import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.log.PrintLog;
 
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -72,7 +70,6 @@ public class RxTestActivity extends BaseActivity {
 
         // 联想搜索
         RxUtils.textChanges(mSearchEdit)
-                .debounce(500, TimeUnit.MILLISECONDS)
                 .compose(RxUtils.<CharSequence>ioToMainObservable())
                 .subscribe(new BaseObserver<CharSequence>() {
                     @Override
