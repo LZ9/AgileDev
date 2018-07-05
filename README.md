@@ -12,10 +12,10 @@
 
 ## 1、添加Gradle依赖：
 ```
-    compile 'cn.lodz:core:1.2.10'
+    compile 'cn.lodz:core:1.2.11'
 ```
 ```
-    compile 'cn.lodz:Component:1.5.2'
+    compile 'cn.lodz:Component:1.5.4'
 ```
 ```
     compile 'cn.lodz:ImagerLoader:1.2.0'
