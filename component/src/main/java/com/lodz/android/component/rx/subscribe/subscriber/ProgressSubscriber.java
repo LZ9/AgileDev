@@ -138,14 +138,13 @@ public abstract class ProgressSubscriber<T> extends RxSubscriber<T>{
 
     /** 显示加载框 */
     private void showProgress(){
-        if (mProgressDialog == null){
-            return;
-        }
         UiHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    mProgressDialog.show();
+                    if (mProgressDialog != null){
+                        mProgressDialog.show();
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -155,15 +154,14 @@ public abstract class ProgressSubscriber<T> extends RxSubscriber<T>{
 
     /** 关闭加载框 */
     private void dismissProgress(){
-        if (mProgressDialog == null){
-            return;
-        }
         UiHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    mProgressDialog.dismiss();
-                    mProgressDialog = null;
+                    if (mProgressDialog != null){
+                        mProgressDialog.dismiss();
+                        mProgressDialog = null;
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -174,7 +172,6 @@ public abstract class ProgressSubscriber<T> extends RxSubscriber<T>{
 
     @Override
     public void onErrorEnd() {// 抛异常关闭
-        super.onErrorEnd();
         dismissProgress();
     }
 
