@@ -7,6 +7,7 @@ import com.lodz.android.core.cache.ACacheUtils;
 import com.lodz.android.core.contract.BackgroundActivityLifecycleCallbacksImpl;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.network.NetworkManager;
+import com.lodz.android.core.threadpool.ThreadPoolManager;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageloaderManager;
@@ -134,6 +135,7 @@ public class App extends BaseApplication{
         UiHandler.destroy();
         NetworkManager.get().release(this);// 释放网络管理资源
         NetworkManager.get().clearNetworkListener();// 清除所有网络监听器
+        ThreadPoolManager.get().releaseAll();
         unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
     }
 }

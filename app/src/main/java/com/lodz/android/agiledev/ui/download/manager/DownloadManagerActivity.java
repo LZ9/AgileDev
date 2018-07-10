@@ -170,7 +170,7 @@ public class DownloadManagerActivity extends BaseActivity{
         for (AppInfoBean appInfoBean : list) {
             missions.add(appInfoBean.mission);
         }
-        RxDownload.INSTANCE.createAll(missions).subscribe();
+        RxDownload.INSTANCE.createAll(missions, false).subscribe();
     }
 
 }

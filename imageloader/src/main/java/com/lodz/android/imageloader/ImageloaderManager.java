@@ -141,11 +141,13 @@ public class ImageloaderManager {
         public void build(){}
 
         /** 获取默认占位符图片 */
+        @DrawableRes
         public int getPlaceholderResId() {
             return placeholderResId;
         }
 
         /** 获取默认加载失败图片 */
+        @DrawableRes
         public int getErrorResId() {
             return errorResId;
         }

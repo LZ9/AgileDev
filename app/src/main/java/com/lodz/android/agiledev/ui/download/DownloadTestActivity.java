@@ -144,7 +144,7 @@ public class DownloadTestActivity extends BaseActivity{
         mProgressTv.setText("");
 
         mWechatMission = new Mission(WECHAT_URL, "微信.apk", FileManager.getDownloadFolderPath());
-        RxDownload.INSTANCE.create(mWechatMission)
+        RxDownload.INSTANCE.create(mWechatMission, false)
                 .compose(RxUtils.<Status>ioToMainFlowable())
                 .subscribe(new Consumer<Status>() {
                     @Override

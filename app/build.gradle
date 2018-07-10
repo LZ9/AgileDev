@@ -81,7 +81,7 @@ dependencies {
 
     // 下载
 //    implementation 'zlc.season:rxdownload2:2.0.4'
-    implementation 'zlc.season:rxdownload3:1.2.2'
+    implementation 'zlc.season:rxdownload3:1.2.7'
 
     // leakcanary
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'

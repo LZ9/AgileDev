@@ -77,7 +77,7 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
     /** 订阅任务 */
     private void subscribeMission(final DataViewHolder holder, final AppInfoBean bean) {
         //把订阅对象保存进holder
-        holder.disposable = RxDownload.INSTANCE.create(bean.mission)
+        holder.disposable = RxDownload.INSTANCE.create(bean.mission, false)
                 .compose(RxUtils.<Status>ioToMainFlowable())
                 .subscribe(new Consumer<Status>() {
                     @Override
