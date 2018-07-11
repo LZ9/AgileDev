@@ -337,8 +337,8 @@ public class GlideImageLoader implements ImageLoaderContract{
 
     @SuppressWarnings("unchecked")
     private RequestBuilder<Drawable> setDrawableRequestBuilder(RequestBuilder<Drawable> requestBuilder, GlideBuilderBean bean) {
-        requestBuilder = requestBuilder.apply(getRequestOptions(mGlideBuilderBean));
-        requestBuilder = setDrawableTransitionOptions(requestBuilder, mGlideBuilderBean);
+        requestBuilder = requestBuilder.apply(getRequestOptions(bean));
+        requestBuilder = setDrawableTransitionOptions(requestBuilder, bean);
         if (bean.requestListener != null){// 设置请求监听器
             requestBuilder = requestBuilder.listener(bean.requestListener);
         }
@@ -347,8 +347,8 @@ public class GlideImageLoader implements ImageLoaderContract{
 
     @SuppressWarnings("unchecked")
     private RequestBuilder<Bitmap> setBitmapRequestBuilder(RequestBuilder<Bitmap> requestBuilder, GlideBuilderBean bean) {
-        requestBuilder = requestBuilder.apply(getRequestOptions(mGlideBuilderBean));
-        requestBuilder = setBitmapTransitionOptions(requestBuilder, mGlideBuilderBean);
+        requestBuilder = requestBuilder.apply(getRequestOptions(bean));
+        requestBuilder = setBitmapTransitionOptions(requestBuilder, bean);
         if (bean.requestListener != null){// 设置请求监听器
             requestBuilder = requestBuilder.listener(bean.requestListener);
         }
@@ -357,8 +357,8 @@ public class GlideImageLoader implements ImageLoaderContract{
 
     @SuppressWarnings("unchecked")
     private RequestBuilder<GifDrawable> setGifDrawableRequestBuilder(RequestBuilder<GifDrawable> requestBuilder, GlideBuilderBean bean) {
-        requestBuilder = requestBuilder.apply(getRequestOptions(mGlideBuilderBean));
-        requestBuilder = setGifDrawableTransitionOptions(requestBuilder, mGlideBuilderBean);
+        requestBuilder = requestBuilder.apply(getRequestOptions(bean));
+        requestBuilder = setGifDrawableTransitionOptions(requestBuilder, bean);
         if (bean.requestListener != null){// 设置请求监听器
             requestBuilder = requestBuilder.listener(bean.requestListener);
         }
