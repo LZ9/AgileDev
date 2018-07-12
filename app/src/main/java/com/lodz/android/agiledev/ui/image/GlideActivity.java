@@ -434,8 +434,6 @@ public class GlideActivity extends BaseActivity{
         ImageLoader.create(getContext())
                 .load(IMG_URL)
                 .useBlur()
-                .useRoundCorner()
-                .setRoundCorner(10)
                 .setCenterCrop()
                 .useCropSquare()
                 .into(mSquareBlurImg);
