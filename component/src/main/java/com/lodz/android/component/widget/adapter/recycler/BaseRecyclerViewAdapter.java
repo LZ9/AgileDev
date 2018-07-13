@@ -236,6 +236,11 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         this.mData = data;
     }
 
+    /** 获取数据 */
+    public List<T> getData() {
+        return mData;
+    }
+
     /** 在onCreateViewHolder方法中根据layoutId获取View */
     protected View getLayoutView(ViewGroup parent, int layoutId){
         return LayoutInflater.from(mContext).inflate(layoutId, parent, false);
