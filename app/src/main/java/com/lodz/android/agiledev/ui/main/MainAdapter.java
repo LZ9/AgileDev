@@ -2,14 +2,15 @@ package com.lodz.android.agiledev.ui.main;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.bean.MainBean;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.utils.ScreenUtils;
 
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2017/8/30.
  */
 
-public class MainAdapter extends BaseRecyclerViewAdapter<String> {
+public class MainAdapter extends BaseRecyclerViewAdapter<MainBean> {
 
     @ColorRes
     private static final int mColors[] = {R.color.color_00a0e9, R.color.color_ea8380, R.color.color_ea413c,
@@ -40,25 +41,26 @@ public class MainAdapter extends BaseRecyclerViewAdapter<String> {
         super(context);
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MainViewHolder(getLayoutView(parent, R.layout.item_main_layout));
     }
 
     @Override
     public void onBind(RecyclerView.ViewHolder holder, int position) {
-        String name = getItem(position);
-        if (TextUtils.isEmpty(name)) {
+        MainBean bean = getItem(position);
+        if (bean == null) {
             return;
         }
-        showItem((MainViewHolder) holder, name);
+        showItem((MainViewHolder) holder, bean);
     }
 
-    private void showItem(MainViewHolder holder, String name) {
+    private void showItem(MainViewHolder holder, MainBean bean) {
         setItemViewWidth(holder.itemView, ScreenUtils.getScreenWidth(getContext()));
         Random random = new Random();
         holder.nameTv.setTextColor(ContextCompat.getColor(getContext(), mColors[(random.nextInt(100) + 1) % mColors.length]));
-        String str = new String(Character.toChars( mEmojiUnicode[(random.nextInt(100) + 1) % mEmojiUnicode.length])) + "   " + name;
+        String str = new String(Character.toChars( mEmojiUnicode[(random.nextInt(100) + 1) % mEmojiUnicode.length])) + "   " + bean.getTitleName();
         holder.nameTv.setText(str);
     }
 

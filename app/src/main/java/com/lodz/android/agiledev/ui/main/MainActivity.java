@@ -2,6 +2,7 @@ package com.lodz.android.agiledev.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
+import com.lodz.android.agiledev.bean.MainBean;
 import com.lodz.android.agiledev.ui.admin.AdminTestActivity;
 import com.lodz.android.agiledev.ui.annotation.AnnotationTestActivity;
 import com.lodz.android.agiledev.ui.config.ConfigLayoutActivity;
@@ -50,12 +52,13 @@ import com.lodz.android.agiledev.ui.toast.ToastTestActivity;
 import com.lodz.android.agiledev.ui.webview.PgWebViewActivity;
 import com.lodz.android.agiledev.ui.webview.WebViewTestActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
-import com.lodz.android.component.rx.utils.RxUtils;
+import com.lodz.android.component.widget.adapter.decoration.SectionItemDecoration;
+import com.lodz.android.component.widget.adapter.decoration.StickyItemDecoration;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+import com.lodz.android.component.widget.index.IndexBar;
+import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DensityUtils;
-import com.lodz.android.core.utils.ToastUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -79,37 +82,50 @@ public class MainActivity extends BaseActivity{
         context.startActivity(starter);
     }
 
-    /** 功能名称 */
-    private static final List<String> mNameList = Arrays.asList(
-            "弹框测试", "视频录制测试", "RV拖拽测试",
-            "RV动画测试", "带头/底部RV测试", "刷新/加载更多测试",
-            "RV侧滑菜单测试", "崩溃测试", "基础控件配置",
-            "照片选择器测试", "定位测试", "通知测试",
-            "Retrofit测试", "RV装饰器测试类", "线程池测试类",
-            "Rxjava测试类", "MVP模式测试类", "Coordinator测试类",
-            "DialogFragment测试类", "Glide测试", "注解测试类",
-            "侧滑栏测试类", "下载测试类", "MVC模式测试类",
-            "身份证号码测试类", "BottomSheets测试类", "CardView测试类",
-            "共享元素动画", "索引栏测试类", "自定义控件测试类",
-            "WebView和JS交互测试类", "加载进度条的WebView", "Toast测试类",
-            "RvSnap测试类", "设备管理功能测试", "加密测试类",
-            "自定义键盘测试类", "后台回收应用数据保存测试");
+    /** 索引标题 */
+    private static final String[] INDEX_TITLE = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
 
-    /** 功能的activity */
-    private static final Class<?>[] mClassList = {
-            DialogTestActivity.class, RecordActivity.class, DragRecyclerViewActivity.class,
-            AnimRecyclerViewActivity.class, HeadRecyclerViewActivity.class, RefreshTestActivity.class,
-            SwipeRecyclerViewActivity.class, CrashTestActivity.class, ConfigLayoutActivity.class,
-            PhotoPickerTestActivity.class, LocationActivity.class, NotificationActivity.class,
-            RetrofitTestActivity.class, ItemDecorationTestActivity.class, ThreadPoolActivity.class,
-            RxTestActivity.class, MvpDemoActivity.class, CoordinatorTestActivity.class,
-            DialogFragmentTestActivity.class, GlideActivity.class, AnnotationTestActivity.class,
-            DrawerTestActivity.class, DownloadTestActivity.class, MvcDemoActivity.class,
-            IdcardTestActivity.class, BottomSheetsTestActivity.class, CardViewTestActivity.class,
-            ShareAnimationActivity.class, IndexBarTestActivity.class, CustomViewTestActivity.class,
-            WebViewTestActivity.class, PgWebViewActivity.class, ToastTestActivity.class,
-            RvSnapActivity.class, AdminTestActivity.class, EncryptTestActivity.class,
-            KeyboardTestActivity.class, RestoreTestActivity.class};
+    private static final List<MainBean> MAIN_DATA_LIST = Arrays.asList(
+            new MainBean("弹框测试", "T", DialogTestActivity.class),
+            new MainBean("视频录制测试", "S", RecordActivity.class),
+            new MainBean("RV拖拽测试", "R", DragRecyclerViewActivity.class),
+            new MainBean("RV动画测试", "R", AnimRecyclerViewActivity.class),
+            new MainBean("RV带头/底部测试", "R", HeadRecyclerViewActivity.class),
+            new MainBean("RV刷新/加载更多测试", "R", RefreshTestActivity.class),
+            new MainBean("RV侧滑菜单测试", "R", SwipeRecyclerViewActivity.class),
+            new MainBean("崩溃测试", "B", CrashTestActivity.class),
+            new MainBean("基础控件配置", "J", ConfigLayoutActivity.class),
+            new MainBean("照片选择器测试", "Z", PhotoPickerTestActivity.class),
+            new MainBean("定位测试", "D", LocationActivity.class),
+            new MainBean("通知测试", "T", NotificationActivity.class),
+            new MainBean("Retrofit测试", "R", RetrofitTestActivity.class),
+            new MainBean("RV装饰器测试类", "R", ItemDecorationTestActivity.class),
+            new MainBean("线程池测试类", "X", ThreadPoolActivity.class),
+            new MainBean("Rxjava测试类", "R", RxTestActivity.class),
+            new MainBean("MVP模式测试类", "M", MvpDemoActivity.class),
+            new MainBean("Coordinator测试类", "C", CoordinatorTestActivity.class),
+            new MainBean("DialogFragment测试类", "D", DialogFragmentTestActivity.class),
+            new MainBean("Glide测试", "G", GlideActivity.class),
+            new MainBean("注解测试类", "Z", AnnotationTestActivity.class),
+            new MainBean("侧滑栏测试类", "C", DrawerTestActivity.class),
+            new MainBean("下载测试类", "X", DownloadTestActivity.class),
+            new MainBean("MVC模式测试类", "M", MvcDemoActivity.class),
+            new MainBean("身份证号码测试类", "S", IdcardTestActivity.class),
+            new MainBean("BottomSheets测试类", "B", BottomSheetsTestActivity.class),
+            new MainBean("CardView测试类", "C", CardViewTestActivity.class),
+            new MainBean("共享元素动画", "G", ShareAnimationActivity.class),
+            new MainBean("索引栏测试类", "S", IndexBarTestActivity.class),
+            new MainBean("自定义控件测试类", "Z", CustomViewTestActivity.class),
+            new MainBean("WebView和JS交互测试类", "W", WebViewTestActivity.class),
+            new MainBean("加载进度条的WebView", "J", PgWebViewActivity.class),
+            new MainBean("Toast测试类", "T", ToastTestActivity.class),
+            new MainBean("RvSnap测试类", "R", RvSnapActivity.class),
+            new MainBean("设备管理功能测试", "S", AdminTestActivity.class),
+            new MainBean("加密测试类", "J", EncryptTestActivity.class),
+            new MainBean("自定义键盘测试类", "Z", KeyboardTestActivity.class),
+            new MainBean("后台回收应用数据保存测试", "H", RestoreTestActivity.class)
+            );
 
     /** 标题名称 */
     public static final String EXTRA_TITLE_NAME = "extra_title_name";
@@ -117,8 +133,15 @@ public class MainActivity extends BaseActivity{
     /** 列表 */
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    /** 索引栏 */
+    @BindView(R.id.index_bar)
+    IndexBar mIndexBar;
+    /** 提示控件 */
+    @BindView(R.id.hint)
+    TextView mHintTv;
 
     private MainAdapter mAdapter;
+    private List<MainBean> mList;
 
     @Override
     protected int getLayoutId() {
@@ -130,6 +153,7 @@ public class MainActivity extends BaseActivity{
         ButterKnife.bind(this);
         initTitleBar(getTitleBarLayout());
         initRecyclerView();
+        mIndexBar.setHintTextView(mHintTv);
     }
 
     private void initTitleBar(TitleBarLayout titleBarLayout) {
@@ -153,8 +177,25 @@ public class MainActivity extends BaseActivity{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mAdapter = new MainAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(getItemDecoration());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private RecyclerView.ItemDecoration getItemDecoration() {
+        return StickyItemDecoration.<String>create(getContext())
+                .setOnSectionCallback(new SectionItemDecoration.OnSectionCallback<String>() {
+                    @Override
+                    public String getSourceItem(int position) {
+                        return mList.get(position).getSortStr();
+                    }
+                })
+                .setSectionTextSize(16)
+                .setSectionHeight(30)
+                .setSectionTextTypeface(Typeface.DEFAULT_BOLD)
+                .setSectionTextColorRes(R.color.color_00a0e9)
+                .setSectionTextPaddingLeftDp(8)
+                .setSectionBgColorRes(R.color.color_f0f0f0);
     }
 
     @Override
@@ -166,12 +207,25 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void setListeners() {
         super.setListeners();
-        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<String>() {
+        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<MainBean>() {
             @Override
-            public void onItemClick(RecyclerView.ViewHolder viewHolder, String item, int position) {
-                Intent intent = new Intent(getContext(), mClassList[position]);
-                intent.putExtra(EXTRA_TITLE_NAME, item);
+            public void onItemClick(RecyclerView.ViewHolder viewHolder, MainBean item, int position) {
+                Intent intent = new Intent(getContext(), item.getCls());
+                intent.putExtra(EXTRA_TITLE_NAME, item.getTitleName());
                 startActivity(intent);
+            }
+        });
+
+        mIndexBar.setOnIndexListener(new IndexBar.OnIndexListener() {
+            @Override
+            public void onStart(int position, String indexText) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+                layoutManager.scrollToPositionWithOffset(ArrayUtils.getPositionByIndex(mList, ArrayUtils.arrayToList(INDEX_TITLE), indexText), 0);
+            }
+
+            @Override
+            public void onEnd() {
+
             }
         });
     }
@@ -179,8 +233,9 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void initData() {
         super.initData();
-        mAdapter.setData(mNameList);
+        mList = ArrayUtils.groupList(MAIN_DATA_LIST, ArrayUtils.arrayToList(INDEX_TITLE));
+        mIndexBar.setIndexList(ArrayUtils.arrayToList(INDEX_TITLE));
+        mAdapter.setData(mList);
         showStatusCompleted();
     }
-
 }

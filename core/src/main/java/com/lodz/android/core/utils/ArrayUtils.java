@@ -404,7 +404,7 @@ public class ArrayUtils {
      * @param source 原数据列表
      * @param indexText 索引文字
      */
-    public static <T> int getPositionByIndex(List<T> source, String indexText){
+    public static <T> int getPositionByIndex(List<T> source, List<String> groups, String indexText){
         if (isEmpty(source) || TextUtils.isEmpty(indexText)){
             return 0;
         }
@@ -426,7 +426,13 @@ public class ArrayUtils {
                 }
             }
         }
-        return 0;
+
+        // 都没有匹配到说明数据里没有indexText的内容，则匹配他的前一位
+        int position = groups.indexOf(indexText);
+        if (position <= 0){
+            return 0;
+        }
+        return getPositionByIndex(source, groups, groups.get(position - 1));
     }
 
 }

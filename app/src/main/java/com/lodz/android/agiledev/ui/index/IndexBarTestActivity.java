@@ -102,7 +102,7 @@ public class IndexBarTestActivity extends BaseActivity{
             @Override
             public void onStart(int position, String indexText) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-                layoutManager.scrollToPositionWithOffset(ArrayUtils.getPositionByIndex(mList, indexText), 0);
+                layoutManager.scrollToPositionWithOffset(ArrayUtils.getPositionByIndex(mList, NationDataFactory.getIndexTitle(), indexText), 0);
             }
 
             @Override
