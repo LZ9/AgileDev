@@ -13,15 +13,15 @@ import java.text.DecimalFormat;
 public class NumberFormatUtils {
 
     /** 保留1位小数 */
-    public static final String TYPE_ONE_DECIMAL = "#.0";
+    public static final String TYPE_ONE_DECIMAL = "0.0";
     /** 保留2位小数 */
-    public static final String TYPE_TWO_DECIMAL = "#.00";
+    public static final String TYPE_TWO_DECIMAL = "0.00";
     /** 保留3位小数 */
-    public static final String TYPE_THREE_DECIMAL = "#.000";
+    public static final String TYPE_THREE_DECIMAL = "0.000";
     /** 保留4位小数 */
-    public static final String TYPE_FOUR_DECIMAL = "#.0000";
+    public static final String TYPE_FOUR_DECIMAL = "0.0000";
     /** 保留5位小数 */
-    public static final String TYPE_FIVE_DECIMAL = "#.00000";
+    public static final String TYPE_FIVE_DECIMAL = "0.00000";
 
     @StringDef({TYPE_ONE_DECIMAL, TYPE_TWO_DECIMAL, TYPE_THREE_DECIMAL, TYPE_FOUR_DECIMAL, TYPE_FIVE_DECIMAL})
     @Retention(RetentionPolicy.SOURCE)
