@@ -48,10 +48,6 @@
 ```
     ImageloaderManager.get().clearDiskCaches(context);
 ```
-4）清除所有缓存（内存+磁盘）
-```
-    ImageloaderManager.get().clearCaches(context);
-```
 5）暂停加载
 ```
     ImageloaderManager.get().pauseLoad(context);
