@@ -1,7 +1,6 @@
 package com.lodz.android.core.utils;
 
 import android.support.annotation.StringDef;
-import android.text.format.DateFormat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -128,7 +127,7 @@ public class DateUtils {
      */
     public static String parseFormatCalendar(String formatType, Calendar calendar){
         try {
-            return DateFormat.format(formatType, calendar).toString();
+            return getFormatString(formatType, new Date(calendar.getTimeInMillis()));
         }catch (Exception e){
             e.printStackTrace();
         }
