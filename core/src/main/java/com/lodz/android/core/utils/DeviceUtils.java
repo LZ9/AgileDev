@@ -1,12 +1,12 @@
 package com.lodz.android.core.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.StringDef;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
@@ -64,7 +64,7 @@ public class DeviceUtils {
      * <p>
      * <b>需要动态申请READ_PHONE_STATE<b/>
      */
-    @SuppressLint({"HardwareIds", "MissingPermission"})
+    @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getIMSI(Context context) {
         try {
             TelephonyManager tm = (TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -84,7 +84,7 @@ public class DeviceUtils {
      * <p>
      * <b>需要动态申请READ_PHONE_STATE<b/>
      */
-    @SuppressLint({"HardwareIds", "MissingPermission"})
+    @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     public static String getIMEI(Context context) {
         try {
             TelephonyManager tm = (TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -111,11 +111,11 @@ public class DeviceUtils {
     }
 
     /**
-     * 获取APN
+     * 获取APN名称
      * @param context 上下文
      */
-    @SuppressLint("MissingPermission")
-    public static String getAPN(Context context) {
+    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
+    public static String getApnName(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager == null){
             return "";
@@ -124,10 +124,10 @@ public class DeviceUtils {
         if (info == null){
             return "";
         }
-        if (ConnectivityManager.TYPE_WIFI == info.getType()) {
-            return TextUtils.isEmpty(info.getTypeName()) ? "wifi" : info.getTypeName();
+        if (ConnectivityManager.TYPE_MOBILE == info.getType() && !TextUtils.isEmpty(info.getExtraInfo())) {//移动网络下返回APN名称
+            return info.getExtraInfo();
         }
-        return TextUtils.isEmpty(info.getExtraInfo()) ? "mobile" : info.getExtraInfo();
+        return "";
     }
 
     /**
