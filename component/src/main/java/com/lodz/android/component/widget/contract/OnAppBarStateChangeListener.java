@@ -3,6 +3,9 @@ package com.lodz.android.component.widget.contract;
 import android.support.annotation.IntDef;
 import android.support.design.widget.AppBarLayout;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * AppBarLayout的滑动偏移监听器
  * Created by zhouL on 2016/12/29.
@@ -17,6 +20,7 @@ public abstract class OnAppBarStateChangeListener implements AppBarLayout.OnOffs
     public static final int SCROLLING = 2;
 
     @IntDef({EXPANDED, COLLAPSED, SCROLLING})
+    @Retention(RetentionPolicy.SOURCE)
     public @interface Status {}
 
     @Override
