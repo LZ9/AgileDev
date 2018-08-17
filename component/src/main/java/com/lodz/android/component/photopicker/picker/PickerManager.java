@@ -179,7 +179,7 @@ public class PickerManager {
             ToastUtils.showShort(context, R.string.component_photo_source_list_empty);
             return;
         }
-        if (sPickerBean.isPickAllPhoto && ArrayUtils.isEmpty(AlbumUtils.getAllImages(context))){// 校验手机内是否有图片
+        if (sPickerBean.isPickAllPhoto && !sPickerBean.isNeedCamera && ArrayUtils.isEmpty(AlbumUtils.getAllImages(context))){// 校验手机内是否有图片
             ToastUtils.showShort(context, R.string.component_photo_source_list_empty);
             return;
         }
