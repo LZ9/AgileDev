@@ -249,7 +249,7 @@ public class BitmapUtils {
             canvas.drawBitmap(watermark, width - watermarkWidth - margin, height - watermarkHeight - margin, null);// 在src的右下角画入水印
         }
 
-        canvas.save(Canvas.ALL_SAVE_FLAG);// 保存
+        canvas.save();// 保存
         canvas.restore();// 存储
         return bitmap;
     }

@@ -13,19 +13,9 @@
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
     </style>
 
-    <!-- Coordinator主题 -->
-    <style name="AppTheme.Coordinator" parent="AppTheme">
-        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
-    </style>
-
     <!-- 沉浸式页面主题 -->
     <style name="AppTheme.Immersive" parent="AppTheme">
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
-    </style>
-
-    <!-- 沉浸式Coordinator主题 -->
-    <style name="AppTheme.Immersive.Coordinator" parent="AppTheme.Immersive">
-        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
     </style>
 
     <!-- 折叠后标题 -->
