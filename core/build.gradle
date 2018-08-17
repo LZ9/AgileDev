@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 46
-        versionName "1.2.12"// 未上传
+        versionName "1.2.12"// 成功上传
     }
     buildTypes {
         release {
@@ -38,7 +38,7 @@ dependencies {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'core'//项目名称
-//    publishVersion = '1.2.11'//版本号
+//    publishVersion = '1.2.12'//版本号
 //    desc = 'Hi, this is a simple tools lib for android project, i want to upload and use it~'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
