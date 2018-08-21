@@ -150,6 +150,7 @@ public class AdminTestActivity extends BaseActivity{
                     ToastUtils.showShort(getContext(), "尚未激活");
                     return;
                 }
+                ToastUtils.showShort(getContext(), "请在代码中去掉注释后再测试");
 //                AdminManager.wipeData(getContext());
             }
         });
