@@ -56,6 +56,9 @@ public class SnackbarUtils {
         return utils;
     }
 
+    private SnackbarUtils() {
+    }
+
     /**
      * 设置文字颜色
      * @param textColor 文字颜色
