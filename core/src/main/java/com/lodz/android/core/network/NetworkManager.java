@@ -222,6 +222,7 @@ public class NetworkManager {
                 type = NetInfo.NETWORK_TYPE_3G;
                 break;
             case TelephonyManager.NETWORK_TYPE_LTE:
+            case 19:// TelephonyManager.NETWORK_TYPE_LTE_CA
                 type = NetInfo.NETWORK_TYPE_4G;
                 break;
             case TelephonyManager.NETWORK_TYPE_UNKNOWN:
@@ -240,7 +241,20 @@ public class NetworkManager {
      */
     private int getType(NetworkInfo info){
         try {
-            return info.getType();//这里做异常捕获防止一些ROM被修改这个类型不是int型
+            //这里做类型判断防止一些ROM被修改这个类型不是int型
+            Object type = info.getType();
+            if (type instanceof Integer){
+                return (int) type;
+            }
+            if (type instanceof String){
+                String typeStr = (String) type;
+                if (!TextUtils.isEmpty(typeStr)) {
+                    return Integer.parseInt(typeStr);
+                }
+            }
+            if (type instanceof Double || type instanceof Float){
+                return (int) type;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -253,7 +267,20 @@ public class NetworkManager {
      */
     private int getSubType(NetworkInfo info){
         try {
-            return info.getSubtype();//这里做异常捕获防止一些ROM被修改这个类型不是int型
+            //这里做类型判断防止一些ROM被修改这个类型不是int型
+            Object type = info.getSubtype();
+            if (type instanceof Integer){
+                return (int) type;
+            }
+            if (type instanceof String){
+                String typeStr = (String) type;
+                if (!TextUtils.isEmpty(typeStr)) {
+                    return Integer.parseInt(typeStr);
+                }
+            }
+            if (type instanceof Double || type instanceof Float){
+                return (int) type;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
