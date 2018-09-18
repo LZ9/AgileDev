@@ -210,7 +210,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private Map<String, String> getDeviceInfo(Context context) {
         Map<String, String> infos = new HashMap<>();
         try {
-            infos.put("versionName", AppUtils.getAppName(context));
+            infos.put("versionName", AppUtils.getVersionName(context));
             infos.put("versionCode", AppUtils.getVersionCode(context) + "");
             Field[] fields = Build.class.getDeclaredFields();
             for (Field field : fields) {
