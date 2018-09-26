@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 47
-        versionName "1.2.13"// 成功上传
+        versionCode 48
+        versionName "1.2.14"// 未上传
     }
     buildTypes {
         release {
@@ -25,13 +25,13 @@ android {
 dependencies {
 
     // 支持库
-    api 'com.android.support:appcompat-v7:28.0.0-rc01'
-    api 'com.android.support:design:28.0.0-rc01'
-    api 'com.android.support:recyclerview-v7:28.0.0-rc01'
-    api 'com.android.support:cardview-v7:28.0.0-rc01'
-    api 'com.android.support:support-annotations:28.0.0-rc01'
+    api 'com.android.support:appcompat-v7:28.0.0'
+    api 'com.android.support:design:28.0.0'
+    api 'com.android.support:recyclerview-v7:28.0.0'
+    api 'com.android.support:cardview-v7:28.0.0'
+    api 'com.android.support:support-annotations:28.0.0'
     api 'com.android.support.constraint:constraint-layout:1.1.3'
-    api 'com.google.android:flexbox:1.0.0'
+    api 'com.google.android:flexbox:1.1.0'
 }
 
 //publish {
