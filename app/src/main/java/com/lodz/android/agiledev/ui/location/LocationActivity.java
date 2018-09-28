@@ -111,29 +111,44 @@ public class LocationActivity extends BaseActivity{
     }
 
     /** 权限申请成功 */
-    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION})// 照相
+    @NeedsPermission({
+            Manifest.permission.ACCESS_FINE_LOCATION,// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+    })
     protected void requestPermission() {
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)){
+            return;
+        }
+        if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)){
             return;
         }
         init();
     }
 
     /** 被拒绝 */
-    @OnPermissionDenied({Manifest.permission.ACCESS_FINE_LOCATION})// 照相
+    @OnPermissionDenied({
+            Manifest.permission.ACCESS_FINE_LOCATION,// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+    })
     protected void onDenied() {
         ToastUtils.showShort(this, "你拒绝了此权限，该功能不可用");
         showStatusError();
     }
 
     /** 用户拒绝后再次申请前告知用户为什么需要该权限 */
-    @OnShowRationale({Manifest.permission.ACCESS_FINE_LOCATION})// 照相
+    @OnShowRationale({
+            Manifest.permission.ACCESS_FINE_LOCATION,// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+    })
     protected void showRationaleBeforeRequest(PermissionRequest request) {
         request.proceed();//请求权限
     }
 
     /** 被拒绝并且勾选了不再提醒 */
-    @OnNeverAskAgain({Manifest.permission.ACCESS_FINE_LOCATION})// 照相
+    @OnNeverAskAgain({
+            Manifest.permission.ACCESS_FINE_LOCATION,// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+    })
     protected void onNeverAskAgain() {
         ToastUtils.showShort(getContext(), R.string.splash_check_permission_tips);
         showPermissionCheckDialog();

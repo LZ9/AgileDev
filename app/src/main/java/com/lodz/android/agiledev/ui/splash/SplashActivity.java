@@ -71,12 +71,16 @@ public class SplashActivity extends AbsActivity{
     @NeedsPermission({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.READ_EXTERNAL_STORAGE,// 存储卡读写
     })
     protected void requestPermission() {
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.READ_PHONE_STATE)){
             return;
         }
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+            return;
+        }
+        if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)){
             return;
         }
         init();
@@ -86,6 +90,7 @@ public class SplashActivity extends AbsActivity{
     @OnPermissionDenied({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.READ_EXTERNAL_STORAGE,// 存储卡读写
     })
     protected void onDenied() {
         SplashActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(this);//申请权限
@@ -95,6 +100,7 @@ public class SplashActivity extends AbsActivity{
     @OnShowRationale({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.READ_EXTERNAL_STORAGE,// 存储卡读写
     })
     protected void showRationaleBeforeRequest(PermissionRequest request) {
         request.proceed();//请求权限
@@ -104,6 +110,7 @@ public class SplashActivity extends AbsActivity{
     @OnNeverAskAgain({
             Manifest.permission.READ_PHONE_STATE,// 手机状态
             Manifest.permission.WRITE_EXTERNAL_STORAGE,// 存储卡读写
+            Manifest.permission.READ_EXTERNAL_STORAGE,// 存储卡读写
     })
     protected void onNeverAskAgain() {
         ToastUtils.showShort(getContext(), R.string.splash_check_permission_tips);
