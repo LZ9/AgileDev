@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
@@ -74,6 +76,10 @@ public class ProgressDialogHelper {
         progressDialog.setCancelable(cancelable);
         if (listener != null) {
             progressDialog.setOnCancelListener(listener);
+        }
+        Window window = progressDialog.getWindow();
+        if (window != null){
+            window.setGravity(Gravity.CENTER);
         }
         return progressDialog;
     }

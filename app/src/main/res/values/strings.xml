@@ -24,6 +24,7 @@
     <string name="dialog_test_left">左侧弹框</string>
     <string name="dialog_test_bottom">底部弹框</string>
     <string name="dialog_test_top">顶部弹框</string>
+    <string name="dialog_test_progress">加载框</string>
 
     <string name="dialog_test_middle_txt">戚家十三口惨案，你居然敢说问心无愧？常威，你还说你不会武功？</string>
 

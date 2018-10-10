@@ -9,10 +9,14 @@ import android.widget.Button;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;
+import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
+import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 /**
  * 弹框测试
@@ -46,6 +50,9 @@ public class DialogTestActivity extends AbsActivity{
 
     @BindView(R.id.top_btn)
     Button mTopBtn;
+
+    @BindView(R.id.progress_btn)
+    Button mProgressBtn;
 
 
     @Override
@@ -117,6 +124,32 @@ public class DialogTestActivity extends AbsActivity{
             public void onClick(View v) {
                 TestTopDialog dialog = new TestTopDialog(getContext());
                 dialog.show();
+            }
+        });
+
+        mProgressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Observable.just("")
+                        .map(new Function<String, String>() {
+                            @Override
+                            public String apply(String s) throws Exception {
+                                Thread.sleep(2000);
+                                return s;
+                            }
+                        })
+                        .compose(RxUtils.<String>ioToMainObservable())
+                        .subscribe(new ProgressObserver<String>() {
+                            @Override
+                            public void onPgNext(String s) {
+
+                            }
+
+                            @Override
+                            public void onPgError(Throwable e, boolean isNetwork) {
+
+                            }
+                        }.create(getContext(), R.string.dialog_test_progress, false));
             }
         });
     }
