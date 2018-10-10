@@ -1,6 +1,8 @@
 package com.lodz.android.component.widget.dialog;
 
 import android.content.Context;
+import android.view.Gravity;
+import android.view.Window;
 
 import com.lodz.android.component.R;
 
@@ -22,5 +24,14 @@ public abstract class BaseCenterDialog extends BaseDialog{
     @Override
     protected int getAnimations() {
         return R.style.animation_center_in_center_out;
+    }
+
+    @Override
+    public void show() {
+        Window window = getWindow();
+        if (window != null) {
+            window.setGravity(Gravity.CENTER);
+        }
+        super.show();
     }
 }
