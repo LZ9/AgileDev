@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release' //novoda
+//apply plugin: "guru.stefma.bintrayrelease" //stefma
 
 android {
     compileSdkVersion 28
@@ -7,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 61
-        versionName "1.5.6"// 成功上传
+        versionCode 62
+        versionName "1.5.7"// 成功上传
     }
 
     buildTypes {
@@ -26,7 +27,7 @@ android {
 
 dependencies {
     // 引用的库
-//    api 'cn.lodz:core:1.2.13'
+//    api 'cn.lodz:core:1.2.14'
     api project(':core')
 
     // RxJava
@@ -47,11 +48,22 @@ dependencies {
 //    api 'com.hannesdorfmann.mosby3:mvp:3.0.4'
 }
 
+////novoda
 //publish {
 //    userOrg = 'lz9'//bintray.com用户名
 //    groupId = 'cn.lodz'//jcenter上的路径
 //    artifactId = 'Component'//项目名称
-//    publishVersion = '1.5.6'//版本号
+//    publishVersion = '1.5.7'//版本号
+//    desc = 'Hi, this is a android base library'//描述，不重要
+//    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
+//}
+
+////stefma
+//version = "1.5.7"
+//group = "cn.lodz"
+//publish {
+//    userOrg = 'lz9'
+//    artifactId = 'Component'
 //    desc = 'Hi, this is a android base library'//描述，不重要
 //    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
 //}
