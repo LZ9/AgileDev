@@ -1,12 +1,13 @@
 package com.lodz.android.core.utils;
 
 import android.content.Context;
-import android.support.annotation.AnimRes;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+
+import androidx.annotation.AnimRes;
 
 /**
  * 动画帮助类

@@ -2,9 +2,6 @@ package com.lodz.android.component.widget.ninegrid;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -16,6 +13,10 @@ import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 /**
  * 简单的九宫格实现

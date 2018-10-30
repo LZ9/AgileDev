@@ -1,10 +1,8 @@
 package com.lodz.android.agiledev.ui.rv.snap;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.bean.NationBean;
 import com.lodz.android.agiledev.ui.main.MainActivity;
@@ -14,6 +12,8 @@ import com.lodz.android.component.widget.adapter.snap.TabPagerSnapHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -65,7 +65,7 @@ public class RvSnapActivity extends BaseActivity{
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mAdapter = new SnapAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

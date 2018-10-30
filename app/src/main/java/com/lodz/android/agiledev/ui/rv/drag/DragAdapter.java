@@ -1,8 +1,6 @@
 package com.lodz.android.agiledev.ui.rv.drag;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +11,8 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.core.utils.ScreenUtils;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -18,7 +18,6 @@ package com.lodz.android.component.widget.adapter.swipe;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -30,6 +29,8 @@ import android.widget.OverScroller;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+
+import androidx.core.view.ViewCompat;
 
 /**
  * Created by Yan Zhenjie on 2016/7/27.

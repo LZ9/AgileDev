@@ -1,11 +1,12 @@
 package com.lodz.android.core.log;
 
-import android.support.annotation.IntDef;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * 日志打印

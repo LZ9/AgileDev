@@ -1,9 +1,10 @@
 package com.lodz.android.core.threadpool;
 
 import android.os.Process;
-import android.support.annotation.Nullable;
 
 import java.util.concurrent.ThreadFactory;
+
+import androidx.annotation.Nullable;
 
 /**
  * 优先级线程工厂

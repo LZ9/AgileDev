@@ -22,13 +22,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
 import android.renderscript.RSRuntimeException;
-import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.lodz.android.imageloader.utils.blur.FastBlur;
 import com.lodz.android.imageloader.utils.blur.RSBlur;
 
 import java.security.MessageDigest;
+
+import androidx.annotation.NonNull;
 
 public class BlurTransformation extends BitmapTransformation {
 

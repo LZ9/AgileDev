@@ -3,15 +3,16 @@ package com.lodz.android.component.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import com.lodz.android.core.utils.ArrayUtils;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
 
 /**
  * 动画过度帮助类

@@ -25,18 +25,17 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        api 'cn.lodz:core:1.2.14'
+        api 'cn.lodz:core:2.0.0'
     
-        api 'io.reactivex.rxjava2:rxjava:2.2.2'
+        api 'io.reactivex.rxjava2:rxjava:2.2.3'
         api 'io.reactivex.rxjava2:rxandroid:2.1.0'
         
         api 'com.squareup.retrofit2:retrofit:2.4.0'
         api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
         
-        api 'com.alibaba:fastjson:1.2.49'
+        api 'com.alibaba:fastjson:1.2.51'
         
-        api 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
-        api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+        api 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
         
         api 'org.greenrobot:eventbus:3.1.1'
     }
@@ -511,7 +510,7 @@ c）加载更多适配器的使用方法很简单，结合RecyclerLoadMoreHelper
 ```
     private void initRecyclerView() {
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        layoutManager.setOrientation(RecyclerView.VERTICAL);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mAdapter = new RefreshAdapter(getContext());

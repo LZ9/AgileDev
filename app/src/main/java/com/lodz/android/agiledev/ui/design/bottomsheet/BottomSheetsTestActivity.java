@@ -3,18 +3,18 @@ package com.lodz.android.agiledev.ui.design.bottomsheet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.log.PrintLog;
 
+import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

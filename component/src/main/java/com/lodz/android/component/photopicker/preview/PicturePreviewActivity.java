@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,9 @@ import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
 import com.lodz.android.component.widget.photoview.PhotoViewPager;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DeviceUtils;
+
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * 图片预览页面

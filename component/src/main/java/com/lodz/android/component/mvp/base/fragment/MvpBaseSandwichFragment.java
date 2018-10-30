@@ -1,14 +1,14 @@
 package com.lodz.android.component.mvp.base.fragment;
 
-import android.support.annotation.NonNull;
-
 import com.lodz.android.component.base.fragment.BaseSandwichFragment;
 import com.lodz.android.component.mvp.contract.abs.PresenterContract;
 import com.lodz.android.component.mvp.contract.sandwich.BaseSandwichViewContract;
 import com.lodz.android.core.utils.ToastUtils;
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
+
+import androidx.annotation.NonNull;
 
 /**
  * MVP基类Fragment（带基础状态控件、中部刷新控件和顶部/底部扩展）

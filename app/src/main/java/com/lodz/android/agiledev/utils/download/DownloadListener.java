@@ -1,9 +1,9 @@
 package com.lodz.android.agiledev.utils.download;
 
-import android.support.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * 下载状态回调

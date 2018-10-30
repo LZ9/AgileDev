@@ -5,17 +5,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IntRange;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.lodz.android.core.utils.DensityUtils;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntRange;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * 网格分割线装饰器
@@ -110,7 +111,7 @@ public class GridItemDecoration extends BaseItemDecoration{
     /** 设置LinearLayoutManager的边距 */
     private void setLinearOffsets(Rect outRect, View view, RecyclerView parent, LinearLayoutManager layoutManager) {
         int position = parent.getChildAdapterPosition(view);
-        if (layoutManager.getOrientation() == LinearLayoutManager.VERTICAL){//纵向
+        if (layoutManager.getOrientation() == RecyclerView.VERTICAL){//纵向
             outRect.top = position == 0 ? mPx : 0;
             outRect.bottom = mPx;
             outRect.left = mPx;

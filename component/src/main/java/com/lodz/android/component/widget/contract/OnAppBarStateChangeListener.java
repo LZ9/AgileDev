@@ -1,10 +1,11 @@
 package com.lodz.android.component.widget.contract;
 
-import android.support.annotation.IntDef;
-import android.support.design.widget.AppBarLayout;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * AppBarLayout的滑动偏移监听器

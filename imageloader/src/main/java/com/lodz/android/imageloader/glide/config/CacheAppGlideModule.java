@@ -1,7 +1,6 @@
 package com.lodz.android.imageloader.glide.config;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +16,8 @@ import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
 import java.io.InputStream;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by zhouL on 2018/4/9.

@@ -3,10 +3,6 @@ package com.lodz.android.agiledev.ui.rv.anim;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -24,6 +20,10 @@ import com.lodz.android.core.utils.DensityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -70,7 +70,7 @@ public class AnimRecyclerViewActivity extends BaseActivity{
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mAdapter = new AnimAdapter(getContext());
         mAdapter.setOpenItemAnim(true);//开启动画
         mAdapter.setItemAnimStartPosition(7);//设置动画起始位置

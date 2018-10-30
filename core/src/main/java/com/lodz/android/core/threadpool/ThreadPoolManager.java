@@ -1,12 +1,12 @@
 package com.lodz.android.core.threadpool;
 
-import android.support.annotation.IntRange;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.IntRange;
 
 /**
  * 线程池管理器

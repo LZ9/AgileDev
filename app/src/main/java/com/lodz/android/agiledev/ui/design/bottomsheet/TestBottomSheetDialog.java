@@ -2,19 +2,19 @@ package com.lodz.android.agiledev.ui.design.bottomsheet;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.component.widget.bottomsheets.dialog.BaseBottomSheetDialog;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ScreenUtils;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

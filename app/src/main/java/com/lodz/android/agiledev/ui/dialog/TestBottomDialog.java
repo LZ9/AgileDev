@@ -2,13 +2,13 @@ package com.lodz.android.agiledev.ui.dialog;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.dialog.BaseBottomDialog;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

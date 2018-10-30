@@ -2,8 +2,6 @@ package com.lodz.android.component.photopicker.picker.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lodz.android.component.R;
@@ -14,6 +12,9 @@ import com.lodz.android.component.widget.dialog.BaseTopDialog;
 import com.lodz.android.core.utils.ArrayUtils;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 图片文件弹框
@@ -45,7 +46,7 @@ public class ImageFolderDialog extends BaseTopDialog{
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mAdapter = new ImageFolderAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

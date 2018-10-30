@@ -1,8 +1,6 @@
 package com.lodz.android.component.photopicker.preview;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,6 +8,9 @@ import android.widget.ImageView;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.widget.photoview.PhotoView;
 import com.lodz.android.core.utils.ArrayUtils;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 /**
  * 图片翻页适配器

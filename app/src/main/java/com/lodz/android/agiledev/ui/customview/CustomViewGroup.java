@@ -2,10 +2,11 @@ package com.lodz.android.agiledev.ui.customview;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 自定义ViewGroup

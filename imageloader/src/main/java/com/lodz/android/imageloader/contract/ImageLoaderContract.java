@@ -2,9 +2,6 @@ package com.lodz.android.imageloader.contract;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.AnimRes;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.gif.GifDrawable;
@@ -12,6 +9,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
+
+import androidx.annotation.AnimRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 
 
 /**

@@ -11,12 +11,17 @@
  - [扩展](https://github.com/LZ9/AgileDev/blob/master/imageloader/readme_imageloader.md#扩展)
 
 ## 1、使用Glide
-### 1.1、外部引用
-使用Glide的小伙伴可以加入下面两个依赖，其中第3个为使用okhttp3的依赖，如果小伙伴们不使用可以去掉，我在图片库里已经集成了图片变换
+### 1.1、内部引用
+我将Glide内置在包内，支持androidx，图片库里已经集成了图片变换，请畅快使用
 ```
     dependencies {
-        implementation 'com.github.bumptech.glide:glide:4.8.0'
+        implementation 'androidx.appcompat:appcompat:1.0.0'
+        implementation 'androidx.annotation:annotation:1.0.0'
+
+        // glide
+        api 'com.github.bumptech.glide:glide:4.8.0'
         annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+        annotationProcessor 'com.android.support:support-annotations:28.0.0'
         implementation "com.github.bumptech.glide:okhttp3-integration:4.8.0"
     }
 ```

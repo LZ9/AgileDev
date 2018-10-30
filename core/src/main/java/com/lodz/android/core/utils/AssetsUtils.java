@@ -1,10 +1,11 @@
 package com.lodz.android.core.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
+import androidx.annotation.NonNull;
 
 /**
  * Assets工具类

@@ -3,12 +3,12 @@ package com.lodz.android.component.widget;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.support.design.widget.TabLayout;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.android.material.tabs.TabLayout;
 import com.lodz.android.component.R;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ReflectUtils;

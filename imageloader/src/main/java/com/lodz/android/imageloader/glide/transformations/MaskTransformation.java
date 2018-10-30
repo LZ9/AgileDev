@@ -23,11 +23,13 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.lodz.android.imageloader.utils.TransformationUtils;
 
 import java.security.MessageDigest;
+
+import androidx.annotation.NonNull;
 
 public class MaskTransformation extends BitmapTransformation {
 

@@ -16,8 +16,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -28,6 +26,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 
 /**
  * Bitmap帮助类

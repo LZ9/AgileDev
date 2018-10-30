@@ -1,13 +1,13 @@
 package com.lodz.android.core.utils;
 
-import android.support.annotation.StringDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.StringDef;
 
 /**
  * 时间格式化帮助类

@@ -2,23 +2,24 @@ package com.lodz.android.component.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.component.base.fragment.IFragmentBackPressed;
 import com.lodz.android.component.base.fragment.LazyFragment;
 import com.lodz.android.component.event.ActivityFinishEvent;
 import com.lodz.android.core.utils.ReflectUtils;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * 底层抽象Activity（已经订阅了EventBus）

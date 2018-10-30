@@ -1,11 +1,11 @@
 package com.lodz.android.agiledev.ui.rxjava;
 
-import android.support.annotation.IntDef;
-
 import com.lodz.android.agiledev.ui.rxjava.operate.RxGetCache;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * Rxjava操作符工程类

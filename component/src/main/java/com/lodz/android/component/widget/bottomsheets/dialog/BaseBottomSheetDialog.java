@@ -2,11 +2,13 @@ package com.lodz.android.component.widget.bottomsheets.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.view.View;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 
 /**
  * BottomSheetDialog基类

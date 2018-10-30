@@ -1,7 +1,7 @@
 package com.lodz.android.component.rx.exception;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 /**
  * 网络超时异常

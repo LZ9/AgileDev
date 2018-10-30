@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.lodz.android.agiledev.App;
 import com.lodz.android.agiledev.R;
@@ -19,6 +18,7 @@ import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.core.utils.UiHandler;
 
+import androidx.annotation.NonNull;
 import butterknife.ButterKnife;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;

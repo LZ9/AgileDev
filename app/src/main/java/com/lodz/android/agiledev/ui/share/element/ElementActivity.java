@@ -3,8 +3,6 @@ package com.lodz.android.agiledev.ui.share.element;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +14,8 @@ import com.lodz.android.component.utils.TransitionHelper;
 
 import java.util.List;
 
+import androidx.annotation.DrawableRes;
+import androidx.core.util.Pair;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

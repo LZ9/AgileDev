@@ -1,6 +1,6 @@
 package com.lodz.android.agiledev.config;
 
-import android.support.annotation.Keep;
+import androidx.annotation.Keep;
 
 /**
  * 地址配置

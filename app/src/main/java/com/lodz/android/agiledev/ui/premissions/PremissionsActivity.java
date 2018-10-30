@@ -2,7 +2,6 @@ package com.lodz.android.agiledev.ui.premissions;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +9,7 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.core.utils.AppUtils;
 
+import androidx.annotation.NonNull;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;

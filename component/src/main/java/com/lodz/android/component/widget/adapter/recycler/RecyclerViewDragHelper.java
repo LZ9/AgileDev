@@ -1,16 +1,17 @@
 package com.lodz.android.component.widget.adapter.recycler;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.lodz.android.core.utils.VibratorUtil;
 
 import java.util.Collections;
 import java.util.List;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * RecyclerView拖拽帮助类
@@ -145,7 +146,7 @@ public class RecyclerViewDragHelper<T> {
                 swipeFlags = 0;
             } else if(recyclerView.getLayoutManager() instanceof LinearLayoutManager){// 线性布局
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getOrientation() == LinearLayoutManager.VERTICAL){//纵向
+                if (layoutManager.getOrientation() == RecyclerView.VERTICAL){//纵向
                     dragFlags = mUseDrag ? ItemTouchHelper.UP | ItemTouchHelper.DOWN : 0;
                     swipeFlags = (mUseRightToLeftSwipe ?ItemTouchHelper.START : 0) // START允许从右往左、
                             | (mUseLeftToRightSwipe ? ItemTouchHelper.END : 0); // END允许从左往右

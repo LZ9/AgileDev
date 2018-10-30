@@ -1,9 +1,10 @@
 package com.lodz.android.component.widget.adapter.snap;
 
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 支持TabLayout联动的PagerSnapHelper

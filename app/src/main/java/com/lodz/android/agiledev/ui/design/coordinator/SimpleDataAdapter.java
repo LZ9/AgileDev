@@ -1,8 +1,6 @@
 package com.lodz.android.agiledev.ui.design.coordinator;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,8 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

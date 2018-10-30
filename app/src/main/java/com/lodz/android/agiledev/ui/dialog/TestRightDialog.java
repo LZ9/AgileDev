@@ -1,11 +1,12 @@
 package com.lodz.android.agiledev.ui.dialog;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.dialog.BaseRightDialog;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 /**
  * 测试右侧弹框

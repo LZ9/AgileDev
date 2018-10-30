@@ -16,13 +16,14 @@
 package com.lodz.android.component.widget.adapter.swipe;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
 import android.widget.LinearLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.IntDef;
 
 /**
  * Created by Yan Zhenjie on 2016/7/22.

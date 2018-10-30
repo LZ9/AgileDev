@@ -3,17 +3,17 @@ package com.lodz.android.agiledev.ui.design.coordinator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.ScreenUtils;
 
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -15,13 +15,14 @@
  */
 package com.lodz.android.component.widget.adapter.swipe;
 
-import android.support.annotation.IntDef;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.OverScroller;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * Created by Yan Zhenjie on 2016/7/22.

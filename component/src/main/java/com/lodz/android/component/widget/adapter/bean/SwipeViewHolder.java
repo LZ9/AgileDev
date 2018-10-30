@@ -1,11 +1,12 @@
 package com.lodz.android.component.widget.adapter.bean;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.widget.adapter.swipe.SwipeMenuLayout;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 侧滑ViewHolder

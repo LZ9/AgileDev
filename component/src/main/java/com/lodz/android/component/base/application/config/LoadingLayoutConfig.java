@@ -1,8 +1,9 @@
 package com.lodz.android.component.base.application.config;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.widget.LinearLayout;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
 
 /**

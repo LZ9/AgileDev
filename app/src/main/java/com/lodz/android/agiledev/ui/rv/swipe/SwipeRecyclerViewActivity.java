@@ -1,8 +1,6 @@
 package com.lodz.android.agiledev.ui.rv.swipe;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
@@ -18,6 +16,8 @@ import com.lodz.android.core.utils.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -53,7 +53,7 @@ public class SwipeRecyclerViewActivity extends BaseActivity{
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
 //        mAdapter = new SwipeAdapter(getContext());
         mAdapter = new SwipeSimpleAdapter(getContext(), createLeftMenu(), createRightMenu());
         mRecyclerView.setLayoutManager(layoutManager);

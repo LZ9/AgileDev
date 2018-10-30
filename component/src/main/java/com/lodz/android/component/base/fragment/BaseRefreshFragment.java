@@ -1,9 +1,5 @@
 package com.lodz.android.component.base.fragment;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.LayoutRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +11,11 @@ import com.lodz.android.component.widget.base.ErrorLayout;
 import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.component.widget.base.NoDataLayout;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * 基类Fragment（带基础状态控件和下来刷新控件）

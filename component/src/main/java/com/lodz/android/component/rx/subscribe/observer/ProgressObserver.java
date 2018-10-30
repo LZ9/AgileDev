@@ -2,9 +2,6 @@ package com.lodz.android.component.rx.subscribe.observer;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +12,9 @@ import android.widget.TextView;
 import com.lodz.android.component.R;
 import com.lodz.android.core.utils.UiHandler;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import io.reactivex.disposables.Disposable;
 
 /**

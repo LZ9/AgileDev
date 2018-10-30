@@ -2,10 +2,6 @@ package com.lodz.android.agiledev.ui.rv.head;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
@@ -25,6 +21,10 @@ import com.lodz.android.core.utils.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -100,7 +100,7 @@ public class HeadRecyclerViewActivity extends BaseActivity{
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(mIsVertical ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(mIsVertical ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL);
         return layoutManager;
     }
 

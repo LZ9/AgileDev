@@ -1,9 +1,9 @@
 package com.lodz.android.agiledev.ui.config;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.view.View;
 
+import com.google.android.material.tabs.TabLayout;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;

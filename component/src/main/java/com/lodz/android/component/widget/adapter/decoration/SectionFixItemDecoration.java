@@ -3,12 +3,13 @@ package com.lodz.android.component.widget.adapter.decoration;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lodz.android.core.utils.ArrayUtils;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 固定数据的分组标签装饰器

@@ -1,6 +1,6 @@
 package com.lodz.android.agiledev.bean;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 /**
  * 共享动画数据

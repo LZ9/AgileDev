@@ -22,9 +22,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.support.annotation.NonNull;
+
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+
 import java.security.MessageDigest;
+
+import androidx.annotation.NonNull;
 
 public class ColorFilterTransformation extends BitmapTransformation {
 

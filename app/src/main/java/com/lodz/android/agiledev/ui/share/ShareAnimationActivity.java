@@ -1,9 +1,6 @@
 package com.lodz.android.agiledev.ui.share;
 
 import android.os.Bundle;
-import android.support.v4.util.Pair;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lodz.android.agiledev.R;
@@ -17,6 +14,9 @@ import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapte
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.core.util.Pair;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -59,7 +59,7 @@ public class ShareAnimationActivity extends BaseActivity{
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mAdapter = new ShareAnimAdapter(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

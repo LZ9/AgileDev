@@ -1,10 +1,11 @@
 package com.lodz.android.component.base.application.config;
 
-import android.support.annotation.IntDef;
 import android.widget.LinearLayout;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * 基类配置

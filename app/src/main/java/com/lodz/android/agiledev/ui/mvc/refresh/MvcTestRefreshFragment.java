@@ -11,7 +11,7 @@ import com.lodz.android.component.base.fragment.BaseRefreshFragment;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.utils.ToastUtils;
-import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.Random;
 

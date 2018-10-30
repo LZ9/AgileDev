@@ -3,8 +3,6 @@ package com.lodz.android.component.photopicker.picker;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.lodz.android.component.R;
@@ -17,6 +15,9 @@ import com.lodz.android.core.utils.ToastUtils;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 /**
  * 照片选择管理类

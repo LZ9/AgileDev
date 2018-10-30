@@ -8,15 +8,16 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.annotation.RequiresPermission;
 import android.view.Window;
 import android.view.WindowManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.RequiresPermission;
 
 /**
  * 系统设置帮助类

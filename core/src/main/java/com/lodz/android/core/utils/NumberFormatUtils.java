@@ -1,10 +1,10 @@
 package com.lodz.android.core.utils;
 
-import android.support.annotation.StringDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.DecimalFormat;
+
+import androidx.annotation.StringDef;
 
 /**
  * 数字格式化帮助类

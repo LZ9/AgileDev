@@ -2,9 +2,10 @@ package com.lodz.android.component.widget.adapter.decoration;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 粘黏标签装饰器（粘黏标签的文字由item里字符串的第一位截取）

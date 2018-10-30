@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release' //novoda
 //apply plugin: "guru.stefma.bintrayrelease" //stefma
 
 android {
@@ -8,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 19
-        versionName "1.2.3"// 成功上传
+        versionCode 20
+        versionName "2.0.0"// 成功上传
     }
     buildTypes {
         release {
@@ -25,28 +24,17 @@ android {
 
 dependencies {
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
 
     // glide
-    compileOnly 'com.github.bumptech.glide:glide:4.8.0'
+    api 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    compileOnly "com.github.bumptech.glide:okhttp3-integration:4.8.0"
-
+    annotationProcessor 'com.android.support:support-annotations:28.0.0'
+    implementation "com.github.bumptech.glide:okhttp3-integration:4.8.0"
 }
 
-////novoda
-//publish {
-//    userOrg = 'lz9'//bintray.com用户名
-//    groupId = 'cn.lodz'//jcenter上的路径
-//    artifactId = 'ImagerLoader'//项目名称
-//    publishVersion = '1.2.3'//版本号
-//    desc = 'Hi, this is a image loader'//描述，不重要
-//    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
-//}
-
-////stefma
-//version = "1.2.3"
+//version = "2.0.0"
 //group = "cn.lodz"
 //publish {
 //    userOrg = 'lz9'

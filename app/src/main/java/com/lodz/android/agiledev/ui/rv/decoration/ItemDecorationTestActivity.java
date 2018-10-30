@@ -4,12 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -29,6 +23,12 @@ import com.lodz.android.core.utils.DensityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -263,7 +263,7 @@ public class ItemDecorationTestActivity extends BaseActivity{
     private RecyclerView.LayoutManager getLayoutManager() {
         if (mCurrentLayoutManagerType == LayoutManagerPopupWindow.TYPE_GRID){
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-            layoutManager.setOrientation(mIsVertical ? GridLayoutManager.VERTICAL : GridLayoutManager.HORIZONTAL);
+            layoutManager.setOrientation(mIsVertical ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL);
             return layoutManager;
         }
 
@@ -272,7 +272,7 @@ public class ItemDecorationTestActivity extends BaseActivity{
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(mIsVertical ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(mIsVertical ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL);
         return layoutManager;
     }
 }

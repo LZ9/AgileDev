@@ -1,8 +1,6 @@
 package com.lodz.android.component.photopicker.preview;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IntRange;
 
 import com.lodz.android.component.R;
 import com.lodz.android.component.photopicker.contract.OnClickListener;
@@ -14,6 +12,9 @@ import com.lodz.android.core.utils.ToastUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntRange;
 
 /**
  * 图片预览管理类

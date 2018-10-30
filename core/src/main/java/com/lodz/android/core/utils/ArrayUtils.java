@@ -1,6 +1,5 @@
 package com.lodz.android.core.utils;
 
-import android.support.annotation.IntRange;
 import android.text.TextUtils;
 
 import com.lodz.android.core.array.Groupable;
@@ -15,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import androidx.annotation.IntRange;
 
 /**
  * 数组列表帮助类

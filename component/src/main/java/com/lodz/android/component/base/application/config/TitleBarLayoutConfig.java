@@ -1,8 +1,8 @@
 package com.lodz.android.component.base.application.config;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
 
 /**
  * 标题栏配置

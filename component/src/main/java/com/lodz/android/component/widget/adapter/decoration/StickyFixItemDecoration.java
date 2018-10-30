@@ -2,10 +2,11 @@ package com.lodz.android.component.widget.adapter.decoration;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 固定数据的粘黏标签装饰器

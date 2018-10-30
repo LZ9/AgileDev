@@ -2,11 +2,12 @@ package com.lodz.android.imageloader;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
 import com.lodz.android.imageloader.contract.ImageLoaderContract;
 import com.lodz.android.imageloader.glide.impl.GlideImageLoader;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * 图片加载器

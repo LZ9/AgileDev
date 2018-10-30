@@ -3,11 +3,12 @@ package com.lodz.android.component.widget.adapter.decoration;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.lodz.android.core.array.Groupable;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 分组标签装饰器（分组标题由item里字符串的第一位截取）

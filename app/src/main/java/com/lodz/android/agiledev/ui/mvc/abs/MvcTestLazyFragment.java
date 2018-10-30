@@ -10,7 +10,7 @@ import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.base.fragment.LazyFragment;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
-import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

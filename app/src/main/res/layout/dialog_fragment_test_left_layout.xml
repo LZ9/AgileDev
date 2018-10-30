@@ -12,7 +12,7 @@
         android:padding="5dp"
         android:text="@string/dialog_test_bottom_txt" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="250dp"
         android:layout_height="35dp"
@@ -22,11 +22,11 @@
         app:tabSelectedTextColor="@color/color_00a0e9"
         app:tabTextColor="@color/color_5a5a5a" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>

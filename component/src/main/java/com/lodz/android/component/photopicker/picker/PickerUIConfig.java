@@ -1,7 +1,7 @@
 package com.lodz.android.component.photopicker.picker;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
 /**
  * 选择器UI配置

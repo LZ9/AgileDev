@@ -2,8 +2,6 @@ package com.lodz.android.component.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,6 +10,9 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.lodz.android.component.R;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * 加载框帮助类

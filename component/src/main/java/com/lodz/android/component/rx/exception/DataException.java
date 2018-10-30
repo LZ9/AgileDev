@@ -2,9 +2,10 @@ package com.lodz.android.component.rx.exception;
 
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import com.lodz.android.component.rx.status.ResponseStatus;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 服务端数据异常

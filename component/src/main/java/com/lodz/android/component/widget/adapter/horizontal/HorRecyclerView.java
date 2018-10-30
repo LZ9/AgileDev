@@ -1,10 +1,11 @@
 package com.lodz.android.component.widget.adapter.horizontal;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 解决横向滑动冲突RecyclerView

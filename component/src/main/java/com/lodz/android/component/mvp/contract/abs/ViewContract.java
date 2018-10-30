@@ -1,11 +1,12 @@
 package com.lodz.android.component.mvp.contract.abs;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
 
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+
 
 /**
  * View接口

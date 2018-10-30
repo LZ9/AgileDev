@@ -1,8 +1,6 @@
 package com.lodz.android.agiledev.ui.rv.anim;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -14,6 +12,8 @@ import com.lodz.android.component.widget.popup.BasePopupWindow;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import androidx.annotation.IntDef;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

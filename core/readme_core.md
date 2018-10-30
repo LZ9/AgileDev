@@ -17,12 +17,12 @@
 该库引用了下方这些support库，如果您的app有重复引用可以选择去掉顶层引用或者保证版本一致
 ```
     dependencies {
-        api 'com.android.support:appcompat-v7:28.0.0'
-        api 'com.android.support:design:28.0.0'
-        api 'com.android.support:recyclerview-v7:28.0.0'
-        api 'com.android.support:cardview-v7:28.0.0'
-        api 'com.android.support:support-annotations:28.0.0'
-        api 'com.android.support.constraint:constraint-layout:1.1.3'
+        api 'androidx.appcompat:appcompat:1.0.0'
+        api 'com.google.android.material:material:1.0.0'
+        api 'androidx.recyclerview:recyclerview:1.0.0'
+        api 'androidx.cardview:cardview:1.0.0'
+        api 'androidx.annotation:annotation:1.0.0'
+        api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
         api 'com.google.android:flexbox:1.1.0'
     }
 ```

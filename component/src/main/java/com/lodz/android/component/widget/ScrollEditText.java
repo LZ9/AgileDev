@@ -3,11 +3,12 @@ package com.lodz.android.component.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * 外嵌ScrollView可滚动文字

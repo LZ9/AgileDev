@@ -2,14 +2,15 @@ package com.lodz.android.agiledev.utils.media;
 
 import android.hardware.Camera;
 import android.media.MediaRecorder;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.view.SurfaceHolder;
 
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 /**
  * 视频录制帮助类

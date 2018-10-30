@@ -1,7 +1,6 @@
 package com.lodz.android.agiledev.ui.rv.swipe;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import com.lodz.android.component.widget.adapter.bean.SwipeViewHolder;
 import com.lodz.android.component.widget.adapter.recycler.BaseSwipeRVAdapter;
 import com.lodz.android.core.utils.ToastUtils;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

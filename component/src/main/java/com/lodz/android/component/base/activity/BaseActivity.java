@@ -1,6 +1,5 @@
 package com.lodz.android.component.base.activity;
 
-import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import com.lodz.android.component.widget.base.ErrorLayout;
 import com.lodz.android.component.widget.base.LoadingLayout;
 import com.lodz.android.component.widget.base.NoDataLayout;
 import com.lodz.android.component.widget.base.TitleBarLayout;
+
+import androidx.annotation.LayoutRes;
 
 /**
  * 基类Activity（带基础状态控件）

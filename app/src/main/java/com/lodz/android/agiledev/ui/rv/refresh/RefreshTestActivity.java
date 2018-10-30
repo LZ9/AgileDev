@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
@@ -29,6 +25,10 @@ import com.lodz.android.core.utils.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -110,7 +110,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
     private RecyclerView.LayoutManager getLayoutManager() {
         if (mCurrentLayoutManagerType == LayoutManagerPopupWindow.TYPE_GRID){
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-            layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+            layoutManager.setOrientation(RecyclerView.VERTICAL);
             return layoutManager;
         }
 
@@ -119,7 +119,7 @@ public class RefreshTestActivity extends BaseRefreshActivity {
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         return layoutManager;
     }
 

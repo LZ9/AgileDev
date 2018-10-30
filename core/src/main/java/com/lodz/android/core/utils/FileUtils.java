@@ -1,8 +1,6 @@
 package com.lodz.android.core.utils;
 
 import android.graphics.Bitmap;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.BufferedOutputStream;
@@ -13,6 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 /**
  * 文件操作帮助类

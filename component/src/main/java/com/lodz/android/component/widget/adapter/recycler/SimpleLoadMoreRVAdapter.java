@@ -1,10 +1,6 @@
 package com.lodz.android.component.widget.adapter.recycler;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -12,6 +8,11 @@ import android.widget.TextView;
 
 import com.lodz.android.component.R;
 import com.lodz.android.core.utils.ScreenUtils;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 简单实现的BaseLoadMoreRecyclerViewAdapter

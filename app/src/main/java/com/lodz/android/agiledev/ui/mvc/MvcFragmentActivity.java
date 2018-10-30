@@ -3,12 +3,8 @@ package com.lodz.android.agiledev.ui.mvc;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.mvc.abs.MvcTestLazyFragment;
 import com.lodz.android.agiledev.ui.mvc.base.MvcTestBaseFragment;
@@ -17,6 +13,10 @@ import com.lodz.android.agiledev.ui.mvc.sandwich.MvcTestSandwichFragment;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

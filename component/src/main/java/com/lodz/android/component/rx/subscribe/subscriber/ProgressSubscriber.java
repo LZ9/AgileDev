@@ -2,9 +2,6 @@ package com.lodz.android.component.rx.subscribe.subscriber;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +13,10 @@ import com.lodz.android.component.R;
 import com.lodz.android.core.utils.UiHandler;
 
 import org.reactivestreams.Subscription;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * 展示加载框的订阅者（带背压）

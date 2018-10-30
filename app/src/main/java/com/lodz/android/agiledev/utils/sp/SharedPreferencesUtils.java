@@ -2,12 +2,13 @@ package com.lodz.android.agiledev.utils.sp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 
 import com.lodz.android.component.base.application.BaseApplication;
 
 import java.util.Map;
 import java.util.Set;
+
+import androidx.annotation.Nullable;
 
 /**
  * SP帮助类

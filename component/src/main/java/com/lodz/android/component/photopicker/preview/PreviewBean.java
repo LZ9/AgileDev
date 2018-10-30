@@ -1,7 +1,5 @@
 package com.lodz.android.component.photopicker.preview;
 
-import android.support.annotation.ColorRes;
-
 import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.OnLongClickListener;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
@@ -9,6 +7,8 @@ import com.lodz.android.core.utils.ArrayUtils;
 
 import java.io.Serializable;
 import java.util.List;
+
+import androidx.annotation.ColorRes;
 
 /**
  * 预览数据

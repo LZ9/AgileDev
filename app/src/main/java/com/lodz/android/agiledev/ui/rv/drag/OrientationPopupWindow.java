@@ -1,7 +1,6 @@
 package com.lodz.android.agiledev.ui.rv.drag;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.component.widget.popup.BasePopupWindow;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
