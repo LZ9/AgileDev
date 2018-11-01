@@ -17,24 +17,24 @@
 ## 1、添加Gradle依赖：
 #### 1) support包版本
 ```
-    compile 'cn.lodz:core:1.2.14'
+    implementation 'cn.lodz:core:1.2.14'
 ```
 ```
-    compile 'cn.lodz:Component:1.5.7'
+    implementation 'cn.lodz:Component:1.5.7'
 ```
 ```
-    compile 'cn.lodz:ImagerLoader:1.2.3'
+    implementation 'cn.lodz:ImagerLoader:1.2.3'
 ```
 
 #### 2) androidx包版本
 ```
-    compile 'cn.lodz:core:2.0.0'
+    implementation 'cn.lodz:core:2.0.0'
 ```
 ```
-    compile 'cn.lodz:Component:2.0.0'
+    implementation 'cn.lodz:Component:2.0.0'
 ```
 ```
-    compile 'cn.lodz:ImagerLoader:2.0.0'
+    implementation 'cn.lodz:ImagerLoader:2.0.0'
 ```
 ## 2、详细了解
 - [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
