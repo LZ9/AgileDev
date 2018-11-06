@@ -91,7 +91,7 @@ public class HeadRecyclerViewActivity extends BaseActivity{
     private RecyclerView.LayoutManager getLayoutManager() {
         if (mCurrentLayoutManagerType == LayoutManagerPopupWindow.TYPE_GRID){
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-            layoutManager.setOrientation(mIsVertical ? GridLayoutManager.VERTICAL : GridLayoutManager.HORIZONTAL);
+            layoutManager.setOrientation(mIsVertical ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL);
             return layoutManager;
         }
 

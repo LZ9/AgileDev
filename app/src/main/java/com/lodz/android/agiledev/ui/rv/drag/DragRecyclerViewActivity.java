@@ -98,7 +98,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
     private RecyclerView.LayoutManager getLayoutManager() {
         if (mCurrentLayoutManagerType == LayoutManagerPopupWindow.TYPE_GRID){
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-            layoutManager.setOrientation(mIsVertical ? GridLayoutManager.VERTICAL : GridLayoutManager.HORIZONTAL);
+            layoutManager.setOrientation(mIsVertical ? RecyclerView.VERTICAL : RecyclerView.HORIZONTAL);
             return layoutManager;
         }
 

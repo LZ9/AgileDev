@@ -90,7 +90,7 @@ public class NineGridView extends FrameLayout{
     /** 初始化RecyclerView */
     private void initRecyclerView() {
         mGridLayoutManager = new GridLayoutManager(getContext(), DEFAULT_SPAN_COUNT);
-        mGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        mGridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mAdapter = new NineGridAdapter(getContext());
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -321,6 +321,11 @@ public class NineGridView extends FrameLayout{
             return new ArrayList<>();
         }
         return mDataList;
+    }
+
+    /** 清空数据 */
+    public void clearData(){
+        setData(new ArrayList<String>());
     }
 
     /** 是否允许拖拽 */
