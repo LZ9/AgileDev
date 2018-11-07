@@ -28,10 +28,10 @@
 
 #### 2) androidx包版本
 ```
-    implementation 'cn.lodz:core:2.0.0'
+    implementation 'cn.lodz:core:2.0.1'
 ```
 ```
-    implementation 'cn.lodz:Component:2.0.0'
+    implementation 'cn.lodz:Component:2.0.1'
 ```
 ```
     implementation 'cn.lodz:ImagerLoader:2.0.0'
