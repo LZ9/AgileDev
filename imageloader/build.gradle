@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 20
-        versionName "2.0.0"// 成功上传
+        versionCode 21
+        versionName "2.0.1"// 未上传
     }
     buildTypes {
         release {
@@ -24,7 +24,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.1'
     implementation 'androidx.annotation:annotation:1.0.0'
 
     // glide

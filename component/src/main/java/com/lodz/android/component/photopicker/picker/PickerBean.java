@@ -36,7 +36,8 @@ class PickerBean implements Serializable {
     String authority = "";
     /** 是否需要item的预览功能 */
     boolean isNeedItemPreview = true;
-
+    /** 是否立即返回结果 */
+    boolean isImmediately = false;
 
     void clear(){
         if (!ArrayUtils.isEmpty(sourceList)){

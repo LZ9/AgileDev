@@ -272,7 +272,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setCameraSavePath(FileManager.getCacheFolderPath())
                         .setAuthority("com.lodz.android.agiledev.fileprovider")
                         .build()
-                        .takePhoto(getContext());
+                        .takePhoto(getContext(), true);
             }
         });
 

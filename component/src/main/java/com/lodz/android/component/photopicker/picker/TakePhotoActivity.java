@@ -94,12 +94,7 @@ public class TakePhotoActivity extends AbsActivity {
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<String> list = new ArrayList<>();
-                list.add(mTempFilePath);
-                if (mPickerBean.photoPickerListener != null){
-                    mPickerBean.photoPickerListener.onPickerSelected(list);
-                }
-                finish();
+                handleConfirm();
             }
         });
     }
@@ -149,16 +144,30 @@ public class TakePhotoActivity extends AbsActivity {
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
                 AlbumUtils.notifyScanImage(getContext(), mTempFilePath);// 更新相册
-                UiHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleCameraSuccess();
-                    }
-                }, 300);
+                if (mPickerBean.isImmediately){
+                    handleConfirm();
+                }else {
+                    UiHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            handleCameraSuccess();
+                        }
+                    }, 300);
+                }
                 return;
             }
             handleCameraCancel();
         }
+    }
+
+    /** 处理确认照片 */
+    private void handleConfirm(){
+        List<String> list = new ArrayList<>();
+        list.add(mTempFilePath);
+        if (mPickerBean.photoPickerListener != null){
+            mPickerBean.photoPickerListener.onPickerSelected(list);
+        }
+        finish();
     }
 
     /** 处理拍照成功 */
