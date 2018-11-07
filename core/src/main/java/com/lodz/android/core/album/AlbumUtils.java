@@ -1,5 +1,6 @@
 package com.lodz.android.core.album;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.media.MediaScannerConnection;
@@ -198,10 +199,28 @@ public class AlbumUtils {
      * @param imagePath 图片地址
      */
     public static void notifyScanImage(Context context, String imagePath) {
-//        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        Uri uri = Uri.fromFile(new File(imagePath));
-//        intent.setData(uri);
-//        context.getApplicationContext().sendBroadcast(intent);
-        MediaScannerConnection.scanFile(context.getApplicationContext(), new String[]{imagePath}, new String[]{"image/jpeg"}, null);
+        MediaScannerConnection.scanFile(context.getApplicationContext(), new String[]{imagePath}, new String[]{"image/jpeg", "image/jpg", "image/png", "image/gif"}, null);
     }
+
+    /**
+     * 删除图片
+     * @param context 上下文
+     * @param path 图片路径
+     */
+    public static boolean deleteImage(Context context, String path) {
+        Cursor cursor = MediaStore.Images.Media.query(context.getContentResolver(),
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=?", new String[]{path}, null);
+        boolean isDelete;
+        if (cursor.moveToFirst()) {
+            long id = cursor.getLong(0);
+            Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+            int count = context.getContentResolver().delete(uri, null, null);
+            isDelete = count == 1;
+        } else {
+            File file = new File(path);
+            isDelete = file.delete();
+        }
+        return isDelete;
+    }
+
 }
