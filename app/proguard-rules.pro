@@ -76,6 +76,7 @@
 -keep class com.google.android.** { *; }
 -keep class android.support.** { *; }
 -keep class android.arch.** { *; }
+-keep class androidx.** { *; }
 
 #RxJava
 -keep class io.reactivex.** { *; }

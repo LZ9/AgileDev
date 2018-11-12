@@ -1,5 +1,6 @@
 package com.lodz.android.core.utils;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
@@ -12,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
@@ -313,6 +316,29 @@ public class AppUtils {
     public static boolean isGpsOpen(Context context) {
         String str = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
         return !TextUtils.isEmpty(str) && (str.contains("gps") || str.contains("GPS"));
+    }
+
+    /**
+     * wifi是否可用
+     * @param context 上下文
+     */
+    @RequiresPermission(Manifest.permission.CHANGE_WIFI_STATE)
+    public static boolean isWifiEnabled(Context context) {
+        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        return manager != null && manager.isWifiEnabled();
+    }
+
+    /**
+     * 设置wifi是否可用
+     * @param context 上下文
+     * @param enabled 是否可用
+     */
+    @RequiresPermission(Manifest.permission.CHANGE_WIFI_STATE)
+    public static void setWifiEnabled(Context context, boolean enabled) {
+        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (manager != null && manager.isWifiEnabled()){
+            manager.setWifiEnabled(enabled);
+        }
     }
 
     /**
