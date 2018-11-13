@@ -25,7 +25,7 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        api 'cn.lodz:core:2.0.1'
+        api 'cn.lodz:core:2.0.2'
     
         api 'io.reactivex.rxjava2:rxjava:2.2.3'
         api 'io.reactivex.rxjava2:rxandroid:2.1.0'
@@ -1606,7 +1606,6 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
     PreviewManager
         .<String>create()//创建构造器<>里的泛型一定要指定
         .setPosition(0)//设置进入展示的位置（从0开始）
-        .setPageLimit(2)//设置ViewPager的缓存数
         .setScale(false)//是否允许图片缩放
         .setBackgroundColor(R.color.black)//配置背景色
         .setStatusBarColor(R.color.black)//配置状态栏颜色（sdk >= 5.0）
