@@ -148,7 +148,6 @@ public class SplashActivity extends AbsActivity{
 
 
     private void init() {
-        FileManager.init();// 初始化文件管理
         initCrashHandler();//初始化异常处理
         initACache();// 初始化缓存类
         initRxDownload(getContext());

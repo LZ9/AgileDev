@@ -28,11 +28,15 @@ public class FileManager {
     private static String mContentFolderPath = null;
     /** 崩溃日志路径 */
     private static String mCrashFolderPath = null;
+    /** 是否初始化 */
+    private static boolean isPrepare = false;
 
-    public static void init(){
-        initPath();
-        if (isStorageCanUse){
-            initFolder();
+    private static void prepare(){
+        if (!isPrepare){
+            initPath();
+            if (isStorageCanUse){
+                isPrepare = initFolder();
+            }
         }
     }
 
@@ -59,45 +63,53 @@ public class FileManager {
     }
 
     /** 初始化文件夹 */
-    private static void initFolder() {
+    private static boolean initFolder() {
         try {
             FileUtils.createFolder(mAppFolderPath);// 主文件夹路径
             FileUtils.createFolder(mCacheFolderPath);// 缓存路径
             FileUtils.createFolder(mDownloadFolderPath);// 下载路径
             FileUtils.createFolder(mContentFolderPath);// 内容路径
             FileUtils.createFolder(mCrashFolderPath);// 崩溃日志路径
+            return true;
         }catch (Exception e){
             e.printStackTrace();
         }
+        return false;
     }
 
     /** 存储是否可用 */
     public static boolean isStorageCanUse() {
+        prepare();
         return isStorageCanUse;
     }
 
     /** 获取app主文件夹路径 */
     public static String getAppFolderPath() {
+        prepare();
         return mAppFolderPath;
     }
 
     /** 获取缓存路径 */
     public static String getCacheFolderPath() {
+        prepare();
         return mCacheFolderPath;
     }
 
     /** 获取下载路径 */
     public static String getDownloadFolderPath() {
+        prepare();
         return mDownloadFolderPath;
     }
 
     /** 获取内容路径 */
     public static String getContentFolderPath() {
+        prepare();
         return mContentFolderPath;
     }
 
     /** 获取崩溃日志路径 */
     public static String getCrashFolderPath() {
+        prepare();
         return mCrashFolderPath;
     }
 }
