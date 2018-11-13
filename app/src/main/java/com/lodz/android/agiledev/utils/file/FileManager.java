@@ -28,15 +28,11 @@ public class FileManager {
     private static String mContentFolderPath = null;
     /** 崩溃日志路径 */
     private static String mCrashFolderPath = null;
-    /** 是否初始化 */
-    private static boolean isPrepare = false;
 
-    private static void prepare(){
-        if (!isPrepare){
-            initPath();
-            if (isStorageCanUse){
-                isPrepare = initFolder();
-            }
+    public static void init(){
+        initPath();
+        if (isStorageCanUse){
+            initFolder();
         }
     }
 
@@ -63,53 +59,61 @@ public class FileManager {
     }
 
     /** 初始化文件夹 */
-    private static boolean initFolder() {
+    private static void initFolder() {
         try {
             FileUtils.createFolder(mAppFolderPath);// 主文件夹路径
             FileUtils.createFolder(mCacheFolderPath);// 缓存路径
             FileUtils.createFolder(mDownloadFolderPath);// 下载路径
             FileUtils.createFolder(mContentFolderPath);// 内容路径
             FileUtils.createFolder(mCrashFolderPath);// 崩溃日志路径
-            return true;
         }catch (Exception e){
             e.printStackTrace();
         }
-        return false;
     }
 
     /** 存储是否可用 */
     public static boolean isStorageCanUse() {
-        prepare();
         return isStorageCanUse;
     }
 
     /** 获取app主文件夹路径 */
     public static String getAppFolderPath() {
-        prepare();
-        return mAppFolderPath;
+        return fixPath(mAppFolderPath);
     }
 
     /** 获取缓存路径 */
     public static String getCacheFolderPath() {
-        prepare();
-        return mCacheFolderPath;
+        return fixPath(mCacheFolderPath);
     }
 
     /** 获取下载路径 */
     public static String getDownloadFolderPath() {
-        prepare();
-        return mDownloadFolderPath;
+        return fixPath(mDownloadFolderPath);
     }
 
     /** 获取内容路径 */
     public static String getContentFolderPath() {
-        prepare();
-        return mContentFolderPath;
+        return fixPath(mContentFolderPath);
     }
 
     /** 获取崩溃日志路径 */
     public static String getCrashFolderPath() {
-        prepare();
-        return mCrashFolderPath;
+        return fixPath(mCrashFolderPath);
+    }
+
+    /**
+     * 修复文件夹路径
+     * @param path 文件夹路径
+     */
+    private static String fixPath(String path) {
+        if (TextUtils.isEmpty(path)) {
+            // 路径为空说明未初始化
+            init();
+        }
+        if (isStorageCanUse && !FileUtils.isFileExists(path)) {
+            //存储可用 && 路径下的文件夹不存在 说明文件夹被删除
+            initFolder();
+        }
+        return path;
     }
 }

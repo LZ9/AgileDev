@@ -2,6 +2,7 @@ package com.lodz.android.agiledev;
 
 import android.widget.LinearLayout;
 
+import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.cache.ACacheUtils;
 import com.lodz.android.core.contract.BackgroundActivityLifecycleCallbacksImpl;
@@ -33,7 +34,7 @@ public class App extends BaseApplication{
 //            return;
 //        }
 //        LeakCanary.install(this);
-
+        FileManager.init();
         PrintLog.setPrint(BuildConfig.LOG_DEBUG);// 配置日志开关
         NetworkManager.get().init(this);// 初始化网络管理
         initImageLoader();
