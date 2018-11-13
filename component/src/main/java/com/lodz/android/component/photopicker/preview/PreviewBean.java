@@ -45,8 +45,6 @@ class PreviewBean<T> implements Serializable{
     OnLongClickListener<T> longClickListener;
     /** 是否可缩放 */
     boolean isScale = true;
-    /** 页面缓存数 */
-    int pageLimit = 2;
 
     void clear(){
         if (!ArrayUtils.isEmpty(sourceList)){

@@ -15,7 +15,7 @@
 <(￣︶￣)>
 
 ## 1、添加Gradle依赖：
-#### 1) support包版本
+#### 1) support包版本（停止维护，请使用androidx包版本）
 ```
     implementation 'cn.lodz:core:1.2.14'
 ```

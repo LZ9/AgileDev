@@ -56,15 +56,6 @@ public class PreviewManager {
         }
 
         /**
-         * 设置页面缓存数
-         * @param pageLimit 页面缓存数
-         */
-        public Builder<T> setPageLimit(@IntRange(from = 1) int pageLimit){
-            previewBean.pageLimit = pageLimit;
-            return this;
-        }
-
-        /**
          * 设置是否可缩放
          * @param isScale 是否可缩放
          */

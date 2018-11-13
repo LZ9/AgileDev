@@ -1,93 +1,77 @@
 package com.lodz.android.component.photopicker.preview;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.lodz.android.component.photopicker.contract.preview.PreviewController;
+import com.lodz.android.component.photopicker.contract.PhotoLoader;
+import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.photoview.PhotoView;
-import com.lodz.android.core.utils.ArrayUtils;
 
 import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 图片翻页适配器
  * Created by zhouL on 2017/10/12.
  */
 
-class PicturePagerAdapter extends PagerAdapter {
+class PicturePagerAdapter extends BaseRecyclerViewAdapter<Object> {
 
-    private PreviewBean  mPreviewBean;
+    /** 是否缩放 */
+    private boolean isScale;
+    /** 图片加载器 */
+    private PhotoLoader<Object> mPhotoLoader;
 
-    private PreviewController mPreviewController;
-
-    PicturePagerAdapter(PreviewBean previewBean, PreviewController controller) {
-        this.mPreviewBean = previewBean;
-        this.mPreviewController = controller;
-    }
-
-    @Override
-    public int getCount() {
-        return ArrayUtils.getSize(mPreviewBean.sourceList);
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+    /**
+     * 图片翻页适配器
+     * @param context 上下文
+     * @param isScale 是否缩放
+     * @param photoLoader 图片加载器
+     */
+     PicturePagerAdapter(Context context, boolean isScale, PhotoLoader<Object> photoLoader) {
+        super(context);
+        this.isScale = isScale;
+        mPhotoLoader = photoLoader;
     }
 
     @NonNull
-    @SuppressWarnings("unchecked")
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        final Context context = container.getContext();
-        if (mPreviewBean == null){
-            return container;
-        }
-        ImageView imageView = mPreviewBean.isScale ? new PhotoView(context) : new ImageView(context);
-        container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        if (mPreviewBean.photoLoader != null){
-            mPreviewBean.photoLoader.displayImg(context, mPreviewBean.sourceList.get(position), imageView);
-        }
-
-        if (mPreviewBean.clickListener != null){
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mPreviewBean.clickListener != null) {
-                        mPreviewBean.clickListener.onClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
-                    }
-                }
-            });
-        }
-
-        if (mPreviewBean.longClickListener != null){
-            imageView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (mPreviewBean.longClickListener != null) {
-                        mPreviewBean.longClickListener.onLongClick(context, mPreviewBean.sourceList.get(position), position, mPreviewController);
-                    }
-                    return true;
-                }
-            });
-        }
-
-        return imageView;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        FrameLayout frameLayout = new FrameLayout(parent.getContext());
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        frameLayout.setLayoutParams(layoutParams);
+        return new DataViewHolder(frameLayout);
     }
 
-    void release(){
-        mPreviewController = null;
-        if (mPreviewBean != null){
-            mPreviewBean.clear();
+    @Override
+    public void onBind(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof PicturePagerAdapter.DataViewHolder){
+            showItem((PicturePagerAdapter.DataViewHolder) holder, position);
         }
+    }
+
+    private void showItem(PicturePagerAdapter.DataViewHolder holder, int position) {
+        if (mPhotoLoader != null){
+            mPhotoLoader.displayImg(getContext(), getItem(position), holder.photoImg);
+        }
+    }
+
+    class DataViewHolder extends RecyclerView.ViewHolder{
+
+        ImageView photoImg;
+
+        private DataViewHolder(ViewGroup itemView) {
+            super(itemView);
+            photoImg = isScale ? new PhotoView(itemView.getContext()) : new ImageView(itemView.getContext());
+            itemView.addView(photoImg, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            photoImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        }
+    }
+
+    /** 释放资源 */
+    void release(){
+        mPhotoLoader = null;
     }
 }

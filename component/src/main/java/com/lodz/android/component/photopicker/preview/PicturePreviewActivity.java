@@ -12,14 +12,15 @@ import android.widget.TextView;
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
+import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.photoview.PhotoView;
 import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
-import com.lodz.android.component.widget.photoview.PhotoViewPager;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DeviceUtils;
 
 import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 图片预览页面
@@ -40,7 +41,7 @@ public class PicturePreviewActivity extends AbsActivity{
     /** 背景控件 */
     private ViewGroup mRootView;
     /** 翻页控件 */
-    private PhotoViewPager mViewPager;
+    private RecyclerView mRecyclerView;
     /** 页码提示 */
     private TextView mPagerTipsTv;
 
@@ -48,6 +49,8 @@ public class PicturePreviewActivity extends AbsActivity{
     private PreviewBean mPreviewBean;
     /** 适配器 */
     private PicturePagerAdapter mAdapter;
+    /** 滑动帮助类 */
+    private PreviewPagerSnapHelper mSnapHelper;
 
     @Override
     protected void startCreate() {
@@ -64,18 +67,24 @@ public class PicturePreviewActivity extends AbsActivity{
     protected void findViews(Bundle savedInstanceState) {
         mRootView = findViewById(R.id.root_view);
         mPagerTipsTv = findViewById(R.id.pager_tips);
-        initViewPager();
+        mRecyclerView = findViewById(R.id.recycler_view);
+        initRecyclerView();
     }
 
-    private void initViewPager() {
-        mViewPager = findViewById(R.id.view_pager);
-        mViewPager.setOffscreenPageLimit(mPreviewBean.pageLimit);
-        mAdapter = new PicturePagerAdapter(mPreviewBean, mPreviewController);
-        mViewPager.setAdapter(mAdapter);
-        mViewPager.setCurrentItem(mPreviewBean.showPosition);
+    @SuppressWarnings("unchecked")
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        mAdapter = new PicturePagerAdapter(getContext(), mPreviewBean.isScale, mPreviewBean.photoLoader);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+        mSnapHelper = new PreviewPagerSnapHelper();
+        mSnapHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void initData() {
         super.initData();
         mRootView.setBackgroundColor(ContextCompat.getColor(getContext(), mPreviewBean.backgroundColor));
@@ -87,39 +96,58 @@ public class PicturePreviewActivity extends AbsActivity{
         mPagerTipsTv.setVisibility(mPreviewBean.isShowPagerText ? View.VISIBLE : View.GONE);
         mPagerTipsTv.setTextColor(ContextCompat.getColor(getContext(), mPreviewBean.pagerTextColor));
         mPagerTipsTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, mPreviewBean.pagerTextSize);
+
+        mAdapter.setData(mPreviewBean.sourceList);
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.scrollToPosition(mPreviewBean.showPosition);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void setListeners() {
         super.setListeners();
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
+        mSnapHelper.setOnPageChangeListener(new PreviewPagerSnapHelper.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                resetPhoto(mViewPager);
+//                resetPhoto(position);
                 setPagerNum(position);
             }
+        });
 
+        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Object>() {
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onItemClick(RecyclerView.ViewHolder viewHolder, Object item, int position) {
+                if (mPreviewBean.clickListener != null){
+                    mPreviewBean.clickListener.onClick(viewHolder.itemView.getContext(), item, position, mPreviewController);
+                }
+            }
+        });
 
+        mAdapter.setOnItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<Object>() {
+            @Override
+            public void onItemLongClick(RecyclerView.ViewHolder viewHolder, Object item, int position) {
+                if (mPreviewBean.longClickListener != null) {
+                    mPreviewBean.longClickListener.onLongClick(viewHolder.itemView.getContext(), item, position, mPreviewController);
+                }
             }
         });
     }
 
+
     /**
      * 还原照片
-     * @param viewPager 翻页控件
+     * @param position 位置
      */
-    private void resetPhoto(PhotoViewPager viewPager) {
-        for (int i = 0; i < viewPager.getChildCount(); i++) {
-            View view = viewPager.getChildAt(i);
-            if (view != null && view instanceof PhotoView){
-                PhotoView photoView = (PhotoView) view;
+    private void resetPhoto(int position) {
+        RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForAdapterPosition(position);
+        if (viewHolder == null){
+            return;
+        }
+        if (viewHolder instanceof PicturePagerAdapter.DataViewHolder){
+            PicturePagerAdapter.DataViewHolder holder = (PicturePagerAdapter.DataViewHolder) viewHolder;
+            if (holder.photoImg instanceof PhotoView){
+                PhotoView photoView = (PhotoView) holder.photoImg;
                 PhotoViewAttacher attacher = photoView.getAttacher();
                 attacher.update();
             }

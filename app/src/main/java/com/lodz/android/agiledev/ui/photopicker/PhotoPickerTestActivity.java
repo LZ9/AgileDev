@@ -72,7 +72,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
     /** 选择按钮 */
     @BindView(R.id.pick_btn)
     TextView mPickBtn;
-    /** 选择按钮 */
+    /** 预览按钮 */
     @BindView(R.id.preview_btn)
     TextView mPreviewBtn;
     /** 拍照 */
@@ -204,14 +204,13 @@ public class PhotoPickerTestActivity extends BaseActivity{
             }
         });
 
-        // 选择按钮
+        // 预览按钮
         mPreviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PreviewManager
                         .<String>create()
                         .setPosition(0)
-                        .setPageLimit(2)
                         .setScale(false)
                         .setBackgroundColor(R.color.black)
                         .setStatusBarColor(R.color.black)
@@ -354,7 +353,6 @@ public class PhotoPickerTestActivity extends BaseActivity{
                 PreviewManager
                         .<String>create()
                         .setPosition(position)
-                        .setPageLimit(2)
                         .setScale(true)
                         .setBackgroundColor(R.color.black)
                         .setStatusBarColor(R.color.black)

@@ -156,7 +156,7 @@ public class PhotoPickerActivity extends AbsActivity{
     /** 初始化RecyclerView */
     private void initRecyclerView() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mAdapter = new PhotoPickerAdapter(getContext(), mPickerBean.photoLoader, mPickerBean.isNeedCamera, mPickerBean.pickerUIConfig);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

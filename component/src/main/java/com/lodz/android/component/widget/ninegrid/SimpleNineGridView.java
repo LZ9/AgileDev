@@ -109,7 +109,6 @@ public class SimpleNineGridView extends NineGridView{
                 PreviewManager
                         .<String>create()
                         .setPosition(position)
-                        .setPageLimit(2)
                         .setScale(true)
                         .setBackgroundColor(android.R.color.black)
                         .setStatusBarColor(android.R.color.black)
