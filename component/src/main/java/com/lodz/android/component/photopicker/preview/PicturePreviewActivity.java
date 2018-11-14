@@ -14,8 +14,6 @@ import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.adapter.snap.ViewPagerSnapHelper;
-import com.lodz.android.component.widget.photoview.PhotoView;
-import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.DeviceUtils;
 
@@ -111,7 +109,6 @@ public class PicturePreviewActivity extends AbsActivity{
         mSnapHelper.setOnPageChangeListener(new ViewPagerSnapHelper.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-//                resetPhoto(position);
                 setPagerNum(position);
             }
         });
@@ -133,26 +130,6 @@ public class PicturePreviewActivity extends AbsActivity{
                 }
             }
         });
-    }
-
-
-    /**
-     * 还原照片
-     * @param position 位置
-     */
-    private void resetPhoto(int position) {
-        RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForAdapterPosition(position);
-        if (viewHolder == null){
-            return;
-        }
-        if (viewHolder instanceof PicturePagerAdapter.DataViewHolder){
-            PicturePagerAdapter.DataViewHolder holder = (PicturePagerAdapter.DataViewHolder) viewHolder;
-            if (holder.photoImg instanceof PhotoView){
-                PhotoView photoView = (PhotoView) holder.photoImg;
-                PhotoViewAttacher attacher = photoView.getAttacher();
-                attacher.update();
-            }
-        }
     }
 
     private PreviewController mPreviewController = new PreviewController() {

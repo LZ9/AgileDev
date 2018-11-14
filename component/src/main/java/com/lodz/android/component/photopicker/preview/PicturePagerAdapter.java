@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.component.widget.photoview.PhotoView;
+import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,19 @@ class PicturePagerAdapter extends BaseRecyclerViewAdapter<Object> {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         frameLayout.setLayoutParams(layoutParams);
         return new DataViewHolder(frameLayout);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder viewHolder) {
+        super.onViewDetachedFromWindow(viewHolder);
+        if (isScale && viewHolder instanceof PicturePagerAdapter.DataViewHolder) {
+            PicturePagerAdapter.DataViewHolder holder = (PicturePagerAdapter.DataViewHolder) viewHolder;
+            if (holder.photoImg instanceof PhotoView) {
+                PhotoView photoView = (PhotoView) holder.photoImg;
+                PhotoViewAttacher attacher = photoView.getAttacher();
+                attacher.update();//离开屏幕后还原缩放
+            }
+        }
     }
 
     @Override
