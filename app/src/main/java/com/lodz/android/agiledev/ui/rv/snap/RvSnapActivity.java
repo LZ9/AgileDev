@@ -70,7 +70,7 @@ public class RvSnapActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-        TabPagerSnapHelper snapHelper = new TabPagerSnapHelper();
+        TabPagerSnapHelper snapHelper = new TabPagerSnapHelper(0);
         snapHelper.attachToRecyclerView(mRecyclerView);
         snapHelper.setupWithTabLayout(mTabLayout);
     }

@@ -13,6 +13,7 @@ import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
+import com.lodz.android.component.widget.adapter.snap.ViewPagerSnapHelper;
 import com.lodz.android.component.widget.photoview.PhotoView;
 import com.lodz.android.component.widget.photoview.PhotoViewAttacher;
 import com.lodz.android.core.utils.ArrayUtils;
@@ -50,7 +51,7 @@ public class PicturePreviewActivity extends AbsActivity{
     /** 适配器 */
     private PicturePagerAdapter mAdapter;
     /** 滑动帮助类 */
-    private PreviewPagerSnapHelper mSnapHelper;
+    private ViewPagerSnapHelper mSnapHelper;
 
     @Override
     protected void startCreate() {
@@ -79,7 +80,7 @@ public class PicturePreviewActivity extends AbsActivity{
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-        mSnapHelper = new PreviewPagerSnapHelper();
+        mSnapHelper = new ViewPagerSnapHelper(mPreviewBean.showPosition);
         mSnapHelper.attachToRecyclerView(mRecyclerView);
     }
 
@@ -107,7 +108,7 @@ public class PicturePreviewActivity extends AbsActivity{
     protected void setListeners() {
         super.setListeners();
 
-        mSnapHelper.setOnPageChangeListener(new PreviewPagerSnapHelper.OnPageChangeListener() {
+        mSnapHelper.setOnPageChangeListener(new ViewPagerSnapHelper.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
 //                resetPhoto(position);
