@@ -97,4 +97,29 @@ public abstract class BaseSubscriber<T> implements Subscriber<T> {
     public boolean isAutoSubscribe(){
         return true;
     }
+
+    /** 创建空调用 */
+    public static <T> Subscriber<T> empty(){
+        return new Subscriber<T>() {
+            @Override
+            public void onSubscribe(Subscription s) {
+
+            }
+
+            @Override
+            public void onNext(T t) {
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
 }

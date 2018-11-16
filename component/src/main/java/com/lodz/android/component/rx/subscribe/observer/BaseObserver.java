@@ -82,4 +82,29 @@ public abstract class BaseObserver<T> implements Observer<T> {
     public void onBaseComplete(){}
     /** 取消订阅时回调 */
     public void onDispose(){}
+
+    /** 创建空调用 */
+    public static <T> Observer<T> empty() {
+        return new Observer<T>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(T t) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
 }
