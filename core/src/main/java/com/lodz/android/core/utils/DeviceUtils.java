@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
@@ -199,5 +200,33 @@ public class DeviceUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /** 校验默认位置的root文件，不存在返回null */
+    public static File checkRootFile() {
+        return checkRootFile(null);
+    }
+
+    /**
+     * 校验root文件，不存在返回null
+     * @param paths su文件的路径数组，传null使用默认路径
+     */
+    public static File checkRootFile(String[] paths) {
+        if (ArrayUtils.getSize(paths) == 0) {
+            paths = new String[]{"/sbin/su", "/system/bin/su", "/system/xbin/su", "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
+                    "/system/bin/failsafe/su", "/data/local/su"};
+        }
+        for (String path : paths) {
+            File file = new File(path);
+            if (file.exists()) {//存在返回文件
+                return file;
+            }
+        }
+        return null;
+    }
+
+    /** 手机是否root，通过校验默认位置的su文件，存在一定误差 */
+    public static boolean isRoot(){
+        return checkRootFile() != null;
     }
 }
