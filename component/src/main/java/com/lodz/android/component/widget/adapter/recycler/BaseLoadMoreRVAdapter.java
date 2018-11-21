@@ -280,18 +280,18 @@ public abstract class BaseLoadMoreRVAdapter<T> extends BaseRecyclerViewAdapter<T
 
     /**
      * 设置加载更多监听器
-     * @param Listener 监听器
+     * @param listener 监听器
      */
-    public void setOnLoadMoreListener(OnLoadMoreListener Listener){
-        this.mOnLoadMoreListener = Listener;
+    public void setOnLoadMoreListener(OnLoadMoreListener listener){
+        this.mOnLoadMoreListener = listener;
     }
 
     /**
      * 设置加载失败点击监听器
-     * @param Listener 监听器
+     * @param listener 监听器
      */
-    public void setOnLoadFailClickListener(OnLoadFailClickListener Listener){
-        this.mOnLoadFailClickListener = Listener;
+    public void setOnLoadFailClickListener(OnLoadFailClickListener listener){
+        this.mOnLoadFailClickListener = listener;
     }
 
     /**

@@ -43,7 +43,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
     private int mLoadingMoreBackgroundColor = android.R.color.transparent;
     /** 正在加载动画资源资源 */
     @DrawableRes
-    private int indeterminateDrawable = 0;
+    private int mIndeterminateDrawable = 0;
 
     /** 加载失败提示语 */
     private String mLoadFailText = getContext().getString(R.string.component_load_fail_tips);
@@ -130,9 +130,9 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
 
         ProgressBar progressBar = holder.itemView.findViewById(R.id.loading_progressbar);
         progressBar.setIndeterminate(true);
-        if (indeterminateDrawable != 0){
-            progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), indeterminateDrawable));
-            indeterminateDrawable = 0;//设置过以后就清空数据，避免展示异常
+        if (mIndeterminateDrawable != 0){
+            progressBar.setIndeterminateDrawable(ContextCompat.getDrawable(getContext(), mIndeterminateDrawable));
+            mIndeterminateDrawable = 0;//设置过以后就清空数据，避免展示异常
         }
     }
 
@@ -205,7 +205,7 @@ public abstract class SimpleLoadMoreRVAdapter<T> extends BaseLoadMoreRVAdapter<T
      * @param resId 资源id
      */
     public void setIndeterminateDrawable(@DrawableRes int resId){
-        this.indeterminateDrawable = resId;
+        this.mIndeterminateDrawable = resId;
     }
 
     /**
