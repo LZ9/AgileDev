@@ -131,7 +131,7 @@ public class GridItemDecoration extends BaseItemDecoration{
         int position = parent.getChildAdapterPosition(view);
         int spanCount = layoutManager.getSpanCount();
 
-        if (layoutManager.getOrientation() == GridLayoutManager.VERTICAL){//纵向
+        if (layoutManager.getOrientation() == RecyclerView.VERTICAL){//纵向
             if (position == 0){// 第一个
                 outRect.top = mPx;
                 outRect.bottom = mPx;

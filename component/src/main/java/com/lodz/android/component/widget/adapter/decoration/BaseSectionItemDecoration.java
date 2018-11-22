@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.TextPaint;
-import android.widget.LinearLayout;
 
 import com.lodz.android.core.utils.DensityUtils;
 
@@ -164,7 +163,7 @@ public class BaseSectionItemDecoration extends BaseItemDecoration{
         }
         if (parent.getLayoutManager() instanceof LinearLayoutManager){
             LinearLayoutManager manager = (LinearLayoutManager) parent.getLayoutManager();
-            return manager.getOrientation() == LinearLayout.VERTICAL;
+            return manager.getOrientation() == RecyclerView.VERTICAL;
         }
         return false;
     }
