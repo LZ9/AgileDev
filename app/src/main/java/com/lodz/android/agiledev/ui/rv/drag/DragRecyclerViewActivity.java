@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
+import com.lodz.android.component.widget.adapter.drag.DragHelperCallback;
+import com.lodz.android.component.widget.adapter.drag.RecyclerViewDragHelper;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
-import com.lodz.android.component.widget.adapter.recycler.RecyclerViewDragHelper;
 import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.DensityUtils;
@@ -128,7 +129,7 @@ public class DragRecyclerViewActivity extends BaseActivity{
             }
         });
 
-        mRecyclerViewDragHelper.setListener(new RecyclerViewDragHelper.Listener<String>() {
+        mRecyclerViewDragHelper.setListener(new DragHelperCallback.Listener<String>() {
             @Override
             public void onListChanged(List<String> list) {
                 mList = list;
