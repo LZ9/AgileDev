@@ -29,6 +29,11 @@ public class RecyclerViewDragHelper<T> {
     /** 启用震动效果 */
     private boolean isVibrateEnabled = true;
 
+    /** 监听器 */
+    private DragHelperCallback.Listener<T> mListener;
+    /** 数据列表 */
+    private List<T> mList;
+
     private DragHelperCallback<T> mCallback;
     private ItemTouchHelper mItemTouchHelper;
 
@@ -42,6 +47,9 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setUseDrag(boolean useDrag) {
         this.mUseDrag = useDrag;
+        if (mCallback != null){
+            mCallback.setUseDrag(useDrag);
+        }
         return this;
     }
 
@@ -51,6 +59,9 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setUseRightToLeftSwipe(boolean rightToLeftSwipe) {
         this.mUseRightToLeftSwipe = rightToLeftSwipe;
+        if (mCallback != null){
+            mCallback.setUseRightToLeftSwipe(rightToLeftSwipe);
+        }
         return this;
     }
 
@@ -60,6 +71,9 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setUseLeftToRightSwipe(boolean leftToRightSwipe) {
         this.mUseLeftToRightSwipe = leftToRightSwipe;
+        if (mCallback != null){
+            mCallback.setUseLeftToRightSwipe(leftToRightSwipe);
+        }
         return this;
     }
 
@@ -69,6 +83,9 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setLongPressDragEnabled(boolean enabled) {
         isLongPressDragEnabled = enabled;
+        if (mCallback != null){
+            mCallback.setLongPressDragEnabled(enabled);
+        }
         return this;
     }
 
@@ -78,6 +95,9 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setSwipeEnabled(boolean enabled){
         isSwipeEnabled = enabled;
+        if (mCallback != null){
+            mCallback.setSwipeEnabled(enabled);
+        }
         return this;
     }
 
@@ -87,6 +107,9 @@ public class RecyclerViewDragHelper<T> {
      */
     public RecyclerViewDragHelper setVibrateEnabled(boolean enabled){
         isVibrateEnabled = enabled;
+        if (mCallback != null){
+            mCallback.setVibrateEnabled(enabled);
+        }
         return this;
     }
 
@@ -94,20 +117,24 @@ public class RecyclerViewDragHelper<T> {
      * 设置数据
      * @param list 数据列表
      */
-    public void setList(List<T> list) {
+    public RecyclerViewDragHelper setList(List<T> list) {
+        mList = list;
         if (mCallback != null){
             mCallback.setList(list);
         }
+        return this;
     }
 
     /**
      * 设置监听器
      * @param listener 监听器
      */
-    public void setListener(DragHelperCallback.Listener<T> listener) {
+    public RecyclerViewDragHelper setListener(DragHelperCallback.Listener<T> listener) {
+        mListener = listener;
         if (mCallback != null){
             mCallback.setListener(listener);
         }
+        return this;
     }
 
     /**
@@ -133,6 +160,8 @@ public class RecyclerViewDragHelper<T> {
         callback.setLongPressDragEnabled(isLongPressDragEnabled);
         callback.setSwipeEnabled(isSwipeEnabled);
         callback.setVibrateEnabled(isVibrateEnabled);
+        callback.setList(mList);
+        callback.setListener(mListener);
         callback.setAdapter(adapter);
         mCallback = callback;
         build(recyclerView, callback);
