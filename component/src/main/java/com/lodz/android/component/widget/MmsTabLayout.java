@@ -69,10 +69,10 @@ public class MmsTabLayout extends TabLayout{
      * @param marginDp 两侧间距
      */
     public void setTabIndicatorMargin(int marginDp) {
-        Class<?> cl =  ReflectUtils.getClassForName("android.support.design.widget.TabLayout");
+        Class<?> cl =  ReflectUtils.getClassForName("com.google.android.material.tabs.TabLayout");
         LinearLayout layout = null;
         try {
-            layout = (LinearLayout) ReflectUtils.getFieldValue(cl, this, "mTabStrip");
+            layout = (LinearLayout) ReflectUtils.getFieldValue(cl, this, "slidingTabIndicator");
         }catch (Exception e){
             e.printStackTrace();
         }
