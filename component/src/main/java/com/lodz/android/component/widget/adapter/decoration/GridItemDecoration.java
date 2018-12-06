@@ -163,7 +163,8 @@ public class GridItemDecoration extends BaseItemDecoration{
 
 
         // 横向
-        parent.setPadding(0, 0, 0, mPx);
+        parent.setPadding(parent.getPaddingLeft(), parent.getPaddingTop(), parent.getPaddingRight(),
+                parent.getPaddingBottom() >= mPx ? parent.getPaddingBottom() : mPx);
         if (position < spanCount){//最左侧
             outRect.top = mPx;
             outRect.bottom = 0;
