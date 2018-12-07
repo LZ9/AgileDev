@@ -62,7 +62,7 @@ public class ApiServiceManager {
 
             Request oldRequest = chain.request();
             Request request = oldRequest.newBuilder()
-//                    .headers(Headers.of(getHeaders()))//注入头信息
+//                    .headers(Headers.of(getHeaders(oldRequest.headers())))//注入头信息
 //                    .url(getCommonUrl(oldRequest))// 注入通用入参
                     .build();
             logRequest(request);
@@ -85,12 +85,24 @@ public class ApiServiceManager {
 //        return commonUrl.build();
 //    }
 
-//    /** 获取头信息 */
-//    private Map<String, String> getHeaders() {
+//    /**
+//     * 获取头信息
+//     * @param headers 原接口头信息
+//     */
+//    private Map<String, String> getHeaders(Headers headers) {
 //        HashMap<String, String> headersMap = new HashMap<>();
 //        headersMap.put("appKey", "00001");
 //        headersMap.put("format", "json");
 //        headersMap.put("locale", "zh_CN");
+//        if (headers == null) {
+//            return headersMap;
+//        }
+//        Map<String, List<String>> oldHeadersMap = headers.toMultimap();
+//        for (Map.Entry<String, List<String>> entry : oldHeadersMap.entrySet()) {
+//            if (!ArrayUtils.isEmpty(entry.getValue())) {
+//                headersMap.put(entry.getKey(), entry.getValue().get(0));
+//            }
+//        }
 //        return headersMap;
 //    }
 
