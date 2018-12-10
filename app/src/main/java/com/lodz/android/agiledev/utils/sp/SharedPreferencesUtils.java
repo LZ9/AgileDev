@@ -3,7 +3,7 @@ package com.lodz.android.agiledev.utils.sp;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.lodz.android.component.base.application.BaseApplication;
+import com.lodz.android.agiledev.App;
 
 import java.util.Map;
 import java.util.Set;
@@ -24,7 +24,7 @@ public class SharedPreferencesUtils {
      * @param value 值
      */
     public static void putString(String key, @Nullable String value) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(key, value);
         editor.apply();
     }
@@ -35,7 +35,7 @@ public class SharedPreferencesUtils {
      * @param value 值
      */
     public static void putBoolean(String key, boolean value) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
@@ -46,7 +46,7 @@ public class SharedPreferencesUtils {
      * @param value 值
      */
     public static void putFloat(String key, float value) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.putFloat(key, value);
         editor.apply();
     }
@@ -57,7 +57,7 @@ public class SharedPreferencesUtils {
      * @param value 值
      */
     public static void putInt(String key, int value) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.putInt(key, value);
         editor.apply();
     }
@@ -68,7 +68,7 @@ public class SharedPreferencesUtils {
      * @param value 值
      */
     public static void putLong(String key, long value) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.putLong(key, value);
         editor.apply();
     }
@@ -79,14 +79,14 @@ public class SharedPreferencesUtils {
      * @param values 值
      */
     public static void putStringSet(String key, @Nullable Set<String> values) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.putStringSet(key, values);
         editor.apply();
     }
 
     /** 获取全部的sp数据，没有返回null */
     public static <T> Map<String, T>  getAll() {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             //noinspection unchecked
             return (Map<String, T>) sp.getAll();
@@ -102,7 +102,7 @@ public class SharedPreferencesUtils {
      * @param defValue 默认值
      */
     public static boolean getBoolean(String key, boolean defValue) {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             return sp.getBoolean(key, defValue);
         } catch (Exception e) {
@@ -117,7 +117,7 @@ public class SharedPreferencesUtils {
      * @param defValue 默认值
      */
     public static float getFloat(String key, float defValue) {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             return sp.getFloat(key, defValue);
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class SharedPreferencesUtils {
      * @param defValue 默认值
      */
     public static int getInt(String key, int defValue) {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             return sp.getInt(key, defValue);
         } catch (Exception e) {
@@ -147,7 +147,7 @@ public class SharedPreferencesUtils {
      * @param defValue 默认值
      */
     public static long getLong(String key, long defValue) {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             return sp.getLong(key, defValue);
         } catch (Exception e) {
@@ -162,7 +162,7 @@ public class SharedPreferencesUtils {
      * @param defValue 默认值
      */
     public static String getString(String key, @Nullable String defValue) {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             return sp.getString(key, defValue);
         } catch (Exception e) {
@@ -177,7 +177,7 @@ public class SharedPreferencesUtils {
      * @param defValues 默认值
      */
     public static Set<String> getStringSet(String key, @Nullable Set<String> defValues) {
-        SharedPreferences sp = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE);
         try {
             return sp.getStringSet(key, defValues);
         } catch (Exception e) {
@@ -191,14 +191,14 @@ public class SharedPreferencesUtils {
      * @param key 键
      */
     public static void remove(String key) {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.remove(key);
         editor.apply();
     }
 
     /** 清空整个sp数据 */
     public static void clear() {
-        SharedPreferences.Editor editor = BaseApplication.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = App.get().getSharedPreferences(SpConfig.SP_NAME, Context.MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
     }
