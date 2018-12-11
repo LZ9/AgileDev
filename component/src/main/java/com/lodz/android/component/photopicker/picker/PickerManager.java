@@ -225,7 +225,7 @@ public class PickerManager {
      * @param isImmediately 是否立即返回结果
      */
     public void takePhoto(Context context, boolean isImmediately){
-        if (sPickerBean.previewLoader == null){// 校验图片预览器
+        if (sPickerBean.previewLoader == null && !isImmediately) {// 校验图片预览器
             ToastUtils.showShort(context, R.string.component_preview_loader_unset);
             return;
         }
