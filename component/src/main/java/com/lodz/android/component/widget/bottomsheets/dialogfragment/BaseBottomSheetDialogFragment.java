@@ -48,6 +48,9 @@ public abstract class BaseBottomSheetDialogFragment extends BottomSheetDialogFra
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Class<?> cls = ReflectUtils.getClassForName("com.google.android.material.bottomsheet.BottomSheetDialog");
+        if (cls == null){
+            return;
+        }
         BottomSheetBehavior behavior = (BottomSheetBehavior) ReflectUtils.getFieldValue(cls, getDialog(), "behavior");
         if (behavior != null){
             onBehaviorInit(behavior);//回调BottomSheetBehavior

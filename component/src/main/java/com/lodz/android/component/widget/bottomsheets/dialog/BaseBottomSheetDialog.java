@@ -102,6 +102,9 @@ public abstract class BaseBottomSheetDialog extends BottomSheetDialog{
     /** 配置BottomSheetBehavior */
     private void configBehavior() {
         Class<?> cls = ReflectUtils.getClassForName("com.google.android.material.bottomsheet.BottomSheetDialog");
+        if (cls == null){
+            return;
+        }
         BottomSheetBehavior behavior = (BottomSheetBehavior) ReflectUtils.getFieldValue(cls, this, "behavior");
         if (behavior != null) {
             onBehaviorInit(behavior);//回调BottomSheetBehavior

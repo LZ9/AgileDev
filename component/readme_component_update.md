@@ -3,7 +3,7 @@
 ##### 2018/12/12
 1. 图片选择器拍照模式选择立即返回时不去校验图片加载器
 2. 修复BaseBottomSheetDialog和BaseBottomSheetDialogFragment的状态栏显示BUG
-3. 发布2.0.7版本
+3. 发布2.0.9版本
 
 ##### 2018/12/10
 1. MmsTabLayout适配androidx

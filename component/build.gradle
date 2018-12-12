@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 70
-        versionName "2.0.7"// 成功上传
+        versionCode 71
+        versionName "2.0.9"// 成功上传
     }
 
     buildTypes {
@@ -26,7 +26,7 @@ android {
 
 dependencies {
     // 引用的库
-//    api 'cn.lodz:core:2.0.4'
+//    api 'cn.lodz:core:2.0.5'
     api project(':core')
 
     // RxJava
@@ -44,7 +44,7 @@ dependencies {
 //    api 'com.hannesdorfmann.mosby3:mvp:3.0.4'
 }
 
-//version = "2.0.7"
+//version = "2.0.9"
 //group = "cn.lodz"
 //publish {
 //    userOrg = 'lz9'

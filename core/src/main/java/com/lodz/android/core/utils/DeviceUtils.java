@@ -141,7 +141,7 @@ public class DeviceUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarColor(Context context, Window window, @ColorRes int statusBarColor) {
-        if (context == null || window == null){
+        if (context == null || statusBarColor == 0 || window == null){
             return;
         }
         try {
@@ -160,6 +160,9 @@ public class DeviceUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setNavigationBarColorRes(Context context, Window window, @ColorRes int navigationBarColor) {
+        if (navigationBarColor == 0){
+            return;
+        }
         setNavigationBarColorInt(context, window, ContextCompat.getColor(context, navigationBarColor));
     }
 
