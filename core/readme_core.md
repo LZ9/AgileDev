@@ -21,7 +21,7 @@
         api 'com.google.android.material:material:1.0.0'
         api 'androidx.recyclerview:recyclerview:1.0.0'
         api 'androidx.cardview:cardview:1.0.0'
-        api 'androidx.annotation:annotation:1.0.0'
+        api 'androidx.annotation:annotation:1.0.1'
         api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
         api 'com.google.android:flexbox:1.1.0'
     }

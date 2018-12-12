@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 53
-        versionName "2.0.4"// 未上传
+        versionName "2.0.4"// 成功上传
     }
     buildTypes {
         release {
@@ -34,7 +34,7 @@ dependencies {
     api 'com.google.android:flexbox:1.1.0'
 }
 
-//version = "2.0.3"
+//version = "2.0.4"
 //group = "cn.lodz"
 //publish {
 //    userOrg = 'lz9'
