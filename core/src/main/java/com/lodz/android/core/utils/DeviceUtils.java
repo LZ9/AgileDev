@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
@@ -140,7 +141,7 @@ public class DeviceUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarColor(Context context, Window window, @ColorRes int statusBarColor) {
-        if (context == null || statusBarColor == 0 || window == null){
+        if (context == null || window == null){
             return;
         }
         try {
@@ -158,13 +159,24 @@ public class DeviceUtils {
      * @param navigationBarColor 导航栏颜色
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void setNavigationBarColor(Context context, Window window, @ColorRes int navigationBarColor) {
-        if (context == null || window == null || navigationBarColor == 0){
+    public static void setNavigationBarColorRes(Context context, Window window, @ColorRes int navigationBarColor) {
+        setNavigationBarColorInt(context, window, ContextCompat.getColor(context, navigationBarColor));
+    }
+
+    /**
+     * 设置导航栏颜色
+     * @param context 上下文
+     * @param window 窗口
+     * @param navigationBarColor 导航栏颜色
+     */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static void setNavigationBarColorInt(Context context, Window window, @ColorInt int navigationBarColor) {
+        if (context == null || window == null){
             return;
         }
         try {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setNavigationBarColor(ContextCompat.getColor(context, navigationBarColor));
+            window.setNavigationBarColor(navigationBarColor);
         } catch (Exception e) {
             e.printStackTrace();
         }

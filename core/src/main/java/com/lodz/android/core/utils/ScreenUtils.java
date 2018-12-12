@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.view.Window;
 import android.view.WindowManager;
 
 /**
@@ -40,29 +41,33 @@ public class ScreenUtils {
         return outMetrics.heightPixels;
     }
 
-    /**
-     * 判断是否存在NavigationBar
-     * @param activity Activity
-     */
-    public static boolean hasNavigationBar(Activity activity) {
-        int decorViewHeight = activity.getWindow().getDecorView().getHeight();
+    /** 判断是否存在NavigationBar */
+    public static boolean hasNavigationBar(Window window) {
+        int decorViewHeight = window.getDecorView().getHeight();
         DisplayMetrics dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        window.getWindowManager().getDefaultDisplay().getMetrics(dm);
         int useableScreenHeight = dm.heightPixels;
         return decorViewHeight != useableScreenHeight;
     }
 
-    /**
-     * 获取虚拟按键高度
-     * @param activity Activity
-     */
-    public static int getNavigationBarHeight(Activity activity) {
-        Resources resources = activity.getResources();
+    /** 判断是否存在NavigationBar */
+    public static boolean hasNavigationBar(Activity activity) {
+        return hasNavigationBar(activity.getWindow());
+    }
+
+    /** 获取虚拟按键高度  */
+    public static int getNavigationBarHeight(Context context, Window window) {
+        Resources resources = context.getResources();
         int id = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-        if (id > 0 && hasNavigationBar(activity)) {
+        if (id > 0 && hasNavigationBar(window)) {
             return resources.getDimensionPixelSize(id);
         }
         return 0;
+    }
+
+    /** 获取虚拟按键高度  */
+    public static int getNavigationBarHeight(Activity activity) {
+        return getNavigationBarHeight(activity, activity.getWindow());
     }
 
     /**

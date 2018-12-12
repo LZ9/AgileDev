@@ -89,7 +89,7 @@ public class PicturePreviewActivity extends AbsActivity{
         mRootView.setBackgroundColor(ContextCompat.getColor(getContext(), mPreviewBean.backgroundColor));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             DeviceUtils.setStatusBarColor(getContext(), getWindow(), mPreviewBean.statusBarColor);
-            DeviceUtils.setNavigationBarColor(getContext(), getWindow(), mPreviewBean.navigationBarColor);
+            DeviceUtils.setNavigationBarColorRes(getContext(), getWindow(), mPreviewBean.navigationBarColor);
         }
         setPagerNum(mPreviewBean.showPosition);
         mPagerTipsTv.setVisibility(mPreviewBean.isShowPagerText ? View.VISIBLE : View.GONE);

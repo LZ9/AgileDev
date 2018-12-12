@@ -1,11 +1,7 @@
 package com.lodz.android.agiledev.ui.design.bottomsheet;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
@@ -13,7 +9,6 @@ import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.dialogfragment.TestDialogFragment;
 import com.lodz.android.component.widget.bottomsheets.dialogfragment.BaseBottomSheetDialogFragment;
 import com.lodz.android.core.utils.DensityUtils;
-import com.lodz.android.core.utils.ScreenUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -81,24 +76,8 @@ public class TestBottomSheetDialogFragment extends BaseBottomSheetDialogFragment
     }
 
     @Override
-    protected void onBehaviorInit(Context context, BottomSheetBehavior behavior) {
-        configStatusBar(context, getDialog().getWindow());
-        configBehavior(context, behavior);
-    }
-
-    /** 配置状态栏颜色 */
-    private void configStatusBar(Context context, Window window) {
-        if (window == null){
-            return;
-        }
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        int screenHeight = ScreenUtils.getScreenHeight(context);
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, screenHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : screenHeight);
-    }
-
-    /** 配置BottomSheetBehavior */
-    private void configBehavior(Context context, BottomSheetBehavior behavior) {
-        behavior.setPeekHeight(DensityUtils.dp2px(context, 150));
+    protected void onBehaviorInit(BottomSheetBehavior behavior) {
+        behavior.setPeekHeight(DensityUtils.dp2px(getContext(), 150));
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -113,4 +92,5 @@ public class TestBottomSheetDialogFragment extends BaseBottomSheetDialogFragment
             }
         });
     }
+
 }

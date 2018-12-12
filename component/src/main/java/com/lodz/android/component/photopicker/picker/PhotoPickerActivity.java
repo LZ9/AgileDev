@@ -149,7 +149,7 @@ public class PhotoPickerActivity extends AbsActivity{
         mPreviewBtn.setEnabled(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             DeviceUtils.setStatusBarColor(getContext(), getWindow(), mPickerBean.pickerUIConfig.getStatusBarColor());
-            DeviceUtils.setNavigationBarColor(getContext(), getWindow(), mPickerBean.pickerUIConfig.getNavigationBarColor());
+            DeviceUtils.setNavigationBarColorRes(getContext(), getWindow(), mPickerBean.pickerUIConfig.getNavigationBarColor());
         }
     }
 

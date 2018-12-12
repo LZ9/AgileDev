@@ -74,7 +74,7 @@ public class TakePhotoActivity extends AbsActivity {
         mConfirmBtn = findViewById(R.id.confirm_btn);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             DeviceUtils.setStatusBarColor(getContext(), getWindow(), android.R.color.black);
-            DeviceUtils.setNavigationBarColor(getContext(), getWindow(), android.R.color.black);
+            DeviceUtils.setNavigationBarColorRes(getContext(), getWindow(), android.R.color.black);
         }
     }
 

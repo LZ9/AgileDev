@@ -1,15 +1,19 @@
 package com.lodz.android.component.widget.bottomsheets.dialogfragment;
 
-import android.content.Context;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.lodz.android.component.R;
 import com.lodz.android.core.utils.ReflectUtils;
+import com.lodz.android.core.utils.ScreenUtils;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -40,9 +44,17 @@ public abstract class BaseBottomSheetDialogFragment extends BottomSheetDialogFra
         endCreate();
     }
 
-    protected void startCreate() {
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Class<?> cls = ReflectUtils.getClassForName("com.google.android.material.bottomsheet.BottomSheetDialog");
+        BottomSheetBehavior behavior = (BottomSheetBehavior) ReflectUtils.getFieldValue(cls, getDialog(), "behavior");
+        if (behavior != null){
+            onBehaviorInit(behavior);//回调BottomSheetBehavior
+        }
     }
+
+    protected void startCreate() {}
 
     protected abstract void findViews(View view, Bundle savedInstanceState);
 
@@ -52,16 +64,7 @@ public abstract class BaseBottomSheetDialogFragment extends BottomSheetDialogFra
 
     protected void endCreate() {}
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        BottomSheetBehavior behavior = (BottomSheetBehavior) ReflectUtils.getFieldValue(BottomSheetDialog.class, getDialog(), "mBehavior");
-        if (getContext() != null && behavior != null){
-            onBehaviorInit(getContext(), behavior);
-        }
-    }
-
-    protected abstract void onBehaviorInit(Context context, BottomSheetBehavior behavior);
+    protected abstract void onBehaviorInit(BottomSheetBehavior behavior);
 
     /**
      * 设置背景蒙版
@@ -72,4 +75,47 @@ public abstract class BaseBottomSheetDialogFragment extends BottomSheetDialogFra
             getDialog().getWindow().setDimAmount(value);
         }
     }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (getContext() == null){
+            return super.onCreateDialog(savedInstanceState);
+        }
+        return new BottomSheetDialog(getContext(), R.style.TransparentBottomSheetStyle);//使用自定义style创建Dialog
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setStatusBar();
+    }
+
+    /** 配置状态栏 */
+    private void setStatusBar() {
+        Window window = getDialog().getWindow();
+        if (window == null) {
+            return;
+        }
+        if (!configTransparentStatusBar()) {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            return;
+        }
+        window.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);// 设置底部展示
+        int screenHeight = ScreenUtils.getScreenHeight(getContext());
+        int statusBarHeight = ScreenUtils.getStatusBarHeight(getContext());
+        int navigationBarHeight = ScreenUtils.getNavigationBarHeight(requireActivity());
+        int dialogHeight = screenHeight - statusBarHeight + navigationBarHeight - configTopOffsetPx();//屏幕高度 - 状态栏高度 + 导航栏 - 偏移量高度
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, dialogHeight == 0 ? ViewGroup.LayoutParams.MATCH_PARENT : dialogHeight);
+    }
+
+    /** 配置是否透明状态栏（默认是） */
+    protected boolean configTransparentStatusBar(){
+        return true;
+    }
+
+    /** 配置布局高度偏移量（默认0） */
+    protected int configTopOffsetPx(){
+        return 0;
+    }
+
 }
