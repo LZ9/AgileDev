@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.lodz.android.agiledev.R;
-import com.lodz.android.component.widget.dialogfragment.BaseDialogFragment;
+import com.lodz.android.component.widget.dialogfragment.BaseCenterDialogFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * Created by zhouL on 2018/3/26.
  */
 
-public class TestCenterDialogFragment extends BaseDialogFragment{
+public class TestCenterDialogFragment extends BaseCenterDialogFragment {
 
     private static final int[] TAGS = new int[]{
             R.string.dialog_test_tags_mun, R.string.dialog_test_tags_ars,
@@ -70,5 +70,10 @@ public class TestCenterDialogFragment extends BaseDialogFragment{
         public CharSequence getPageTitle(int position) {
             return getString(TAGS[position]);
         }
+    }
+
+    @Override
+    protected boolean hasAnimations() {
+        return false;
     }
 }

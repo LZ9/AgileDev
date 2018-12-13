@@ -23,7 +23,12 @@ public abstract class BaseCenterDialog extends BaseDialog{
 
     @Override
     protected int getAnimations() {
-        return R.style.animation_center_in_center_out;
+        return hasAnimations() ? R.style.animation_center_in_center_out : super.getAnimations();
+    }
+
+    /** 是否有动画 */
+    protected boolean hasAnimations() {
+        return true;
     }
 
     @Override
@@ -34,4 +39,6 @@ public abstract class BaseCenterDialog extends BaseDialog{
         }
         super.show();
     }
+
+
 }

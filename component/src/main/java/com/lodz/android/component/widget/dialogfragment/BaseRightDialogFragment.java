@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import com.lodz.android.component.R;
 
 /**
- * 底部DialogFragment基类
+ * 右侧DialogFragment基类
  * Created by zhouL on 2018/3/26.
  */
 
