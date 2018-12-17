@@ -28,6 +28,7 @@ public interface ImageLoaderContract {
     /**
      * 设置加载路径
      * @param o 加载路径（Glide包括String/Uri/File/Integer/byte[]）
+     * @deprecated 请使用细类的load方法进行加载，比如：loadUrl、loadUri、loadFile等等
      */
     @Deprecated
     ImageLoaderContract load(Object o);

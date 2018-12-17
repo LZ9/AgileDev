@@ -15,8 +15,8 @@
 我将Glide内置在包内，支持androidx，图片库里已经集成了图片变换，请畅快使用
 ```
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.0.0'
-        implementation 'androidx.annotation:annotation:1.0.0'
+        implementation 'androidx.appcompat:appcompat:1.0.2'
+        implementation 'androidx.annotation:annotation:1.0.1'
 
         // glide
         api 'com.github.bumptech.glide:glide:4.8.0'
@@ -70,7 +70,7 @@
 下面为基本的使用方法，你可以根据自己的需要链上对应的方法，对图片进行控制。
 ```
     ImageLoader.create(this)
-        .load("http://ww2.sinaimg.cn/large/610dc034jw1f91ypzqaivj20u00k0jui.jpg")// 设置加载路径（String/Uri/File/Integer/byte[]）
+        .load("http://ww2.sinaimg.cn/large/610dc034jw1f91ypzqaivj20u00k0jui.jpg")// 设置加载路径（String/Uri/File/Integer/byte[]），请使用细类的load方法进行加载，比如：loadUrl、loadUri、loadFile等等
         .setPlaceholder(R.drawable.ic_launcher)// 设置加载图
         .setError(R.drawable.ic_launcher)// 设置加载失败图
         .setImageSize(100, 100)// 设置图片宽高
