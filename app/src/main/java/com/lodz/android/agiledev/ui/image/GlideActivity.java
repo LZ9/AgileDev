@@ -27,7 +27,6 @@ import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.core.log.PrintLog;
-import com.lodz.android.core.utils.BitmapUtils;
 import com.lodz.android.core.utils.NotificationUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
@@ -163,7 +162,7 @@ public class GlideActivity extends BaseActivity{
                 builder.setContent(remoteViews);
 
                 ImageLoader.create(getContext())
-                        .load(IMG_URL)
+                        .loadUrl(IMG_URL)
                         .setCenterCrop()
                         .asBitmapInto(new NotificationTarget(getContext(), R.id.remoteview_icon, remoteViews, builder.build(), 1235));
             }
@@ -175,7 +174,7 @@ public class GlideActivity extends BaseActivity{
             public void onClick(View v) {
 
                 ImageLoader.create(getContext())
-                        .load(IMG_URL)
+                        .loadUrl(IMG_URL)
                         .setCenterCrop()
                         .asBitmapInto(new SimpleTarget<Bitmap>() {
                             @Override
@@ -254,7 +253,7 @@ public class GlideActivity extends BaseActivity{
     /** BASE64图片 */
     private void showLocalImg() {
         ImageLoader.create(getContext())
-                .load(BitmapUtils.base64ToByte(PIC_BASE64))
+                .loadBase64(PIC_BASE64)
                 .setCenterInside()
                 .into(mBase64Img);
     }
@@ -262,7 +261,7 @@ public class GlideActivity extends BaseActivity{
     /** 本地居中剪切图片 */
     private void showLocalCropImg() {
         ImageLoader.create(getContext())
-                .load(R.drawable.bg_pokemon)
+                .loadResId(R.drawable.bg_pokemon)
                 .setCenterCrop()
                 .into(mLocalCropImg);
     }
@@ -270,7 +269,7 @@ public class GlideActivity extends BaseActivity{
     /** 网络图片 */
     private void showUrlImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .setFitCenter()
                 .setRequestListener(new RequestListener<Object>() {
                     @Override
@@ -291,7 +290,7 @@ public class GlideActivity extends BaseActivity{
     /** 动画显示 */
     private void showAnimImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .setAnim(new ViewPropertyTransition.Animator() {
                     @Override
                     public void animate(View view) {
@@ -308,7 +307,7 @@ public class GlideActivity extends BaseActivity{
     /** 网络gif */
     private void showUrlGifImg() {
         ImageLoader.create(getContext())
-                .load(GIF_URL)
+                .loadUrl(GIF_URL)
                 .setFitCenter()
                 .into(mUrlGifImg);
     }
@@ -316,7 +315,7 @@ public class GlideActivity extends BaseActivity{
     /** 本地gif */
     private void showLocalGifImg() {
         ImageLoader.create(getContext())
-                .load(R.drawable.ic_gif)
+                .loadResId(R.drawable.ic_gif)
                 .setFitCenter()
                 .into(mLocalGifImg);
     }
@@ -324,7 +323,7 @@ public class GlideActivity extends BaseActivity{
     /** 毛玻璃 */
     private void showBlurImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useBlur()
                 .setFitCenter()
                 .into(mBlurImg);
@@ -333,7 +332,7 @@ public class GlideActivity extends BaseActivity{
     /** 覆盖颜色 */
     private void showFilterColorImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .setFitCenter()
                 .setFilterColor(ContextCompat.getColor(getContext(), R.color.color_60ea413c))
                 .useFilterColor()
@@ -343,7 +342,7 @@ public class GlideActivity extends BaseActivity{
     /** 全圆角 */
     private void showCornersAllImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useRoundCorner()
                 .setRoundCorner(10)
                 .setFitCenter()
@@ -353,7 +352,7 @@ public class GlideActivity extends BaseActivity{
     /** 顶部圆角 */
     private void showCornersTopImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useRoundCorner()
                 .setRoundCorner(10)
                 .setRoundedCornerType(RoundedCornersTransformation.CornerType.TOP)
@@ -364,7 +363,7 @@ public class GlideActivity extends BaseActivity{
     /** 灰度化 */
     private void showGrayscaleImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .setFitCenter()
                 .useGrayscale()
                 .into(mGrayscaleImg);
@@ -373,7 +372,7 @@ public class GlideActivity extends BaseActivity{
     /** 圆角/灰度化 */
     private void showCornersGrayscaleImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useRoundCorner()
                 .setRoundCorner(10)
                 .useGrayscale()
@@ -384,7 +383,7 @@ public class GlideActivity extends BaseActivity{
     /** 圆形 */
     private void showCircleImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useCircle()
                 .setFitCenter()
                 .into(mCircleImg);
@@ -393,7 +392,7 @@ public class GlideActivity extends BaseActivity{
     /** 圆形/毛玻璃 */
     private void showCircleBlurImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useBlur()
                 .useCircle()
                 .setFitCenter()
@@ -403,7 +402,7 @@ public class GlideActivity extends BaseActivity{
     /** 圆形/灰度化/毛玻璃 */
     private void showCircleGrayscaleBlurImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useCircle()
                 .useBlur()
                 .useGrayscale()
@@ -414,7 +413,7 @@ public class GlideActivity extends BaseActivity{
     /** 蒙板效果 */
     private void showMaskImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useMask()
                 .setFitCenter()
                 .into(mMaskImg);
@@ -423,7 +422,7 @@ public class GlideActivity extends BaseActivity{
     /** 正方形 */
     private void showSquareImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .setCenterCrop()
                 .useCropSquare()
                 .into(mSquareImg);
@@ -432,7 +431,7 @@ public class GlideActivity extends BaseActivity{
     /** 正方形/毛玻璃 */
     private void showSquareBlurImg() {
         ImageLoader.create(getContext())
-                .load(IMG_URL)
+                .loadUrl(IMG_URL)
                 .useBlur()
                 .setCenterCrop()
                 .useCropSquare()
@@ -442,7 +441,7 @@ public class GlideActivity extends BaseActivity{
     /** 本地webp */
     private void showLocalWebpImg() {
         ImageLoader.create(getContext())
-                .load(R.drawable.ic_webp)
+                .loadResId(R.drawable.ic_webp)
                 .setFitCenter()
                 .into(mLocalWebpImg);
     }
@@ -456,7 +455,7 @@ public class GlideActivity extends BaseActivity{
             return;
         }
         ImageLoader.create(getContext())
-                .load(Uri.fromFile(file))
+                .loadUri(Uri.fromFile(file))
                 .setVideo()
                 .into(mLocalVideoImg);
     }

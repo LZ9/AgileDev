@@ -2,6 +2,7 @@ package com.lodz.android.imageloader.contract;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.gif.GifDrawable;
@@ -10,9 +11,12 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
 
+import java.io.File;
+
 import androidx.annotation.AnimRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 
 
 /**
@@ -25,7 +29,50 @@ public interface ImageLoaderContract {
      * 设置加载路径
      * @param o 加载路径（Glide包括String/Uri/File/Integer/byte[]）
      */
+    @Deprecated
     ImageLoaderContract load(Object o);
+
+    /**
+     * 加载网页图片
+     * @param url 资源网址
+     */
+    ImageLoaderContract loadUrl(@NonNull String url);
+
+    /**
+     * 加载URI
+     * @param uri URI路径
+     */
+    ImageLoaderContract loadUri(@NonNull Uri uri);
+
+    /**
+     * 加载本地文件
+     * @param file 文件
+     */
+    ImageLoaderContract loadFile(@NonNull File file);
+
+    /**
+     * 加载本地文件路径
+     * @param path 文件路径
+     */
+    ImageLoaderContract loadFilePath(@NonNull String path);
+
+    /**
+     * 加载资源图片
+     * @param resId 资源id
+     */
+    ImageLoaderContract loadResId(@DrawableRes int resId);
+
+    /**
+     * 加载Base64图片
+     * @param base64 字符串
+     */
+    ImageLoaderContract loadBase64(@NonNull String base64);
+
+    /**
+     * 在家比特数组
+     * @param bytes 比特数组
+     */
+    ImageLoaderContract loadBytes(@NonNull byte[] bytes);
 
     /**
      * 设置加载图

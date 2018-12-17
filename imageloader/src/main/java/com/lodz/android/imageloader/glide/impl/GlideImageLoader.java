@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Base64;
 import android.widget.ImageView;
 
 import com.bumptech.glide.GenericTransitionOptions;
@@ -39,6 +40,7 @@ import java.util.UUID;
 import androidx.annotation.AnimRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -99,11 +101,72 @@ public class GlideImageLoader implements ImageLoaderContract{
 
     @Override
     public ImageLoaderContract load(Object o) {
-        if (o instanceof String || o instanceof Uri || o instanceof File || o instanceof Integer || o instanceof byte[]){
-            mGlideBuilderBean.path = o;
-            return this;
+        if (o instanceof String) {
+            return loadUrl((String) o);
+        }
+        if (o instanceof Uri) {
+            return loadUri((Uri) o);
+        }
+        if (o instanceof File) {
+            return loadFile((File) o);
+        }
+        if (o instanceof Integer) {
+            return loadResId((Integer) o);
+        }
+        if (o instanceof byte[]) {
+            return loadBytes((byte[]) o);
         }
         throw new RuntimeException("Glide不支持String/Uri/File/Integer/byte[]以外的图片路径参数");
+    }
+
+    @Override
+    public ImageLoaderContract loadUrl(@NonNull String url) {
+        mGlideBuilderBean.path = url;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract loadUri(@NonNull Uri uri) {
+        mGlideBuilderBean.path = uri;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract loadFile(@NonNull File file) {
+        mGlideBuilderBean.path = file;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract loadFilePath(@NonNull String path) {
+        File file = new File(path);
+        if (file.exists()){//文件存在
+            mGlideBuilderBean.path = file;
+            return this;
+        }
+        return loadUrl("");
+    }
+
+    @Override
+    public ImageLoaderContract loadResId(int resId) {
+        mGlideBuilderBean.path = resId;
+        return this;
+    }
+
+    @Override
+    public ImageLoaderContract loadBase64(@NonNull String base64) {
+        try {
+            return loadBytes(Base64.decode(base64, Base64.DEFAULT));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return loadUrl("");
+    }
+
+    @Override
+    public ImageLoaderContract loadBytes(@NonNull byte[] bytes) {
+        mGlideBuilderBean.path = bytes;
+        return this;
     }
 
     @Override
