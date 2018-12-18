@@ -104,6 +104,8 @@ public class PhotoPickerActivity extends AbsActivity{
 
     /** 临时文件路径 */
     private String mTempFilePath = "";
+    /** 当前展示的图片文件夹 */
+    private ImageFolder mCurrentImageFolder;
 
     @Override
     protected void startCreate() {
@@ -262,12 +264,12 @@ public class PhotoPickerActivity extends AbsActivity{
             @Override
             public void onClick(View v) {
                 List<ImageFolderIteamBean> folders = new ArrayList<>();
-
+                List<ImageFolder> ifs = AlbumUtils.getAllImageFolders(getContext());
                 // 组装数据
-                for (ImageFolder folder : AlbumUtils.getAllImageFolders(getContext())) {
+                for (ImageFolder folder : ifs) {
                     ImageFolderIteamBean iteamBean = new ImageFolderIteamBean();
                     iteamBean.imageFolder = folder;
-                    iteamBean.isSelected = mFolderTextTv.getText().toString().equals(folder.getName());
+                    iteamBean.isSelected = mCurrentImageFolder.getDir().equals(folder.getDir());
                     folders.add(iteamBean);
                 }
 
@@ -286,9 +288,10 @@ public class PhotoPickerActivity extends AbsActivity{
                     @Override
                     public void onSelected(DialogInterface dialog, ImageFolderIteamBean bean) {
                         dialog.dismiss();
-                        if (mFolderTextTv.getText().toString().equals(bean.imageFolder.getName())){// 选择了同一个文件夹
+                        if (mCurrentImageFolder.getDir().equals(bean.imageFolder.getDir())){// 选择了同一个文件夹
                             return;
                         }
+                        mCurrentImageFolder = bean.imageFolder;
                         mFolderTextTv.setText(bean.imageFolder.getName());
                         configAdapterData(AlbumUtils.getImageListOfFolder(getContext(), bean.imageFolder));
                         AnimUtils.startRotateSelf(mMoreImg, -180, 0, 500, true);
@@ -427,8 +430,10 @@ public class PhotoPickerActivity extends AbsActivity{
     protected void initData() {
         super.initData();
         if (ArrayUtils.isEmpty(mPickerBean.sourceList)){
+            mCurrentImageFolder = AlbumUtils.getAllImageFolder(getContext());
             configAdapterData(AlbumUtils.getAllImages(getContext()));
         }else {
+            mCurrentImageFolder = null;
             configAdapterData(mPickerBean.sourceList);//让用户选择指定的图片
             mFolderBtn.setEnabled(false);
             mFolderTextTv.setText(R.string.component_picker_custom_photo);
@@ -555,8 +560,9 @@ public class PhotoPickerActivity extends AbsActivity{
     /** 处理拍照成功 */
     private void handleCameraSuccess() {
         mTempFilePath = "";
-        for (ImageFolder folder : AlbumUtils.getAllImageFolders(getContext())) {
-            if (folder.getName().equals(mFolderTextTv.getText().toString())){
+        List<ImageFolder> ifs = AlbumUtils.getAllImageFolders(getContext());
+        for (ImageFolder folder : ifs) {
+            if (folder.getDir().equals(mCurrentImageFolder.getDir())){
                 configAdapterData(AlbumUtils.getImageListOfFolder(getContext(), folder));
                 break;
             }

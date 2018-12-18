@@ -68,6 +68,7 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
         holder.floderName.setText(bean.imageFolder.getName());
         holder.count.setText(getContext().getString(R.string.component_picker_folder_num, String.valueOf(bean.imageFolder.getCount())));
         holder.selectIconImg.setImageBitmap(bean.isSelected ? mSelectedBitmap : mUnselectBitmap);
+        holder.dirName.setText(bean.imageFolder.isAllPicture() ? bean.imageFolder.getName() : bean.imageFolder.getDir());
     }
 
     private Bitmap getUnselectBitmap(@ColorRes int color){
@@ -110,6 +111,8 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
         private ImageView folderImg;
         /** 文件夹名称 */
         private TextView floderName;
+        /** 文件夹路径 */
+        private TextView dirName;
         /** 文件夹内图片数量 */
         private TextView count;
         /** 选中图标 */
@@ -119,6 +122,7 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
             super(itemView);
             folderImg = itemView.findViewById(R.id.folder_img);
             floderName = itemView.findViewById(R.id.floder_name);
+            dirName = itemView.findViewById(R.id.dir_name);
             count = itemView.findViewById(R.id.count);
             selectIconImg = itemView.findViewById(R.id.select_icon);
         }

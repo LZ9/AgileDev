@@ -9,7 +9,7 @@ import android.text.TextUtils;
 public class ImageFolder {
 
     /** 图片的文件夹路径 */
-    private String dir;
+    private String dir = "";
     /** 文件夹内第一张图片的路径 */
     private String firstImagePath;
     /** 文件夹的名称 */
