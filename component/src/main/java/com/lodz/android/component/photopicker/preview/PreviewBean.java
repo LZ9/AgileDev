@@ -28,10 +28,10 @@ class PreviewBean<T> implements Serializable{
     int backgroundColor = android.R.color.black;
     /** 顶部状态栏颜色 */
     @ColorRes
-    int statusBarColor = 0;
+    int statusBarColor = android.R.color.black;
     /** 底部导航栏颜色 */
     @ColorRes
-    int navigationBarColor = 0;
+    int navigationBarColor = android.R.color.black;
     /** 页码文字颜色 */
     @ColorRes
     int pagerTextColor = android.R.color.darker_gray;
