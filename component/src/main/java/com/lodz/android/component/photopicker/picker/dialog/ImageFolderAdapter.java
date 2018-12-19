@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by zhouL on 2017/10/20.
  */
 
-public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteamBean>{
+public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderItemBean>{
 
     /** 图片加载接口 */
     private PhotoLoader<String> mPhotoLoader;
@@ -56,14 +56,14 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<ImageFolderIteam
 
     @Override
     public void onBind(RecyclerView.ViewHolder holder, int position) {
-        ImageFolderIteamBean bean = getItem(position);
+        ImageFolderItemBean bean = getItem(position);
         if (bean == null){
             return;
         }
         showItem((ImageFolderViewHolder) holder, bean, position);
     }
 
-    private void showItem(ImageFolderViewHolder holder, ImageFolderIteamBean bean, int position) {
+    private void showItem(ImageFolderViewHolder holder, ImageFolderItemBean bean, int position) {
         mPhotoLoader.displayImg(getContext(), bean.imageFolder.getFirstImagePath(), holder.folderImg);
         holder.floderName.setText(bean.imageFolder.getName());
         holder.count.setText(getContext().getString(R.string.component_picker_folder_num, String.valueOf(bean.imageFolder.getCount())));

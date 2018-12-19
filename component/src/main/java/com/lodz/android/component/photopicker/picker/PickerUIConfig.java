@@ -89,7 +89,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setStatusBarColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.statusBarColor = color;
         }
         return this;
@@ -100,7 +100,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setNavigationBarColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.navigationBarColor = color;
         }
         return this;
@@ -111,7 +111,7 @@ public class PickerUIConfig {
      * @param cameraRes 相机图标
      */
     public PickerUIConfig setCameraImg(@DrawableRes int cameraRes) {
-        if (cameraRes > 0){
+        if (cameraRes != 0){
             this.cameraImg = cameraRes;
         }
         return this;
@@ -122,7 +122,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setCameraBgColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.cameraBgColor = color;
         }
         return this;
@@ -133,7 +133,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setSelectedBtnUnselect(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.selectedBtnUnselect = color;
         }
         return this;
@@ -144,7 +144,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setSelectedBtnSelected(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.selectedBtnSelected = color;
         }
         return this;
@@ -155,7 +155,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setMaskColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.maskColor = color;
         }
         return this;
@@ -166,7 +166,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setItemBgColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.itemBgColor = color;
         }
         return this;
@@ -177,7 +177,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setBackBtnColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.backBtnColor = color;
         }
         return this;
@@ -188,7 +188,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setMainTextColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.mainTextColor = color;
         }
         return this;
@@ -199,7 +199,7 @@ public class PickerUIConfig {
      * @param moreFolderRes 资源图片
      */
     public PickerUIConfig setMoreFolderImg(@DrawableRes int moreFolderRes) {
-        if (moreFolderRes > 0){
+        if (moreFolderRes != 0){
             this.moreFolderImg = moreFolderRes;
         }
         return this;
@@ -210,7 +210,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setTopLayoutColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.topLayoutColor = color;
         }
         return this;
@@ -221,7 +221,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setBottomLayoutColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.bottomLayoutColor = color;
         }
         return this;
@@ -232,7 +232,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setPreviewBtnNormal(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.previewBtnNormal = color;
         }
         return this;
@@ -243,7 +243,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setPreviewBtnUnable(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.previewBtnUnable = color;
         }
         return this;
@@ -254,7 +254,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setConfirmBtnNormal(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.confirmBtnNormal = color;
         }
         return this;
@@ -265,7 +265,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setConfirmBtnPressed(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.confirmBtnPressed = color;
         }
         return this;
@@ -276,7 +276,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setConfirmBtnUnable(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.confirmBtnUnable = color;
         }
         return this;
@@ -287,7 +287,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setConfirmTextNormal(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.confirmTextNormal = color;
         }
         return this;
@@ -298,7 +298,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setConfirmTextPressed(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.confirmTextPressed = color;
         }
         return this;
@@ -309,7 +309,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setConfirmTextUnable(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.confirmTextUnable = color;
         }
         return this;
@@ -320,7 +320,7 @@ public class PickerUIConfig {
      * @param color 颜色
      */
     public PickerUIConfig setFolderSelectColor(@ColorRes int color) {
-        if (color > 0){
+        if (color != 0){
             this.folderSelectColor = color;
         }
         return this;

@@ -57,7 +57,7 @@ public class ImageFolderDialog extends BaseTopDialog{
         mAdapter.setPhotoLoader(photoLoader);
     }
 
-    public void setData(List<ImageFolderIteamBean> list) {
+    public void setData(List<ImageFolderItemBean> list) {
         if (ArrayUtils.isEmpty(list)) {
             mRecyclerView.setVisibility(View.GONE);
             return;
@@ -75,9 +75,9 @@ public class ImageFolderDialog extends BaseTopDialog{
     @Override
     protected void setListeners() {
         super.setListeners();
-        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<ImageFolderIteamBean>() {
+        mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<ImageFolderItemBean>() {
             @Override
-            public void onItemClick(RecyclerView.ViewHolder viewHolder, ImageFolderIteamBean item, int position) {
+            public void onItemClick(RecyclerView.ViewHolder viewHolder, ImageFolderItemBean item, int position) {
                 if (mListener != null){
                     mListener.onSelected(getDialogInterface(), item);
                 }
@@ -90,6 +90,6 @@ public class ImageFolderDialog extends BaseTopDialog{
     }
 
     public interface Listener{
-        void onSelected(DialogInterface dialog, ImageFolderIteamBean bean);
+        void onSelected(DialogInterface dialog, ImageFolderItemBean bean);
     }
 }

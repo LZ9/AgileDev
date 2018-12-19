@@ -26,7 +26,7 @@ import com.lodz.android.component.photopicker.contract.OnClickListener;
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.photopicker.picker.dialog.ImageFolderDialog;
-import com.lodz.android.component.photopicker.picker.dialog.ImageFolderIteamBean;
+import com.lodz.android.component.photopicker.picker.dialog.ImageFolderItemBean;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
 import com.lodz.android.component.rx.subscribe.observer.BaseObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
@@ -263,11 +263,11 @@ public class PhotoPickerActivity extends AbsActivity{
         mFolderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<ImageFolderIteamBean> folders = new ArrayList<>();
+                List<ImageFolderItemBean> folders = new ArrayList<>();
                 List<ImageFolder> ifs = AlbumUtils.getAllImageFolders(getContext());
                 // 组装数据
                 for (ImageFolder folder : ifs) {
-                    ImageFolderIteamBean iteamBean = new ImageFolderIteamBean();
+                    ImageFolderItemBean iteamBean = new ImageFolderItemBean();
                     iteamBean.imageFolder = folder;
                     iteamBean.isSelected = mCurrentImageFolder.getDir().equals(folder.getDir());
                     folders.add(iteamBean);
@@ -286,7 +286,7 @@ public class PhotoPickerActivity extends AbsActivity{
                 });
                 dialog.setListener(new ImageFolderDialog.Listener() {
                     @Override
-                    public void onSelected(DialogInterface dialog, ImageFolderIteamBean bean) {
+                    public void onSelected(DialogInterface dialog, ImageFolderItemBean bean) {
                         dialog.dismiss();
                         if (mCurrentImageFolder.getDir().equals(bean.imageFolder.getDir())){// 选择了同一个文件夹
                             return;

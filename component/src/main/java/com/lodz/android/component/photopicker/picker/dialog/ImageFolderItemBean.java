@@ -7,7 +7,7 @@ import com.lodz.android.core.album.ImageFolder;
  * Created by zhouL on 2017/10/20.
  */
 
-public class ImageFolderIteamBean {
+public class ImageFolderItemBean {
 
     /** 图片文件夹 */
     public ImageFolder imageFolder;
