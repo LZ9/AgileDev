@@ -141,12 +141,22 @@ public class AlbumUtils {
             }
         });
 
-        if (fileList == null || fileList.length == 0){
+        if (fileList == null || fileList.length == 0) {
             return null;
         }
-
+        String rootPath = file.getAbsolutePath();// 获取目录路径
+        if (!rootPath.endsWith(File.separator)) {
+            rootPath += File.separator;
+        }
+        List<String> imageList = new ArrayList<>();
+        for (String path : fileList) {
+            File tempFile = new File(rootPath + path);
+            if (tempFile.exists() && tempFile.length() > 0) {//文件存在且大小不为0
+                imageList.add(path);
+            }
+        }
         ImageFolder imageFolder = new ImageFolder();
-        imageFolder.setCount(fileList.length);
+        imageFolder.setCount(imageList.size());
         imageFolder.setFirstImagePath(coverImgPath);
         imageFolder.setDir(file.getAbsolutePath());
         return imageFolder;
