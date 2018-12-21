@@ -47,6 +47,7 @@ import com.lodz.android.core.utils.UiHandler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import androidx.annotation.ColorRes;
@@ -367,9 +368,10 @@ public class PhotoPickerActivity extends AbsActivity{
                         if (mCurrentPhotoList.get(i).isSelected){// 点击后是选中状态
                             mSelectedList.add(bean);
                         }else {
-                            for (PickerItemBean itemBean : mSelectedList) {
+                            for (Iterator<PickerItemBean> ite = mSelectedList.iterator(); ite.hasNext();) {
+                                PickerItemBean itemBean = ite.next();
                                 if (itemBean.photoPath.equals(bean.photoPath)){
-                                    mSelectedList.remove(itemBean);
+                                    ite.remove();
                                     break;
                                 }
                             }
