@@ -116,6 +116,11 @@ public class NotificationUtils {
         return this;
     }
 
+    /** 获取通知管理器 */
+    public NotificationManager getManager(){
+        return mNotificationManager;
+    }
+
     /** 获取一个1-999999 */
     private int getRandomId(){
         Random random = new Random();
