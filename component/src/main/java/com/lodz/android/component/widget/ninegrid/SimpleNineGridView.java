@@ -55,7 +55,7 @@ public class SimpleNineGridView extends NineGridView{
     }
 
     private void init(){
-        setOnNineGridViewListener(new OnNineGridViewListener() {
+        setListener(new OnNineGridViewListener() {
             @Override
             public void onAddPic(int addCount) {
                 PickerManager
@@ -79,7 +79,7 @@ public class SimpleNineGridView extends NineGridView{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                addData(photos);
+                                addDatas(photos);
                             }
                         })
                         .setMaxCount(addCount)
@@ -101,7 +101,7 @@ public class SimpleNineGridView extends NineGridView{
 
             @Override
             public void onDeletePic(String data, int position) {
-                removeData(position);
+                removeDatas(position);
             }
 
             @Override
@@ -153,24 +153,25 @@ public class SimpleNineGridView extends NineGridView{
         mListener = listener;
     }
 
-    @SuppressWarnings("DeprecatedIsStillUsed")
     @Override
-    @Deprecated
-    public void addData(@NonNull List<String> data) {
+    public void addData(@NonNull List<String> data) {}
+
+    @Override
+    public void removeData(int position) {}
+
+    @Override
+    public void setOnNineGridViewListener(OnNineGridViewListener listener) {}
+
+    private void addDatas(@NonNull List<String> data) {
         super.addData(data);
     }
 
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Override
-    @Deprecated
-    public void removeData(int position) {
+    private void removeDatas(int position) {
         super.removeData(position);
     }
 
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Override
-    @Deprecated
-    public void setOnNineGridViewListener(OnNineGridViewListener listener) {
+    private void setListener(OnNineGridViewListener listener) {
         super.setOnNineGridViewListener(listener);
     }
+
 }
