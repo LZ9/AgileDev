@@ -65,8 +65,8 @@ dependencies {
     implementation project(':imageloader')
 
     // 权限申请
-    implementation 'com.github.hotchemi:permissionsdispatcher:4.0.0'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:4.0.0'
+    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.3.0'
+    annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.3.0'
 
     // butterknife
     implementation 'com.jakewharton:butterknife:9.0.0-rc1'
