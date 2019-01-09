@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.lodz.android.component.rx.exception.DataException;
 import com.lodz.android.component.rx.exception.RxException;
+import com.lodz.android.component.rx.status.ResponseStatus;
 import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.BitmapUtils;
 
@@ -18,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
+import io.reactivex.CompletableTransformer;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.Maybe;
@@ -77,6 +81,24 @@ public class RxUtils {
                 return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };
+    }
+
+    /** 在异步线程发起，在主线程订阅 */
+    public static CompletableTransformer ioToMainCompletable() {
+        return new CompletableTransformer() {
+            @Override
+            public CompletableSource apply(Completable upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    /**
+     * 获取接口数据状态
+     * @param e 异常
+     */
+    public static ResponseStatus getResponseStatus(Throwable e) {
+        return e instanceof DataException ? ((DataException) e).getData() : null;
     }
 
     /**
