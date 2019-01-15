@@ -1744,7 +1744,7 @@ c）如果你需要使用PopupWindow的方法，请调用下面的方法，他�
         ....
         
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="packageName.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

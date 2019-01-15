@@ -14,6 +14,11 @@ android {
 //        }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     //日志开关
     def LOG_DEBUG = "LOG_DEBUG"
     defaultConfig {
@@ -69,8 +74,8 @@ dependencies {
     annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.3.0'
 
     // butterknife
-    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
     // 下载
     implementation 'zlc.season:rxdownload3:1.2.7'
