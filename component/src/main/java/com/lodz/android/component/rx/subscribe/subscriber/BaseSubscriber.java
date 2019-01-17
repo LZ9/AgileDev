@@ -23,7 +23,7 @@ public abstract class BaseSubscriber<T> implements Subscriber<T> {
     public final void onSubscribe(Subscription s) {
         mSubscription = s;
         if (isAutoSubscribe()){
-            request(1);
+            request(Long.MAX_VALUE);
         }
         onBaseSubscribe(s);
     }
