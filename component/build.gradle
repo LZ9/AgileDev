@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 72
-        versionName "2.0.10"// 未上传
+        versionName "2.1.0"// 成功上传
     }
 
     buildTypes {
@@ -26,7 +26,7 @@ android {
 
 dependencies {
     // 引用的库
-//    api 'cn.lodz:core:2.0.5'
+//    api 'cn.lodz:core:2.0.6'
     api project(':core')
 
     // RxJava
@@ -44,7 +44,7 @@ dependencies {
 //    api 'com.hannesdorfmann.mosby3:mvp:3.0.4'
 }
 
-//version = "2.0.9"
+//version = "2.1.0"
 //group = "cn.lodz"
 //publish {
 //    userOrg = 'lz9'

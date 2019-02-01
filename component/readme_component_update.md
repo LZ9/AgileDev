@@ -1,5 +1,18 @@
 # component库更新记录
 
+##### 2018/02/01
+1. BaseCenterDialog增加动画开关
+2. 增加BaseCenterDialogFragment基类
+3. 修复预览器页码显示BUG
+4. 修复图片选择器了图片文件夹文字展示和重复选中的BUG
+5. 修复图片选择器取消选中BUG
+6. 优化九宫格代码
+7. 更新RxJava版本
+8. RxUtils增加Completable线程切换和ResponseStatus获取方法
+9. 修改Subscriber订阅基类的默认request()数值
+10. 更新fastjson版本
+11. 发布2.1.0版本
+
 ##### 2018/12/12
 1. 图片选择器拍照模式选择立即返回时不去校验图片加载器
 2. 修复BaseBottomSheetDialog和BaseBottomSheetDialogFragment的状态栏显示BUG
