@@ -26,6 +26,4 @@ public class SpManager {
     public String getUserAccount(){
         return SharedPreferencesUtils.getString(SpConfig.USER_ACCOUNT, "");
     }
-
-
 }

@@ -139,9 +139,13 @@ public class ApiServiceManager {
      * @param response 返回数据
      */
     private okhttp3.Response logResponse(okhttp3.Response response) {
+        ResponseBody body = response.body();
+        if (body == null) {
+            return response;
+        }
         String log = "";
         try {
-            log = response.body().string();
+            log = body.string();
             List<String> list = response.request().url().pathSegments();
             logSegmentedLog(true, list.get(list.size() - 1), log);
         } catch (Exception e) {
@@ -149,7 +153,7 @@ public class ApiServiceManager {
         }
         // 打印完需要将数据重新写入，因为response.body().string()执行一次以后会将数据清空
         response = response.newBuilder()
-                .body(ResponseBody.create(response.body().contentType(), log))
+                .body(ResponseBody.create(body.contentType(), log))
                 .build();
         return response;
     }

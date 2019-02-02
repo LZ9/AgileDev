@@ -61,7 +61,6 @@ public class CheckDialog extends BaseDialog {
         });
     }
 
-
     /**
      * 设置内容文本
      * @param contentMsg 内容文本
