@@ -53,7 +53,7 @@ public class SearchTitleBarLayout extends FrameLayout{
     private ImageView mClearBtn;
     /** 竖线 */
     private View mVerticalLineView;
-    /** 返回按钮 */
+    /** 搜索按钮 */
     private ImageView mSearchBtn;
     /** 分割线 */
     private View mDivideLineView;
