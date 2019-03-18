@@ -1,5 +1,10 @@
 package com.lodz.android.core.utils;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
@@ -10,7 +15,7 @@ import java.util.Locale;
 import androidx.annotation.StringDef;
 
 /**
- * 时间格式化帮助类
+ * 时间帮助类
  * Created by zhouL on 2016/12/19.
  */
 public class DateUtils {
@@ -133,4 +138,50 @@ public class DateUtils {
         }
         return "";
     }
+
+    /**
+     * 显示日期选择器
+     * @param context 上下文
+     * @param listener 监听器
+     */
+    public static void showDatePicker(Context context, DatePickerDialog.OnDateSetListener listener){
+        showDatePicker(context, Calendar.getInstance(), listener);
+    }
+
+    /**
+     * 显示日期选择器
+     * @param context 上下文
+     * @param calendar 日历对象
+     * @param listener 监听器
+     */
+    public static void showDatePicker(Context context, Calendar calendar, DatePickerDialog.OnDateSetListener listener) {
+        Dialog dialog = new DatePickerDialog(context, listener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    /**
+     * 显示时间选择器
+     * @param context 上下文
+     * @param listener 监听器
+     */
+    public static void showTimePicker(Context context, TimePickerDialog.OnTimeSetListener listener){
+        showTimePicker(context, Calendar.getInstance(), listener);
+    }
+
+    /**
+     * 显示时间选择器
+     * @param context 上下文
+     * @param calendar 日历对象
+     * @param listener 监听器
+     */
+    public static void showTimePicker(Context context, Calendar calendar, TimePickerDialog.OnTimeSetListener listener) {
+        Dialog dialog = new TimePickerDialog(context, listener,
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), true);
+        dialog.show();
+    }
+
 }
