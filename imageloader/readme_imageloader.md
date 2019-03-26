@@ -16,13 +16,13 @@
 ```
     dependencies {
         implementation 'androidx.appcompat:appcompat:1.0.2'
-        implementation 'androidx.annotation:annotation:1.0.1'
+        implementation 'androidx.annotation:annotation:1.0.2'
 
         // glide
-        api 'com.github.bumptech.glide:glide:4.8.0'
-        annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+        api 'com.github.bumptech.glide:glide:4.9.0'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
         annotationProcessor 'com.android.support:support-annotations:28.0.0'
-        implementation "com.github.bumptech.glide:okhttp3-integration:4.8.0"
+        implementation "com.github.bumptech.glide:okhttp3-integration:4.9.0"
     }
 ```
 
