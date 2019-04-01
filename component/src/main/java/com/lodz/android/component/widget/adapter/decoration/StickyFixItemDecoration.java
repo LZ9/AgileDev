@@ -49,8 +49,8 @@ public class StickyFixItemDecoration<T> extends SectionFixItemDecoration<T>{
             View view = parent.getChildAt(i);
             int position = parent.getChildAdapterPosition(view);
 
-            int top = parent.getTop();
-            int bottom = parent.getTop() + mSectionHeightPx;
+            int top = 0;
+            int bottom = mSectionHeightPx;
 
             int sectionTop = Math.max(top, view.getTop() - mSectionHeightPx);// 顶部section上坐标，取top和viewtop最大值
             int sectionBottom = Math.max(bottom, view.getTop());// 顶部section下坐标，取bottom和viewbottom的最大值
