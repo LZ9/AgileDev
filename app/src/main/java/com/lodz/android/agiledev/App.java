@@ -1,5 +1,6 @@
 package com.lodz.android.agiledev;
 
+import android.content.Context;
 import android.widget.LinearLayout;
 
 import com.lodz.android.agiledev.utils.file.FileManager;
@@ -13,6 +14,8 @@ import com.lodz.android.core.utils.DensityUtils;
 import com.lodz.android.core.utils.UiHandler;
 import com.lodz.android.imageloader.ImageloaderManager;
 
+import androidx.multidex.MultiDex;
+
 /**
  * application
  * Created by zhouL on 2017/2/3.
@@ -24,6 +27,12 @@ public class App extends BaseApplication{
 
     public static App getInstance() {
         return (App) get();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override
