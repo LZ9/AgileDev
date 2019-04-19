@@ -26,7 +26,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public class ApiServiceManager {
 
     /** 接口日志标签 */
-    private static final String TAG = "resultValue";
+    public static final String TAG = "resultValue";
 
     private static ApiServiceManager mInstance = new ApiServiceManager();
 
