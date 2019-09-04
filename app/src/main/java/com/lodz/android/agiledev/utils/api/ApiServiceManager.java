@@ -200,4 +200,9 @@ public class ApiServiceManager {
     public <T> T create(final Class<T> service){
         return mRetrofit.create(service);
     }
+
+    /** 获取Retrofit对象 */
+    public Retrofit getRetrofit() {
+        return mRetrofit;
+    }
 }
