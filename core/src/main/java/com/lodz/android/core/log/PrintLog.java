@@ -3,10 +3,10 @@ package com.lodz.android.core.log;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.IntDef;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import androidx.annotation.IntDef;
 
 /**
  * 日志打印
@@ -142,7 +142,7 @@ public class PrintLog {
     }
 
     private static void logSegmented(@LogType int type, String tag, String log) {
-        if (TextUtils.isEmpty(log) || log.length() < 3000){
+        if (TextUtils.isEmpty(log) || log.length() < 2500){
             logByType(type, tag, log);
             return;
         }
