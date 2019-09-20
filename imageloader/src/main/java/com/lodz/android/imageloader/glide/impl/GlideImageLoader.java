@@ -8,6 +8,13 @@ import android.net.Uri;
 import android.util.Base64;
 import android.widget.ImageView;
 
+import androidx.annotation.AnimRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
 import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
@@ -18,7 +25,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.bumptech.glide.signature.ObjectKey;
 import com.lodz.android.imageloader.ImageloaderManager;
@@ -36,13 +43,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import androidx.annotation.AnimRes;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 
 /**
@@ -350,7 +350,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     }
 
     @Override
-    public void into(SimpleTarget<Drawable> target) {
+    public void into(Target<Drawable> target) {
         if (mRequestManager == null) {
             return;
         }
@@ -370,7 +370,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     }
 
     @Override
-    public void asBitmapInto(SimpleTarget<Bitmap> target) {
+    public void asBitmapInto(Target<Bitmap> target) {
         if (mRequestManager == null){
             return;
         }
@@ -390,7 +390,7 @@ public class GlideImageLoader implements ImageLoaderContract{
     }
 
     @Override
-    public void asGifInto(SimpleTarget<GifDrawable> target) {
+    public void asGifInto(Target<GifDrawable> target) {
         if ( mRequestManager == null){
             return;
         }

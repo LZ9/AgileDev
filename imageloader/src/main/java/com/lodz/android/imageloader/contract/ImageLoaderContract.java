@@ -5,18 +5,18 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.ViewPropertyTransition;
-import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
-
-import java.io.File;
-
 import androidx.annotation.AnimRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.ViewPropertyTransition;
+import com.lodz.android.imageloader.glide.transformations.RoundedCornersTransformation;
+
+import java.io.File;
 
 
 /**
@@ -194,18 +194,18 @@ public interface ImageLoaderContract {
     void into(ImageView imageView);
 
     /** 装载图片 */
-    void into(SimpleTarget<Drawable> target);
+    void into(Target<Drawable> target);
 
     /** 将图片转为bitmap并装载 */
     void asBitmapInto(ImageView imageView);
 
     /** 将图片转为bitmap并装载在SimpleTarget里面 */
-    void asBitmapInto(SimpleTarget<Bitmap> target);
+    void asBitmapInto(Target<Bitmap> target);
 
     /** 将图片转为gif并装载 */
     void asGifInto(ImageView imageView);
 
     /** 将图片转为gif并装载 */
-    void asGifInto(SimpleTarget<GifDrawable> target);
+    void asGifInto(Target<GifDrawable> target);
 
 }
