@@ -15,14 +15,13 @@
 我将Glide内置在包内，支持androidx，图片库里已经集成了图片变换，请畅快使用
 ```
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.0.2'
-        implementation 'androidx.annotation:annotation:1.0.2'
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.annotation:annotation:1.1.0'
 
         // glide
-        api 'com.github.bumptech.glide:glide:4.9.0'
-        annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-        annotationProcessor 'com.android.support:support-annotations:28.0.0'
-        implementation "com.github.bumptech.glide:okhttp3-integration:4.9.0"
+        api 'com.github.bumptech.glide:glide:4.10.0'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+        implementation "com.github.bumptech.glide:okhttp3-integration:4.10.0"
     }
 ```
 

@@ -33,7 +33,7 @@
     implementation 'cn.lodz:Component:2.1.0'
 ```
 ```
-    implementation 'cn.lodz:ImagerLoader:2.0.3'
+    implementation 'cn.lodz:ImagerLoader:2.0.4'
 ```
 ## 2、详细了解
 - [了解 core](https://github.com/LZ9/AgileDev/blob/master/core/readme_core.md)
