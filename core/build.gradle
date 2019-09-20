@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-//apply plugin: "guru.stefma.bintrayrelease" //stefma
+//apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
@@ -34,13 +34,12 @@ dependencies {
     api 'com.google.android:flexbox:1.1.0'
 }
 
-//version = "2.0.6"
-//group = "cn.lodz"
 //publish {
 //    userOrg = 'lz9'
+//    groupId = 'cn.lodz'
 //    artifactId = 'core'
-//    desc = 'Hi, this is a simple tools lib for android project, i want to upload and use it~'//描述，不重要
-//    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
+//    publishVersion = '2.0.6'
+//    desc = 'Hi, this is a simple tools lib for android project, i want to upload and use it~'
+//    website = 'https://github.com/LZ9/AgileDev'
 //}
-
 

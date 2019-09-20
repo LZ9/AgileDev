@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-//apply plugin: "guru.stefma.bintrayrelease" //stefma
+//apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
@@ -44,11 +44,11 @@ dependencies {
 //    api 'com.hannesdorfmann.mosby3:mvp:3.0.4'
 }
 
-//version = "2.1.0"
-//group = "cn.lodz"
 //publish {
 //    userOrg = 'lz9'
+//    groupId = 'cn.lodz'
 //    artifactId = 'Component'
-//    desc = 'Hi, this is a android base library'//描述，不重要
-//    website = 'https://github.com/LZ9/AgileDev'//网站，不重要
+//    publishVersion = '2.1.0'
+//    desc = 'Hi, this is a android base library'
+//    website = 'https://github.com/LZ9/AgileDev'
 //}

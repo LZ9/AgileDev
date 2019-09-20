@@ -2,13 +2,13 @@ package com.lodz.android.imageloader;
 
 import android.content.Context;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+
 import com.lodz.android.imageloader.glide.config.GlideApp;
 import com.lodz.android.imageloader.utils.CompileUtils;
 
 import java.io.File;
-
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 
 
 /**
