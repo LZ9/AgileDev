@@ -27,7 +27,7 @@
 
 #### 2) androidx包版本
 ```
-    implementation 'cn.lodz:core:2.0.6'
+    implementation 'cn.lodz:core:2.0.7'
 ```
 ```
     implementation 'cn.lodz:Component:2.1.0'

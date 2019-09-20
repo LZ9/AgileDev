@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 56
-        versionName "2.0.7"// 未上传
+        versionName "2.0.7"// 成功上传
     }
     buildTypes {
         release {
@@ -23,7 +23,6 @@ android {
 }
 
 dependencies {
-
     // 支持库
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'com.google.android.material:material:1.0.0'
@@ -38,7 +37,7 @@ dependencies {
 //    userOrg = 'lz9'
 //    groupId = 'cn.lodz'
 //    artifactId = 'core'
-//    publishVersion = '2.0.6'
+//    publishVersion = '2.0.7'
 //    desc = 'Hi, this is a simple tools lib for android project, i want to upload and use it~'
 //    website = 'https://github.com/LZ9/AgileDev'
 //}
