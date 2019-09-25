@@ -1,5 +1,12 @@
 # component库更新记录
 
+##### 2019/09/20
+1. 更新RxJava版本
+2. 修复粘黏装饰器BUG
+3. 更新fastjson版本
+4. 更新retrofit版本
+5. 发布2.1.2版本
+
 ##### 2018/02/01
 1. BaseCenterDialog增加动画开关
 2. 增加BaseCenterDialogFragment基类
