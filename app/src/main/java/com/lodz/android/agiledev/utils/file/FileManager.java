@@ -38,10 +38,20 @@ public class FileManager {
 
     /** 初始化路径 */
     private static void initPath() {
-        String rootPath = StorageUtils.getInternalStoragePath(App.get());// 先获取内置存储路径
-        if (TextUtils.isEmpty(rootPath)){// 内置为空再获取外置
-            rootPath = StorageUtils.getExternalStoragePath(App.get());
+        String rootPath = "";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            File file = App.get().getExternalFilesDir("");
+            if (file != null){
+                rootPath = file.getAbsolutePath();
+            }
         }
+        if (TextUtils.isEmpty(rootPath)){
+            rootPath = StorageUtils.getInternalStoragePath(App.get());// 先获取内置存储路径
+            if (TextUtils.isEmpty(rootPath)){// 内置为空再获取外置
+                rootPath = StorageUtils.getExternalStoragePath(App.get());
+            }
+        }
+
         if (TextUtils.isEmpty(rootPath)){// 没有存储卡
             isStorageCanUse = false;
             return;
