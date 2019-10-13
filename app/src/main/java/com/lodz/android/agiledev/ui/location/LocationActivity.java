@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
@@ -24,7 +26,6 @@ import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ToastUtils;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import permissions.dispatcher.NeedsPermission;
@@ -113,7 +114,8 @@ public class LocationActivity extends BaseActivity{
     /** 权限申请成功 */
     @NeedsPermission({
             Manifest.permission.ACCESS_FINE_LOCATION,// 定位
-            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION,// 定位
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION// 后台定位
     })
     protected void requestPermission() {
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)){
@@ -122,13 +124,17 @@ public class LocationActivity extends BaseActivity{
         if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)){
             return;
         }
+        if (!AppUtils.isPermissionGranted(getContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION)){
+            return;
+        }
         init();
     }
 
     /** 被拒绝 */
     @OnPermissionDenied({
             Manifest.permission.ACCESS_FINE_LOCATION,// 定位
-            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION,// 定位
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION// 后台定位
     })
     protected void onDenied() {
         ToastUtils.showShort(this, "你拒绝了此权限，该功能不可用");
@@ -138,7 +144,8 @@ public class LocationActivity extends BaseActivity{
     /** 用户拒绝后再次申请前告知用户为什么需要该权限 */
     @OnShowRationale({
             Manifest.permission.ACCESS_FINE_LOCATION,// 定位
-            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION,// 定位
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION// 后台定位
     })
     protected void showRationaleBeforeRequest(PermissionRequest request) {
         request.proceed();//请求权限
@@ -147,7 +154,8 @@ public class LocationActivity extends BaseActivity{
     /** 被拒绝并且勾选了不再提醒 */
     @OnNeverAskAgain({
             Manifest.permission.ACCESS_FINE_LOCATION,// 定位
-            Manifest.permission.ACCESS_COARSE_LOCATION// 定位
+            Manifest.permission.ACCESS_COARSE_LOCATION,// 定位
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION// 后台定位
     })
     protected void onNeverAskAgain() {
         ToastUtils.showShort(getContext(), R.string.splash_check_permission_tips);
