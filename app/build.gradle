@@ -72,8 +72,8 @@ dependencies {
     implementation project(':imageloader')
 
     // 权限申请
-    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.5.0'
-    annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.5.0'
+    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.6.0'
+    annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0'
 
     // butterknife
     implementation 'com.jakewharton:butterknife:10.2.0'
