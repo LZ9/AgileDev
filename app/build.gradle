@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.lodz.android.agiledev"
@@ -76,8 +76,8 @@ dependencies {
     annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0'
 
     // butterknife
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
     // 下载
     implementation 'zlc.season:rxdownload3:1.2.7'
