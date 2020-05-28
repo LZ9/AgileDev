@@ -6,7 +6,7 @@ import com.lodz.android.component.rx.exception.RxException;
 import com.lodz.android.component.rx.exception.RxExceptionFactory;
 import com.lodz.android.component.rx.status.ResponseStatus;
 
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 
 /**

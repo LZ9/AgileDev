@@ -8,11 +8,12 @@ import com.lodz.android.component.rx.utils.RxObservableOnSubscribe;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.log.PrintLog;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.functions.BiFunction;
+import io.reactivex.rxjava3.functions.Function;
+
 
 /**
  * 从磁盘、内存缓存中 获取缓存数据

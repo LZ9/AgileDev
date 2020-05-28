@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 
+import androidx.core.app.NotificationCompat;
+
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.BaseActivity;
@@ -27,11 +29,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import androidx.core.app.NotificationCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * 通知测试类

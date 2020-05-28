@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.component.base.activity.AbsActivity;
@@ -15,17 +18,15 @@ import com.lodz.android.component.widget.base.TitleBarLayout;
 import com.lodz.android.core.utils.StatusBarUtil;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
-import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.ActivityEvent;
 
 import java.util.Random;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.functions.Function;
 
 /**
  * 侧滑栏测试类

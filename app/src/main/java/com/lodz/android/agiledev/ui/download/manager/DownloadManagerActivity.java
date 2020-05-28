@@ -6,22 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.bean.AppInfoBean;
 import com.lodz.android.agiledev.ui.download.DownloadConstant;
 import com.lodz.android.agiledev.ui.download.market.MarketAdapter;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.rx.utils.RxUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import zlc.season.rxdownload3.RxDownload;
 import zlc.season.rxdownload3.core.Mission;
 
@@ -146,7 +148,8 @@ public class DownloadManagerActivity extends BaseActivity{
 
     private void updateMissionList() {
         Disposable disposable = RxDownload.INSTANCE.getAllMission()
-                .compose(RxUtils.<List<Mission>>ioToMainMaybe())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Mission>>() {
                     @Override
                     public void accept(List<Mission> missions) throws Exception {

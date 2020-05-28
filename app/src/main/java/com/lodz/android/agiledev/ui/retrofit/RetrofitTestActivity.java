@@ -18,7 +18,7 @@ import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
 import com.lodz.android.component.rx.subscribe.subscriber.ProgressSubscriber;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.core.utils.ArrayUtils;
-import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.ActivityEvent;
 
 import java.util.List;
 

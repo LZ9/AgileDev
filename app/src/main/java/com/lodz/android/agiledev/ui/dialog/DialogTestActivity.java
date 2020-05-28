@@ -15,8 +15,8 @@ import com.lodz.android.component.widget.base.TitleBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Function;
 
 /**
  * 弹框测试

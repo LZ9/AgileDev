@@ -1,6 +1,7 @@
 package com.lodz.android.component.rx.utils;
 
-import io.reactivex.ObservableOnSubscribe;
+
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 
 /**
  * 带入参的ObservableOnSubscribe

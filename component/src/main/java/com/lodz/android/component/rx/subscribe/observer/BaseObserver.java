@@ -6,8 +6,9 @@ import com.lodz.android.component.base.application.BaseApplication;
 import com.lodz.android.core.log.PrintLog;
 import com.lodz.android.core.utils.AppUtils;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * 基类订阅者（无背压）

@@ -13,7 +13,7 @@ import com.lodz.android.component.base.activity.BaseActivity;
 import com.lodz.android.component.rx.subscribe.observer.RxObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.base.TitleBarLayout;
-import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.ActivityEvent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

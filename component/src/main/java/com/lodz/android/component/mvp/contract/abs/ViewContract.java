@@ -1,8 +1,8 @@
 package com.lodz.android.component.mvp.contract.abs;
 
-import com.trello.rxlifecycle3.LifecycleTransformer;
-import com.trello.rxlifecycle3.android.ActivityEvent;
-import com.trello.rxlifecycle3.android.FragmentEvent;
+import com.trello.rxlifecycle4.LifecycleTransformer;
+import com.trello.rxlifecycle4.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.FragmentEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;

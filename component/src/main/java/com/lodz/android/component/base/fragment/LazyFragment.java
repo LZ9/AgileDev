@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trello.rxlifecycle3.components.support.RxFragment;
-
-import java.util.List;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.trello.rxlifecycle4.components.support.RxFragment;
+
+import java.util.List;
 
 /**
  * 懒加载的fragment

@@ -12,11 +12,13 @@ import com.lodz.android.agiledev.ui.download.market.DownloadMarketActivity;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.utils.file.FileManager;
 import com.lodz.android.component.base.activity.BaseActivity;
-import com.lodz.android.component.rx.utils.RxUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import zlc.season.rxdownload3.RxDownload;
 import zlc.season.rxdownload3.core.Deleted;
 import zlc.season.rxdownload3.core.Downloading;
@@ -144,8 +146,9 @@ public class DownloadTestActivity extends BaseActivity{
         mProgressTv.setText("");
 
         mWechatMission = new Mission(WECHAT_URL, "微信.apk", FileManager.getDownloadFolderPath());
-        RxDownload.INSTANCE.create(mWechatMission, false)
-                .compose(RxUtils.<Status>ioToMainFlowable())
+        Disposable disposable = RxDownload.INSTANCE.create(mWechatMission, false)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Status>() {
                     @Override
                     public void accept(Status status) throws Exception {

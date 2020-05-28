@@ -8,7 +8,7 @@ import com.lodz.android.component.base.fragment.IFragmentBackPressed;
 import com.lodz.android.component.base.fragment.LazyFragment;
 import com.lodz.android.component.event.ActivityFinishEvent;
 import com.lodz.android.core.utils.ReflectUtils;
-import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

@@ -17,7 +17,7 @@ import okhttp3.Request;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 
 /**
  * 接口管理器
@@ -38,7 +38,7 @@ public class ApiServiceManager {
 
     private ApiServiceManager() {
         mRetrofit = new Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .baseUrl(UrlConfig.BASE_URL)
                 .client(getOkHttpClient())

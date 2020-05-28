@@ -8,18 +8,20 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.bean.AppInfoBean;
-import com.lodz.android.component.rx.utils.RxUtils;
 import com.lodz.android.component.widget.adapter.recycler.BaseRecyclerViewAdapter;
 import com.lodz.android.imageloader.ImageLoader;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import zlc.season.rxdownload3.RxDownload;
 import zlc.season.rxdownload3.core.Deleted;
 import zlc.season.rxdownload3.core.Downloading;
@@ -78,7 +80,8 @@ public class MarketAdapter extends BaseRecyclerViewAdapter<AppInfoBean>{
     private void subscribeMission(final DataViewHolder holder, final AppInfoBean bean) {
         //把订阅对象保存进holder
         holder.disposable = RxDownload.INSTANCE.create(bean.mission, false)
-                .compose(RxUtils.<Status>ioToMainFlowable())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Status>() {
                     @Override
                     public void accept(Status status) throws Exception {

@@ -12,7 +12,7 @@ import com.lodz.android.agiledev.ui.mvp.ApiModule;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.component.rx.subscribe.observer.ProgressObserver;
 import com.lodz.android.component.rx.utils.RxUtils;
-import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.ActivityEvent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
