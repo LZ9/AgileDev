@@ -19,15 +19,15 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * APP帮助类
@@ -149,9 +149,14 @@ public class AppUtils {
         context.startActivity(intent);
     }
 
-    /** 获取随机的UUID */
-    public static String getUUID(){
+    /** 获取36位随机UUID */
+    public static String getUUID36(){
         return UUID.randomUUID().toString();
+    }
+
+    /** 获取32位随机UUID */
+    public static String getUUID32(){
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
     /**

@@ -67,7 +67,7 @@ public class UiHandler {
      * 延迟执行，并指定token
      * @param r 线程体
      * @param token 标志
-     * @param delay
+     * @param delay 延迟时间（毫秒）
      */
     public static void postDelayed(Runnable r, Object token, long delay) {
         prepare();
