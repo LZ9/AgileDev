@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.core.content.FileProvider;
+
 import com.lodz.android.component.R;
 import com.lodz.android.component.base.activity.AbsActivity;
 import com.lodz.android.core.album.AlbumUtils;
@@ -22,8 +24,6 @@ import com.lodz.android.core.utils.UiHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.core.content.FileProvider;
 
 /**
  * 拍照页面
@@ -181,6 +181,9 @@ public class TakePhotoActivity extends AbsActivity {
     private void handleCameraCancel() {
         if (!TextUtils.isEmpty(mTempFilePath)) {
             FileUtils.delFile(mTempFilePath);// 删除临时文件
+        }
+        if (mPickerBean.photoPickerListener != null){
+            mPickerBean.photoPickerListener.onPickerSelected(new ArrayList<String>());
         }
         finish();
     }

@@ -31,13 +31,13 @@ dependencies {
     api project(':core')
 
     // RxJava
-    api 'io.reactivex.rxjava3:rxjava:3.0.6'
+    api 'io.reactivex.rxjava3:rxjava:3.0.7'
     // Retrofit
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-    api 'com.alibaba:fastjson:1.2.73'
+    api 'com.alibaba:fastjson:1.2.75'
     // RxJava生命周期
-    api 'com.trello.rxlifecycle4:rxlifecycle-components:4.0.0'
+    api 'com.trello.rxlifecycle4:rxlifecycle-components:4.0.2'
     // EventBus
     api 'org.greenrobot:eventbus:3.2.0'
 

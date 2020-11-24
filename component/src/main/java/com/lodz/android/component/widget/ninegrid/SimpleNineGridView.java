@@ -5,18 +5,19 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import com.lodz.android.component.photopicker.contract.PhotoLoader;
 import com.lodz.android.component.photopicker.contract.picker.OnPhotoPickerListener;
 import com.lodz.android.component.photopicker.contract.preview.PreviewController;
 import com.lodz.android.component.photopicker.picker.PickerManager;
 import com.lodz.android.component.photopicker.picker.PickerUIConfig;
 import com.lodz.android.component.photopicker.preview.PreviewManager;
+import com.lodz.android.core.utils.ArrayUtils;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /**
  * 简单的九宫格实现
@@ -79,7 +80,9 @@ public class SimpleNineGridView extends NineGridView{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                addDatas(photos);
+                                if (!ArrayUtils.isEmpty(photos)){
+                                    addDatas(photos);
+                                }
                             }
                         })
                         .setMaxCount(addCount)

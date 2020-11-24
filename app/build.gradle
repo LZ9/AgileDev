@@ -76,8 +76,8 @@ dependencies {
     annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.8.0'
 
     // butterknife
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
     // 下载
     implementation 'zlc.season:rxdownload3:1.2.7'

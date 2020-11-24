@@ -1,7 +1,15 @@
 package com.lodz.android.core.utils;
 
+import android.content.ContentUris;
+import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,9 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
-
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
 
 /**
  * 文件操作帮助类
@@ -454,6 +459,32 @@ public class FileUtils {
         if (!bitmap.isRecycled()) {
             bitmap.recycle();
         }
+    }
+
+    /**
+     * 把文件的path转为uri
+     * @param context 上下文
+     * @param path 文件路径
+     */
+    public static Uri filePath2Uri(Context context, String path) {
+        try {
+            Uri mediaUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            Cursor cursor = context.getContentResolver().query(mediaUri,
+                    null,
+                    MediaStore.Images.Media.DISPLAY_NAME + "= ?",
+                    new String[]{path.substring(path.lastIndexOf("/") + 1)},
+                    null);
+            Uri uri = null;
+            if (cursor.moveToFirst()) {
+                uri = ContentUris.withAppendedId(mediaUri,
+                        cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)));
+            }
+            cursor.close();
+            return uri;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Uri.EMPTY;
     }
 
 }

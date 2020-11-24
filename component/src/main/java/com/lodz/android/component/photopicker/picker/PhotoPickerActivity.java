@@ -257,6 +257,9 @@ public class PhotoPickerActivity extends AbsActivity{
         mBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mPickerBean != null && mPickerBean.photoPickerListener != null){
+                    mPickerBean.photoPickerListener.onPickerSelected(new ArrayList<String>());
+                }
                 finish();
             }
         });

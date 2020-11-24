@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.lodz.android.agiledev.R;
 import com.lodz.android.agiledev.ui.main.MainActivity;
 import com.lodz.android.agiledev.ui.splash.CheckDialog;
@@ -30,13 +32,13 @@ import com.lodz.android.component.widget.ninegrid.OnNineGridViewListener;
 import com.lodz.android.component.widget.ninegrid.OnSimpleNineGridViewListener;
 import com.lodz.android.component.widget.ninegrid.SimpleNineGridView;
 import com.lodz.android.core.utils.AppUtils;
+import com.lodz.android.core.utils.ArrayUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.glide.impl.GlideBuilderBean;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import permissions.dispatcher.NeedsPermission;
@@ -185,11 +187,13 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                StringBuilder stringBuilder = new StringBuilder();
-                                for (String photo : photos) {
-                                    stringBuilder.append(photo).append("\n");
+                                if (!ArrayUtils.isEmpty(photos)){
+                                    StringBuilder stringBuilder = new StringBuilder();
+                                    for (String photo : photos) {
+                                        stringBuilder.append(photo).append("\n");
+                                    }
+                                    mPickResultTv.setText(stringBuilder.toString());
                                 }
-                                mPickResultTv.setText(stringBuilder.toString());
                             }
                         })
                         .setMaxCount(9)
@@ -261,11 +265,13 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                StringBuilder stringBuilder = new StringBuilder();
-                                for (String photo : photos) {
-                                    stringBuilder.append(photo).append("\n");
+                                if (!ArrayUtils.isEmpty(photos)){
+                                    StringBuilder stringBuilder = new StringBuilder();
+                                    for (String photo : photos) {
+                                        stringBuilder.append(photo).append("\n");
+                                    }
+                                    mPickResultTv.setText(stringBuilder.toString());
                                 }
-                                mPickResultTv.setText(stringBuilder.toString());
                             }
                         })
                         .setCameraSavePath(FileManager.getCacheFolderPath())
@@ -321,7 +327,9 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setOnPhotoPickerListener(new OnPhotoPickerListener() {
                             @Override
                             public void onPickerSelected(List<String> photos) {
-                                mNineGridView.addData(photos);
+                                if (!ArrayUtils.isEmpty(photos)){
+                                    mNineGridView.addData(photos);
+                                }
                             }
                         })
                         .setMaxCount(addCount)
