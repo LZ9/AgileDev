@@ -250,6 +250,14 @@ public class PhotoPickerActivity extends AbsActivity{
     }
 
     @Override
+    protected boolean onPressBack() {
+        if (mPickerBean != null && mPickerBean.photoPickerListener != null){
+            mPickerBean.photoPickerListener.onPickerSelected(new ArrayList<String>());
+        }
+        return super.onPressBack();
+    }
+
+    @Override
     protected void setListeners() {
         super.setListeners();
 

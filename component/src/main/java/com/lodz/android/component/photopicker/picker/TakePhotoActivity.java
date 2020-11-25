@@ -79,6 +79,12 @@ public class TakePhotoActivity extends AbsActivity {
     }
 
     @Override
+    protected boolean onPressBack() {
+        handleCameraCancel();
+        return true;
+    }
+
+    @Override
     protected void setListeners() {
         super.setListeners();
 
