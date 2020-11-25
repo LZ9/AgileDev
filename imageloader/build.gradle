@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 25
-        versionName "2.0.5"// 未上传
+        versionName "2.0.5"// 成功上传
     }
     buildTypes {
         release {
@@ -38,7 +38,7 @@ dependencies {
 //    userOrg = 'lz9'
 //    groupId = 'cn.lodz'
 //    artifactId = 'ImagerLoader'
-//    publishVersion = '2.0.4'
+//    publishVersion = '2.0.5'
 //    desc = 'Hi, this is a image loader'
 //    website = 'https://github.com/LZ9/AgileDev'
 //}
