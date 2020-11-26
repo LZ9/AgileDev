@@ -30,7 +30,7 @@
     implementation 'cn.lodz:core:2.0.9'
 ```
 ```
-    implementation 'cn.lodz:Component:2.1.4'
+    implementation 'cn.lodz:Component:2.1.5'
 ```
 ```
     implementation 'cn.lodz:ImagerLoader:2.0.5'
