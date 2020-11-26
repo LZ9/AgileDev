@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 
@@ -487,4 +488,75 @@ public class FileUtils {
         return Uri.EMPTY;
     }
 
+    /**
+     * 将uri对象的图片文件复制到指定的目录
+     * @param context 上下文
+     * @param uri Uri对象
+     * @param toPath 指定目录
+     * @param fileName 文件名
+     */
+    public boolean copyFileFromUri(Context context, Uri uri, String toPath, String fileName){
+        ParcelFileDescriptor fd = null;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        FileChannel inChannel = null;
+        FileChannel outChannel = null;
+
+        try {
+            if (uri == Uri.EMPTY || TextUtils.isEmpty(toPath) || TextUtils.isEmpty(fileName)) {
+                return false;
+            }
+            String newToPath = toPath.endsWith(File.separator) ? toPath : toPath + File.separator;
+            File toDirectoryFile = new File(newToPath);
+            if (!toDirectoryFile.exists()) {
+                boolean isSuccess = toDirectoryFile.mkdirs();
+                if (!isSuccess) {
+                    return false;
+                }
+            }
+            if (!toDirectoryFile.isDirectory()) {
+                return false;
+            }
+            File toFile = new File(newToPath + fileName);
+            if (toFile.exists()) {
+                toFile.delete();
+            }
+            if (!toFile.createNewFile()) {
+                return false;
+            }
+            fd = context.getContentResolver().openFileDescriptor(uri, "r");
+            fis = new FileInputStream(fd.getFileDescriptor());
+            fos = new FileOutputStream(toFile);
+            inChannel = fis.getChannel();
+            outChannel = fos.getChannel();
+            if (inChannel != null && outChannel != null) {
+                inChannel.transferTo(0, inChannel.size(), outChannel);
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (outChannel != null){
+                    outChannel.close();
+                }
+                if (inChannel != null){
+                    inChannel.close();
+                }
+                if (fos != null){
+                    fos.close();
+                }
+                if (fis != null){
+                    fis.close();
+                }
+                if (fd != null){
+                    fd.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
