@@ -495,7 +495,7 @@ public class FileUtils {
      * @param toPath 指定目录
      * @param fileName 文件名
      */
-    public boolean copyFileFromUri(Context context, Uri uri, String toPath, String fileName){
+    public static boolean copyFileFromUri(Context context, Uri uri, String toPath, String fileName){
         ParcelFileDescriptor fd = null;
         FileInputStream fis = null;
         FileOutputStream fos = null;
