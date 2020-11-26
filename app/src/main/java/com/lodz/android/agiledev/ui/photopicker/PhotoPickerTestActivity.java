@@ -33,6 +33,7 @@ import com.lodz.android.component.widget.ninegrid.OnSimpleNineGridViewListener;
 import com.lodz.android.component.widget.ninegrid.SimpleNineGridView;
 import com.lodz.android.core.utils.AppUtils;
 import com.lodz.android.core.utils.ArrayUtils;
+import com.lodz.android.core.utils.FileUtils;
 import com.lodz.android.core.utils.ToastUtils;
 import com.lodz.android.imageloader.ImageLoader;
 import com.lodz.android.imageloader.glide.impl.GlideBuilderBean;
@@ -169,7 +170,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
-                                        .load(source)
+                                        .loadUri(FileUtils.filePath2Uri(context, source))
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .setCenterCrop()
                                         .into(imageView);
@@ -179,7 +180,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
-                                        .load(source)
+                                        .loadUri(FileUtils.filePath2Uri(context, source))
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .into(imageView);
                             }
@@ -257,7 +258,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
-                                        .load(source)
+                                        .loadUri(FileUtils.filePath2Uri(context, source))
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .into(imageView);
                             }
@@ -309,7 +310,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
-                                        .load(source)
+                                        .loadUri(FileUtils.filePath2Uri(context, source))
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .setCenterCrop()
                                         .into(imageView);
@@ -319,7 +320,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
                                 ImageLoader.create(context)
-                                        .load(source)
+                                        .loadUri(FileUtils.filePath2Uri(context, source))
                                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                                         .into(imageView);
                             }
@@ -345,7 +346,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
             @Override
             public void onDisplayImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
-                        .load(data)
+                        .loadUri(FileUtils.filePath2Uri(context, data))
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .setCenterCrop()
                         .into(imageView);
@@ -383,7 +384,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
                         .setImgLoader(new PhotoLoader<String>() {
                             @Override
                             public void displayImg(Context context, String source, ImageView imageView) {
-                                ImageLoader.create(context).load(source).setFitCenter().into(imageView);
+                                ImageLoader.create(context).loadUri(FileUtils.filePath2Uri(context, source)).setFitCenter().into(imageView);
                             }
                         })
                         .build(mNineGridView.getPicData())
@@ -396,7 +397,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
             @Override
             public void onDisplayNineGridImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
-                        .load(data)
+                        .loadUri(FileUtils.filePath2Uri(context, data))
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .setCenterCrop()
                         .into(imageView);
@@ -405,7 +406,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
             @Override
             public void onDisplayPreviewImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
-                        .load(data)
+                        .loadUri(FileUtils.filePath2Uri(context, data))
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .into(imageView);
             }
@@ -413,7 +414,7 @@ public class PhotoPickerTestActivity extends BaseActivity{
             @Override
             public void onDisplayPickerImg(Context context, String data, ImageView imageView) {
                 ImageLoader.create(context)
-                        .load(data)
+                        .loadUri(FileUtils.filePath2Uri(context, data))
                         .diskCacheStrategy(GlideBuilderBean.DiskCacheStrategy.NONE)
                         .setCenterCrop()
                         .into(imageView);

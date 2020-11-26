@@ -1,17 +1,26 @@
 package com.lodz.android.core.album;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+
+import androidx.annotation.RequiresApi;
 
 import com.lodz.android.core.utils.ArrayUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -201,6 +210,65 @@ public class AlbumUtils {
         }
 
         return imageList;
+    }
+
+    /**
+     * 通知刷新相册
+     * @param context 上下文
+     * @param imagePath 图片地址
+     */
+    public static void notifyScanImageCompat(Context context, String imagePath) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            notifyScanImageQ(context, imagePath);
+        } else {
+            notifyScanImage(context, imagePath);
+        }
+    }
+
+    /**
+     * 通知刷新相册（android10）
+     * @param context 上下文
+     * @param imagePath 图片地址
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public static void notifyScanImageQ(Context context, String imagePath){
+        File file = new File(imagePath);
+        if (file == null || !file.exists()) {
+            return;
+        }
+        ParcelFileDescriptor fd = null;
+        OutputStream os = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, file.getName());
+            values.put(MediaStore.Images.Media.DESCRIPTION, "this is an image");
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+            values.put(MediaStore.Images.Media.TITLE, file.getName());
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            if (uri != null) {
+                fd = context.getContentResolver().openFileDescriptor(Uri.fromFile(file), "r");
+                if (fd != null) {
+                    Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fd.getFileDescriptor());
+                    os = context.getContentResolver().openOutputStream(uri);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (os != null) {
+                    os.close();
+                }
+                if (fd != null) {
+                    fd.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     /**

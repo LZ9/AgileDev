@@ -149,10 +149,10 @@ public class TakePhotoActivity extends AbsActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
-                AlbumUtils.notifyScanImage(getContext(), mTempFilePath);// 更新相册
-                if (mPickerBean.isImmediately){
+                AlbumUtils.notifyScanImageCompat(getContext(), mTempFilePath);// 更新相册
+                if (mPickerBean.isImmediately) {
                     handleConfirm();
-                }else {
+                } else {
                     UiHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {

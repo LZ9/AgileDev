@@ -557,7 +557,7 @@ public class PhotoPickerActivity extends AbsActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == Activity.RESULT_OK) {
-                AlbumUtils.notifyScanImage(getContext(), mTempFilePath);// 更新相册
+                AlbumUtils.notifyScanImageCompat(getContext(), mTempFilePath);// 更新相册
                 UiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
