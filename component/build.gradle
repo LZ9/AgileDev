@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 80
-        versionName "2.1.8"// 未上传
+        versionName "2.1.8"// 成功上传
     }
 
     buildTypes {
@@ -27,7 +27,7 @@ android {
 
 dependencies {
     // 引用的库
-//    api 'cn.lodz:core:2.1.1'
+//    api 'cn.lodz:core:2.1.2'
     api project(':core')
 
     // RxJava
@@ -48,7 +48,7 @@ dependencies {
 //    userOrg = 'lz9'
 //    groupId = 'cn.lodz'
 //    artifactId = 'Component'
-//    publishVersion = '2.1.7'
+//    publishVersion = '2.1.8'
 //    desc = 'Hi, this is a android base library'
 //    website = 'https://github.com/LZ9/AgileDev'
 //}
