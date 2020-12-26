@@ -3,13 +3,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 79
-        versionName "2.1.7"// 成功上传
+        versionCode 80
+        versionName "2.1.8"// 未上传
     }
 
     buildTypes {
@@ -31,7 +31,7 @@ dependencies {
     api project(':core')
 
     // RxJava
-    api 'io.reactivex.rxjava3:rxjava:3.0.7'
+    api 'io.reactivex.rxjava3:rxjava:3.0.8'
     // Retrofit
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
