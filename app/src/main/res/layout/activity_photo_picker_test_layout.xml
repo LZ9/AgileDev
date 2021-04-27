@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.flexbox.FlexboxLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        app:flexWrap="wrap"
-        app:justifyContent="space_around">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/pick_btn"
@@ -28,7 +26,6 @@
             android:text="@string/photo_picker_take"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
         <TextView
@@ -36,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_3981ef_corners_8"
             android:elevation="8dp"
@@ -48,7 +44,6 @@
             android:text="@string/photo_picker_preview"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
         <TextView
@@ -56,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_3981ef_corners_8"
             android:elevation="8dp"
@@ -68,7 +62,6 @@
             android:text="@string/photo_picker_take_photo"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
         <TextView
@@ -76,7 +69,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_3981ef_corners_8"
             android:elevation="8dp"
@@ -88,10 +80,9 @@
             android:text="@string/photo_picker_get_nine_pic"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_flexGrow="1"
             tools:targetApi="lollipop" />
 
-    </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

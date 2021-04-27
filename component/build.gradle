@@ -31,7 +31,7 @@ dependencies {
     api project(':core')
 
     // RxJava
-    api 'io.reactivex.rxjava3:rxjava:3.0.8'
+    api 'io.reactivex.rxjava3:rxjava:3.0.12'
     // Retrofit
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
