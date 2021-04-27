@@ -18,12 +18,12 @@
 ```
     dependencies {
         api 'androidx.appcompat:appcompat:1.2.0'
-        api 'com.google.android.material:material:1.2.1'
-        api 'androidx.recyclerview:recyclerview:1.1.0'
+        api 'com.google.android.material:material:1.3.0'
+        api 'androidx.recyclerview:recyclerview:1.2.0'
         api 'androidx.cardview:cardview:1.0.0'
-        api 'androidx.annotation:annotation:1.1.0'
+        api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+        api 'androidx.annotation:annotation:1.2.0'
         api 'androidx.constraintlayout:constraintlayout:2.0.4'
-        api 'com.google.android:flexbox:2.0.1'
     }
 ```
 

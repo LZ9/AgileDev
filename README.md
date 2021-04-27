@@ -25,9 +25,27 @@
     implementation 'cn.lodz:ImagerLoader:1.2.3'
 ```
 
-#### 2) androidx包版本
+#### 2) androidx包版本（JCenter）
 ```
     implementation 'cn.lodz:core:2.1.2'
+```
+```
+    implementation 'cn.lodz:Component:2.1.8'
+```
+```
+    implementation 'cn.lodz:ImagerLoader:2.0.5'
+```
+#### 3) androidx包版本（mavenCentral）
+由于jcenter删库跑路，请大家添加mavenCentral依赖，并引用最新版本（为了配合迁移，引用的域名从**cn.lodz**改为**ink.lodz**）
+```
+    repositories {
+        ...
+        mavenCentral()
+        ...
+    }
+```
+```
+    implementation 'ink.lodz:core:2.2.0'
 ```
 ```
     implementation 'cn.lodz:Component:2.1.8'

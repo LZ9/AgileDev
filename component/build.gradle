@@ -27,7 +27,7 @@ android {
 
 dependencies {
     // 引用的库
-//    api 'cn.lodz:core:2.1.2'
+//    api 'ink.lodz:core:2.2.0'
     api project(':core')
 
     // RxJava
