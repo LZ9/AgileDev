@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'
+//apply from: 'publish.gradle'
 
 android {
     compileSdkVersion 30
@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 80
-        versionName "2.1.8"// 成功上传
+        versionCode 81
+        versionName "2.2.0"// 成功上传
     }
 
     buildTypes {
@@ -43,12 +43,3 @@ dependencies {
 
 //    api 'com.hannesdorfmann.mosby3:mvp:3.0.4'
 }
-
-//publish {
-//    userOrg = 'lz9'
-//    groupId = 'cn.lodz'
-//    artifactId = 'Component'
-//    publishVersion = '2.1.8'
-//    desc = 'Hi, this is a android base library'
-//    website = 'https://github.com/LZ9/AgileDev'
-//}

@@ -48,7 +48,7 @@
     implementation 'ink.lodz:core:2.2.0'
 ```
 ```
-    implementation 'cn.lodz:Component:2.1.8'
+    implementation 'ink.lodz:Component:2.2.0'
 ```
 ```
     implementation 'cn.lodz:ImagerLoader:2.0.5'

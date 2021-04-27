@@ -25,9 +25,9 @@
 该库已经引用了core、Rxjava2、Retrofit2、Rxlifecycle2以及Eventbus3.0，小伙伴不需要再重复引用，我会定期关注并更新版本，基本保证与最新版本一致
 ```
     dependencies {
-        api 'cn.lodz:core:2.1.2'
+        api 'ink.lodz:core:2.2.0'
     
-        api 'io.reactivex.rxjava3:rxjava:3.0.8'
+        api 'io.reactivex.rxjava3:rxjava:3.0.12'
 
         api 'com.squareup.retrofit2:retrofit:2.9.0'
         api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
