@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 62
-        versionName "2.2.0"// 成功上传
+        versionCode 63
+        versionName "2.2.1"// 未上传
     }
     buildTypes {
         release {
@@ -25,9 +25,9 @@ android {
 
 dependencies {
     // 支持库
-    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.appcompat:appcompat:1.3.0'
     api 'com.google.android.material:material:1.3.0'
-    api 'androidx.recyclerview:recyclerview:1.2.0'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
     api 'androidx.cardview:cardview:1.0.0'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     api 'androidx.annotation:annotation:1.2.0'

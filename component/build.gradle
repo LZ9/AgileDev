@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 81
-        versionName "2.2.0"// 成功上传
+        versionCode 82
+        versionName "2.2.1"// 未上传
     }
 
     buildTypes {
@@ -31,7 +31,7 @@ dependencies {
     api project(':core')
 
     // RxJava
-    api 'io.reactivex.rxjava3:rxjava:3.0.12'
+    api 'io.reactivex.rxjava3:rxjava:3.0.13'
     // Retrofit
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
